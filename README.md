@@ -1,7 +1,7 @@
 # mathmechops - Math Mechanics Operations
 
 
-![sittingduck003](D:\GoProjects\MikeAustin71\strmechops\images\sittingduck003.png)
+![sittingduck003](images/sittingduck003.png)
 
 This is the development environment for the [**Go**](https://golang.org/) software package, Math Mechanics (***mathmech***).
 
@@ -11,6 +11,6 @@ While all development work will take place in this repository, [***mathmechops**
 
 
 
-![underconstruction003](D:\GoProjects\MikeAustin71\strmechops\images\underconstruction003.png)
+![underconstruction003](images/underconstruction003.png)
 
 The project is in the early stages of development and is **not ready for prime time**. Therefore, use of this code in production projects is **NOT** recommended at this time. Stay tuned ...

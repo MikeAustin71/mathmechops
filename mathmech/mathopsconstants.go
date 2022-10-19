@@ -6,16 +6,8 @@ import "fmt"
 	Math Constants
 	==============
 
-	The source code repository for math constants used by
-
-	the 'mathops' library is located at:
-			https://github.com/MikeAustin71/mathopsgo.git
-
-	This source file mathopsconstants.go is located in directory:
-		MikeAustin71/mathopsgo/mathops/mathopsconstants.go
-
 	Overview and General Usage
-  ==========================
+  	==========================
 	This source file is used to store constants used by various Types
 	in the 'mathops' Library.
 
@@ -333,10 +325,12 @@ var NatLog2_20kStr = "0." +
 	"3976977585416690206322155254985699932672230223789917193084746297690125062355213620201430377863539655" +
 	"6"
 
+// Pi20kStr
+//
 // Pi to 20,000 digits. OEIS A000796
 //
-// https://oeis.org/A000796
-// https://oeis.org/A000796/b000796.txt
+//	https://oeis.org/A000796
+//	https://oeis.org/A000796/b000796.txt
 var Pi20kStr = "3." +
 	"141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067" +
 	"9821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819" +
@@ -539,9 +533,12 @@ var Pi20kStr = "3." +
 	"6151010243655535223069061294938859901573466102371223547891129254769617600504797492806072126803922691" +
 	"1027772261025441492215765045081206771735712027180242968106203776578837166909109418074487814049075517"
 
+// EulersNum50kStr
+//
 // Euler's Number to 50000 digits.
-// https://oeis.org/A001113
-// https://oeis.org/A001113/b001113.txt
+//
+//	https://oeis.org/A001113
+//	https://oeis.org/A001113/b001113.txt
 var EulersNum50kStr = "2." +
 	"718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427" +
 	"4274663919320030599218174135966290435729003342952605956307381323286279434907632338298807531952510190" +
@@ -1044,6 +1041,8 @@ var EulersNum50kStr = "2." +
 	"4014617820181073410056546670823685431281633904967655878990148747797247920250222721816940515904217089" +
 	"2104287552188658308608452708423928652597536146290037780167001654671681605343292907573031466562485809"
 
+// Log10of2to20kStr
+//
 // log 2 - Log 10 (2)
 // http://oeis.org/A007524
 // http://oeis.org/A007524/b007524.txt
@@ -1251,9 +1250,12 @@ var Log10of2to20kStr = "0." +
 	"9572579296498417804164981064463558634680690399668053321910821463767920853546672034454139435687860371" +
 	"3"
 
-// log2(e) OEIS A007525
-// http://oeis.org/A007525
-// To 5k digits:
+//	logBase2ofe_5kStr
+//
+//	log2(e) OEIS A007525
+//	http://oeis.org/A007525
+//	To 5k digits:
+//
 // http://oeis.org/A007525/b007525.txt
 var logBase2ofe_5kStr = "1." +
 	"442695040888963407359924681001892137426645954152985934135449406931109219181185079885526622893506344" +
@@ -1307,6 +1309,8 @@ var logBase2ofe_5kStr = "1." +
 	"7900607015032479749873420588418765811078215518457144116434314990721845674816876484118864353183148693" +
 	"3002693316887948015314707065330488093989370912310715928049656157913718107423598648325529267147229868"
 
+// logBase2Of10_1kStr
+//
 // Log2(10) OEIS A020862
 // http://oeis.org/A020862
 // Vincenzo Librandi http://oeis.org/A020862/b020862.txt
@@ -1322,12 +1326,20 @@ var logBase2Of10_1kStr = "3." +
 	"9448632779298424291591181131163298125769450198157503792185538487820355160197378277288881759874332866" +
 	"0727123938252022133328052551248827434448842453165465061241489182286793252664292811659922851627345081"
 
+// logBase10Toe_300Str
+//
+// log Base 10 to e. 300-digits
 // Calculated by Mike Rapp
 var logBase10Toe_300Str = "0." +
 	"4342944819032518276511289189166050822943970058036665661144537831658646492088707747292249493384317483" +
 	"1870610674476630373364167928715896390656922106466281226585212708656867032959337086965882668833116360" +
 	"7738490514284434866676864658608513556148212348765343543435731725383562228139560304864665236609553937"
 
+// init
+//
+// Runs once when this package is initialized.
+//
+// https://golangdocs.com/init-function-in-golang
 func init() {
 	InitializeEulersNumber()
 	InitializePi()
@@ -1338,6 +1350,7 @@ func init() {
 }
 
 // InitializeEulersNumber
+//
 // Initialize Read Only Global Variables to Euler's Number
 func InitializeEulersNumber() {
 
@@ -1386,6 +1399,7 @@ func InitializeEulersNumber() {
 }
 
 // InitializePi
+//
 // Initialize Read Only Global Variables to number Pi
 func InitializePi() {
 
@@ -1428,6 +1442,8 @@ func InitializePi() {
 
 }
 
+// InitializeNatLogTwo
+//
 // Initialize Read Only Global Variables to Natural Log of 2 - ln(2)
 func InitializeNatLogTwo() {
 
@@ -1577,14 +1593,13 @@ func InitializeLog10ofe() {
 
 //	NumStrCurrencySymbols
 //
-//	Source Currency Info
+//	Source Currency Info:
 //		https://gist.github.com/bzerangue/5484121
 //		http://symbologic.info/currency.htm
 //		http://www.xe.com/symbols.php
 //
 //	An array containing most of the world's major
 //	currency symbols stored as type 'rune'.
-//
 /*
 var NumStrCurrencySymbols = []rune{
 	'\U00000024', // Australia Dollar 								 0
@@ -1623,11 +1638,9 @@ var NumStrCurrencySymbols = []rune{
 	'\U000000a2'} // United States Cent		            33
 */
 
-// PrecisionScaleMode
-//
-// Specifies the scaling mode used in setting precision
-// or the number of digits to the right of the decimal
-// place.
+// PrecisionScaleMode - Specifies the scaling mode used in
+// setting precision or the number of digits to the right
+// of the decimal place.
 type PrecisionScaleMode int
 
 func (scaleMode PrecisionScaleMode) String() string {
@@ -1647,8 +1660,8 @@ var PrecisionScaleModeLabels = [...]string{"ScalePrecisionRight", "ScalePrecisio
 // applied when converting a number to a string.
 type NumStrFmtMode int
 
-func (nstrFmtMode NumStrFmtMode) String() string {
-	return NumStrFmtModeLabels[nstrFmtMode]
+func (nStrFmtMode NumStrFmtMode) String() string {
+	return NumStrFmtModeLabels[nStrFmtMode]
 }
 
 const (
@@ -1668,7 +1681,7 @@ const (
 
 	// THOUSANDSNUMSTRFMT - Specifies that the output number string will
 	// have a decimal point separating fractional digits. Integer numbers
-	// to the left of the decimal point will have a thousands separator
+	// to the left of the decimal point will have a 'thousands' separator
 	// character injected after every third character.
 	// Example: 123,456,789.23
 	//
@@ -1711,10 +1724,9 @@ const (
 var NegativeValueFmtModeLabels = [...]string{"LeadingMinusSign", "SurroundingParentheses", "AbsolutePureNumberString"}
 
 // NumericSeparatorDto
-//
-// Numeric Separator Data Transfer Object Used to
-// transmit symbols used for decimal point, thousands
-// separator and currency symbol.
+// Numeric Separator Data Transfer Object
+// Used to transmit symbols used for decimal point,
+// thousands separator and currency symbol.
 type NumericSeparatorDto struct {
 	DecimalSeparator   rune // Character used to separate integer and fractional digits ('.')
 	ThousandsSeparator rune // Character used to separate thousands (1,000,000,000
@@ -1742,7 +1754,7 @@ func (numSep *NumericSeparatorDto) Equal(numSep2 NumericSeparatorDto) bool {
 
 // New - Returns a new instance of NumericSeparatorDto. The
 // rune values are automatically set to USA defaults.
-func (numSep NumericSeparatorDto) New() NumericSeparatorDto {
+func (numSep *NumericSeparatorDto) New() NumericSeparatorDto {
 
 	n2 := NumericSeparatorDto{}
 

@@ -114,6 +114,16 @@ type SourceCodeComments struct {
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
+//
+//		Plain Error Message
+//	error
+//
+//		If this method completes successfully, the
+//		returned error Type is set equal to 'nil'.
+//
+//		If errors are encountered during processing, the
+//		returned error Type will encapsulate an error
+//		message.
 func (srcCodeComments *SourceCodeComments) testPrimaryComments() {
 	fmt.Println("HELLO WORLD!")
 }

@@ -1562,70 +1562,23 @@ func (bNum *BigIntNum) GetInt() (int, error) {
 
 }
 
-// GetIntAryElements - Converts the current BigIntNum value to an IntAry
-// instance. The resulting number value includes the decimal place
-// and fractional digits if they exist.
+// GetIntegerPart
 //
-// Note that the BigIntNum settings for 'decimalSeparator', 'thousandsSeparator'
-// and 'currencySymbol' are transferred to the new IntAry instance returned to the
-// calling function.
+// Returns a BigIntNum equal to the integer value of
+// the current BigIntNum. Decimal digits are truncated
+// and not included in the return value.
 //
-// The returned IntAry type contains numeric separators (decimal separator,
-// thousands separator and currency symbol) copied from the current BigIntNum
-// instance.
-//
-// This method performs a validity test on the current BigIntNum instance.
-func (bNum *BigIntNum) GetIntAry() (IntAry, error) {
-
-	ePrefix := "BigIntNum.GetIntAryElements() "
-
-	err := bNum.IsValid(ePrefix + "BigIntNum INVALID! ")
-
-	if err != nil {
-		return IntAry{}, err
-	}
-
-	ia, err := IntAry{}.NewBigInt(big.NewInt(0).Set(bNum.bigInt), int(bNum.precision))
-
-	if err != nil {
-		return IntAry{},
-			fmt.Errorf(ePrefix+
-				"Error returned by IntAry{}.NewBigInt(bNum.bigInt, bNum.precision) "+
-				"bNum.bigInt='%v' bNum.precision='%v' Error='%v'",
-				bNum.bigInt.Text(10), bNum.precision, err.Error())
-	}
-
-	err = ia.SetNumericSeparatorsDto(bNum.GetNumericSeparatorsDto())
-
-	if err != nil {
-		return IntAry{},
-			fmt.Errorf(ePrefix+
-				"Error returned by ia.SetNumericSeparatorsDto(bNum.GetNumericSeparatorsDto()) "+
-				"Error='%v' \n", err.Error())
-	}
-
-	err = ia.IsValid(ePrefix + "IntAry INVALID! ")
-
-	if err != nil {
-		return IntAry{}, err
-	}
-
-	return ia, nil
-}
-
-// GetIntegerPart - returns a BigIntNum equal to the integer
-// value of the current BigIntNum.
 // Examples:
 //
-//				 Current
-//				BigIntNum				 		Return
-//	 			Value						  Value
-//				----------				---------
+//	Current
+//	BigIntNum		Return
+//	Value			Value
+//	----------		---------
 //
-//	 			123.456						 123
-//				 -123.456						-123
-//				  123								 123
-//				 -123								-123
+//	 123.456		 123
+//	-123.456		-123
+//	 123			 123
+//	-123			-123
 func (bNum *BigIntNum) GetIntegerPart() BigIntNum {
 
 	if bNum.IsZero() {
@@ -2403,7 +2356,7 @@ func (bNum *BigIntNum) MultiplyByTwo() BigIntNum {
 // The BigIntNum instance returned by this method will contain USA
 // default numeric separators (decimal separator, thousands separator
 // and currency symbol).
-func (bNum BigIntNum) New() BigIntNum {
+func (bNum *BigIntNum) New() BigIntNum {
 	b := BigIntNum{}
 	b.Empty()
 	return b
@@ -2414,7 +2367,7 @@ func (bNum BigIntNum) New() BigIntNum {
 // The BigIntNum instance returned by this method will contain USA
 // default numeric separators (decimal separator, thousands separator
 // and currency symbol).
-func (bNum BigIntNum) NewWithNumSeps(numSeps NumericSeparatorDto) BigIntNum {
+func (bNum *BigIntNum) NewWithNumSeps(numSeps NumericSeparatorDto) BigIntNum {
 
 	numSeps.SetDefaultsIfEmpty()
 
@@ -2453,7 +2406,7 @@ func (bNum BigIntNum) NewWithNumSeps(numSeps NumericSeparatorDto) BigIntNum {
 //
 // The new BigIntNum instance returned by this method will contain USA default numeric
 // separators (decimal separator, thousands separator and currency symbol).
-func (bNum BigIntNum) NewBigInt(bigI *big.Int, precision uint) BigIntNum {
+func (bNum *BigIntNum) NewBigInt(bigI *big.Int, precision uint) BigIntNum {
 
 	if bigI == nil {
 		bigI = big.NewInt(0)
@@ -2465,38 +2418,70 @@ func (bNum BigIntNum) NewBigInt(bigI *big.Int, precision uint) BigIntNum {
 	return b
 }
 
-// NewBigInt - Creates a new BigIntNum instance using a *big.Int type and its
-// associated precision.
+//	NewBigIntPrecision
 //
-// The 'precision' parameter specifies the number of digits to the right
-// of the decimal place. The Numeric value is equal to bigI x 10^(precision x -1).
-// This effectively locates the decimal place by counting from the extreme right
-// of the integer number, 'precision' places to the left. See the example below.
+//	Creates a new BigIntNum instance using a *big.Int
+//	type and its associated precision.
 //
-// Input Parameters
-// bigI 			*big.Int	- 	'bigI' is a type *big.Int and represents the integer
+//	The 'precision' parameter specifies the number of
+//	fractional digits to the right of the decimal place.
+//	The Numeric value is equal to:
+//		bigI x 10^(precision x -1)
 //
-//	value of the number; that is, the numeric value with
-//	out decimal digits.
+//	This effectively locates the decimal place by counting
+//	from the extreme right of the integer number,
+//	'precision' places to the left. See the example below.
 //
-// precision  *big.Int	- This integer value (always a positive value) identifies
+// ----------------------------------------------------------------
 //
-//				the location of the decimal place in the integer value 'bigI'.
-//				The decimal place location is calculated by starting with the
-//				right most digit in the integer number and counting	left,
-//				'precision' places. If precision is greater than the maximum
-//				value of an unsigned integer (+4,294,967,295,	which equals
-//				2^32 − 1), an error will be triggered. Also, if the 'precision'
-//				value is less than zero, an error will be triggered.
+//	# Input Parameters
 //
-//	Example:
+//	bigI				*big.Int
 //
-//			Integer Value		precision			Numeric Value
-//			  123456					 3					  123.456
+//		'bigI' is a type *big.Int and represents the
+//		integer value of the number; that is, the
+//		numeric value without decimal digits.
 //
-// The new BigIntNum instance returned by this method will contain USA default numeric
-// separators (decimal separator, thousands separator and currency symbol).
-func (bNum BigIntNum) NewBigIntPrecision(bigInt, precision *big.Int) (BigIntNum, error) {
+//	precision			*big.Int
+//
+//		This integer value (always a positive value)
+//		identifies the location of the decimal place
+//		in the integer value 'bigI'.
+//
+//		The decimal place location is calculated by
+//		starting with the right most digit in the
+//		integer number and counting	left, 'precision'
+//		places. If precision is greater than the maximum
+//		value of an unsigned integer (+4,294,967,295 which
+//		equals 2^32 − 1), an error will be triggered. Also,
+//		if the 'precision' value is less than zero, an
+//		error will be triggered.
+//
+//		Example:
+//
+//		Integer Value	precision	Numeric Value
+//			123456			3			123.456
+//
+// ----------------------------------------------------------------
+//
+// # Return Values
+//
+//	BigIntNum
+//
+//		The new BigIntNum instance returned by this
+//		method will contain USA default numeric
+//		separators (decimal separator, thousands
+//		separator and currency symbol).
+//
+//	error
+//
+//		If this method completes successfully, the
+//		returned error Type is set equal to 'nil'.
+//
+//		If errors are encountered during processing, the
+//		returned error Type will encapsulate an error
+//		message.
+func (bNum *BigIntNum) NewBigIntPrecision(bigInt, precision *big.Int) (BigIntNum, error) {
 
 	ePrefix := "BigIntNum.NewBigIntPrecision() "
 
@@ -2527,27 +2512,32 @@ func (bNum BigIntNum) NewBigIntPrecision(bigInt, precision *big.Int) (BigIntNum,
 	return b, nil
 }
 
-// NewBigIntExponent - New bigInt Exponent returns a new
-// BigIntNum instance in which the numeric value is
-// set using an integer multiplied by 10 raised to
-// the power of the 'exponent' parameter.
+// NewBigIntExponent
+//
+// New bigInt Exponent returns a new BigIntNum instance
+// in which the numeric value is set using an integer
+// multiplied by 10 raised to the power of the
+// 'exponent' parameter.
+//
+// Example:
 //
 //	numeric value = integer X 10^exponent
 //
-// If exponent is less than +1, precision is set equal to exponent and
-// bigI is unchanged.
+// If exponent is less than +1, precision is set equal
+// to exponent and bigI is unchanged.
 //
-// If exponent is greater than 0, bigI is multiplied by 10 raised to the power
-// of 'exponent' and precision is set equal to zero.
+// If exponent is greater than 0, bigI is multiplied by
+// 10 raised to the power of 'exponent' and precision
+// is set equal to zero.
 //
 // Examples:
 //
 //	biNum :=
-//			BigIntNum{}.NewBigIntExponent(big.NewInt(int64(123456)), -3) = "123.456"  precision = 3
+//		BigIntNum{}.NewBigIntExponent(big.NewInt(int64(123456)), -3) = "123.456"  precision = 3
 //
 //	biNum :=
-//			BigIntNum{}.NewBigIntExponent(big.NewInt(int64(123456)), 3) = "123456.000" precision = 3
-func (bNum BigIntNum) NewBigIntExponent(bigI *big.Int, exponent int) BigIntNum {
+//		BigIntNum{}.NewBigIntExponent(big.NewInt(int64(123456)), 3) = "123456.000" precision = 3
+func (bNum *BigIntNum) NewBigIntExponent(bigI *big.Int, exponent int) BigIntNum {
 
 	b := BigIntNum{}
 	b.Empty()
@@ -2555,23 +2545,33 @@ func (bNum BigIntNum) NewBigIntExponent(bigI *big.Int, exponent int) BigIntNum {
 	return b
 }
 
-// NewBigFloat - Returns a new BigIntNum instance using a *big.Float floating point
-// input parameter.  The precision of the number is specified by the input
-// parameter, 'decimalPlaces'.
+//	NewBigFloat
 //
-// Input Parameters
-// ================
+//	Returns a new BigIntNum instance using a *big.Float
+//	floating point number as an input parameter.  The
+//	precision of the number is specified by the input
+//	parameter, 'decimalPlaces'.
 //
-// bigFloat *big.Float	- This *big.Float value will be converted into an instance of
+// ----------------------------------------------------------------
 //
-//	BigIntNum.
+//	# Input Parameters
 //
-// maxPrecision uint  - The maximum precision for the resulting BigIntNum after
+//	bigFloat			*big.Float
 //
-//	conversion of input parameter 'f64'. Resulting precision
-//	will never be greater than 'maxPrecision'; however, actual
-//	precision may be less than 'maxPrecision'.
-func (bNum BigIntNum) NewBigFloat(bigFloat *big.Float, maxPrecision uint) (BigIntNum, error) {
+//		This *big.Float value will be converted into an
+//		instance of BigIntNum and returned to the calling
+//		function.
+//
+//	maxPrecision		uint
+//
+//		The maximum precision for the resulting BigIntNum
+//		after conversion of input parameter 'f64'. Resulting
+//		precision will never be greater than 'maxPrecision'
+//		for type big.Float; however, actual precision may be
+//		less than 'maxPrecision'.
+func (bNum BigIntNum) NewBigFloat(
+	bigFloat *big.Float,
+	maxPrecision uint) (BigIntNum, error) {
 
 	ePrefix := "BigIntNumNewFloat64() "
 
@@ -2588,56 +2588,35 @@ func (bNum BigIntNum) NewBigFloat(bigFloat *big.Float, maxPrecision uint) (BigIn
 	return b, nil
 }
 
-// NewDecimal - Receives a 'Decimal' type as input and returns a BigIntNum.
-func (bNum BigIntNum) NewDecimal(decNum Decimal) (BigIntNum, error) {
-	ePrefix := "BigIntNum.NewIntAry() "
-
-	err := decNum.IsValid(ePrefix)
-
-	if err != nil {
-		return BigIntNum{},
-			fmt.Errorf(ePrefix+"Error: Input Parameter 'decNum' is INVALID!. Error returned by "+
-				"decNum.IsValid(). Error='%v'", err.Error())
-	}
-
-	bInt, err := decNum.GetSignedBigInt()
-
-	if err != nil {
-		return BigIntNum{},
-			fmt.Errorf(ePrefix+"Error returned by decNum.GetBigInt(). "+
-				"Error='%v'", err.Error())
-	}
-
-	precision := uint(decNum.GetPrecision())
-
-	b := BigIntNum{}
-	b.Empty()
-	b.SetBigInt(bInt, precision)
-	return b, nil
-}
-
-// NewBigIntFixedDecimal - Creates and returns a new BigIntNum instance based
+// NewBigIntFixedDecimal
+//
+// Creates and returns a new BigIntNum instance based
 // on input parameter 'fd' of type BigIntFixedDecimal.
-func (bNum BigIntNum) NewBigIntFixedDecimal(fd BigIntFixedDecimal) BigIntNum {
+func (bNum *BigIntNum) NewBigIntFixedDecimal(fd BigIntFixedDecimal) BigIntNum {
 
 	fd.IsValid()
 
-	return BigIntNum{}.NewBigInt(fd.GetInteger(), fd.GetPrecision())
+	return new(BigIntNum).NewBigInt(fd.GetInteger(), fd.GetPrecision())
 
 }
 
-// NewFromIntFracStrings - Creates a new BigIntNum instance based on an numeric
-// value represented by separate integer and fractional components.
+// NewFromIntFracStrings
 //
-// Input parameters 'intStr' and 'fracStr' are strings representing the integer and
-// fractional elements of the numeric value. These elements are combined by this
-// method to create a numeric value which is then assigned to the new BigIntNum
-// instance.
+// Creates a new BigIntNum instance based on a numeric
+// value represented by separate integer and fractional
+// components.
 //
-// Input parameter 'signVal' must be set to one of two values: +1 or -1. This value is
-// used to signal the sign of the resulting numeric value. +1 generates a positive number
-// and -1 generates a negative number.
-func (bNum BigIntNum) NewFromIntFracStrings(
+// Input parameters 'intStr' and 'fracStr' are strings
+// representing the integer and fractional elements of
+// the numeric value. These elements are combined by this
+// method to create a numeric value which is then
+// assigned to the new BigIntNum instance.
+//
+// Input parameter 'signVal' must be set to one of two
+// values: +1 or -1. This value is used to signal the
+// sign of the resulting numeric value. +1 generates
+// a positive number and -1 generates a negative number.
+func (bNum *BigIntNum) NewFromIntFracStrings(
 	intStr, fracStr string, signVal int) (BigIntNum, error) {
 
 	b2 := BigIntNum{}.NewZero(0)
@@ -2655,23 +2634,31 @@ func (bNum BigIntNum) NewFromIntFracStrings(
 	return b2, nil
 }
 
-// NewFloat32 - Returns a new BigIntNum instance using a float32 floating point
-// input parameter.  The precision of the number is specified by the input
-// parameter, 'decimalPlaces'.
+//	NewFloat32
 //
-// Input Parameters
-// ================
+//	Returns a new BigIntNum instance using a float32
+//	floating point input parameter.  The precision of
+//	the number is specified by the input parameter,
+//	'decimalPlaces'.
 //
-// f32 float32				- This float32 value will be converted into an instance of
+// ----------------------------------------------------------------
 //
-//	BigIntNum.
+//	# Input Parameters
 //
-// maxPrecision uint  - The maximum precision for the result BigIntNum after conversion
+//	f32					float32
 //
-//	of input parameter f64. Precision will never be greater than
-//	'maxPrecision'; however, actual precision may be less than
-//	'maxPrecision'.
-func (bNum BigIntNum) NewFloat32(f32 float32, maxPrecision uint) (BigIntNum, error) {
+//		This float32 value will be converted into an
+//		instance of BigIntNum.
+//
+//	maxPrecision		uint
+//
+//		The maximum precision for the result BigIntNum
+//		after conversion of input parameter f64.
+//
+//		Precision will never be greater than 'maxPrecision';
+//		however, actual precision may be less than
+//		'maxPrecision'.
+func (bNum *BigIntNum) NewFloat32(f32 float32, maxPrecision uint) (BigIntNum, error) {
 	ePrefix := "BigIntNumNewFloat32() "
 
 	b := BigIntNum{}.NewZero(0)
@@ -2687,23 +2674,30 @@ func (bNum BigIntNum) NewFloat32(f32 float32, maxPrecision uint) (BigIntNum, err
 	return b, nil
 }
 
-// NewFloat64 - Returns a new BigIntNum instance using a float64 floating point
-// input parameter.  The precision of the number is specified by the input
-// parameter, 'decimalPlaces'.
+//	NewFloat64
 //
-// Input Parameters
-// ================
+//	Returns a new BigIntNum instance using a float64
+//	floating point number as an input parameter.
 //
-// f64 float64				- This float64 value will be converted into an instance of
+//	The precision of the number is specified by the
+//	input parameter, 'decimalPlaces'.
 //
-//	BigIntNum.
+// ----------------------------------------------------------------
 //
-// maxPrecision uint  - The maximum precision for the result BigIntNum after conversion
+//	# Input Parameters
 //
-//	of input parameter f64. Precision will never be greater than
-//	'maxPrecision'; however, actual precision may be less than
-//	'maxPrecision'.
-func (bNum BigIntNum) NewFloat64(f64 float64, maxPrecision uint) (BigIntNum, error) {
+//	f64					float64
+//
+//		This float64 value will be converted into an
+//		instance of BigIntNum.
+//
+//	maxPrecision		uint
+//
+//		The maximum precision for the result BigIntNum
+//		after conversion of input parameter f64. Precision
+//		will never be greater than 'maxPrecision'; however,
+//		actual precision may be less than 'maxPrecision'.
+func (bNum *BigIntNum) NewFloat64(f64 float64, maxPrecision uint) (BigIntNum, error) {
 	ePrefix := "BigIntNumNewFloat64() "
 
 	b := BigIntNum{}
@@ -2719,48 +2713,61 @@ func (bNum BigIntNum) NewFloat64(f64 float64, maxPrecision uint) (BigIntNum, err
 	return b, nil
 }
 
-// NewInt - Creates a new BigIntNum instance initialized to the value
-// of input parameter 'intNum' which is passed as type 'int'.
+//	NewInt
 //
-// Input parameter 'precision' indicates the number of digits to be
-// formatted to the right of the decimal place and is passed as type
-// 'uint'
+//	Creates a new BigIntNum instance initialized to the
+//	value of input parameter 'intNum' which is passed as
+//	type 'int'.
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	Input parameter 'precision' indicates the number of
+//	digits to be formatted to the right of the decimal
+//	place and is passed as type 'uint'
 //
-//					intNum := int(123456)
-//					precision := uint(3)
-//					bINum := BigIntNum{}.NewInt(intNum, precision)
-//	       bINum is now equal to 123.456
+// ----------------------------------------------------------------
 //
-// Examples:
-// ---------
+// # Usage:
 //
-//	  intNum				precision			BigIntNum Result
-//		 123456		 		   4							12.3456
-//	  123456          0              123456
-//	  123456          1              12345.6
-func (bNum BigIntNum) NewInt(intNum int, precision uint) BigIntNum {
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
+//
+//		intNum := int(123456)
+//		precision := uint(3)
+//		bINum := new(BigIntNum).NewInt(intNum, precision)
+//		bINum is now equal to 123.456
+//
+//	Examples:
+//
+//									BigIntNum
+//		intNum		precision		Result
+//		------		---------		---------
+//		123456			4			12.3456
+//		123456			0			123456
+//		123456			1			12345.6
+func (bNum *BigIntNum) NewInt(intNum int, precision uint) BigIntNum {
 
-	b2 := BigIntNum{}.NewBigInt(big.NewInt(int64(intNum)), precision)
-	b2.SetNumericSeparatorsDto(bNum.GetNumericSeparatorsDto())
+	b2 := new(BigIntNum).NewBigInt(big.NewInt(int64(intNum)), precision)
+
+	_ = b2.SetNumericSeparatorsDto(bNum.GetNumericSeparatorsDto())
 
 	return b2
 }
 
-// NewIntExponent - This method returns a new BigIntNum instance in which
-// the numeric value is set using an integer multiplied by 10 raised to
-// the power of the 'exponent' parameter.
+//	NewIntExponent
 //
-//	numeric value = integer X 10^exponent
+//	This method returns a new BigIntNum instance in which
+//	the numeric value is set using an integer multiplied
+//	by 10 raised to the power of the 'exponent' parameter.
 //
-// Input parameter 'intNum' is of type int.
+//		numeric value = integer X 10^exponent
 //
-// Input parameter 'exponent' is of type int.
+// ----------------------------------------------------------------
+//
+//	# Input Parameters
+//
+//	intNum				int
+//
+//	exponent			int
 //
 // Usage:
 // ------
@@ -2777,11 +2784,12 @@ func (bNum BigIntNum) NewInt(intNum int, precision uint) BigIntNum {
 // Examples:
 // ---------
 //
-//	  intNum			 exponent			  BigIntNum Result
+// intNum			 exponent			  BigIntNum Result
+//
 //		 123456		 		  -3							123.456
 //		 123456		 		   3							123456.000
 //	  123456          0              123456
-func (bNum BigIntNum) NewIntExponent(intNum int, exponent int) BigIntNum {
+func (bNum *BigIntNum) NewIntExponent(intNum int, exponent int) BigIntNum {
 
 	bigI := big.NewInt(int64(intNum))
 

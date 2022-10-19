@@ -217,7 +217,9 @@ func (bigIFd *BigIntFixedDecimal) CopyIn(fd BigIntFixedDecimal) {
 
 }
 
-// CopyIn - Receives a pointer to a BigIntFixedDecimal type and
+// CopyInPtr
+//
+// Receives a pointer to a BigIntFixedDecimal type and
 // copies the value to the current BigIntFixedDecimal instance.
 func (bigIFd *BigIntFixedDecimal) CopyInPtr(fd *BigIntFixedDecimal) {
 
@@ -410,34 +412,39 @@ func (bigIFd *BigIntFixedDecimal) Floor() BigIntFixedDecimal {
 	return new(BigIntFixedDecimal).New(floor, 0)
 }
 
-// FormatNumStr - converts the numeric value of the current BigIntFixedDecimal
-// instance to a number string. The returned number string will consist of a
-// string of numeric digits. If the number contains fractional digits, the
-// decimal separator period (.) will be used to separate integer and fractional
-// digits within the string. There are no thousands separator present in the
+// FormatNumStr
+//
+// Converts the numeric value of the current
+// BigIntFixedDecimal instance to a number string. The
+// returned number string will consist of a string of
+// numeric digits. If the number contains fractional
+// digits, the decimal separator period (.) will be used
+// to separate integer and fractional digits within the
+// string. There are no thousands separator present in
 // the returned string.
 //
-// The input parameter 'negValMode' is of type NegativeValueFmtMode.
-// NegativeValueFmtMode encompasses a series of constants that are used
-// to format negative values in a number string.
+// The input parameter 'negValMode' is of type
+// NegativeValueFmtMode. NegativeValueFmtMode encompasses
+// a series of constants that are used to format negative
+// values in a number string.
 //
 // Valid NegativeValueFormatMode's are defined as follows:
 //
-// LEADMINUSNEGVALFMTMODE 		-	Negative values formatted with
+// LEADMINUSNEGVALFMTMODE
 //
-//	 		a leading minus sign.
-//			Example: -123456.78
+//	Negative values formatted with a leading minus sign.
+//		Example: -123456.78
 //
-// PARENTHESESNEGVALFMTMODE	-	Negative values formatted with
+// PARENTHESESNEGVALFMTMODE
 //
-//	surrounding parentheses.
-//	Example: (123456.78)
+//	Negative values formatted with surrounding parentheses.
+//		Example: (123456.78)
 //
-// ABSOLUTEPURENUMSTRFMTMODE - Formats a pure integerNum string with
+// ABSOLUTEPURENUMSTRFMTMODE
 //
-//	 absolute (positive) integer value
-//	 and no decimal point separator.
-//	Example: (12345678)
+//	Formats a pure integerNum string with absolute
+//	(positive) integer value and no decimal point separator.
+//		Example: (12345678)
 func (bigIFd *BigIntFixedDecimal) FormatNumStr(negValMode NegativeValueFmtMode) string {
 
 	if bigIFd.integerNum == nil {
@@ -792,7 +799,7 @@ func (bigIFd *BigIntFixedDecimal) Inverse(maxPrecision uint) {
 			big.NewInt(0).SetUint64(uint64(bigIFd.precision)),
 			big.NewInt(0).SetUint64(uint64(maxPrecision)))
 
-	bigIFd.SetNumericValue(inverseBigInt, uint(inversePrecision))
+	bigIFd.SetNumericValue(inverseBigInt, uint(inversePrecision.Uint64()))
 
 	return
 }
@@ -1545,9 +1552,12 @@ func (bigIFd *BigIntFixedDecimal) SetNumericValue(integer *big.Int, precision ui
 
 }
 
-// SetPrecision - Sets the 'precision' value for the current BigIntFixedDecimal
-// instance. 'precision' specifies the number of fractional digits to the right
-// of the decimal place.
+// SetPrecisionValue
+//
+// Sets the 'precision' value for the current
+// BigIntFixedDecimal instance. 'precision' specifies the
+// number of fractional digits to the right of the
+// decimal place.
 func (bigIFd *BigIntFixedDecimal) SetPrecisionValue(precision uint) {
 
 	if bigIFd.integerNum == nil {
@@ -1587,12 +1597,12 @@ func (bigIFd *BigIntFixedDecimal) TrimTrailingFracZeros() {
 	scrap := big.NewInt(0)
 	biBase10 := big.NewInt(10)
 	biBaseZero := big.NewInt(0)
-	newintegerNum, mod10 := big.NewInt(0).QuoRem(bigIFd.integerNum, biBase10, scrap)
+	integerNum, mod10 := big.NewInt(0).QuoRem(bigIFd.integerNum, biBase10, scrap)
 
 	for mod10.Cmp(biBaseZero) == 0 && bigIFd.precision > 0 {
-		bigIFd.integerNum.Set(newintegerNum)
+		bigIFd.integerNum.Set(integerNum)
 		bigIFd.precision--
-		newintegerNum, mod10 = big.NewInt(0).QuoRem(bigIFd.integerNum, biBase10, scrap)
+		integerNum, mod10 = big.NewInt(0).QuoRem(bigIFd.integerNum, biBase10, scrap)
 	}
 
 }
@@ -1609,7 +1619,7 @@ func (bigIFd *BigIntFixedDecimal) TrimTrailingFracZeros() {
 // zero value will remain unaltered. However, BigIntFixedDecimal.precision
 // will be set equal to input parameter, 'precision'.
 //
-// If the number of decimal places specified for truncation ('precision") is
+// If the number of decimal places specified for truncation ('precision') is
 // equal to the current BigIntFixedDecimal.precision, no action is taken and
 // the original BigIntFixedDecimal numeric value remains unchanged.
 //

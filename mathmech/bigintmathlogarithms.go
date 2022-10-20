@@ -37,39 +37,42 @@ type BigIntMathLogarithms struct {
 // 'maxPrecision' is an uint specifying the precision or integerNum of digits to the
 // right of the decimal place in the result.
 //
-//
 // Calculation Formula:
 // ====================
-//			log[base](x) = y
 //
-//			x = base^y
-//			'y' is the exponent of base required to set base^y equal to x.
-// 			The calculation result 'y' of log[base](xNum) is returned as a BigIntNum.
+//	log[base](x) = y
+//
+//	x = base^y
+//	'y' is the exponent of base required to set base^y equal to x.
+//	The calculation result 'y' of log[base](xNum) is returned as a BigIntNum.
 //
 // Input Parameters:
 // =================
 //
 // base		BigIntNum	- The base of the logarithm. 'base' must be an integer integerNum
-// 										greater than one (base > +1).
+//
+//	greater than one (base > +1).
 //
 // xNum		BigIntNum - The 'x' value such that base^y = 'x'.  xNum must be greater
-//										than zero.
+//
+//	than zero.
 //
 // Return Values:
 // ==============
 // y			BigIntNum - If the function completes successfully, the result 'y' will be
-//										returned as a BigIntNum.
 //
-// 				error			- If the function encounters an error, an error message will be returned
-//										as type 'error'. If the function completes successfully, this value
-//										will be set to 'nil'.
+//											returned as a BigIntNum.
 //
-//          log Value:  10.25826553502266513433782776044
+//					error			- If the function encounters an error, an error message will be returned
+//											as type 'error'. If the function completes successfully, this value
+//											will be set to 'nil'.
+//
+//	         log Value:  10.25826553502266513433782776044
+//
 // Expected log Value:  10.2582655350227
 //
 // base:  4
 // xNum:  1500000
-//
 func (bLog BigIntMathLogarithms) BigIntNumLogBaseOfX(
 	base, xNum BigIntNum, maxPrecision uint) (result BigIntNum, err error) {
 
@@ -101,7 +104,7 @@ func (bLog BigIntMathLogarithms) BigIntNumLogBaseOfX(
 	}
 
 	result, errX =
-		BigIntNum{}.NewBigIntPrecision(
+		new(BigIntNum).NewBigIntPrecision(
 			biResult,
 			biResultPrecision)
 
@@ -113,8 +116,8 @@ func (bLog BigIntMathLogarithms) BigIntNumLogBaseOfX(
 	return result, nil
 }
 
+//	log Value:  10.2582655350226651343378277604421
 //
-//          log Value:  10.2582655350226651343378277604421
 // Expected log Value:  10.2582655350227
 // base:  4
 // xNum:  1500000
@@ -229,12 +232,11 @@ func (bLog BigIntMathLogarithms) BigIntLogBaseOfX(
 }
 
 // LogBaseOfXByDivide - Generates logs for specified
-// bases and X-numbers. Calculation methodology derrived
+// bases and X-numbers. Calculation methodology derived
 // from following:
 //
 // Calculate Any Logarithm manually -
 // https://www.youtube.com/watch?v=TUAFzuMVem0
-//
 func (bLog BigIntMathLogarithms) LogBaseOfXByDivide(
 	base,
 	basePrecision,
@@ -666,9 +668,13 @@ func (bLog BigIntMathLogarithms) LogBaseOfXByDivide(
 // constant, "Euler's integerNum".
 //
 // "Euler's integerNum" or 'e' truncated to 50 decimal places is:
-//     2.71828182845904523536028747135266249775724709369995
+//
+//	2.71828182845904523536028747135266249775724709369995
+//
 // Rounded to 50-decimal places is:
-//     2.71828182845904523536028747135266249775724709369996
+//
+//	2.71828182845904523536028747135266249775724709369996
+//
 // Reference: https://en.wikipedia.org/wiki/E_(mathematical_constant)
 //
 // 2.7182818284590452353602874713526624977572470936999595749669676277240766303
@@ -680,41 +686,48 @@ func (bLog BigIntMathLogarithms) LogBaseOfXByDivide(
 // Input Parameters
 // ================
 // exponent	BigIntNum - The exponent to which the mathematical constant 'e' will
-//                      be raised in order to compute the value of e^exponent.
+//
+//	be raised in order to compute the value of e^exponent.
 //
 // n				int64			- The integerNum of cycles in the Taylor series which will
-//                      be used to compute the value of e^exponent
+//
+//	be used to compute the value of e^exponent
 //
 // Return Values
 // =============
 //
 // BigIntNum					- If successful, this function returns the value of e^exponent
-//											as a type BigIntNum.
+//
+//	as a type BigIntNum.
 //
 // error							- If an error is encountered an error message will be formatted
-//											and returned as type 'error'. If the function successfully
-//											completes the calculation, this value will be set to 'nil'.
 //
+//	and returned as type 'error'. If the function successfully
+//	completes the calculation, this value will be set to 'nil'.
 func (bLog BigIntMathLogarithms) EPwrXFromMaclaurinSeries(
 	exponent BigIntNum, nCycles int64) (BigIntNum, error) {
 
 	ePrefix := "BigIntMathLogarithms.EPwrXFromMaclaurinSeries() "
 	// sum = 1 + x
-	sum := BigIntMathAdd{}.AddBigIntNums(BigIntNum{}.NewInt(1, 0), exponent)
-	nFactorial := BigIntNum{}.NewInt(1, 0)
+	sum := BigIntMathAdd{}.AddBigIntNums(
+		new(BigIntNum).NewInt(1, 0), exponent)
+
+	nFactorial := new(BigIntNum).NewInt(1, 0)
 
 	x := exponent.CopyOut()
 
 	for n := int64(2); n <= nCycles; n++ {
 
-		nFactorial = BigIntMathMultiply{}.MultiplyBigIntNums(nFactorial, BigIntNum{}.NewInt64(n, 0))
+		nFactorial = BigIntMathMultiply{}.MultiplyBigIntNums(
+			nFactorial,
+			new(BigIntNum).NewInt64(n, 0))
 
 		x = BigIntMathMultiply{}.MultiplyBigIntNums(x, exponent)
 
 		factor, err := BigIntMathDivide{}.BigIntNumFracQuotient(x, nFactorial, 1200)
 
 		if err != nil {
-			return BigIntNum{}.NewZero(0),
+			return new(BigIntNum).NewZero(0),
 				fmt.Errorf(ePrefix+
 					"Error returned by BigIntMathDivide{}.BigIntNumFracQuotient(binOne, nFactorial, 200) "+
 					"nFactorial='%v' Error='%v' ",
@@ -737,17 +750,30 @@ func (bLog BigIntMathLogarithms) EPwrXFromTaylorSeries(
 
 	ePrefix := "BigIntMathLogarithms.EPwrXFromTaylorSeries() "
 
-	e := eulersNumber1k.GetBigIntNum()
+	bigIntVal,
+		precision := eulersNumber1k.GetBigIntPrecision()
+
+	//e := eulersNumber1k.GetBigIntNum()
+	var e BigIntNum
+
+	var err error
+
+	e,
+		err = new(BigIntNum).NewBigIntPrecision(
+		bigIntVal,
+		precision)
 
 	if e.IsZero() {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			errors.New(ePrefix + "eulersNumber1k is ZERO!")
 	}
 
-	aValue, err := a.GetUInt()
+	var aValue uint
+
+	aValue, err = a.GetUInt()
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by a.GetUInt. Error='%v'",
 				err.Error())
@@ -766,40 +792,40 @@ func (bLog BigIntMathLogarithms) EPwrXFromTaylorSeries(
 			internalMaxPrecision,
 			outputMaxPrecision)
 
-	eToPwr := BigIntNum{}.NewBigInt(ePwrBigInt, ePwrBigIntPrecision)
+	eToPwr := new(BigIntNum).NewBigInt(ePwrBigInt, ePwrBigIntPrecision)
 
 	// eToPwr, err := BigIntMathPower{}.Pwr(e, a, 500)
 
 	//eToPwr := BigIntMathMultiply{}.MultiplyBigIntNums(e.CopyOut(), e.CopyOut())
 
 	// sum = 0
-	sum := BigIntNum{}.NewInt(0, 0)
+	sum := new(BigIntNum).NewInt(0, 0)
 
 	x := exponent.CopyOut()
 
 	xMinusA := BigIntMathSubtract{}.SubtractBigIntNums(x, a)
 
-	xMinusANth := BigIntNum{}.NewInt(0, 0)
+	xMinusANth := new(BigIntNum).NewInt(0, 0)
 
-	nFact := BigIntNum{}.NewInt(0, 0)
+	nFact := new(BigIntNum).NewInt(0, 0)
 
 	for n := int64(0); n <= nCycles; n++ {
 
 		if n == 0 {
-			xMinusANth = BigIntNum{}.NewInt(1, 0)
-			nFact = BigIntNum{}.NewInt(1, 0)
+			xMinusANth = new(BigIntNum).NewInt(1, 0)
+			nFact = new(BigIntNum).NewInt(1, 0)
 		} else if n == 1 {
 			xMinusANth = xMinusA.CopyOut()
-			nFact = BigIntNum{}.NewInt64(n, 0)
+			nFact = new(BigIntNum).NewInt64(n, 0)
 		} else {
 			xMinusANth = BigIntMathMultiply{}.MultiplyBigIntNums(xMinusANth, xMinusA)
-			nFact = BigIntMathMultiply{}.MultiplyBigIntNums(nFact, BigIntNum{}.NewInt64(n, 0))
+			nFact = BigIntMathMultiply{}.MultiplyBigIntNums(nFact, new(BigIntNum).NewInt64(n, 0))
 		}
 
 		factor1, err := BigIntMathDivide{}.BigIntNumFracQuotient(eToPwr, nFact, 500)
 
 		if err != nil {
-			return BigIntNum{}.NewZero(0),
+			return new(BigIntNum).NewZero(0),
 				fmt.Errorf(ePrefix+
 					"Error returned by BigIntMathDivide{}.BigIntNumFracQuotient(eToPwr, nFact, 500) "+
 					"eToPwr='%v' nFact='%v' Error='%v' ",
@@ -819,6 +845,8 @@ func (bLog BigIntMathLogarithms) EPwrXFromTaylorSeries(
 }
 
 // EPwrXFromTaylorSeriesFixedDecimal
+//
+// Uses Taylor Series and Fixed Decimal.
 func (bLog BigIntMathLogarithms) EPwrXFromTaylorSeriesFixedDecimal(
 	exponentX BigIntFixedDecimal,
 	a, nCycles uint) (BigIntFixedDecimal, error) {
@@ -828,7 +856,7 @@ func (bLog BigIntMathLogarithms) EPwrXFromTaylorSeriesFixedDecimal(
 	e := eulersNumber1k.GetFixedDecimal()
 
 	if e.IsZero() {
-		return BigIntFixedDecimal{}.NewZero(0),
+		return new(BigIntFixedDecimal).NewZero(0),
 			errors.New(ePrefix + "EulersNumber1050 Constant is ZERO!")
 	}
 
@@ -844,32 +872,32 @@ func (bLog BigIntMathLogarithms) EPwrXFromTaylorSeriesFixedDecimal(
 			internalMaxPrecision,
 			outputMaxPrecision)
 
-	eToPwr := BigIntFixedDecimal{}.New(ePwrBigInt, ePwrBigIntPrecision)
+	eToPwr := new(BigIntFixedDecimal).New(ePwrBigInt, ePwrBigIntPrecision)
 
-	fixedDecA := BigIntFixedDecimal{}.New(big.NewInt(int64(a)), 0)
+	fixedDecA := new(BigIntFixedDecimal).New(big.NewInt(int64(a)), 0)
 
 	// sum = 0
-	sum := BigIntFixedDecimal{}.NewZero(0)
+	sum := new(BigIntFixedDecimal).NewZero(0)
 
 	xNum := exponentX.CopyOut()
 
 	xMinusA := BigIntMathSubtract{}.FixedDecimalSubtract(xNum, fixedDecA)
 
-	xMinusANth := BigIntFixedDecimal{}.NewZero(0)
+	xMinusANth := new(BigIntFixedDecimal).NewZero(0)
 
-	nFact := BigIntFixedDecimal{}.NewZero(0)
+	nFact := new(BigIntFixedDecimal).NewZero(0)
 
 	for n := uint(0); n < nCycles; n++ {
 
 		if n == 0 {
 
-			xMinusANth = BigIntFixedDecimal{}.NewInt(1, 0)
-			nFact = BigIntFixedDecimal{}.NewInt(1, 0)
+			xMinusANth = new(BigIntFixedDecimal).NewInt(1, 0)
+			nFact = new(BigIntFixedDecimal).NewInt(1, 0)
 
 		} else if n == 1 {
 
 			xMinusANth = xMinusA.CopyOut()
-			nFact = BigIntFixedDecimal{}.NewUInt(n, 0)
+			nFact = new(BigIntFixedDecimal).NewUInt(n, 0)
 
 		} else {
 
@@ -878,14 +906,14 @@ func (bLog BigIntMathLogarithms) EPwrXFromTaylorSeriesFixedDecimal(
 			nFact =
 				BigIntMathMultiply{}.FixedDecimalMultiply(
 					nFact,
-					BigIntFixedDecimal{}.New(big.NewInt(int64(n)), 0))
+					new(BigIntFixedDecimal).New(big.NewInt(int64(n)), 0))
 
 		}
 
 		factor1, err := BigIntMathDivide{}.FixedDecimalFracQuotient(eToPwr, nFact, 500)
 
 		if err != nil {
-			return BigIntFixedDecimal{}.NewZero(0),
+			return new(BigIntFixedDecimal).NewZero(0),
 				fmt.Errorf(ePrefix+
 					"Error returned by BigIntMathDivide{}.BigIntNumFracQuotient(eToPwr, nFact, 500) "+
 					"eToPwr='%v' nFact='%v' Error='%v' ",
@@ -1052,7 +1080,7 @@ func (bLog BigIntMathLogarithms) BigIntNumNatLogOfX(
 	maxPrecision uint) (lnOfX BigIntNum, err error) {
 
 	ePrefix := "BigIntMathLogarithms.BigIntNumNatLogOfX() "
-	lnOfX = BigIntNum{}.NewZero(0)
+	lnOfX = new(BigIntNum).NewZero(0)
 	err = nil
 
 	errX := xNum.IsValid(ePrefix)
@@ -1121,10 +1149,10 @@ func (bLog BigIntMathLogarithms) BigIntNumNatLogOfX(
 		return lnOfX, err
 	}
 
-	lnOfX, errX = BigIntNum{}.NewBigIntPrecision(biResult, biResultPrecision)
+	lnOfX, errX = new(BigIntNum).NewBigIntPrecision(biResult, biResultPrecision)
 
 	if errX != nil {
-		lnOfX = BigIntNum{}.NewZero(0)
+		lnOfX = new(BigIntNum).NewZero(0)
 		err = fmt.Errorf(ePrefix+"%v", errX.Error())
 		return lnOfX, err
 	}
@@ -1134,8 +1162,9 @@ func (bLog BigIntMathLogarithms) BigIntNumNatLogOfX(
 	return lnOfX, err
 }
 
-// https://en.wikipedia.org/wiki/Natural_logarithm
+// SaskiKanadaNatLogOfX
 //
+// https://en.wikipedia.org/wiki/Natural_logarithm
 func (bLog BigIntMathLogarithms) SaskiKanadaNatLogOfX(
 	xNum,
 	xNumPrecision,

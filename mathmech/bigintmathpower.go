@@ -17,8 +17,6 @@ type BigIntMathPower struct {
 // or fractional values.
 //
 // This method uses the exponent method ('Exp') provided by the go "math/big" package.
-//
-//
 func (bIPwr BigIntMathPower) BigIntPwr(
 	base,
 	basePrecision,
@@ -30,7 +28,7 @@ func (bIPwr BigIntMathPower) BigIntPwr(
 	resultPrecision = big.NewInt(0)
 	err = nil
 	ePrefix := "BigIntMathPower.BigIntPwr() "
-	var errx error
+	var errs error
 
 	bigZero := big.NewInt(0)
 
@@ -61,7 +59,7 @@ func (bIPwr BigIntMathPower) BigIntPwr(
 	if exponentIsNegative == false &&
 		isZeroExponentPrecision == true {
 
-		result, resultPrecision, errx =
+		result, resultPrecision, errs =
 			BigIntMathPower{}.BigIntToPositiveIntegerPower(
 				base,
 				basePrecision,
@@ -72,7 +70,7 @@ func (bIPwr BigIntMathPower) BigIntPwr(
 	} else if exponentIsNegative == true &&
 		isZeroExponentPrecision == true {
 
-		result, resultPrecision, errx =
+		result, resultPrecision, errs =
 			BigIntMathPower{}.BigIntToNegativeIntegerPower(
 				base,
 				basePrecision,
@@ -83,7 +81,7 @@ func (bIPwr BigIntMathPower) BigIntPwr(
 	} else if exponentIsNegative == false &&
 		isZeroExponentPrecision == false {
 
-		result, resultPrecision, errx =
+		result, resultPrecision, errs =
 			BigIntMathPower{}.BigIntToPositiveFractionalPower(
 				base,
 				basePrecision,
@@ -94,7 +92,7 @@ func (bIPwr BigIntMathPower) BigIntPwr(
 	} else if exponentIsNegative == true &&
 		isZeroExponentPrecision == false {
 
-		result, resultPrecision, errx =
+		result, resultPrecision, errs =
 			BigIntMathPower{}.BigIntToNegativeFractionalPower(
 				base,
 				basePrecision,
@@ -102,13 +100,13 @@ func (bIPwr BigIntMathPower) BigIntPwr(
 				exponentPrecision,
 				maxPrecision)
 	} else {
-		errx = errors.New("Setup Configuration Error! INVALID Calculation!")
+		errs = errors.New("Setup Configuration Error! INVALID Calculation!")
 	}
 
-	if errx != nil {
+	if errs != nil {
 		result = big.NewInt(0)
 		resultPrecision = big.NewInt(0)
-		err = fmt.Errorf(ePrefix+"%v", errx.Error())
+		err = fmt.Errorf(ePrefix+"%v", errs.Error())
 	} else {
 		err = nil
 	}
@@ -128,72 +126,79 @@ func (bIPwr BigIntMathPower) BigIntPwr(
 // base	basePrecision	exponent exponentPrecision result  resultPrecision
 // ---- ------------- -------- ----------------- ------  ---------------
 //
-// 	  5			0					  -22						1						 29			 3 (to 3-decimal places)
-//    (5^-2.2 = 0.02899118654710782125882456003526
-//     The actual number of decimal places returned in the result is controlled by
-//     input parameter, 'maxPrecision'.)
+//		  5			0					  -22						1						 29			 3 (to 3-decimal places)
+//	   (5^-2.2 = 0.02899118654710782125882456003526
+//	    The actual number of decimal places returned is controlled by
+//	    input parameter, 'maxPrecision'.)
 //
-//   18     1            -34           1					 136		 3 (to 3-decimal places)
-//  (1.8^-3.4 = 0.13554187298692911221722484380209
-//     The actual number of decimal places returned in the result is controlled by
-//     input parameter, 'maxPrecision'.)
+//	  18     1            -34           1					 136		 3 (to 3-decimal places)
+//	 (1.8^-3.4 = 0.13554187298692911221722484380209
+//	    The actual number of decimal places returned is controlled by
+//	    input parameter, 'maxPrecision'.)
 //
 // Input Parameters
 // ================
 //
 // base 					*big.Int	- The base which will be raised to the
-//                          	power of a positive integer exponent.
+//
+//	power of a positive integer exponent.
 //
 // basePrecision 			uint	- The precision specification for 'base'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'base' and 'basePrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // exponent				*big.Int	- The exponent to which 'base' will be raised
-//                          	by this calculation. By method definition,
-//                            'exponent' must be a negative value. If
-//                            exponent is less than 0, an error will
-//                            be triggered.
+//
+//		by this calculation. By method definition,
+//	  'exponent' must be a negative value. If
+//	  exponent is less than 0, an error will
+//	  be triggered.
 //
 // exponentPrecision 	uint	- The precision specification for 'exponent'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place. For this method, 'exponentPrecision'
-// 														must be greater than zero, thereby designating
-// 														'exponent' as a fractional value. A value of
-//                            zero for 'exponentPrecision' will trigger an error.
+//
+//	                         	Precision defines the number of numeric
+//	                         	digits to the right of the decimal place.
+//	                         	Taken together, 'base' and 'basePrecision'
+//	                         	define a numeric value with a fixed number
+//	                           of decimal digits to the right of the decimal
+//	                           place. For this method, 'exponentPrecision'
+//															must be greater than zero, thereby designating
+//															'exponent' as a fractional value. A value of
+//	                           zero for 'exponentPrecision' will trigger an error.
 //
 // maxPrecision				uint	- When this method calculates 'base' raised to the
-//                            power of 'exponent', the maximum number of decimal
-//                            digits to the right of the decimal place in the
-//                            result will be limited by 'maxPrecision'.
+//
+//	power of 'exponent', the maximum number of decimal
+//	digits to the right of the decimal place in the
+//	result will be limited by 'maxPrecision'.
 //
 // Return Values
 // =============
 //
 // result					*big.Int	- If the calculation completes successfully, this
-//                            return value will be populated with the value
-//                            of 'base' raised to the power of 'exponent'.
+//
+//	return value will be populated with the value
+//	of 'base' raised to the power of 'exponent'.
 //
 // resultPrecision		uint	- The precision specification for 'result'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'result' and 'resultPrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'result' and 'resultPrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // err							 error	- If the calculation encounters an error, an appropriate
-//                            error message will be formatted and returned. If the
-//                            calculation completes successfully, this return value
-//                            will be set to 'nil'.
 //
+//	error message will be formatted and returned. If the
+//	calculation completes successfully, this return value
+//	will be set to 'nil'.
 func (bIPwr BigIntMathPower) BigIntToNegativeFractionalPower(
 	base,
 	basePrecision,
@@ -253,7 +258,7 @@ func (bIPwr BigIntMathPower) BigIntToNegativeFractionalPower(
 
 	internalMaxPrecision := big.NewInt(0).Add(maxPrecision, big.NewInt(2))
 
-	positiveResult, positivePrecision, errx :=
+	positiveResult, positivePrecision, errs :=
 		BigIntMathPower{}.BigIntToPositiveFractionalPower(
 			base,
 			basePrecision,
@@ -261,22 +266,22 @@ func (bIPwr BigIntMathPower) BigIntToNegativeFractionalPower(
 			exponentPrecision,
 			internalMaxPrecision)
 
-	if errx != nil {
-		err = fmt.Errorf(ePrefix+"%v", errx.Error())
+	if errs != nil {
+		err = fmt.Errorf(ePrefix+"%v", errs.Error())
 		return result, resultPrecision, err
 	}
 
-	result, resultPrecision, errx = BigIntMathDivide{}.BigIntFracQuotient(
+	result, resultPrecision, errs = BigIntMathDivide{}.BigIntFracQuotient(
 		bigOne,
 		big.NewInt(0),
 		positiveResult,
 		positivePrecision,
 		maxPrecision)
 
-	if errx != nil {
+	if errs != nil {
 		result = big.NewInt(0)
 		resultPrecision = big.NewInt(0)
-		err = fmt.Errorf(ePrefix+"%v", errx.Error())
+		err = fmt.Errorf(ePrefix+"%v", errs.Error())
 		return result, resultPrecision, err
 	}
 
@@ -293,72 +298,79 @@ func (bIPwr BigIntMathPower) BigIntToNegativeFractionalPower(
 // Examples:
 // base	basePrecision	exponent exponentPrecision result  resultPrecision
 //
-// 	  5			0					   22						1						 34493			 3 (to 3-decimal places)
-//    (5^2.2 = 34.4932415365303708097515866054
-//     The actual number of decimal places returned in the result is controlled by
-//     input parameter, 'maxPrecision'.)
+//		  5			0					   22						1						 34493			 3 (to 3-decimal places)
+//	   (5^2.2 = 34.4932415365303708097515866054
+//	    The actual number of decimal places returned is controlled by
+//	    input parameter, 'maxPrecision'.)
 //
-//   18     1            34            1					 7378				 3 (to 3-decimal places)
-//  (1.8^3.4 = 7.3777938725727533349996174917827
-//     The actual number of decimal places returned in the result is controlled by
-//     input parameter, 'maxPrecision'.)
+//	  18     1            34            1					 7378				 3 (to 3-decimal places)
+//	 (1.8^3.4 = 7.3777938725727533349996174917827
+//	    The actual number of decimal places returned is controlled by
+//	    input parameter, 'maxPrecision'.)
 //
 // Input Parameters
 // ================
 //
 // base 					*big.Int	- The base which will be raised to the
-//                          	power of a positive integer exponent.
+//
+//	power of a positive integer exponent.
 //
 // basePrecision 			uint	- The precision specification for 'base'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'base' and 'basePrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // exponent				*big.Int	- The exponent to which 'base' will be raised
-//                          	by this calculation. By method definition,
-//                            'exponent' must be a positive value. If
-//                            exponent is less than 0, an error will
-//                            be triggered.
+//
+//		by this calculation. By method definition,
+//	  'exponent' must be a positive value. If
+//	  exponent is less than 0, an error will
+//	  be triggered.
 //
 // exponentPrecision 	uint	- The precision specification for 'exponent'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place. For this method, 'exponentPrecision'
-// 														must be greater than zero, thereby designating
-// 														'exponent' as a fractional value. A value of
-// 														zero for 'exponentPrecision' will trigger an error.
+//
+//	                         	Precision defines the number of numeric
+//	                         	digits to the right of the decimal place.
+//	                         	Taken together, 'base' and 'basePrecision'
+//	                         	define a numeric value with a fixed number
+//	                           of decimal digits to the right of the decimal
+//	                           place. For this method, 'exponentPrecision'
+//															must be greater than zero, thereby designating
+//															'exponent' as a fractional value. A value of
+//															zero for 'exponentPrecision' will trigger an error.
 //
 // maxPrecision				uint	- When this method calculates 'base' raised to the
-//                            power of 'exponent', the maximum number of decimal
-//                            digits to the right of the decimal place in the
-//                            result will be limited by 'maxPrecision'.
+//
+//	power of 'exponent', the maximum number of decimal
+//	digits to the right of the decimal place in the
+//	result will be limited by 'maxPrecision'.
 //
 // Return Values
 // =============
 //
 // result					*big.Int	- If the calculation completes successfully, this
-//                            return value will be populated with the value
-//                            of 'base' raised to the power of 'exponent'.
+//
+//	return value will be populated with the value
+//	of 'base' raised to the power of 'exponent'.
 //
 // resultPrecision		uint	- The precision specification for 'result'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'result' and 'resultPrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'result' and 'resultPrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // err							 error	- If the calculation encounters an error, an appropriate
-//                            error message will be formatted and returned. If the
-//                            calculation completes successfully, this return value
-//                            will be set to 'nil'.
 //
+//	error message will be formatted and returned. If the
+//	calculation completes successfully, this return value
+//	will be set to 'nil'.
 func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 	base,
 	basePrecision,
@@ -386,7 +398,6 @@ func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 	basePrecisionCmpZero := basePrecision.Cmp(bigZero)
 
 	if base.Cmp(bigOne) == 0 &&
-
 		basePrecisionCmpZero == 0 {
 
 		result.Set(bigOne)
@@ -445,7 +456,7 @@ func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 		exponentPrecision,
 		nil)
 
-	var errx error
+	var errs error
 
 	scratch := big.NewInt(0)
 
@@ -456,7 +467,7 @@ func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 
 	if integerExponent.Cmp(bigZero) != 0 {
 
-		integerResult, integerPrecision, errx =
+		integerResult, integerPrecision, errs =
 			BigIntMathPower{}.BigIntToPositiveIntegerPower(
 				base,
 				basePrecision,
@@ -464,8 +475,8 @@ func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 				big.NewInt(0),
 				internalMaxPrecision)
 
-		if errx != nil {
-			err = fmt.Errorf(ePrefix+"%v", errx.Error())
+		if errs != nil {
+			err = fmt.Errorf(ePrefix+"%v", errs.Error())
 			return result, resultPrecision, err
 		}
 
@@ -485,7 +496,7 @@ func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 
 	fdr := FixedDecimalNthRoot{}
 
-	fracExponentRoot, fracExponentRootPrecision, errx :=
+	fracExponentRoot, fracExponentRootPrecision, errs :=
 		fdr.CalculatePositiveIntegerNthRoot(
 			baseToFracExponentNumerator,
 			baseToFracExponentNumeratorPrecision,
@@ -493,23 +504,23 @@ func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 			big.NewInt(0),
 			internalMaxPrecision)
 
-	if errx != nil {
-		err = fmt.Errorf(ePrefix+"%v", errx.Error())
+	if errs != nil {
+		err = fmt.Errorf(ePrefix+"%v", errs.Error())
 		return result, resultPrecision, err
 	}
 
-	result, resultPrecision, errx =
+	result, resultPrecision, errs =
 		BigIntMathMultiply{}.BigIntMultiply(
 			integerResult,
 			integerPrecision,
 			fracExponentRoot,
 			fracExponentRootPrecision)
 
-	if errx != nil {
+	if errs != nil {
 		result = big.NewInt(0)
 		resultPrecision = big.NewInt(0)
 		err = fmt.Errorf(ePrefix+
-			"%v", errx.Error())
+			"%v", errs.Error())
 
 		return result, resultPrecision, err
 	}
@@ -541,70 +552,78 @@ func (bIPwr BigIntMathPower) BigIntToPositiveFractionalPower(
 // Examples:
 // base	basePrecision	exponent exponentPrecision result  resultPrecision
 //
-// 	  5			0					  -2						0							4						2
-//    (5^-2 = 0.04)
+//		  5			0					  -2						0							4						2
+//	   (5^-2 = 0.04)
 //
 // 1131     2           -3            0						00069121  		8 (to 8-decimal places)
 // (11.31^-3= 0.00069121345785745610965099525880031
-//  The actual number of decimal places returned in
-//  the result is controlled by	input parameter, 'maxPrecision'.)
+//
+//	The actual number of decimal places returned
+//	is controlled by	input parameter, 'maxPrecision'.)
 //
 // Input Parameters
 // ================
 //
 // base 					*big.Int	- The base which will be raised to the
-//                          	power of a negative integer exponent.
+//
+//	power of a negative integer exponent.
 //
 // basePrecision 			uint	- The precision specification for 'base'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'base' and 'basePrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // exponent				*big.Int	- The exponent to which 'base' will be raised
-//                          	by this calculation. By method definition,
-//                            exponent must be a negative value. If
-//                            exponent is greater than -1, an error will
-//                            be triggered.
+//
+//		by this calculation. By method definition,
+//	  exponent must be a negative value. If
+//	  exponent is greater than -1, an error will
+//	  be triggered.
 //
 // exponentPrecision 	uint	- The precision specification for 'exponent'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place. For this method, 'exponentPrecision' must
-//                            be set to zero, thereby designating 'exponent'
-// 														as an integer value. Values greater than zero
-// 														will trigger an error.
+//
+//	                         	Precision defines the number of numeric
+//	                         	digits to the right of the decimal place.
+//	                         	Taken together, 'base' and 'basePrecision'
+//	                         	define a numeric value with a fixed number
+//	                           of decimal digits to the right of the decimal
+//	                           place. For this method, 'exponentPrecision' must
+//	                           be set to zero, thereby designating 'exponent'
+//															as an integer value. Values greater than zero
+//															will trigger an error.
 //
 // maxPrecision				uint	- When this method calculates 'base' raised to the
-//                            power of 'exponent', the maximum number of decimal
-//                            digits to the right of the decimal place in the
-//                            resulting value will be limited by 'maxPrecision'.
+//
+//	power of 'exponent', the maximum number of decimal
+//	digits to the right of the decimal place in the
+//	resulting value will be limited by 'maxPrecision'.
 //
 // Return Values
 // =============
 //
 // result					*big.Int	- If the calculation completes successfully, this
-//                            return value will be populated with the value
-//                            of 'base' raised to the power of 'exponent'.
+//
+//	return value will be populated with the value
+//	of 'base' raised to the power of 'exponent'.
 //
 // resultPrecision		uint	- The precision specification for 'result'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'result' and 'resultPrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'result' and 'resultPrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // err							 error	- If the calculation encounters an error, an appropriate
-//                            error message will be formatted and returned. If the
-//                            calculation completes successfully, this return value
-//                            will be set to 'nil'.
 //
+//	error message will be formatted and returned. If the
+//	calculation completes successfully, this return value
+//	will be set to 'nil'.
 func (bIPwr BigIntMathPower) BigIntToNegativeIntegerPower(
 	base,
 	basePrecision,
@@ -656,19 +675,19 @@ func (bIPwr BigIntMathPower) BigIntToNegativeIntegerPower(
 		return result, resultPrecision, err
 	}
 
-	var errx error
+	var errs error
 
 	if exponent.Cmp(big.NewInt(-1)) == 0 {
 		// if exponent == -1, result is equal to inverse of base
-		result, resultPrecision, errx =
+		result, resultPrecision, errs =
 			BigIntMathDivide{}.BigIntFracQuotient(bigOne,
 				big.NewInt(0),
 				base,
 				basePrecision,
 				maxPrecision)
 
-		if errx != nil {
-			err = fmt.Errorf(ePrefix+"%v", errx.Error())
+		if errs != nil {
+			err = fmt.Errorf(ePrefix+"%v", errs.Error())
 
 			return result, resultPrecision, err
 		}
@@ -688,7 +707,7 @@ func (bIPwr BigIntMathPower) BigIntToNegativeIntegerPower(
 	tempResultPrecision := big.NewInt(0).Mul(
 		basePrecision, tempExponent)
 
-	result, resultPrecision, errx =
+	result, resultPrecision, errs =
 		BigIntMathDivide{}.BigIntFracQuotient(
 			bigOne,
 			big.NewInt(0),
@@ -696,8 +715,8 @@ func (bIPwr BigIntMathPower) BigIntToNegativeIntegerPower(
 			tempResultPrecision,
 			maxPrecision)
 
-	if errx != nil {
-		err = fmt.Errorf(ePrefix+"%v", errx.Error())
+	if errs != nil {
+		err = fmt.Errorf(ePrefix+"%v", errs.Error())
 
 		return result, resultPrecision, err
 	}
@@ -716,68 +735,75 @@ func (bIPwr BigIntMathPower) BigIntToNegativeIntegerPower(
 // Examples:
 // base	basePrecision	exponent exponentPrecision result  resultPrecision
 //
-// 	  5			0					   2						0						 25						0
-//    (5^2 = 25)
+//		  5			0					   2						0						 25						0
+//	   (5^2 = 25)
 //
-//   18     1            3            0					 5832						3
-// 		(1.8^3= 5.832)
+//	  18     1            3            0					 5832						3
+//			(1.8^3= 5.832)
 //
 // Input Parameters
 // ================
 //
 // base 					*big.Int	- The base which will be raised to the
-//                          	power of a positive integer exponent.
+//
+//	power of a positive integer exponent.
 //
 // basePrecision 			uint	- The precision specification for 'base'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'base' and 'basePrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // exponent				*big.Int	- The exponent to which 'base' will be raised
-//                          	by this calculation. By method definition,
-//                            'exponent' must be a positive value. If
-//                            exponent is less than 0, an error will
-//                            be triggered.
+//
+//		by this calculation. By method definition,
+//	  'exponent' must be a positive value. If
+//	  exponent is less than 0, an error will
+//	  be triggered.
 //
 // exponentPrecision 	uint	- The precision specification for 'exponent'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'base' and 'basePrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place. For this method, 'exponentPrecision'
-// 														must be set to zero, designating exponent as an integer
-//                            value. Values greater than zero will trigger an
-//                            error.
+//
+//	                         	Precision defines the number of numeric
+//	                         	digits to the right of the decimal place.
+//	                         	Taken together, 'base' and 'basePrecision'
+//	                         	define a numeric value with a fixed number
+//	                           of decimal digits to the right of the decimal
+//	                           place. For this method, 'exponentPrecision'
+//															must be set to zero, designating exponent as an integer
+//	                           value. Values greater than zero will trigger an
+//	                           error.
 //
 // maxPrecision				uint	- When this method calculates 'base' raised to the
-//                            power of 'exponent', the maximum number of decimal
-//                            digits to the right of the decimal place in the
-//                            resulting value will be limited by 'maxPrecision'.
+//
+//	power of 'exponent', the maximum number of decimal
+//	digits to the right of the decimal place in the
+//	resulting value will be limited by 'maxPrecision'.
 //
 // Return Values
 // =============
 //
 // result					*big.Int	- If the calculation completes successfully, this
-//                            return value will be populated with the value
-//                            of 'base' raised to the power of 'exponent'.
+//
+//	return value will be populated with the value
+//	of 'base' raised to the power of 'exponent'.
 //
 // resultPrecision		uint	- The precision specification for 'result'.
-//                          	Precision defines the number of numeric
-//                          	digits to the right of the decimal place.
-//                          	Taken together, 'result' and 'resultPrecision'
-//                          	define a numeric value with a fixed number
-//                            of decimal digits to the right of the decimal
-//                            place.
+//
+//		Precision defines the number of numeric
+//		digits to the right of the decimal place.
+//		Taken together, 'result' and 'resultPrecision'
+//		define a numeric value with a fixed number
+//	  of decimal digits to the right of the decimal
+//	  place.
 //
 // err							 error	- If the calculation encounters an error, an appropriate
-//                            error message will be formatted and returned. If the
-//                            calculation completes successfully, this return value
-//                            will be set to 'nil'.
 //
+//	error message will be formatted and returned. If the
+//	calculation completes successfully, this return value
+//	will be set to 'nil'.
 func (bIPwr BigIntMathPower) BigIntToPositiveIntegerPower(
 	base,
 	basePrecision,
@@ -875,50 +901,53 @@ func (bIPwr BigIntMathPower) BigIntToPositiveIntegerPower(
 //
 // base							*big.Int	-	The base which will be raised to the power of 'exponent'.
 //
-//                        							baseToPwr = base^exponent
+//	baseToPwr = base^exponent
 //
 // basePrecision				uint	- The number of digits to the right of the decimal place
-//                        			in the numeric sequence represented by 'base'.
+//
+//	in the numeric sequence represented by 'base'.
 //
 // exponent							uint	- This function will raise 'base' to the power of 'exponent'.
 //
-//                        							baseToPwr = base^exponent
-//
+//	baseToPwr = base^exponent
 //
 // internalMaxPrecision uint	- This value is imposed as a limit on the precision of
-//                              internal calculations necessary to compute the result
-//                              of this power operation. If during the calculation an
-//                              interim or intermediate result is generated which exceeds
-//                              this limit, that intermediate result will be rounded to
-//             									'internalMaxPrecision'. The term precision defines the
-//                              number of digits to the right of the decimal place.
 //
-//                              If 'internalMaxPrecision' is less than 'outputMaxPrecision',
-//                              'internalMaxPrecision' will be automatically set to a value
-//                              of 'outputMaxPrecision' + 100.
+//	                 internal calculations necessary to compute the result
+//	                 of this power operation. If during the calculation an
+//	                 interim or intermediate result is generated which exceeds
+//	                 this limit, that intermediate result will be rounded to
+//										'internalMaxPrecision'. The term precision defines the
+//	                 number of digits to the right of the decimal place.
+//
+//	                 If 'internalMaxPrecision' is less than 'outputMaxPrecision',
+//	                 'internalMaxPrecision' will be automatically set to a value
+//	                 of 'outputMaxPrecision' + 100.
 //
 // outputMaxPrecision		uint	- This value is imposed as a limit on the precision of
-//                              the final calculated result of the power operation.
-// 															If the number of digits to the right of the decimal
-//                              point in the final calculated result exceeds this limit,
-// 															that final result will be rounded to 'outputMaxPrecision'
-//                              digits to the right of the decimal place. The term precision
-// 															defines the number of digits to the right of the decimal
-// 															place.
+//
+//	                             the final calculated result of the power operation.
+//																If the number of digits to the right of the decimal
+//	                             point in the final calculated result exceeds this limit,
+//																that final result will be rounded to 'outputMaxPrecision'
+//	                             digits to the right of the decimal place. The term precision
+//																defines the number of digits to the right of the decimal
+//																place.
 //
 // Return Values
 // =============
 //
 // baseToPwr						*big.Int	-	This function returns the result of 'base' raised
-//                               		to the power of 'exponent'. This result, 'baseToPwr'
-//                                  is returned as a type *big.Int.
 //
-//                                  				baseToPwr = base^exponent
+//			to the power of 'exponent'. This result, 'baseToPwr'
+//	   is returned as a type *big.Int.
 //
-// baseToPwrPrecision		uint			- Specifies the number of digits to the the right of the
-//                                  decimal place in the numeric sequence represented
-// 																	by the calculation result, 'baseToPwr'.
+//	   				baseToPwr = base^exponent
 //
+// baseToPwrPrecision		uint			- Specifies the number of digits to the right of the
+//
+//	                                 decimal place in the numeric sequence represented
+//																		by the calculation result, 'baseToPwr'.
 func (bIPwr BigIntMathPower) BigIntPwrIteration(
 	base *big.Int,
 	basePrecision,
@@ -1027,58 +1056,62 @@ func (bIPwr BigIntMathPower) BigIntPwrIteration(
 //
 // base							*big.Int	-	The base which will be raised to the power of 'exponent'.
 //
-//                        							baseToPwr = base^exponent
+//	baseToPwr = base^exponent
 //
 // basePrecision		*big.Int	- The number of digits to the right of the decimal place
-//                        			in the numeric sequence represented by 'base'.
+//
+//	in the numeric sequence represented by 'base'.
 //
 // exponent					*big.Int	- This function will raise 'base' to the power of 'exponent'.
 //
-//                        							baseToPwr = base^exponent
+//								baseToPwr = base^exponent
 //
-//                              'exponent' is an integer value with zero precision.
-//
+//	      'exponent' is an integer value with zero precision.
 //
 // internalMaxPrecision *big.Int	- This value is imposed as a limit on the precision of
-//                              		internal calculations necessary to compute the result
-//                              		of this power operation. If during the calculation an
-//                              		interim or intermediate result is generated which exceeds
-//                              		this limit, that intermediate result will be rounded to
-//             											'internalMaxPrecision'. The term precision defines the
-//                              		number of digits to the right of the decimal place.
 //
-//                              		If 'internalMaxPrecision' is less than 'outputMaxPrecision',
-//                              		'internalMaxPrecision' will be automatically set to a value
-//                              		of 'outputMaxPrecision' + 100.
+//	                 		internal calculations necessary to compute the result
+//	                 		of this power operation. If during the calculation an
+//	                 		interim or intermediate result is generated which exceeds
+//	                 		this limit, that intermediate result will be rounded to
+//												'internalMaxPrecision'. The term precision defines the
+//	                 		number of digits to the right of the decimal place.
+//
+//	                 		If 'internalMaxPrecision' is less than 'outputMaxPrecision',
+//	                 		'internalMaxPrecision' will be automatically set to a value
+//	                 		of 'outputMaxPrecision' + 100.
 //
 // outputMaxPrecision		*big.Int	- This value is imposed as a limit on the precision of
-//                              		the final calculated result of the power operation.
-// 																	If the number of digits to the right of the decimal
-//                              		point in the final calculated result exceeds this limit,
-// 																	that final result will be rounded to 'outputMaxPrecision'
-//                              		digits to the right of the decimal place. The term precision
-// 																	defines the number of digits to the right of the decimal
-// 																	place. If 'outputMaxPrecision' is less than zero, an
-//                                  error will be returned.
+//
+//	                             		the final calculated result of the power operation.
+//																		If the number of digits to the right of the decimal
+//	                             		point in the final calculated result exceeds this limit,
+//																		that final result will be rounded to 'outputMaxPrecision'
+//	                             		digits to the right of the decimal place. The term precision
+//																		defines the number of digits to the right of the decimal
+//																		place. If 'outputMaxPrecision' is less than zero, an
+//	                                 error will be returned.
 //
 // Return Values
 // =============
 //
 // baseToPwr						*big.Int	-	This function returns the result of 'base' raised
-//                               		to the power of 'exponent'. This result, 'baseToPwr'
-//                                  is returned as a type *big.Int.
 //
-//                                  				baseToPwr = base^exponent
+//			to the power of 'exponent'. This result, 'baseToPwr'
+//	   is returned as a type *big.Int.
 //
-// baseToPwrPrecision		*big.Int	- Specifies the number of digits to the the right of the
-//                                  decimal place in the numeric sequence represented
-// 																	by the calculation result, 'baseToPwr'.
+//	   				baseToPwr = base^exponent
+//
+// baseToPwrPrecision		*big.Int	- Specifies the number of digits to the right of the
+//
+//	                                 decimal place in the numeric sequence represented
+//																		by the calculation result, 'baseToPwr'.
 //
 // err									error			- If the function fails to complete successfully, this value
-//                                  is configured with an appropriate error message and returned
-//                                  to the caller. If the function completes successfully, this
-//                                  value is set to 'nil'.
 //
+//	is configured with an appropriate error message and returned
+//	to the caller. If the function completes successfully, this
+//	value is set to 'nil'.
 func (bIPwr BigIntMathPower) BigIntegerPwrIteration(
 	base,
 	basePrecision,
@@ -1209,59 +1242,60 @@ func (bIPwr BigIntMathPower) BigIntegerPwrIteration(
 // ===============
 //
 // base	BigIntFixedDecimal	-	The base which will be raised to the power of 'exponent'.
-//                            The BigIntFixedDecimal type describes a numeric value with
-//                            a fixed number of digits to the right of the decimal place.
-//                            The type includes a *big.Int integer value and a precision
-//                            specification.
 //
-//                        							baseToPwr = base^exponent
+//	    The BigIntFixedDecimal type describes a numeric value with
+//	    a fixed number of digits to the right of the decimal place.
+//	    The type includes a *big.Int integer value and a precision
+//	    specification.
 //
+//								baseToPwr = base^exponent
 //
 // exponent							uint	- This function will raise 'base' to the power of 'exponent'.
 //
-//                        							baseToPwr = base^exponent
-//
+//	baseToPwr = base^exponent
 //
 // internalMaxPrecision uint	- This value is imposed as a limit on the precision of
-//                              internal calculations necessary to compute the result
-//                              of this power operation. If during the calculation an
-//                              interim or intermediate result is generated which exceeds
-//                              this limit, that intermediate result will be rounded to
-//             									'internalMaxPrecision' digits to the right of the decimal
-//                              place. The term precision defines the number of digits to
-// 															the right of the decimal place.
 //
-//                              If 'internalMaxPrecision' is less than 'outputMaxPrecision',
-//                              'internalMaxPrecision' will be automatically set to a value
-//                              of 'outputMaxPrecision' + 100.
+//	                             internal calculations necessary to compute the result
+//	                             of this power operation. If during the calculation an
+//	                             interim or intermediate result is generated which exceeds
+//	                             this limit, that intermediate result will be rounded to
+//	            									'internalMaxPrecision' digits to the right of the decimal
+//	                             place. The term precision defines the number of digits to
+//																the right of the decimal place.
+//
+//	                             If 'internalMaxPrecision' is less than 'outputMaxPrecision',
+//	                             'internalMaxPrecision' will be automatically set to a value
+//	                             of 'outputMaxPrecision' + 100.
 //
 // outputMaxPrecision		uint	- This value is imposed as a limit on the precision of
-//                              the final calculated result of the power operation.
-// 															If the number of digits to the right of the decimal
-//                              point in the final calculated result exceeds this limit,
-// 															that final result will be rounded to 'outputMaxPrecision'
-//                              digits to the right of the decimal place. The term precision
-// 															defines the number of digits to the right of the decimal
-// 															place.
+//
+//	                             the final calculated result of the power operation.
+//																If the number of digits to the right of the decimal
+//	                             point in the final calculated result exceeds this limit,
+//																that final result will be rounded to 'outputMaxPrecision'
+//	                             digits to the right of the decimal place. The term precision
+//																defines the number of digits to the right of the decimal
+//																place.
 //
 // Return Values
 // =============
 //
 // baseToPwr	BigIntFixedDecimal	-	This function returns the result of 'base' raised
-//                               		to the power of 'exponent'. This result, 'baseToPwr'
-//                                  is returned as a type BigIntFixedDecimal. The BigIntFixedDecimal
-// 																	type describes a numeric value with a fixed number of digits
-// 																	to the right of the decimal place.
 //
-//                                  				baseToPwr = base^exponent
+//	                              		to the power of 'exponent'. This result, 'baseToPwr'
+//	                                 is returned as a type BigIntFixedDecimal. The BigIntFixedDecimal
+//																		type describes a numeric value with a fixed number of digits
+//																		to the right of the decimal place.
 //
+//	                                 				baseToPwr = base^exponent
 func (bIPwr BigIntMathPower) FixedDecimalPwrIteration(
 	base BigIntFixedDecimal,
 	exponent,
 	internalMaxPrecision,
 	outputMaxPrecision uint) (baseToPwr BigIntFixedDecimal) {
 
-	baseToPwr = BigIntFixedDecimal{}.NewZero(0)
+	baseToPwr = new(BigIntFixedDecimal).NewZero(0)
 
 	bigIPwr, bigIPwrPrecision, _ := BigIntMathPower{}.BigIntegerPwrIteration(
 		base.GetInteger(),
@@ -1270,7 +1304,7 @@ func (bIPwr BigIntMathPower) FixedDecimalPwrIteration(
 		big.NewInt(0).SetUint64(uint64(internalMaxPrecision)),
 		big.NewInt(0).SetUint64(uint64(outputMaxPrecision)))
 
-	baseToPwr, _ = BigIntFixedDecimal{}.NewBigIntPrecision(bigIPwr, bigIPwrPrecision)
+	baseToPwr, _ = new(BigIntFixedDecimal).NewBigIntPrecision(bigIPwr, bigIPwrPrecision)
 
 	return baseToPwr
 }
@@ -1286,18 +1320,17 @@ func (bIPwr BigIntMathPower) FixedDecimalPwrIteration(
 // decimal in order to display a correct result. In the following example
 // with base ='3.12' and exponent = '4', this method will return '8'.
 //
-// 		Example: 3.12^4 = 94.75854336 (8-digits to the right of the decimal)
+//	Example: 3.12^4 = 94.75854336 (8-digits to the right of the decimal)
 //
 // The calculated minimum required precision is returned as type 'uint'.
 //
 // If the minimum required precision exceeds the maximum value for type
 // 'uint' (+4,294,967,295, which equals 2^32 − 1), an error message is returned
 // in addition to the maximum uint value (+4,294,967,295).
-//
 func (bIPwr BigIntMathPower) MinimumRequiredPrecision(
 	base, exponent BigIntNum) (uint, error) {
 
-	basePrecision := BigIntNum{}.NewUint(base.GetPrecisionUint(), 0)
+	basePrecision := new(BigIntNum).NewUint(base.GetPrecisionUint(), 0)
 
 	tExponent := exponent.CopyOut()
 
@@ -1321,24 +1354,25 @@ func (bIPwr BigIntMathPower) MinimumRequiredPrecision(
 // =========
 //
 //	base				exponent				maxPrecision	  		result
+//
 // -------			---------  			-------------	 			-------
 //
-//	2							 4								17								16
-//  2							-4								17								 0.0625
-//  3.7						 2.8							30								38.991040735983142451443031376258
-//  3.7						-2.8							32 								 0.02564691737189623971146450249457
+//		2							 4								17								16
+//	 2							-4								17								 0.0625
+//	 3.7						 2.8							30								38.991040735983142451443031376258
+//	 3.7						-2.8							32 								 0.02564691737189623971146450249457
+//
 // -2							-3.8							32								 0.07179364718731468792491418417362
 // -2              3.8              30								13.928809012737986226180320279676
 //
 // The return value, a type BigIntNum, represents the result of the base^exponent operation described above.
 // This returned BigIntNum 'result' will contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter,'base'.
-//
 func (bIPwr BigIntMathPower) Pwr(base, exponent BigIntNum, maxPrecision uint) (BigIntNum, error) {
 
 	ePrefix := "BigIntMathPower.Pwr() "
 
-	result := BigIntNum{}.NewWithNumSeps(base.GetNumericSeparatorsDto())
+	result := new(BigIntNum).NewWithNumSeps(base.GetNumericSeparatorsDto())
 	var err error
 
 	if base.IsZero() {
@@ -1347,12 +1381,12 @@ func (bIPwr BigIntMathPower) Pwr(base, exponent BigIntNum, maxPrecision uint) (B
 	}
 
 	if exponent.IsZero() {
-		return BigIntNum{}.NewOne(0), nil
+		return new(BigIntNum).NewOne(0), nil
 	}
 
 	numSeps := base.GetNumericSeparatorsDto()
 
-	bigOne := BigIntNum{}.NewOne(exponent.GetPrecisionUint())
+	bigOne := new(BigIntNum).NewOne(exponent.GetPrecisionUint())
 
 	if exponent.Equal(bigOne) {
 		result = base.CopyOut()
@@ -1366,7 +1400,7 @@ func (bIPwr BigIntMathPower) Pwr(base, exponent BigIntNum, maxPrecision uint) (B
 			result, err = bIPwr.bigIntNumRaiseToPositiveIntegerPower(base, exponent)
 
 			if err != nil {
-				return BigIntNum{}.NewZero(0),
+				return new(BigIntNum).NewZero(0),
 					fmt.Errorf(ePrefix+
 						"Error returned by bIPwr.bigIntNumRaiseToPositiveIntegerPower("+
 						"base, exponent, maxPrecision) "+
@@ -1379,7 +1413,7 @@ func (bIPwr BigIntMathPower) Pwr(base, exponent BigIntNum, maxPrecision uint) (B
 			result, err = bIPwr.bigIntNumRaiseToNegativeIntegerPower(base, exponent, maxPrecision)
 
 			if err != nil {
-				return BigIntNum{}.NewZero(0),
+				return new(BigIntNum).NewZero(0),
 					fmt.Errorf(ePrefix+"Error returned by bIPwr.bigIntNumRaiseToNegativeIntegerPower("+
 						"base, exponent, maxPrecision) "+
 						"base='%v' exponent='%v' maxPrecision='%v' Error='%v' ",
@@ -1431,7 +1465,6 @@ func (bIPwr BigIntMathPower) Pwr(base, exponent BigIntNum, maxPrecision uint) (B
 // If 'exponent' is both a negative number and a fractional number, this method proceeds to
 // raise input parameter 'base' to the power of 'exponent' and return the result as a BigIntNum
 // type.
-//
 func (bIPwr BigIntMathPower) bigIntNumRaiseToNegativeFractionalPower(
 	base,
 	exponent BigIntNum,
@@ -1486,7 +1519,6 @@ func (bIPwr BigIntMathPower) bigIntNumRaiseToNegativeFractionalPower(
 // If 'exponent' is both a positive number and a fractional number, this method proceeds to
 // raise input parameter 'base' to the power of 'exponent' and return the result as a BigIntNum
 // type.
-//
 func (bIPwr BigIntMathPower) bigIntNumRaiseToPositiveFractionalPower(
 	base,
 	exponent BigIntNum,
@@ -1517,30 +1549,30 @@ func (bIPwr BigIntMathPower) bigIntNumRaiseToPositiveFractionalPower(
 
 	ratExponent := big.NewRat(1, 1).SetFrac(exponent.bigInt, scaleFactor)
 
-	bINumNumerator := BigIntNum{}.NewBigInt(ratExponent.Num(), 0)
+	bINumNumerator := new(BigIntNum).NewBigInt(ratExponent.Num(), 0)
 
 	pwr1Result, err := bIPwr.bigIntNumRaiseToPositiveIntegerPower(base, bINumNumerator)
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+"Error returned by bIPwr.raiseToPositive"+
 				"IntegerPower(base, bINumNumerator)"+
 				"base='%v' bINumNumerator='%v' Error='%v' \n",
 				base.GetNumStr(), bINumNumerator.GetNumStr(), err.Error())
 	}
 
-	nthRoot := BigIntNum{}.NewBigInt(ratExponent.Denom(), 0)
+	nthRoot := new(BigIntNum).NewBigInt(ratExponent.Denom(), 0)
 
 	// If nthRoot is zero, the result will always be '1'
 	if nthRoot.IsZero() {
-		return BigIntNum{}.NewOne(maxPrecision), nil
+		return new(BigIntNum).NewOne(maxPrecision), nil
 	}
 
-	bigINumOne := BigIntNum{}.NewOne(0)
+	bigINumOne := new(BigIntNum).NewOne(0)
 
 	// Error if nthRoot == 1
 	if nthRoot.Cmp(bigINumOne) == 0 {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			errors.New(ePrefix +
 				"Error - Input Parameter 'nthRoot' INVALID! 'nthRoot' cannot equal 1.\n")
 	}
@@ -1550,24 +1582,26 @@ func (bIPwr BigIntMathPower) bigIntNumRaiseToPositiveFractionalPower(
 		isEvenNum, err := nthRoot.IsEvenNumber()
 
 		if err != nil {
-			return BigIntNum{}.NewZero(0),
+			return new(BigIntNum).NewZero(0),
 				fmt.Errorf(ePrefix+
 					"Error returned by nthRoot.IsEvenNumber() "+
 					"nthRoot='%v' Error='%v'\n", nthRoot.GetNumStr(), err.Error())
 		}
 
 		if isEvenNum {
-			return BigIntNum{}.NewZero(0),
+			return new(BigIntNum).NewZero(0),
 				errors.New(ePrefix +
 					"INVALID ENTRY - Cannot calculate nthRoot of a negative number when nthRoot is even. \n")
 		}
 
 	}
 
-	biNumResult, err := BigIntMathNthRoot{}.GetNthRoot(pwr1Result, nthRoot, maxPrecision)
+	var biNumResult BigIntNum
+
+	biNumResult, err = BigIntMathNthRoot{}.GetNthRoot(pwr1Result, nthRoot, maxPrecision)
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by dBigIntMathNthRoot{}.OriginalNthRoot(...) "+
 				"Error='%v'", err.Error())
@@ -1583,7 +1617,6 @@ func (bIPwr BigIntMathPower) bigIntNumRaiseToPositiveFractionalPower(
 // If 'exponent' is both a negative number and an integer number, this method proceeds to
 // raise input parameter 'base' to the power of 'exponent' and return the result as a BigIntNum
 // type.
-//
 func (bIPwr BigIntMathPower) bigIntNumRaiseToNegativeIntegerPower(
 	base,
 	exponent BigIntNum,
@@ -1613,7 +1646,7 @@ func (bIPwr BigIntMathPower) bigIntNumRaiseToNegativeIntegerPower(
 
 	result := big.NewInt(0).Exp(base.bigInt, exponent.absBigInt, nil)
 
-	bINumResult1 := BigIntNum{}.NewBigInt(result, newPrecision)
+	bINumResult1 := new(BigIntNum).NewBigInt(result, newPrecision)
 
 	inverseResult, err := bINumResult1.GetInverse(maxPrecision)
 
@@ -1634,19 +1667,19 @@ func (bIPwr BigIntMathPower) bigIntNumRaiseToNegativeIntegerPower(
 // If the exponent is both positive and an integer number, this method proceeds to raise the 'base'
 // parameter to the power of 'exponent' and returns the result as a 'BigIntNum' type.
 //
-//	Examples:
-//  =========
+//		Examples:
+//	 =========
 //
-//	base^exponent = result
+//		base^exponent = result
 //
-//	Base			Exponent		Result
-//	 2					2						 4
-//   3					4						81
-//   4.2				3						74.088
-// 	10					3					1000
-//  -4.2				3					 -74.088
-//	-2.9				4					  70.7281
-//  -2          3.8
+//		Base			Exponent		Result
+//		 2					2						 4
+//	  3					4						81
+//	  4.2				3						74.088
+//		10					3					1000
+//	 -4.2				3					 -74.088
+//		-2.9				4					  70.7281
+//	 -2          3.8
 func (bIPwr BigIntMathPower) bigIntNumRaiseToPositiveIntegerPower(
 	base,
 	exponent BigIntNum) (BigIntNum, error) {
@@ -1675,7 +1708,7 @@ func (bIPwr BigIntMathPower) bigIntNumRaiseToPositiveIntegerPower(
 
 	result := big.NewInt(0).Exp(base.bigInt, exponent.bigInt, nil)
 
-	return BigIntNum{}.NewBigInt(result, newPrecision), nil
+	return new(BigIntNum).NewBigInt(result, newPrecision), nil
 }
 
 // computeInternalPrecision - Returns computed internal precision for variables used

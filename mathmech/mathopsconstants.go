@@ -1391,6 +1391,7 @@ func InitializeEulersNumber() {
 	xEuler.RoundToDecPlace(1024)
 
 	eulersNumber1k = new(FixedDecimalReadOnly).NewFixedDecimal(xEuler)
+
 	if !eulersNumber1k.IsValid() {
 		erx := ePrefix + "eulersNumber1k object INVALID!"
 		panic(erx)

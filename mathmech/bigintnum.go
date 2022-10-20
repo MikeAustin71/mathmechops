@@ -7,87 +7,6 @@ import (
 	"math/big"
 )
 
-type BigIntNumReadOnly struct {
-	bigIntNum BigIntNum
-}
-
-// GetIntegerValue - Returns all of the numeric digits in the
-// base BigIntNum as a *big.Int integer value
-func (birO *BigIntNumReadOnly) GetIntegerValue() *big.Int {
-
-	return birO.bigIntNum.GetIntegerValue()
-}
-
-// GetPrecisionUint - Returns the precision of the underlying
-// BigIntNum as a type uint.
-func (birO *BigIntNumReadOnly) GetPrecisionUint() uint {
-
-	return birO.bigIntNum.GetPrecisionUint()
-}
-
-// GetBigIntNum - Returns a deep copy of the underlying
-// BigIntNum.
-func (birO *BigIntNumReadOnly) GetBigIntNum() BigIntNum {
-
-	return birO.bigIntNum.CopyOut()
-}
-
-// GetFixedDecimal - Returns a deep copy of the underlying BigIntNum
-// numeric value as a type BigIntFixedDecimal
-func (birO *BigIntNumReadOnly) GetFixedDecimal() BigIntFixedDecimal {
-
-	return birO.bigIntNum.GetBigIntFixedDecimal()
-}
-
-// NewBigIntNum - Receives a BigIntNum parameter and returns a new BigIntNumReadOnly
-// instance.
-func (birO BigIntNumReadOnly) NewBigIntNum(biNum BigIntNum) BigIntNumReadOnly {
-
-	birO2 := BigIntNumReadOnly{}
-	birO2.bigIntNum = BigIntNum{}.NewZero(0)
-	birO2.bigIntNum.CopyIn(biNum)
-	return birO2
-}
-
-// NewBigIntNum - Receives a BigIntFixedDecimal parameter and returns a new
-// BigIntNumReadOnly instance.
-func (birO BigIntNumReadOnly) NewFixedDecimal(fixedDec BigIntFixedDecimal) BigIntNumReadOnly {
-
-	birO2 := BigIntNumReadOnly{}
-	birO2.bigIntNum = BigIntNum{}.NewBigIntFixedDecimal(fixedDec)
-	return birO2
-}
-
-// NewNumStr - Receives a number string as input and returns
-// a new BigIntNumReadOnly instance.
-//
-// This method assumes that the input parameter 'numStr' is a string
-// of numeric digits which may be delimited by default USA numeric
-// separators. Default USA numeric separators are defined as:
-//
-//	 	decimal separator = '.'
-//	   thousands separator = ','
-//			currency symbol = '$'
-func (birO BigIntNumReadOnly) NewNumStr(numStr string) (BigIntNumReadOnly, error) {
-
-	ePrefix := "BigIntNumReadOnly.NewNumStr() "
-
-	readOnly, err := BigIntNum{}.NewNumStr(numStr)
-
-	if err != nil {
-		return BigIntNumReadOnly{},
-			fmt.Errorf(ePrefix+"Error returned by BigIntNum{}.NewNumStr(numStr). "+
-				"Error='%v' ", err.Error())
-	}
-
-	biRo := BigIntNumReadOnly{}
-
-	biRo.bigIntNum = BigIntNum{}.NewZero(0)
-	biRo.bigIntNum.CopyIn(readOnly)
-
-	return biRo, nil
-}
-
 //	BigIntNum
 //
 //	Wraps a *big.Int integer and its associated precision
@@ -152,7 +71,7 @@ func (bNum *BigIntNum) Ceiling() BigIntNum {
 	}
 
 	if bNum.IsZero() {
-		return BigIntNum{}.NewBigInt(big.NewInt(0), 0)
+		return new(BigIntNum).NewBigInt(big.NewInt(0), 0)
 	}
 
 	if bNum.precision == 0 {
@@ -169,11 +88,11 @@ func (bNum *BigIntNum) Ceiling() BigIntNum {
 	if bNum.sign > 0 {
 		// bNum is positive
 		absQuotient = big.NewInt(0).Add(absQuotient, big.NewInt(1))
-		return BigIntNum{}.NewBigInt(absQuotient, 0)
+		return new(BigIntNum).NewBigInt(absQuotient, 0)
 	}
 
 	// bNum is negative
-	return BigIntNum{}.NewBigInt(big.NewInt(0).Neg(absQuotient), 0)
+	return new(BigIntNum).NewBigInt(big.NewInt(0).Neg(absQuotient), 0)
 }
 
 // ChangeSign - Changes the sign of the current BigIntNum value.
@@ -228,9 +147,10 @@ func (bNum *BigIntNum) Cmp(bigIntNum BigIntNum) int {
 		bNum.SetBigInt(big.NewInt(0), bNum.precision)
 	}
 
-	bigIntNum.IsValid("")
+	_ = bigIntNum.IsValid("")
 
 	b1Sign := bNum.GetSign()
+
 	b2Sign := bigIntNum.GetSign()
 
 	if b1Sign != b2Sign {
@@ -265,7 +185,7 @@ func (bNum *BigIntNum) CmpBigInt(bigIntNum BigIntNum) int {
 		bNum.SetBigInt(big.NewInt(0), bNum.precision)
 	}
 
-	bigIntNum.IsValid("")
+	_ = bigIntNum.IsValid("")
 
 	return bNum.bigInt.Cmp(bigIntNum.bigInt)
 
@@ -275,7 +195,7 @@ func (bNum *BigIntNum) CmpBigInt(bigIntNum BigIntNum) int {
 // copies the value into the current BigIntNum instance.
 func (bNum *BigIntNum) CopyIn(bigN BigIntNum) {
 
-	bigN.IsValid("")
+	_ = bigN.IsValid("")
 
 	bNum.bigInt = big.NewInt(0).Set(bigN.bigInt)
 	bNum.absBigInt = big.NewInt(0).Set(bigN.absBigInt)
@@ -296,11 +216,16 @@ func (bNum *BigIntNum) CopyOut() BigIntNum {
 		bNum.SetBigInt(big.NewInt(0), bNum.precision)
 	}
 
-	b2 := BigIntNum{}.NewBigInt(big.NewInt(0).Set(bNum.bigInt), bNum.precision)
+	b2 := new(BigIntNum).NewBigInt(big.NewInt(0).Set(bNum.bigInt), bNum.precision)
+
 	b2.decimalSeparator = bNum.decimalSeparator
+
 	b2.thousandsSeparator = bNum.thousandsSeparator
+
 	b2.currencySymbol = bNum.currencySymbol
+
 	b2.numberOfExpectedDigits = big.NewInt(0).Set(bNum.numberOfExpectedDigits)
+
 	return b2
 }
 
@@ -316,7 +241,7 @@ func (bNum *BigIntNum) Decrement() {
 		bNum.SetBigInt(big.NewInt(0), bNum.precision)
 	}
 
-	biNumOne := BigIntNum{}.NewOne(bNum.precision)
+	biNumOne := new(BigIntNum).NewOne(bNum.precision)
 
 	bPair := BigIntPair{}.NewBigIntNum(bNum.CopyOut(), biNumOne)
 
@@ -392,7 +317,9 @@ func (bNum *BigIntNum) DivideByFive(
 		BigIntMathDivide{}.BigIntNumDivideByFiveFracQuo(bNum.CopyOut(), maxPrecision)
 
 	if errx != nil {
-		fracQuotient = BigIntNum{}.New()
+
+		fracQuotient = new(BigIntNum).New()
+
 		err = fmt.Errorf(ePrefix+"Error returned by "+
 			"BigIntMathDivide{}.BigIntNumDivideByFiveFracQuo(bNum.CopyOut(), maxPrecision) "+
 			"bNum='%v' Error='%v' \n",
@@ -438,7 +365,8 @@ func (bNum *BigIntNum) DivideByTen(
 		BigIntMathDivide{}.BigIntNumDivideByTenFracQuo(bNum.CopyOut(), maxPrecision)
 
 	if errx != nil {
-		fracQuotient = BigIntNum{}.New()
+		fracQuotient = new(BigIntNum).New()
+
 		err = fmt.Errorf(ePrefix+"Error returned by "+
 			"BigIntMathDivide{}.BigIntNumDivideByTenFracQuo(bNum.CopyOut(), maxPrecision) "+
 			"bNum='%v' Error='%v' \n",
@@ -470,7 +398,7 @@ func (bNum *BigIntNum) DivideByTenToPower(exponent uint) {
 
 	newPrecision := bNum.precision + exponent
 
-	result := BigIntNum{}.NewBigInt(bNum.bigInt, newPrecision)
+	result := new(BigIntNum).NewBigInt(bNum.bigInt, newPrecision)
 
 	bNum.CopyIn(result)
 }
@@ -507,7 +435,9 @@ func (bNum *BigIntNum) DivideByThree(
 		BigIntMathDivide{}.BigIntNumDivideByThreeFracQuo(bNum.CopyOut(), maxPrecision)
 
 	if errx != nil {
-		fracQuotient = BigIntNum{}.New()
+
+		fracQuotient = new(BigIntNum).New()
+
 		err = fmt.Errorf(ePrefix+"Error returned by "+
 			"BigIntMathDivide{}.BigIntNumDivideByThreeFracQuo(bNum.CopyOut(), maxPrecision) "+
 			"bNum='%v' Error='%v' \n",
@@ -554,7 +484,9 @@ func (bNum *BigIntNum) DivideByTwo(
 		BigIntMathDivide{}.BigIntNumDivideByTwoFracQuo(bNum.CopyOut(), maxPrecision)
 
 	if errx != nil {
-		fracQuotient = BigIntNum{}.New()
+
+		fracQuotient = new(BigIntNum).New()
+
 		err = fmt.Errorf(ePrefix+"Error returned by "+
 			"BigIntMathDivide{}.BigIntNumDivideByTwoFracQuo(bNum.CopyOut(), maxPrecision) "+
 			"bNum='%v' Error='%v' \n",
@@ -599,8 +531,11 @@ func (bNum *BigIntNum) DivideByTwoQuoMod(
 		BigIntMathDivide{}.BigIntNumDivideByTwoQuoMod(bNum.CopyOut(), maxPrecision)
 
 	if errx != nil {
-		intQuotient = BigIntNum{}.New()
-		modulo = BigIntNum{}.New()
+
+		intQuotient = new(BigIntNum).New()
+
+		modulo = new(BigIntNum).New()
+
 		err = fmt.Errorf(ePrefix+"Error returned by BigIntMathDivide{}."+
 			"BigIntNumDivideByTwoQuoMod(bNum.CopyOut(), maxPrecision). "+
 			"bNum='%v' Error='%v'\n",
@@ -672,7 +607,7 @@ func (bNum *BigIntNum) EqualValue(b2 BigIntNum) bool {
 		bNum.SetBigInt(big.NewInt(0), bNum.precision)
 	}
 
-	b2.IsValid("")
+	_ = b2.IsValid("")
 
 	difference := BigIntMathSubtract{}.SubtractBigIntNums(
 		bNum.CopyOut(),
@@ -713,8 +648,13 @@ func (bNum *BigIntNum) ExtendPrecision(deltaPrecision uint) {
 
 	// bigInt == zero, set precision an return
 	if bNum.bigInt.Cmp(big.NewInt(0)) == 0 {
-		bNum.CopyIn(BigIntNum{}.NewBigInt(big.NewInt(0), newPrecision))
-		bNum.SetNumericSeparatorsDto(numSeps)
+
+		bNum.CopyIn(
+			new(BigIntNum).NewBigInt(big.NewInt(0),
+				newPrecision))
+
+		_ = bNum.SetNumericSeparatorsDto(numSeps)
+
 		return
 	}
 
@@ -724,33 +664,41 @@ func (bNum *BigIntNum) ExtendPrecision(deltaPrecision uint) {
 
 	bigINum = big.NewInt(0).Mul(bigINum, scaleVal)
 
-	bNum.CopyIn(BigIntNum{}.NewBigInt(bigINum, newPrecision))
-	bNum.SetNumericSeparatorsDto(numSeps)
+	bNum.CopyIn(new(BigIntNum).NewBigInt(bigINum, newPrecision))
+
+	_ = bNum.SetNumericSeparatorsDto(numSeps)
 }
 
-// Floor - returns the greatest integer less than or equal to
-// the numeric value of the current BigIntNum. Reference Wikipedia,
+// Floor
+//
+// Returns the greatest integer less than or equal to the
+// numeric value of the current BigIntNum.
+//
+// Reference Wikipedia:
 // https://en.wikipedia.org/wiki/Floor_and_ceiling_functions
 //
-//							Initial 			Floor
-//	 					 Value				Value
-//							-------      -------
-//	 						5.95					5
-//	 						5.05					5
-//	 						5							5
-//							 -5.05			 	 -6
-//	 						2.4				  	2
-//	 						2.9					 	2
-//							 -2.7				 	 -3
-//							 -2					 	 -2
+//	Initial		Floor
+//	 Value		Value
+//	-------		-------
+//	 5.95		  5
+//	 5.05		  5
+//	 5			  5
+//	-5.05		 -6
+//	 2.4		  2
+//	 2.9		  2
+//	-2.7		 -3
+//	-2			 -2
 func (bNum *BigIntNum) Floor() BigIntNum {
 
 	if bNum.bigInt == nil {
-		bNum.SetBigInt(big.NewInt(0), bNum.precision)
+
+		bNum.SetBigInt(
+			big.NewInt(0),
+			bNum.precision)
 	}
 
 	if bNum.IsZero() {
-		return BigIntNum{}.NewBigInt(big.NewInt(0), 0)
+		return new(BigIntNum).NewBigInt(big.NewInt(0), 0)
 	}
 
 	if bNum.precision == 0 {
@@ -766,14 +714,15 @@ func (bNum *BigIntNum) Floor() BigIntNum {
 
 	if bNum.sign > 0 {
 		// bNum is positive
-		return BigIntNum{}.NewBigInt(absQuotient, 0)
+		return new(BigIntNum).NewBigInt(absQuotient, 0)
 	}
 
 	// bNum is negative
 	absQuotient = big.NewInt(0).Add(absQuotient, big.NewInt(1))
 
-	return BigIntNum{}.NewBigInt(
-		big.NewInt(0).Neg(absQuotient), 0)
+	return new(BigIntNum).NewBigInt(
+		big.NewInt(0).Neg(absQuotient),
+		0)
 }
 
 // FormatCurrencyStr - Formats the current BigIntNum numeric value as a currency string.
@@ -1374,21 +1323,33 @@ func (bNum *BigIntNum) GetAbsoluteNumStr() string {
 	return biNum.FormatNumStr(LEADMINUSNEGVALFMTMODE)
 }
 
-// GetAbsoluteBigIntNumValue - Returns the absolute numeric value
-// of this BigIntNum instance as a new BigIntNum Type.
+// GetAbsoluteBigIntNumValue
 //
-// If the current BigIntNum value is'-123.456', this method will
-// return '123.456'.
+// Returns the absolute numeric value of this BigIntNum
+// instance as a new BigIntNum Type.
 //
-// If the current BigIntNum value is'123.456', this method will
-// return '123.456'.
+// If the current BigIntNum value is '-123.456', this
+// method will return '123.456'.
+//
+// If the current BigIntNum value is '123.456',
+// this method will return '123.456'.
 func (bNum *BigIntNum) GetAbsoluteBigIntNumValue() BigIntNum {
 
-	return BigIntNum{}.NewBigInt(bNum.absBigInt, bNum.precision)
+	return new(BigIntNum).NewBigInt(
+		bNum.absBigInt,
+		bNum.precision)
 }
 
-// GetAbsoluteBigIntValue - returns the absolute value of the
-// *big.Int value encapsulated by the current BigIntNum.
+// GetAbsoluteBigIntValue
+//
+// Returns the absolute value of the *big.Int value
+// encapsulated by the current BigIntNum.
+//
+// If the current BigIntNum value is '-123456', this
+// method will return '123456'.
+//
+// If the current BigIntNum value is '123.456',
+// this method will return '123456'.
 func (bNum *BigIntNum) GetAbsoluteBigIntValue() *big.Int {
 
 	return big.NewInt(0).Set(bNum.absBigInt)
@@ -1414,25 +1375,34 @@ func (bNum *BigIntNum) GetBigInt() (*big.Int, error) {
 	return big.NewInt(0).Set(bNum.bigInt), nil
 }
 
-// GetBigIntFixedDecimal - returns a BigIntFixedDecimal instance
-// which contains a copy of the current BigIntNum values.
+// GetBigIntFixedDecimal
+//
+// Returns a BigIntFixedDecimal instance which contains a
+// deep copy of the current BigIntNum values.
 func (bNum *BigIntNum) GetBigIntFixedDecimal() BigIntFixedDecimal {
-	return BigIntFixedDecimal{}.New(bNum.bigInt, bNum.precision)
+
+	return new(BigIntFixedDecimal).New(
+		bNum.bigInt,
+		bNum.precision)
 
 }
 
-// GetBigIntNum - Returns a deep copy of the current BigIntNum
-// instance.
+// GetBigIntNum
+//
+// Returns a deep copy of the current BigIntNum instance.
 //
 // The returned BigIntNum will contain numeric separators
-// (decimal separator, thousands separator and currency
-// symbol) copied from the current BigIntNum instance.
+// (decimal separator, integer separator, integer grouping
+// and currency symbol) copied from the current BigIntNum
+// instance.
 //
-// Before returning the new BigIntNum copy, this method performs
-// a validity test on the current BigIntNum instance.
+// Before returning the new BigIntNum copy, this method
+// performs a validity test on the current BigIntNum
+// instance. If the current BigIntNum instance is invalid,
+// an error will be returned.
 //
-// This method is necessary in order to fulfill the requirements
-// of the INumMgr interface.
+// This method is necessary in order to fulfill the
+// requirements of the INumMgr interface.
 func (bNum *BigIntNum) GetBigIntNum() (BigIntNum, error) {
 
 	ePrefix := "BigIntNum.GetBigIntNum() "
@@ -1440,14 +1410,15 @@ func (bNum *BigIntNum) GetBigIntNum() (BigIntNum, error) {
 	err := bNum.IsValid(ePrefix + "BigIntNum INVALID! ")
 
 	if err != nil {
-		return BigIntNum{}.New(), err
+		return new(BigIntNum).New(), err
 	}
 
 	return bNum.CopyOut(), nil
 }
 
-// GetBigRat - Returns the numeric value of the current
-// BigIntNum as a *big.Rat type.
+// GetBigRat
+// Returns the numeric value of the current BigIntNum as a
+// type *big.Rat (Rational Number).
 func (bNum *BigIntNum) GetBigRat() *big.Rat {
 
 	numerator := big.NewInt(0).Set(bNum.bigInt)
@@ -1457,15 +1428,13 @@ func (bNum *BigIntNum) GetBigRat() *big.Rat {
 	return big.NewRat(1, 1).SetFrac(numerator, denominator)
 }
 
-// GetCurrencySymbol - Returns the character currently designated
-// as the currency symbol for this BigIntNum instance.
+// GetCurrencySymbol
 //
-// In the USA, the currency symbol is the dollar sign ('$').
+// Returns the character currently designated as the
+// currency symbol for this BigIntNum instance.
 //
-// For a list of Major Currency Unicode Symbols, see constants
-// located in: MikeAustin71/mathopsgo/mathops/mathopsconstants.go
-//
-// Example: $123.45
+// In the United States, the currency symbol is the
+// dollar sign ('$').
 func (bNum *BigIntNum) GetCurrencySymbol() rune {
 
 	if bNum.currencySymbol == 0 {
@@ -1502,26 +1471,26 @@ func (bNum *BigIntNum) GetExpectedNumberOfDigits() *big.Int {
 	return bNum.numberOfExpectedDigits
 }
 
-// GetFractionalPart - Returns the fractional digits of the
-// current BigIntNum instance as a new BigIntNum instance
+// GetFractionalPart
+//
+// Returns the fractional digits of the current
+// BigIntNum instance as a new BigIntNum instance
 // containing those correctly formatted fractional digits.
 //
-// Examples
-// ========
+// Examples:
 //
-//				 Current
-//				BigIntNum				 		Return
-//	 			Value						  Value
-//				----------				---------
-//
-//	 			123.456						 0.456
-//				 -123.456						-0.456
-//				  123								 0
-//				 -123								 0
+//	Current
+//	BigIntNum		 Return
+//	  Value			  Value
+//	----------		---------
+//	  123.456		  0.456
+//	 -123.456		 -0.456
+//	  123			  0
+//	 -123			  0
 func (bNum *BigIntNum) GetFractionalPart() BigIntNum {
 
 	if bNum.IsZero() {
-		return BigIntNum{}.NewBigInt(big.NewInt(0), 0)
+		return new(BigIntNum).NewBigInt(big.NewInt(0), 0)
 	}
 
 	scaleVal := big.NewInt(0).Exp(big.NewInt(10),
@@ -1529,7 +1498,7 @@ func (bNum *BigIntNum) GetFractionalPart() BigIntNum {
 
 	modulo := big.NewInt(0).Rem(bNum.bigInt, scaleVal)
 
-	return BigIntNum{}.NewBigInt(modulo, bNum.precision)
+	return new(BigIntNum).NewBigInt(modulo, bNum.precision)
 }
 
 // GetInt - Returns a type 'int' containing the 32-big integer
@@ -1570,9 +1539,9 @@ func (bNum *BigIntNum) GetInt() (int, error) {
 //
 // Examples:
 //
-//	Current
+//	 Current
 //	BigIntNum		Return
-//	Value			Value
+//	  Value			Value
 //	----------		---------
 //
 //	 123.456		 123
@@ -1582,7 +1551,7 @@ func (bNum *BigIntNum) GetInt() (int, error) {
 func (bNum *BigIntNum) GetIntegerPart() BigIntNum {
 
 	if bNum.IsZero() {
-		return BigIntNum{}.NewBigInt(big.NewInt(0), 0)
+		return new(BigIntNum).NewBigInt(big.NewInt(0), 0)
 	}
 
 	scaleVal := big.NewInt(0).Exp(big.NewInt(10),
@@ -1590,9 +1559,11 @@ func (bNum *BigIntNum) GetIntegerPart() BigIntNum {
 
 	quotient := big.NewInt(0).Quo(bNum.bigInt, scaleVal)
 
-	return BigIntNum{}.NewBigInt(quotient, 0)
+	return new(BigIntNum).NewBigInt(quotient, 0)
 }
 
+// GetIntegerValue
+//
 // Returns the internal *big.Int number for the current
 // BigIntNum instance.
 func (bNum *BigIntNum) GetIntegerValue() *big.Int {
@@ -1604,11 +1575,13 @@ func (bNum *BigIntNum) GetIntegerValue() *big.Int {
 	return big.NewInt(0).Set(bNum.bigInt)
 }
 
-// GetInverse - Returns the value of one (1) divided by the current
+// GetInverse
+//
+// Returns the value of one (1) divided by the current
 // BigIntNum instance as a new BigIntNum Type.
 func (bNum *BigIntNum) GetInverse(maxPrecision uint) (BigIntNum, error) {
 
-	bINumOne := BigIntNum{}.NewOne(0)
+	bINumOne := new(BigIntNum).NewOne(0)
 
 	result, err := BigIntMathDivide{}.BigIntNumFracQuotient(bINumOne, bNum.CopyOut(), maxPrecision)
 
@@ -1720,7 +1693,11 @@ func (bNum *BigIntNum) GetNumStrDto() (NumStrDto, error) {
 		return NumStrDto{}, err
 	}
 
-	nDto, err := NumStrDto{}.NewBigInt(big.NewInt(0).Set(bNum.bigInt), uint(bNum.precision))
+	var nDto NumStrDto
+
+	nDto, err =
+		NumStrDto{}.NewBigInt(big.NewInt(0).Set(bNum.bigInt),
+			bNum.precision)
 
 	if err != nil {
 		return NumStrDto{}.New(),
@@ -1832,34 +1809,42 @@ func (bNum *BigIntNum) GetSign() int {
 	return bNum.sign
 }
 
-// Returns the the integer value of the current BigIntNum
-// as a signed *big.Int Type.
+// GetSignedBigInt
+//
+// Returns the integer value of the current
+// BigIntNum as a signed *big.Int Type.
 func (bNum *BigIntNum) GetSignedBigInt() *big.Int {
 	return bNum.bigInt
 }
 
-// GetSciNotationNumber - Converts the numeric value of the current
-// BigIntNum instance into scientific notation and returns this value
-// as an instance of type SciNotationNum.
+//	GetSciNotationNumber
 //
-// Input Parameter
-// ===============
+//	Converts the numeric value of the current BigIntNum
+//	instance into scientific notation and returns this
+//	value as an instance of type SciNotationNum.
 //
-// mantissaLen uint	- Specifies the length of the mantissa in the returned
+// ----------------------------------------------------------------
 //
-//											scientific notation string. If the value of 'mantissaLen'
-//											is less than two ('2'), this method will automatically set
-//											the 'mantissaLen' to a default value of two ('2').
+// # Input Parameters
 //
-//											Example Scientific Notation:
-//											----------------------------
+//	mantissaLen			uint
 //
-//	 										scientific notation string: '2.652e+8'
+//		Specifies the length of the mantissa in the returned
+//		scientific notation string.
 //
-//	 										significand = '2.652'
-//	 										significand integer digit = '2'
-//												mantissa		= significand factional digits = '.652'
-//	 										exponent    = '8'  (10^8)
+//		If the value of 'mantissaLen' is less than two ('2'),
+//		this method will automatically set the 'mantissaLen'
+//		to a default value of two ('2').
+//
+// ----------------------------------------------------------------
+//
+//	Example Scientific Notation:
+//
+//		scientific notation string: '2.652e+8'
+//		significand = '2.652'
+//		significand integer digit = '2'
+//		mantissa		= significand factional digits = '.652'
+//		exponent    = '8'  (10^8)
 func (bNum *BigIntNum) GetSciNotationNumber(mantissaLen uint) (SciNotationNum, error) {
 
 	ePrefix := "BigIntNum.GetSciNotationNumber() "
@@ -1871,11 +1856,16 @@ func (bNum *BigIntNum) GetSciNotationNumber(mantissaLen uint) (SciNotationNum, e
 	}
 
 	if bNum.IsZero() {
-		sciNotationNum.SetBigIntNumElements(bNum.CopyOut(), BigIntNum{}.NewZero(0))
+
+		_ = sciNotationNum.SetBigIntNumElements(
+			bNum.CopyOut(),
+			new(BigIntNum).NewZero(0))
+
 		return sciNotationNum, nil
 	}
 
-	bigIntMaxUint32 := big.NewInt(0).SetUint64(math.MaxUint32)
+	bigIntMaxUint32 :=
+		big.NewInt(0).SetUint64(math.MaxUint32)
 
 	bINumIntPart := bNum.GetIntegerPart()
 
@@ -1897,10 +1887,11 @@ func (bNum *BigIntNum) GetSciNotationNumber(mantissaLen uint) (SciNotationNum, e
 
 		uintMagnitude := uint(magnitudeBigInt.Uint64())
 
-		newBINum := BigIntNum{}.NewBigInt(bNum.bigInt, bNum.precision+uintMagnitude)
+		newBINum := new(BigIntNum).NewBigInt(bNum.bigInt, bNum.precision+uintMagnitude)
 
-		sciNotationNum.SetBigIntNumElements(
-			newBINum, BigIntNum{}.NewBigInt(magnitudeBigInt, 0))
+		_ = sciNotationNum.SetBigIntNumElements(
+			newBINum,
+			new(BigIntNum).NewBigInt(magnitudeBigInt, 0))
 
 	} else {
 		// Must be bINumFracPart > 0
@@ -1920,12 +1911,12 @@ func (bNum *BigIntNum) GetSciNotationNumber(mantissaLen uint) (SciNotationNum, e
 
 		uintMagnitude := uint(magnitudeBigInt.Uint64())
 
-		bINumFracPart := BigIntNum{}.NewBigInt(bNum.bigInt, uintMagnitude)
+		bINumFracPart := new(BigIntNum).NewBigInt(bNum.bigInt, uintMagnitude)
 		precisionFrac := int64(uintMagnitude) - int64(bNum.precision)
 
-		bINumScale := BigIntNum{}.NewInt64Exponent(precisionFrac, 0)
+		bINumScale := new(BigIntNum).NewInt64Exponent(precisionFrac, 0)
 
-		sciNotationNum.SetBigIntNumElements(bINumFracPart, bINumScale)
+		_ = sciNotationNum.SetBigIntNumElements(bINumFracPart, bINumScale)
 	}
 
 	sciNotationNum.SetMantissaLength(mantissaLen)
@@ -1933,27 +1924,41 @@ func (bNum *BigIntNum) GetSciNotationNumber(mantissaLen uint) (SciNotationNum, e
 	return sciNotationNum, nil
 }
 
-// GetSciNotationStr - Returns a string expressing the current BigIntNum
-// numerical value as scientific notation.
+//	GetSciNotationStr
 //
-// Input Parameter
-// ===============
+//	Returns a string expressing the current BigIntNum
+//	numerical value as scientific notation.
 //
-// mantissaLen uint	- Specifies the length of the mantissa in the returned
+//	The returned Scientific Notation string is formatted
+//	in E-Notation.
 //
-//											scientific notation string. If the value of 'mantissaLen'
-//											is less than two ('2'), this method will automatically set
-//											the 'mantissaLen' to a default value of two ('2').
+// ----------------------------------------------------------------
 //
-//											Example Scientific Notation:
-//											----------------------------
+// # Reference:
 //
-//	 										scientific notation string: '2.652e+8'
+//	https://en.wikipedia.org/wiki/Scientific_notation#E_notation
 //
-//	 										significand = '2.652'
-//	 										significand integer digit = '2'
-//												mantissa		= significand factional digits = '.652'
-//	 										exponent    = '8'  (10^8)
+// ----------------------------------------------------------------
+//
+// # Input Parameters
+//
+//	mantissaLen			uint
+//
+//		Specifies the length of the mantissa in the returned
+//		scientific notation string. If the value of
+//		'mantissaLen' is less than two ('2'), this method
+//		will automatically set the 'mantissaLen' to a default
+//		value of two ('2').
+//
+// ----------------------------------------------------------------
+//
+//	Example Scientific Notation:
+//
+//		scientific notation string: '2.652e+8'
+//		significand = '2.652'
+//		significand integer digit = '2'
+//		mantissa		= significand factional digits = '.652'
+//		exponent    = '8'  (10^8)
 func (bNum *BigIntNum) GetSciNotationStr(mantissaLen uint) (string, error) {
 
 	ePrefix := "BigIntNum.GetSciNotationStr() "
@@ -1979,17 +1984,22 @@ func (bNum *BigIntNum) GetSciNotationStr(mantissaLen uint) (string, error) {
 	return result, nil
 }
 
-// GetThisPointer - Returns a pointer to the current
-// instance of this BigIntNum.
+// GetThisPointer
+//
+// Returns a pointer to the current instance of this
+// BigIntNum.
 func (bNum *BigIntNum) GetThisPointer() *BigIntNum {
 	return bNum
 }
 
-// GetThousandsSeparator - returns a rune which represents
-// the character currently used to separate thousands in
-// the display of the current BigIntNum instance.
+// GetThousandsSeparator
 //
-// In the USA, the thousands separator is a comma character.
+// Returns a rune which represents the character
+// currently used to separate thousands in the
+// display of the current BigIntNum instance.
+//
+// In the United States (US), the thousands separator
+// is a comma character.
 //
 // Example: 1,000,000,000
 func (bNum *BigIntNum) GetThousandsSeparator() rune {
@@ -2029,10 +2039,12 @@ func (bNum *BigIntNum) GetUInt() (uint, error) {
 	return uint(bNum.bigInt.Uint64()), nil
 }
 
-// Returns the integer value of BigIntNum.bigInt as a  64-bit
-// unsigned integer. If the value of BigIntNum.bigInt exceeds
-// that of the maximum unsigned 64-bit integer value, an error
-// is returned.
+// GetUInt64
+//
+// Returns the integer value of BigIntNum.bigInt as a
+// 64-bit unsigned integer. If the value of
+// BigIntNum.bigInt exceeds that of the maximum unsigned
+// 64-bit integer value, an error will be returned.
 func (bNum *BigIntNum) GetUInt64() (uint64, error) {
 
 	bIntMaxUint64 := big.NewInt(0).SetUint64(uint64(math.MaxUint64))
@@ -2047,36 +2059,42 @@ func (bNum *BigIntNum) GetUInt64() (uint64, error) {
 	return bNum.bigInt.Uint64(), nil
 }
 
-// Inverse - Returns the inverse of the current BigIntNum value.
-// The inverse of the value is equal to one ('1') divided by the
-// numeric value of the current BigIntNum.
+// Inverse
 //
-// The BigIntNum return value for this operation will contain will
-// contain numeric separators (decimal separator, thousands separator
-// and currency symbol) copied from the original BigIntNum instance.
+// Returns the inverse of the current BigIntNum value.
+//
+// The inverse of the value is equal to one ('1') divided
+// by the numeric value of the current BigIntNum.
+//
+// The BigIntNum return value for this operation will
+// contain numeric separators (decimal separator, integer
+// separator, integer grouping and currency symbol)
+// copied from the original BigIntNum instance.
 func (bNum *BigIntNum) Inverse(maxPrecision uint) (BigIntNum, error) {
 
 	ePrefix := "BigIntNum.Inverse() "
 
 	if bNum.IsZero() {
-		return BigIntNum{}.NewZero(0), nil
+		return new(BigIntNum).NewZero(0), nil
 	}
 
-	bIOne := BigIntNum{}.NewOne(0)
+	bIOne := new(BigIntNum).NewOne(0)
 
 	err := bIOne.SetNumericSeparatorsDto(bNum.GetNumericSeparatorsDto())
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by bIOne.SetNumericSeparatorsDto(bNum.GetNumericSeparatorsDto()) "+
 				"Error='%v' \n", err.Error())
 	}
 
-	inverse, err := BigIntMathDivide{}.BigIntNumFracQuotient(bIOne, bNum.CopyOut(), maxPrecision)
+	var inverse BigIntNum
+
+	inverse, err = BigIntMathDivide{}.BigIntNumFracQuotient(bIOne, bNum.CopyOut(), maxPrecision)
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by BigIntMathDivide{}.BigIntNumFracQuotient(...) "+
 				"Error='%v' \n", err.Error())
@@ -2085,20 +2103,22 @@ func (bNum *BigIntNum) Inverse(maxPrecision uint) (BigIntNum, error) {
 	return inverse, nil
 }
 
-// IsEvenNumber - Returns true if the current BigIntNum value is
-// evenly divisible by 2.
+//	IsEvenNumber
 //
-// Even Number Definitions:
+//	Returns true if the current BigIntNum value is evenly
+//	divisible by 2.
+//
+//	Even Number Definitions:
 //
 //	https://www.mathsisfun.com/definitions/even-number.html
 //
-// "In mathematics, parity is the property of an
-// integer's inclusion in one of two categories:
-// even or odd. An integer is even if it is evenly
-// divisible by two and odd if it is not even."
+//	In mathematics, parity is the property of an
+//	integer's inclusion in one of two categories:
+//	even or odd. An integer is even if it is evenly
+//	divisible by two and odd if it is not even."
 //
-// "Examples of even numbers include −4, 0, 82 and 178."
-// In particular, zero is an even number."
+//	"Examples of even numbers include −4, 0, 82 and
+//	178. In particular, zero is an even number."
 //
 // https://en.wikipedia.org/wiki/Parity_(mathematics)
 func (bNum *BigIntNum) IsEvenNumber() (bool, error) {
@@ -2124,17 +2144,17 @@ func (bNum *BigIntNum) IsEvenNumber() (bool, error) {
 	return mod.IsZero(), nil
 }
 
-// Increment - Adds a value of +1 (plus one) to the numeric
-// value of the current BigIntNum instance.
+// Increment
 //
-// The numeric separators (decimal separator, thousands separator
-// and currency symbol) from the original BigIntNum will remain
-// unchanged.
+// Adds a value of +1 (plus one) to the numeric value of
+// the current BigIntNum instance.
 func (bNum *BigIntNum) Increment() {
 
-	biNumOne := BigIntNum{}.NewOne(bNum.precision)
+	biNumOne := new(BigIntNum).NewOne(bNum.precision)
 
-	bPair := BigIntPair{}.NewBigIntNum(bNum.CopyOut(), biNumOne)
+	bPair := BigIntPair{}.NewBigIntNum(
+		bNum.CopyOut(),
+		biNumOne)
 
 	result := BigIntMathAdd{}.AddPair(bPair)
 
@@ -2230,42 +2250,49 @@ func (bNum *BigIntNum) Multiply(multiplicand BigIntNum) (product BigIntNum) {
 //
 //	product = bNum X 5
 //
-// The BigIntNum instance returned by this method will contain numeric
-// separators (decimal separator, thousands separator and currency
-// symbol) copied from the original BigIntNum instance.
+//
+//	The BigIntNum instance returned by this method will
+//	contain numeric separators (decimal separator, integer
+//	separator, integer grouping and currency symbol)
+//	copied from the original BigIntNum instance.
 func (bNum *BigIntNum) MultiplyByFive() BigIntNum {
 
 	return BigIntMathMultiply{}.MultiplyBigIntNumByFive(bNum.CopyOut())
 }
 
-// MultiplyByTen - Multiplies the numerical value of the current BigIntNum
-// instance times ten (10). The product is returned as a BigIntNum.
+// MultiplyByTen
 //
-//	product = bNum X 10
+// Multiplies the numerical value of the current BigIntNum
+// instance times ten (10). The product is returned as a
+// BigIntNum.
 //
-// The BigIntNum instance returned by this method will contain numeric
-// separators (decimal separator, thousands separator and currency
-// symbol) copied from the original BigIntNum instance.
+// product = bNum X 10
+//
+// The BigIntNum instance returned by this method will
+// contain numeric separators (decimal separator, integer
+// separator, integer grouping and currency symbol)
+// copied from the original BigIntNum instance.
 func (bNum *BigIntNum) MultiplyByTen() BigIntNum {
 
 	return BigIntMathMultiply{}.MultiplyBigIntNumByTen(bNum.CopyOut())
 }
 
-// MultiplyByTenToPower - Multiplies the numerical value of the current BigIntNum
-// instance times ten to the power of 'exponent' (10^exponent). The product is
-// returned as the new value for the current BigIntNum. The original value of the
-// BigIntNum instance will be overwritten and destroyed.
+// MultiplyByTenToPower
+//
+// Multiplies the numerical value of the current
+// BigIntNum instance times ten to the power of
+// 'exponent' (10^exponent). The product is returned
+// as the new value for the current BigIntNum. The
+// original value of the BigIntNum instance will be
+// overwritten and destroyed.
 //
 //	bNum = bNum X 10^exponent
-//
-// The BigIntNum instance generated by this method will contain numeric separators
-// (decimal separator, thousands separator and currency symbol) copied from the
-// original BigIntNum instance.
 func (bNum *BigIntNum) MultiplyByTenToPower(exponent uint) {
 
 	if bNum.precision >= exponent {
 
-		bNum.CopyIn(BigIntNum{}.NewBigInt(bNum.bigInt, bNum.precision-exponent))
+		bNum.CopyIn(
+			new(BigIntNum).NewBigInt(bNum.bigInt, bNum.precision-exponent))
 
 	} else {
 		// exponent > bNum.precision
@@ -2274,41 +2301,45 @@ func (bNum *BigIntNum) MultiplyByTenToPower(exponent uint) {
 
 		newVal := big.NewInt(0).Mul(bNum.bigInt, scaleVal)
 
-		bNum.CopyIn(BigIntNum{}.NewBigInt(newVal, 0))
+		bNum.CopyIn(
+			new(BigIntNum).NewBigInt(newVal, 0))
 	}
 
 	return
 }
 
-// MultiplyByTenToPower - Performs three operations on the current BigIntNum instance.
+// MultiplyByTenToPowerAdd
 //
-// (1) 	First, the method multiplies the numerical value of the current BigIntNum
+// Performs three operations on the current BigIntNum
+// instance.
 //
-//	instance times ten to the power of 'exponent' (10^exponent).
+// (1)	First, the method multiplies the numerical value
 //
-//								bNum1 = bNum X 10^exponent
+//	of the current BigIntNum instance times ten to the
+//	power of 'exponent' (10^exponent).
 //
-// (2)  Second, the method adds input parameter 'addend' to the product generated
+//		bNum1 = bNum X 10^exponent
 //
-//	by operation (1), above.
+// (2)	Second, the method adds input parameter 'addend' to
 //
-//								bNum2 = bNum1 + 'addend'
+//	the product generated by operation (1), above.
 //
-// (3)  Third and finally, the original value of the current BigIntNum instance
+//		bNum2 = bNum1 + 'addend'
 //
-//	will be overwritten and replaced by the 'bNum2' value generated in
-//	operation (2), above.
+// (3)	Third and finally, the original value of the current
 //
-// The BigIntNum instance generated by this method will contain numeric separators
-// (decimal separator, thousands separator and currency symbol) copied from the
-// original BigIntNum instance.
-func (bNum *BigIntNum) MultiplyByTenToPowerAdd(exponent uint, addend BigIntNum) {
+//	BigIntNum instance will be overwritten and replaced
+//	by the 'bNum2' value generated in operation (2),
+//	above.
+func (bNum *BigIntNum) MultiplyByTenToPowerAdd(
+	exponent uint,
+	addend BigIntNum) {
 
 	var bx BigIntNum
 
 	if bNum.precision >= exponent {
 
-		bx = BigIntNum{}.NewBigInt(bNum.bigInt, bNum.precision-exponent)
+		bx = new(BigIntNum).NewBigInt(bNum.bigInt, bNum.precision-exponent)
 
 	} else {
 		// exponent > bNum.precision
@@ -2317,7 +2348,7 @@ func (bNum *BigIntNum) MultiplyByTenToPowerAdd(exponent uint, addend BigIntNum) 
 
 		newVal := big.NewInt(0).Mul(bNum.bigInt, scaleVal)
 
-		bx = BigIntNum{}.NewBigInt(newVal, 0)
+		bx = new(BigIntNum).NewBigInt(newVal, 0)
 	}
 
 	bNum.CopyIn(BigIntMathAdd{}.AddBigIntNums(bx, addend))
@@ -2325,27 +2356,35 @@ func (bNum *BigIntNum) MultiplyByTenToPowerAdd(exponent uint, addend BigIntNum) 
 	return
 }
 
-// MultiplyByThree - Multiplies the numerical value of the current BigIntNum
-// instance times three (3). The product is returned as a BigIntNum.
+// MultiplyByThree
+//
+// Multiplies the numerical value of the current
+// BigIntNum instance times three (3). The product is
+// returned as a new instance of BigIntNum.
 //
 //	product = bNum X 3
 //
-// The BigIntNum instance returned by this method will contain numeric
-// separators (decimal separator, thousands separator and currency
-// symbol) copied from the original BigIntNum instance.
+// The BigIntNum instance returned by this method will
+// contain numeric separators (decimal separator, integer
+// separator, integer grouping and currency symbol)
+// copied from the original BigIntNum instance.
 func (bNum *BigIntNum) MultiplyByThree() BigIntNum {
 
 	return BigIntMathMultiply{}.MultiplyBigIntNumByThree(bNum.CopyOut())
 }
 
-// MultiplyByTwo - Multiplies the numerical value of the current BigIntNum
-// instance times two (2). The product is returned as a BigIntNum.
+// MultiplyByTwo
+//
+// Multiplies the numerical value of the current
+// BigIntNum instance times two (2). The product
+// is returned as a new instance of BigIntNum.
 //
 //	product = bNum X 2
 //
-// The BigIntNum instance returned by this method will contain numeric
-// separators (decimal separator, thousands separator and currency
-// symbol) copied from the original BigIntNum instance.
+// The BigIntNum instance returned by this method will
+// contain numeric separators (decimal separator, integer
+// separator, integer grouping and currency symbol)
+// copied from the original BigIntNum instance.
 func (bNum *BigIntNum) MultiplyByTwo() BigIntNum {
 
 	return BigIntMathMultiply{}.MultiplyBigIntNumByTwo(bNum.CopyOut())
@@ -2373,7 +2412,7 @@ func (bNum *BigIntNum) NewWithNumSeps(numSeps NumericSeparatorDto) BigIntNum {
 
 	b := BigIntNum{}
 	b.Empty()
-	b.SetNumericSeparatorsDto(numSeps)
+	_ = b.SetNumericSeparatorsDto(numSeps)
 
 	return b
 }
@@ -2490,7 +2529,7 @@ func (bNum *BigIntNum) NewBigIntPrecision(bigInt, precision *big.Int) (BigIntNum
 	}
 
 	if precision.Cmp(big.NewInt(0)) == -1 {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error: Input parameter 'precision' IS LESS THAN ZERO! "+
 				"precision='%v' ", precision.Text(10))
@@ -2499,7 +2538,7 @@ func (bNum *BigIntNum) NewBigIntPrecision(bigInt, precision *big.Int) (BigIntNum
 	maxUint32 := big.NewInt(0).SetUint64(uint64(math.MaxUint32))
 
 	if precision.Cmp(maxUint32) == 1 {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error: Input parameter 'precision' exceeds maximum limit of '4,294,967,295'! "+
 				"precision='%v' ", precision.Text(10))
@@ -2569,13 +2608,13 @@ func (bNum *BigIntNum) NewBigIntExponent(bigI *big.Int, exponent int) BigIntNum 
 //		precision will never be greater than 'maxPrecision'
 //		for type big.Float; however, actual precision may be
 //		less than 'maxPrecision'.
-func (bNum BigIntNum) NewBigFloat(
+func (bNum *BigIntNum) NewBigFloat(
 	bigFloat *big.Float,
 	maxPrecision uint) (BigIntNum, error) {
 
 	ePrefix := "BigIntNumNewFloat64() "
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	err := b.SetBigFloat(bigFloat, maxPrecision)
 
@@ -2619,13 +2658,13 @@ func (bNum *BigIntNum) NewBigIntFixedDecimal(fd BigIntFixedDecimal) BigIntNum {
 func (bNum *BigIntNum) NewFromIntFracStrings(
 	intStr, fracStr string, signVal int) (BigIntNum, error) {
 
-	b2 := BigIntNum{}.NewZero(0)
+	b2 := new(BigIntNum).NewZero(0)
 
 	err := b2.SetIntFracStrings(intStr, fracStr, signVal)
 
 	if err != nil {
 		ePrefix := "BigIntNum.NewFromIntFracStrings() "
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by b2.SetIntFracStrings(intStr, fracStr, signVal). "+
 				"Error='%v' \n", err.Error())
@@ -2661,7 +2700,7 @@ func (bNum *BigIntNum) NewFromIntFracStrings(
 func (bNum *BigIntNum) NewFloat32(f32 float32, maxPrecision uint) (BigIntNum, error) {
 	ePrefix := "BigIntNumNewFloat32() "
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	err := b.SetFloat32(f32, maxPrecision)
 
@@ -2769,217 +2808,236 @@ func (bNum *BigIntNum) NewInt(intNum int, precision uint) BigIntNum {
 //
 //	exponent			int
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+// ----------------------------------------------------------------
 //
-//		biNum := BigIntNum{}.NewIntExponent(123456, -3)
-//	 -- biNum is now equal to "123.456", precision = 3
+// # Usage
 //
-//		biNum := BigIntNum{}.NewIntExponent(123456, 3)
-//	 -- biNum is now equal to "123456.000", precision = 3
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
 //
-// Examples:
-// ---------
+//		biNum := new(BigIntNum).NewIntExponent(123456, -3)
+//	 	biNum is now equal to "123.456", precision = 3
 //
-// intNum			 exponent			  BigIntNum Result
+//		biNum := new(BigIntNum).NewIntExponent(123456, 3)
+//	 	biNum is now equal to "123456.000", precision = 3
 //
-//		 123456		 		  -3							123.456
-//		 123456		 		   3							123456.000
-//	  123456          0              123456
+//	Examples:
+//
+//							BigIntNum
+//		intNum	exponent	  Result
+//		------	--------	---------
+//		123456	  -3		123.456
+//		123456	   3		123456.000
+//		123456	   0		123456
 func (bNum *BigIntNum) NewIntExponent(intNum int, exponent int) BigIntNum {
 
 	bigI := big.NewInt(int64(intNum))
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	b.SetBigIntExponent(bigI, exponent)
 
 	return b
 }
 
-// New32Int - Creates a new BigIntNum instance initialized to the value
-// of input parameter 'int32Num' which is passed as type 'int32'.
+//	NewInt32
 //
-// Input parameter 'precision' indicates the number of digits to be
-// formatted to the right of the decimal place and is passed as type
-// 'uint'
+//	Creates a new BigIntNum instance initialized to the
+//	value of input parameter 'int32Num' which is passed
+//	as type 'int32'.
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	Input parameter 'precision' indicates the number of
+//	digits to be formatted to the right of the decimal
+//	place and is passed as type 'uint'
 //
-//					num := int32(123456)
-//					precision := uint(3)
-//					bINum := BigIntNum{}.NewInt32(num, precision)
-//	       bINum is now equal to 123.456
+// ----------------------------------------------------------------
 //
-// Examples:
-// ---------
+// # Usage
 //
-//	  int32Num			precision			BigIntNum Result
-//		 123456		 		   4							12.3456
-//	  123456          0              123456
-//	  123456          1              12345.6
-func (bNum BigIntNum) NewInt32(int32Num int32, precision uint) BigIntNum {
+//	This method is designed to be used in conjunction
+//	with the new(BigIntNum) syntax thereby allowing
+//	BigIntNum type creation and initialization in one
+//	step.
+//
+//		num :=		 int32(123456)
+//		precision := uint(3)
+//
+//		bINum := new(BigIntNum).NewInt32(num, precision)
+//		bINum is now equal to 123.456
+//
+//	Examples:
+//									BigIntNum
+//		int32Num	precision		  Result
+//		--------	---------		---------
+//		123456			4			12.3456
+//		123456			0			123456
+//		123456			1			12345.6
+func (bNum *BigIntNum) NewInt32(int32Num int32, precision uint) BigIntNum {
 
-	return BigIntNum{}.NewBigInt(big.NewInt(int64(int32Num)), precision)
+	return new(BigIntNum).NewBigInt(big.NewInt(int64(int32Num)), precision)
 }
 
-// NewInt32Exponent -This method returns a new BigIntNum instance in which
-// the numeric value is set using an integer multiplied by 10 raised to
-// the power of the 'exponent' parameter.
+//	NewInt32Exponent
 //
-//	numeric value = integer X 10^exponent
+//	This method returns a new BigIntNum instance in which
+//	the numeric value is set using an integer multiplied
+//	by 10 raised to the power of the 'exponent' parameter.
 //
-// Input parameter 'int32Num' is of type int32.
+//		numeric value = integer X 10^exponent
 //
-// Input parameter 'exponent' is of type int.
+// ----------------------------------------------------------------
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	# Input Parameters
 //
-//		biNum := BigIntNum{}.NewInt32Exponent(123456, -3)
-//	 -- biNum is now equal to "123.456", precision = 3
+//	int32Num			int32
 //
-//		biNum := BigIntNum{}.NewInt32Exponent(123456, 3)
-//	 -- biNum is now equal to "123456.000", precision = 3
+//	exponent			int
 //
-// Examples:
-// ---------
+// ----------------------------------------------------------------
 //
-//	 int32Num		 exponent			  BigIntNum Result
-//		 123456		 		  -3							123.456
-//		 123456		 		   3							123456.000
-//	  123456          0              123456
-func (bNum BigIntNum) NewInt32Exponent(int32Num int32, exponent int) BigIntNum {
+// # Usage
+//
+//	This method is designed to be used in conjunction
+//	with the new(BigIntNum{}) syntax thereby allowing
+//	BigIntNum type creation and initialization in one
+//	step.
+//
+//		biNum := new(BigIntNum).NewInt32Exponent(123456, -3)
+//		biNum is now equal to "123.456", precision = 3
+//
+//		biNum := new(BigIntNum).NewInt32Exponent(123456, 3)
+//		biNum is now equal to "123456.000", precision = 3
+//
+//	Examples:
+//								BigIntNum
+//		int32Num	exponent	Result
+//		--------	--------	---------
+//		123456			-3		123.456
+//		123456			 3		123456.000
+//		123456			 0		123456
+func (bNum *BigIntNum) NewInt32Exponent(int32Num int32, exponent int) BigIntNum {
 
 	bigI := big.NewInt(int64(int32Num))
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	b.SetBigIntExponent(bigI, exponent)
 
 	return b
 }
 
-// New64Int - Creates a new BigIntNum instance initialized to the value
-// of input parameter 'int64Num' which is passed as type 'int64'.
+//	NewInt64
 //
-// Input parameter 'precision' indicates the number of digits to be
-// formatted to the right of the decimal place and is passed as type
-// 'uint'
+//	Creates a new BigIntNum instance initialized to the
+//	value of input parameter 'int64Num' which is passed
+//	as type 'int64'.
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	Input parameter 'precision' indicates the number of
+//	digits to be formatted to the right of the decimal
+//	place and is passed as type 'uint'
 //
-//					int64Num := int64(123456)
-//					precision := uint(3)
-//					bINum := BigIntNum{}.NewInt64(int64Num, precision)
-//	       bINum is now equal to 123.456
+// ----------------------------------------------------------------
 //
-// Examples:
-// ---------
+//	# Usage
 //
-//	  int64Num			precision			BigIntNum Result
-//		 123456		 		   4							12.3456
-//	  123456          0              123456
-//	  123456          1              12345.6
-func (bNum BigIntNum) NewInt64(int64Num int64, precision uint) BigIntNum {
+//	This method is designed to be used in conjunction
+//	with the new(BigIntNum) syntax thereby allowing
+//	BigIntNum type creation and initialization in one
+//	step.
+//
+//		int64Num := int64(123456)
+//		precision := uint(3)
+//		bINum := new(BigIntNum).NewInt64(int64Num, precision)
+//		bINum is now equal to 123.456
+//
+//	Examples
+//
+//								BigIntNum
+//		int64Num	precision	  Result
+//		--------	---------	---------
+//		123456			4		12.3456
+//		123456			0		123456
+//		123456			1		12345.6
+func (bNum *BigIntNum) NewInt64(int64Num int64, precision uint) BigIntNum {
 
-	return BigIntNum{}.NewBigInt(big.NewInt(int64(int64Num)), precision)
+	return new(BigIntNum).NewBigInt(big.NewInt(int64Num), precision)
 }
 
-// NewInt64Exponent -This method returns a new BigIntNum instance in which
-// the numeric value is set using an integer multiplied by 10 raised to
-// the power of the 'exponent' parameter.
+//	NewInt64Exponent
 //
-//	numeric value = integer X 10^exponent
+//	This method returns a new BigIntNum instance in which
+//	the numeric value is set using an integer multiplied
+//	by 10 raised to the power of the 'exponent' parameter.
 //
-// Input parameter 'int64Num' is of type int64.
+//			numeric value = integer X 10^exponent
 //
-// Input parameter 'exponent' is of type int.
+// ----------------------------------------------------------------
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	# Input Parameters
 //
-//		biNum := BigIntNum{}.NewInt64Exponent(123456, -3)
-//	 -- biNum is now equal to "123.456", precision = 3
+//	int64Num			int64
 //
-//		biNum := BigIntNum{}.NewInt64Exponent(123456, 3)
-//	 -- biNum is now equal to "123456.000", precision = 3
+//	exponent			int
 //
-// Examples:
-// ---------
+// ----------------------------------------------------------------
 //
-//	 int64Num		 exponent			  BigIntNum Result
-//		 123456		 		  -3							123.456
-//		 123456		 		   3							123456.000
-//	  123456          0              123456
-func (bNum BigIntNum) NewInt64Exponent(int64Num int64, exponent int) BigIntNum {
+// # Usage
+//
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
+//
+//		biNum := new(BigIntNum).NewInt64Exponent(123456, -3)
+//		biNum is now equal to "123.456", precision = 3
+//
+//		biNum := new(BigIntNum).NewInt64Exponent(123456, 3)
+//		biNum is now equal to "123456.000", precision = 3
+//
+//	Examples:
+//
+//								BigIntNum
+//		int64Num	exponent	  Result
+//		--------	--------	---------
+//		123456		-3			123.456
+//		123456		 3			123456.000
+//		123456		 0			123456
+func (bNum *BigIntNum) NewInt64Exponent(int64Num int64, exponent int) BigIntNum {
 
 	bigI := big.NewInt(int64Num)
-	b := BigIntNum{}.NewZero(0)
+
+	b := new(BigIntNum).NewZero(0)
+
 	b.SetBigIntExponent(bigI, exponent)
+
 	return b
 }
 
-// NewIntAry - Creates a new BigIntNum instance from an input parameter
-// IntAry.
+// NewIntFracStr
 //
-// Be careful, IntAry's can accommodate very, very large numbers.
+// Creates a new BigIntNum instance based on a numeric
+// value represented by separate strings containing
+// integer and fractional digits.
 //
-// The new BigIntNum instance returned by this method will contain default
-// numeric separators (decimal separator, thousands separator and currency
-// symbol).
-func (bNum BigIntNum) NewIntAry(ia IntAry) (BigIntNum, error) {
-	ePrefix := "BigIntNum.NewIntAry() "
-
-	err := ia.IsValid(ePrefix + "'ia' INVALID! ")
-
-	if err != nil {
-		return BigIntNum{},
-			fmt.Errorf(ePrefix+"Error: Input Parameter 'ia' is INVALID!. Error returned by "+
-				"ia.IsValid(\"\"). Error='%v'", err.Error())
-	}
-
-	bInt, _ := ia.GetBigInt()
-
-	precision := ia.GetPrecisionUint()
-
-	b := BigIntNum{}.NewZero(0)
-	b.SetBigInt(bInt, precision)
-	return b, nil
-}
-
-// NewIntFracStr - Creates a new BigIntNum instance based on a numeric value represented
-// by separate integer and fractional components.
+// Input parameters 'intStr' and 'fracStr' are strings
+// representing the integer and fractional components of
+// a numeric value. They are combined by this method to
+// create a numeric value which is assigned to the
+// BigIntNum instance returned by this method.
 //
-// Input parameters 'intStr' and 'fracStr' are strings representing the integer and
-// fractional components. They are combined by this method to create a numeric value
-// which is assigned to the current BigIntNum instance.
+// Input parameter 'signVal' must be set to one of two
+// values: +1 or -1. This value is used to signal the
+// sign of the resulting numeric value. +1 generates a
+// positive number and -1 generates a negative number.
+// If input parameters 'inStr' or 'fracStr' contain a
+// leading minus or plus sign character, it will be
+// ignored.
 //
-// Input parameter 'signVal' must be set to one of two values: +1 or -1. This value is
-// used to signal the sign of the resulting numeric value. +1 generates a positive number
-// and -1 generates a negative number. If input parameters 'inStr' or 'fracStr' contain
-// a leading minus or plus sign character, it will be ignored. The sign of the resulting
-// numeric value is controlled strictly by input parameter, 'signVal'.
-func (bNum BigIntNum) NewIntFracStr(intStr, fracStr string, signVal int) (BigIntNum, error) {
+// The sign of the resulting BigIntNum numeric value is
+// controlled exclusively by input parameter, 'signVal'.
+func (bNum *BigIntNum) NewIntFracStr(intStr, fracStr string, signVal int) (BigIntNum, error) {
 
-	bIntNum := BigIntNum{}.NewZero(0)
+	bIntNum := new(BigIntNum).NewZero(0)
 
 	err := bIntNum.SetIntFracStrings(intStr, fracStr, signVal)
 
@@ -2987,7 +3045,7 @@ func (bNum BigIntNum) NewIntFracStr(intStr, fracStr string, signVal int) (BigInt
 
 		ePrefix := "BigIntNum.NewIntFracStr() "
 
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+"Error returned by bIntNum.SetIntFracStrings(intStr, fracStr, signVal) "+
 				"Error='%v' \n", err.Error())
 
@@ -2996,70 +3054,31 @@ func (bNum BigIntNum) NewIntFracStr(intStr, fracStr string, signVal int) (BigInt
 	return bIntNum, nil
 }
 
-// NewINumMgr - Receives an object which implements the INumMgr interface.
-// The method then proceeds to create a new BigIntNum instance equivalent
-// in numeric value to the input parameter, 'numMgr'. The BigIntNum instance
-// is then returned to the calling function.
+// NewNumStr
 //
-// Currently, the following 'mathops' Types implement the INumMgr interface:
+// Receives a number string as input and returns a new
+// BigIntNum instance.
 //
-//	Decimal,
-//	IntAry,
-//	NumStrDto,
-//	BigIntNum
+// This method assumes that the input parameter 'numStr'
+// is a string of numeric digits which may be delimited
+// by default United States (US) numeric separators.
 //
-// Note: 'numMgr' must be a pointer to a type. This method will not accept
-// 'numMgr' as a value. The pointer to the type is needed in or order to
-// call methods on 'numMgr'.
+// Default US numeric separators are defined as:
 //
-// Example 1:
+//	decimal separator	= '.'
+//	integer separator	= ','
+//	integer grouping	= thousands
+//	currency symbol		= '$'
 //
-//	dec, err := Decimal{}.NewNumStr(nStr)
-//	bINum, err := BigIntNum{}.NewINumMgr(&dec)
+// If the subject 'numStr' employs other national or
+// cultural numeric separators, see method:
 //
-// Example 2:
-// dec, err := Decimal{}.NewNumStr(nStr)
-// bINum, err := BigIntNum{}.NewINumMgr(dec.GetThisPointer())
-//
-// Example 3:
-// dec := Decimal{}.NewPtr()
-// err := dec.SetNumStr(nStr)
-// bINum, err := BigIntNum{}.NewINumMgr(dec)
-func (bNum BigIntNum) NewINumMgr(numMgr INumMgr) (BigIntNum, error) {
-
-	ePrefix := "BigIntNum.NewINumMgr() "
-
-	bINum := BigIntNum{}.NewZero(0)
-
-	err := bINum.SetINumMgr(numMgr)
-
-	if err != nil {
-		return BigIntNum{},
-			fmt.Errorf(ePrefix+"Error returned by bINum.SetINumMgr(numMgr). "+
-				"Error='%v' ", err.Error())
-	}
-
-	return bINum, nil
-}
-
-// NewNumStr - Receives a number string as input and returns
-// a new BigIntNum instance.
-//
-// This method assumes that the input parameter 'numStr' is a string
-// of numeric digits which may be delimited by default USA numeric
-// separators. Default USA numeric separators are defined as:
-//
-//	 	decimal separator = '.'
-//	   thousands separator = ','
-//			currency symbol = '$'
-//
-// If the subject 'numStr' employs other national or cultural numeric
-// separators, see method BigIntNum.NewNumStrWithNumSeps(), below.
-func (bNum BigIntNum) NewNumStr(numStr string) (BigIntNum, error) {
+//	BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewNumStr(numStr string) (BigIntNum, error) {
 
 	ePrefix := "BigIntNum.NewNumStr() "
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 	err := b.SetNumStr(numStr)
 
 	if err != nil {
@@ -3072,14 +3091,19 @@ func (bNum BigIntNum) NewNumStr(numStr string) (BigIntNum, error) {
 	return b, nil
 }
 
-// NewNumStrWithNumSeps - Receives a number string as input and returns a
-// new BigIntNum instance. The input parameter 'numSeps' contains numeric
-// separators (decimal separator, thousands separator and currency symbol)
-// which will be used to parse the number string.
+// NewNumStrWithNumSeps
 //
-// In addition, the numeric separators contained in input parameter 'numSeps'
-// will be copied to the returned BigIntNum instance.
-func (bNum BigIntNum) NewNumStrWithNumSeps(
+// Receives a number string as input and returns a new
+// BigIntNum instance. The input parameter 'numSeps'
+// contains numeric separators (decimal separator,
+// integer separator, integer grouping and currency
+// symbol) which will be used to parse the number
+// string.
+//
+// In addition, the numeric separators contained in
+// input parameter 'numSeps' will be copied to the
+// returned BigIntNum instance.
+func (bNum *BigIntNum) NewNumStrWithNumSeps(
 	numStr string,
 	numSeps NumericSeparatorDto) (BigIntNum, error) {
 
@@ -3087,12 +3111,12 @@ func (bNum BigIntNum) NewNumStrWithNumSeps(
 
 	numSeps.SetDefaultsIfEmpty()
 
-	b2 := BigIntNum{}.New()
+	b2 := new(BigIntNum).New()
 
 	err := b2.SetNumericSeparatorsDto(numSeps)
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by b2.SetNumericSeparatorsDto(numSeps) "+
 				"Error='%v' \n", err.Error())
@@ -3102,7 +3126,7 @@ func (bNum BigIntNum) NewNumStrWithNumSeps(
 	err = b2.SetNumStr(numStr)
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by b2.SetNumericSeparatorsDto(numSeps) "+
 				"Error='%v' \n", err.Error())
@@ -3111,15 +3135,18 @@ func (bNum BigIntNum) NewNumStrWithNumSeps(
 	return b2, nil
 }
 
-// NewNumStrMaxPrecision - Receives a number string as input and returns
-// a new BigIntNum instance. If the resulting precision exceeds
-// input parameter 'maxPrecision', the returned BigIntNum result
-// will be rounded to 'maxPrecision' decimal places.
-func (bNum BigIntNum) NewNumStrMaxPrecision(
+// NewNumStrMaxPrecision
+//
+// Receives a number string as input and returns a new
+// BigIntNum instance. If the resulting precision
+// exceeds input parameter 'maxPrecision', the
+// returned BigIntNum result will be rounded to
+// 'maxPrecision' decimal places.
+func (bNum *BigIntNum) NewNumStrMaxPrecision(
 	numStr string,
 	maxPrecision uint) (BigIntNum, error) {
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	err := b.SetNumStr(numStr)
 
@@ -3140,9 +3167,11 @@ func (bNum BigIntNum) NewNumStrMaxPrecision(
 	return b, nil
 }
 
-// NewNumStrDto - Receives a NumStrDto instance as input and returns
+// NewNumStrDto
+//
+// Receives a NumStrDto instance as input and returns
 // a new BigIntNum instance.
-func (bNum BigIntNum) NewNumStrDto(nDto NumStrDto) (BigIntNum, error) {
+func (bNum *BigIntNum) NewNumStrDto(nDto NumStrDto) (BigIntNum, error) {
 
 	ePrefix := "BigIntNum.NewNumStrDto() "
 
@@ -3154,7 +3183,9 @@ func (bNum BigIntNum) NewNumStrDto(nDto NumStrDto) (BigIntNum, error) {
 				"NumStr='%v' Error='%v'", nDto.GetNumStr(), err.Error())
 	}
 
-	bigI, err := nDto.GetBigInt()
+	var bigI *big.Int
+
+	bigI, err = nDto.GetBigInt()
 
 	if err != nil {
 		return BigIntNum{},
@@ -3162,104 +3193,156 @@ func (bNum BigIntNum) NewNumStrDto(nDto NumStrDto) (BigIntNum, error) {
 				"Error='%v'", err.Error())
 	}
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	b.SetBigInt(bigI, uint(nDto.GetPrecision()))
 
 	return b, nil
 }
 
-// NewOne - Returns a BigIntNum Type with a value equal to '1' (one).
-// The number of zeros created after the decimal place holder
-// (fractional digits) is determined by the input parameter 'precision'.
-// To create an integer with a value equal to '1', set 'precision' equal
-// to zero (0).
+// NewOne
 //
-// Examples:
-// =========
+// Returns a BigIntNum Type with a value equal to '1'
+// (one).
 //
-// 'precision'
+// The number of zeros created after the decimal
+// placeholder (fractional digits) is determined by the
+// input parameter 'precision'.
 //
-//	  value 					Result
-//			0								1
-//			1								1.0
-//	   2								1.00
-//			3								1.000
+// To create an integer with a value equal to '1', set
+// 'precision' equal to zero (0).
 //
-// The new BigIntNum instance returned by this method will contain USA default numeric
-// separators (decimal separator, thousands separator and currency symbol).
-func (bNum BigIntNum) NewOne(precision uint) BigIntNum {
+// # Examples
+//
+// 'precision' values and resulting outcomes.
+//
+//	precision
+//	  value		Result
+//	---------	------
+//		0		 1
+//		1		 1.0
+//		2		 1.00
+//		3		 1.000
+//
+// The new BigIntNum instance returned by this method
+// will contain United States (US) default numeric
+// separators (decimal separator, integer separator,
+// integer grouping and currency symbol).
+//
+// To implement other national or cultural numeric
+// separators, see method:
+//
+//	BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewOne(precision uint) BigIntNum {
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	if precision == 0 {
 		b.SetBigInt(big.NewInt(1), 0)
 		return b
 	}
 
-	scaleVal := big.NewInt(0).Exp(big.NewInt(10), big.NewInt(int64(precision)), nil)
+	scaleVal :=
+		big.NewInt(0).Exp(big.NewInt(10),
+			big.NewInt(int64(precision)),
+			nil)
+
 	newVal := big.NewInt(0).Mul(big.NewInt(1), scaleVal)
+
 	b.SetBigInt(newVal, precision)
 
 	return b
 }
 
-// NewTwo - Returns a BigIntNum Type with a value equal to  '2' (two).
-// The number of zeros created after the decimal place holder
-// (fractional digits) is determined by the input parameter 'precision'.
-// To create an integer with a value equal to '1', set 'precision' equal
-// to zero (0).
+// NewTwo
 //
-// Examples:
-// =========
+// Returns a BigIntNum Type with a value equal to  '2'
+// (two).
 //
-// 'precision'
+// The number of zeros created after the decimal
+// placeholder (fractional digits) is determined by the
+// input parameter 'precision'.
 //
-//	  value 					Result
-//			0								2
-//	   1								2.0
-//	   2								2.00
-//			3								2.000
+// To create an integer with a value equal to '2', set
+// 'precision' equal to zero (0).
 //
-// The new BigIntNum instance returned by this method will contain USA default numeric
-// separators (decimal separator, thousands separator and currency symbol).
-func (bNum BigIntNum) NewTwo(precision uint) BigIntNum {
+// # Examples
+//
+// 'precision' values and resulting outcomes.
+//
+//	precision
+//	  value		Result
+//	---------	------
+//		0		 2
+//		1		 2.0
+//		2		 2.00
+//		3		 2.000
+//
+// The new BigIntNum instance returned by this method
+// will contain United States (US) default numeric
+// separators (decimal separator, integer separator,
+// integer grouping and currency symbol).
+//
+// To implement other national or cultural numeric
+// separators, see method:
+//
+//	BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewTwo(precision uint) BigIntNum {
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	if precision == 0 {
 		b.SetBigInt(big.NewInt(2), 0)
 		return b
 	}
 
-	scaleVal := big.NewInt(0).Exp(big.NewInt(10), big.NewInt(int64(precision)), nil)
+	scaleVal :=
+		big.NewInt(0).Exp(big.NewInt(10),
+			big.NewInt(int64(precision)),
+			nil)
+
 	newVal := big.NewInt(0).Mul(big.NewInt(2), scaleVal)
+
 	b.SetBigInt(newVal, precision)
 
 	return b
 }
 
-// NewThree - Returns a BigIntNum Type with a value equal to  '3' (three).
-// The number of zeros created after the decimal place holder
-// (fractional digits) is determined by the input parameter 'precision'.
-// To create an integer with a value equal to '1', set 'precision' equal
-// to zero (0).
+// NewThree
 //
-// Examples:
-// =========
+// Returns a BigIntNum Type with a value equal to  '3'
+// (three).
 //
-// 'precision'
+// The number of zeros created after the decimal
+// placeholder (fractional digits) is determined by the
+// input parameter 'precision'.
 //
-//	  value 					Result
-//			0								3
-//	   2								3.00
-//			3								3.000
+// To create an integer with a value equal to '3', set
+// 'precision' equal to zero (0).
 //
-// The new BigIntNum instance returned by this method will contain USA default numeric
-// separators (decimal separator, thousands separator and currency symbol).
-func (bNum BigIntNum) NewThree(precision uint) BigIntNum {
+// # Examples
+//
+// 'precision' values and resulting outcomes.
+//
+//	precision
+//	  value		Result
+//	---------	------
+//		0		  3
+//		2		  3.00
+//		3		  3.000
+//
+// The new BigIntNum instance returned by this method
+// will contain United States (US) default numeric
+// separators (decimal separator, integer separator,
+// integer grouping and currency symbol).
+//
+// To implement other national or cultural numeric
+// separators, see method:
+//
+//	BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewThree(precision uint) BigIntNum {
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	if precision == 0 {
 		b.SetBigInt(big.NewInt(3), 0)
@@ -3273,84 +3356,150 @@ func (bNum BigIntNum) NewThree(precision uint) BigIntNum {
 	return b
 }
 
-// NewFive - Returns a BigIntNum with integer value of  '5' (five).
-// The number of zeros created after the decimal place holder
-// (fractional digits) is determined by the input parameter 'precision'.
-// To create an integer with a value equal to '10', set 'precision' equal
-// to zero (0).
+// NewFive
 //
-// 'precision'
+// Returns a BigIntNum with integer value of  '5' (five).
 //
-//	  value 					Result
-//			0								 5
-//			1								 5.0
-//	   2								 5.00
-//			3								 5.000
+// The number of zeros created after the decimal
+// placeholder (fractional digits) is determined by the
+// input parameter 'precision'.
 //
-// The new BigIntNum instance returned by this method will contain USA default numeric
-// separators (decimal separator, thousands separator and currency symbol).
-func (bNum BigIntNum) NewFive(precision uint) BigIntNum {
+// To create an integer with a value equal to '5', set
+// 'precision' equal to zero (0).
+//
+// # Examples
+//
+// 'precision' values and resulting outcomes.
+//
+//	precision
+//	  value		Result
+//	---------	------
+//		0		  5
+//		1		  5.0
+//		2		 5.00
+//		3		 5.000
+//
+// The new BigIntNum instance returned by this method
+// will contain United States (US) default numeric
+// separators (decimal separator, integer separator,
+// integer grouping and currency symbol).
+//
+// To implement other national or cultural numeric
+// separators, see method:
+//
+//	BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewFive(precision uint) BigIntNum {
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	if precision == 0 {
 		b.SetBigInt(big.NewInt(5), 0)
 		return b
 	}
 
-	scaleVal := big.NewInt(0).Exp(big.NewInt(10), big.NewInt(int64(precision)), nil)
-	newVal := big.NewInt(0).Mul(big.NewInt(5), scaleVal)
+	scaleVal :=
+		big.NewInt(0).Exp(big.NewInt(10),
+			big.NewInt(int64(precision)),
+			nil)
+
+	newVal :=
+		big.NewInt(0).Mul(
+			big.NewInt(5),
+			scaleVal)
+
 	b.SetBigInt(newVal, precision)
 
 	return b
 }
 
-// NewTen - Returns a BigIntNum with integer value of  '10' (ten).
-// The number of zeros created after the decimal place holder
-// (fractional digits) is determined by the input parameter 'precision'.
-// To create an integer with a value equal to '10', set 'precision' equal
-// to zero (0).
+// NewTen
 //
-// 'precision'
+// Returns a BigIntNum with integer value of  '10' (ten).
 //
-//	  value 					Result
-//			0								10
-//			1								10.0
-//	   2								10.00
-//			3								10.000
+// The number of zeros created after the decimal
+// placeholder (fractional digits) is determined by the
+// input parameter 'precision'.
 //
-// The new BigIntNum instance returned by this method will contain USA default numeric
-// separators (decimal separator, thousands separator and currency symbol).
-func (bNum BigIntNum) NewTen(precision uint) BigIntNum {
+// To create an integer with a value equal to '10', set
+// 'precision' equal to zero (0).
+//
+// # Examples
+//
+// 'precision' values and resulting outcomes.
+//
+//	precision
+//	  value		Result
+//	---------	------
+//		0		  10
+//		1		  10.0
+//		2		  10.00
+//		3		  10.000
+//
+// The new BigIntNum instance returned by this method
+// will contain United States (US) default numeric
+// separators (decimal separator, integer separator,
+// integer grouping and currency symbol).
+//
+// To implement other national or cultural numeric
+// separators, see method:
+//
+//	BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewTen(precision uint) BigIntNum {
 
-	b := BigIntNum{}.NewZero(0)
+	b := new(BigIntNum).NewZero(0)
 
 	if precision == 0 {
 		b.SetBigInt(big.NewInt(10), 0)
 		return b
 	}
 
-	scaleVal := big.NewInt(0).Exp(big.NewInt(10), big.NewInt(int64(precision)), nil)
-	newVal := big.NewInt(0).Mul(big.NewInt(10), scaleVal)
+	scaleVal :=
+		big.NewInt(0).Exp(big.NewInt(10),
+			big.NewInt(int64(precision)),
+			nil)
+
+	newVal :=
+		big.NewInt(0).Mul(big.NewInt(10),
+			scaleVal)
+
 	b.SetBigInt(newVal, precision)
 
 	return b
-
 }
 
-// New zero - Returns a BigIntNum instance with a value equal to zero.
-// The number of zeros created after the decimal place holder
-// (fractional digits) is determined by the input parameter 'precision'.
-// To create an integer with a value equal to '0', set 'precision' equal
-// to zero (0).
+// NewZero
 //
-// 'precision'
+// Returns a BigIntNum instance with a value equal to
+// zero.
 //
-//	  value 					Result
-//			0								0
-//	   2								0.00
-//			3								0.000
-func (bNum BigIntNum) NewZero(precision uint) BigIntNum {
+// The number of zeros created after the decimal
+// placeholder (fractional digits) is determined by the
+// input parameter 'precision'.
+//
+// To create an integer with a value equal to '0',
+// set 'precision' equal to zero (0).
+//
+// # Examples
+//
+// 'precision' values and resulting outcomes.
+//
+//	precision
+//	  value		Result
+//	---------	------
+//		0		  0
+//		2		  0.00
+//		3		  0.000
+//
+// The new BigIntNum instance returned by this method
+// will contain United States (US) default numeric
+// separators (decimal separator, integer separator,
+// integer grouping and currency symbol).
+//
+// To implement other national or cultural numeric
+// separators, see method:
+//
+//	BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewZero(precision uint) BigIntNum {
 
 	b := BigIntNum{}
 	b.Empty()
@@ -3360,210 +3509,279 @@ func (bNum BigIntNum) NewZero(precision uint) BigIntNum {
 
 }
 
-// NewUint - Creates a new BigIntNum instance initialized to the value
-// of input parameter 'uintNum' which is passed as type 'uint'.
+//	NewUint
 //
-// Input parameter 'precision' indicates the number of digits to be
-// formatted to the right of the decimal place and is passed as type
-// 'uint'
+//	Creates a new BigIntNum instance initialized to the
+//	value of input parameter 'uintNum' which is passed
+//	as type 'uint' (Unsigned Integer).
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	Input parameter 'precision' indicates the number of
+//	digits to be formatted to the right of the decimal
+//	place and is passed as type 'uint'
 //
-//					uintNum := uint(123456)
-//					precision := uint(3)
-//					bINum := BigIntNum{}.NewUint(uintNum, precision)
-//	       bINum is now equal to 123.456
+// ----------------------------------------------------------------
 //
-// Examples:
-// ---------
+// # Usage
 //
-//	  uintNum			precision			BigIntNum Result
-//		 123456		 		   4							12.3456
-//	  123456          0              123456
-//	  123456          1              12345.6
-func (bNum BigIntNum) NewUint(uintNum uint, precision uint) BigIntNum {
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
+//
+//		uintNum := uint(123456)
+//		precision := uint(3)
+//		bINum := new(BigIntNum).NewUint(uintNum, precision)
+//		bINum is now equal to 123.456
+//
+//	Examples:
+//
+//								BigIntNum
+//		uintNum		exponent	  Result
+//		--------	--------	---------
+//		123456		  -4		12.3456
+//		123456		   4		123456.0000
+//		123456		   0		123456
+//		123456		  -1		12345.6
+//
+//	The new BigIntNum instance returned by this method
+//	will contain United States (US) default numeric
+//	separators (decimal separator, integer separator,
+//	integer grouping and currency symbol).
+//
+//	To implement other national or cultural numeric
+//	separators, see method:
+//		BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewUint(uintNum uint, precision uint) BigIntNum {
 
-	return BigIntNum{}.NewBigInt(big.NewInt(0).SetUint64(uint64(uintNum)), precision)
+	return new(BigIntNum).NewBigInt(big.NewInt(0).SetUint64(uint64(uintNum)), precision)
 }
 
-// NewUintExponent - This method returns a new BigIntNum instance in which
-// the numeric value is set using an integer multiplied by 10 raised to
-// the power of the 'exponent' parameter.
+//	NewUintExponent
 //
-//	numeric value = integer X 10^exponent
+//	This method returns a new BigIntNum instance in which
+//	the numeric value is set using an integer multiplied
+//	by 10 raised to the power of the 'exponent' parameter.
 //
-// Input parameter 'uintNum' is of type uint.
+//		numeric value = integer X 10^exponent
 //
-// Input parameter 'exponent' is of type int.
+// ----------------------------------------------------------------
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	# Input Parameters
+//
+//	uintNum				uint
+//
+//	exponent			int
+//
+// ----------------------------------------------------------------
+//
+// # Usage
+//
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
 //
 //		biNum := BigIntNum{}.NewUintExponent(123456, -3)
-//	 -- biNum is now equal to "123.456", precision = 3
+//		biNum is now equal to "123.456", precision = 3
 //
 //		biNum := BigIntNum{}.NewUintExponent(123456, 3)
-//	 -- biNum is now equal to "123456.000", precision = 3
+//		biNum is now equal to "123456.000", precision = 3
 //
-// Examples:
-// ---------
+//	Examples:
 //
-//	  uintNum			exponent			BigIntNum Result
-//		 123456		 		  -3							123.456
-//		 123456		 		   3							123456.000
-//	  123456          0              123456
-func (bNum BigIntNum) NewUintExponent(uintNum uint, exponent int) BigIntNum {
+//								BigIntNum
+//		int64Num	exponent	  Result
+//		--------	--------	---------
+//		123456		  -3		123.456
+//		123456		   3		123456.000
+//		123456		   0		123456
+func (bNum *BigIntNum) NewUintExponent(uintNum uint, exponent int) BigIntNum {
 
 	baseBInt := big.NewInt(int64(uintNum))
 
-	b2 := BigIntNum{}.New()
+	b2 := new(BigIntNum).New()
 
 	b2.SetBigIntExponent(baseBInt, exponent)
 
 	return b2
 }
 
-// NewUint32 - Creates a new BigIntNum instance initialized to the value
-// of input parameter 'uint32Num' which is passed as type 'uint32'.
+//	NewUint32
 //
-// Input parameter 'precision' indicates the number of digits to be
-// formatted to the right of the decimal place and is passed as type
-// 'uint'.
+//	Creates a new BigIntNum instance initialized to the
+//	value of input parameter 'uint32Num' which is passed
+//	as type 'uint32' (Unsigned 32-bit Integer).
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	Input parameter 'precision' indicates the number of
+//	digits to be formatted to the right of the decimal
+//	place and is passed as type 'uint32'.
 //
-//					uint32Num := uint32(123456)
-//					precision := uint(3)
-//					bINum := BigIntNum{}.NewUint32(uint32Num, precision)
-//	       bINum is now equal to 123.456
+// ----------------------------------------------------------------
 //
-// Examples:
-// ---------
+// # Usage
 //
-//	  uint32Num		precision			BigIntNum Result
-//		 123456		 		   4							12.3456
-//	  123456          0              123456
-//	  123456          1              12345.6
-func (bNum BigIntNum) NewUint32(uint32Num uint32, precision uint) BigIntNum {
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
+//
+//		uint32Num := uint32(123456)
+//		precision := uint(3)
+//		bINum := BigIntNum{}.NewUint32(uint32Num, precision)
+//		bINum is now equal to 123.456
+//
+//	Examples:
+//
+//								BigIntNum
+//		uintNum		exponent	  Result
+//		--------	--------	---------
+//		123456		  4			 12.3456
+//		123456		  0			 123456
+//		123456		  1			 12345.6
+//
+//	The new BigIntNum instance returned by this method
+//	will contain United States (US) default numeric
+//	separators (decimal separator, integer separator,
+//	integer grouping and currency symbol).
+//
+//	To implement other national or cultural numeric
+//	separators, see method:
+//		BigIntNum.NewNumStrWithNumSeps()
+func (bNum *BigIntNum) NewUint32(uint32Num uint32, precision uint) BigIntNum {
 
-	return BigIntNum{}.NewBigInt(big.NewInt(0).SetUint64(uint64(uint32Num)), precision)
+	return new(BigIntNum).NewBigInt(
+		big.NewInt(0).SetUint64(uint64(uint32Num)),
+		precision)
 }
 
-// NewUint32Exponent - This method returns a new BigIntNum instance in which
-// the numeric value is set using an integer multiplied by 10 raised to
-// the power of the 'exponent' parameter.
+//	NewUint32Exponent
 //
-//	numeric value = integer X 10^exponent
+//	This method returns a new BigIntNum instance in which
+//	the numeric value is set using an integer multiplied
+//	by 10 raised to the power of the 'exponent' parameter.
 //
-// Input parameter 'uint32Num' is of type uint32.
+//		numeric value = integer X 10^exponent
 //
-// Input parameter 'exponent' is of type int.
+// ----------------------------------------------------------------
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+// # Input Parameters
 //
-//		biNum := BigIntNum{}.NewUint32Exponent(123456, -3)
-//	 -- biNum is now equal to "123.456", precision = 3
+//	uint32Num			uint32
 //
-//		biNum := BigIntNum{}.NewUint32Exponent(123456, 3)
-//	 -- biNum is now equal to "123456.000", precision = 3
+//	exponent			int
 //
-// Examples:
-// ---------
+// ----------------------------------------------------------------
 //
-//	  uint32Num		exponent			BigIntNum Result
-//		 123456		 		  -3							123.456
-//		 123456		 		   3							123456.000
-//	  123456          0              123456
-func (bNum BigIntNum) NewUint32Exponent(uint32Num uint32, exponent int) BigIntNum {
+// # Usage
+//
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
+//
+//		biNum := new(BigIntNum).NewUint32Exponent(123456, -3)
+//		biNum is now equal to "123.456", precision = 3
+//
+//		biNum := new(BigIntNum).NewUint32Exponent(123456, 3)
+//		biNum is now equal to "123456.000", precision = 3
+//
+//	Examples:
+//
+//								BigIntNum
+//		uintNum		exponent	  Result
+//		--------	--------	---------
+//		123456		  -3		123.456
+//		123456		   3		123456.000
+//		123456		   0		123456
+func (bNum *BigIntNum) NewUint32Exponent(uint32Num uint32, exponent int) BigIntNum {
 
 	baseBInt := big.NewInt(int64(uint32Num))
 
-	b2 := BigIntNum{}.New()
+	b2 := new(BigIntNum).New()
 
 	b2.SetBigIntExponent(baseBInt, exponent)
 
 	return b2
 }
 
-// NewUint64 - Creates a new BigIntNum instance initialized to the value
-// of input parameter 'uint64Num' which is passed as type 'uint64'.
+//	NewUint64
 //
-// Input parameter 'precision' indicates the number of digits to be
-// formatted to the right of the decimal place and is passed as type
-// 'uint'
+//	Creates a new BigIntNum instance initialized to the
+//	value of input parameter 'uint64Num' which is passed
+//	as type 'uint64' (64-bit Unsigned Integer).
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+//	Input parameter 'precision' indicates the number of
+//	digits to be formatted to the right of the decimal
+//	place and is passed as type 'uint64'.
 //
-//					uint64Num := uint64(123456)
-//					precision := uint(3)
-//					bINum := BigIntNum{}.NewUint64(uint64Num, precision)
-//	       bINum is now equal to 123.456
+// ----------------------------------------------------------------
 //
-// Examples:
-// ---------
+// # Usage
 //
-//	  uint64Num		precision			BigIntNum Result
-//		 123456		 		   4							12.3456
-//	  123456          0              123456
-//	  123456          1              12345.6
-func (bNum BigIntNum) NewUint64(uint64Num uint64, precision uint) BigIntNum {
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
+//
+//		uint64Num := uint64(123456)
+//		precision := uint(3)
+//		bINum := BigIntNum{}.NewUint64(uint64Num, precision)
+//		bINum is now equal to 123.456
+//
+//	Examples:
+//
+//								BigIntNum
+//		uintNum		exponent	  Result
+//		--------	--------	---------
+//		123456		   4		12.3456
+//		123456		   0		123456
+//		123456		   1		12345.6
+func (bNum *BigIntNum) NewUint64(uint64Num uint64, precision uint) BigIntNum {
 
-	return BigIntNum{}.NewBigInt(big.NewInt(0).SetUint64(uint64Num), precision)
+	return new(BigIntNum).NewBigInt(
+		big.NewInt(0).SetUint64(uint64Num),
+		precision)
 }
 
-// NewUint64Exponent - This method returns a new BigIntNum instance in which
-// the numeric value is set using an integer multiplied by 10 raised to
-// the power of the 'exponent' parameter.
+//	NewUint64Exponent
 //
-//	numeric value = integer X 10^exponent
+//	This method returns a new BigIntNum instance in which
+//	the numeric value is set using an integer multiplied
+//	by 10 raised to the power of the 'exponent' parameter.
 //
-// Input parameter 'uint64Num' is of type uint64.
+//		numeric value = integer X 10^exponent
 //
-// Input parameter 'exponent' is of type int.
+// ----------------------------------------------------------------
 //
-// Usage:
-// ------
-// This method is designed to be used in conjunction with the BigIntNum{}
-// syntax thereby allowing BigIntNum type creation and initialization in
-// one step.
+// # Input Parameters
 //
-//		biNum := BigIntNum{}.NewUint64Exponent(123456, -3)
-//	 -- biNum is now equal to "123.456", precision = 3
+//	uint64Num			uint64
 //
-//		biNum := BigIntNum{}.NewUint64Exponent(123456, 3)
-//	 -- biNum is now equal to "123456.000", precision = 3
+//	exponent			int
 //
-// Examples:
-// ---------
+// ----------------------------------------------------------------
 //
-//	  uint64Num		exponent			BigIntNum Result
-//		 123456		 		  -3							123.456
-//		 123456		 		   3							123456.000
-//	  123456          0              123456
-func (bNum BigIntNum) NewUint64Exponent(uint64Num uint64, exponent int) BigIntNum {
+// # Usage
+//
+//	This method is designed to be used in conjunction with
+//	the new(BigIntNum) syntax thereby allowing BigIntNum
+//	type creation and initialization in one step.
+//
+//
+//		biNum := new(BigIntNum).NewUint64Exponent(123456, -3)
+//		biNum is now equal to "123.456", precision = 3
+//
+//		biNum := new(BigIntNum).NewUint64Exponent(123456, 3)
+//		biNum is now equal to "123456.000", precision = 3
+//
+//	Examples:
+//
+//								BigIntNum
+//		uintNum		exponent	  Result
+//		--------	--------	---------
+//		123456		   -3		123.456
+//		123456			3		123456.000
+//		123456			0		123456
+func (bNum *BigIntNum) NewUint64Exponent(uint64Num uint64, exponent int) BigIntNum {
 
 	baseBInt := big.NewInt(0).SetUint64(uint64Num)
 
-	b2 := BigIntNum{}.New()
+	b2 := new(BigIntNum).New()
 
 	b2.SetBigIntExponent(baseBInt, exponent)
 
@@ -3655,28 +3873,37 @@ func (bNum *BigIntNum) RoundToDecPlace(precision uint) {
 
 	// bigInt == zero, set precision an return
 	if bNum.bigInt.Cmp(big.NewInt(0)) == 0 {
-		bNum.CopyIn(BigIntNum{}.NewBigInt(big.NewInt(0), precision))
-		bNum.SetNumericSeparatorsDto(numSeps)
+
+		bNum.CopyIn(new(BigIntNum).NewBigInt(big.NewInt(0), precision))
+
+		_ = bNum.SetNumericSeparatorsDto(numSeps)
+
 		return
 	}
 
 	// If existing precision is less than new specified precision,
 	// add trailing zeros, set new precision parameter and return.
 	if bNum.precision < precision {
+
 		deltaPrecision := precision - bNum.precision
+
 		bNum.ExtendPrecision(deltaPrecision)
-		bNum.SetNumericSeparatorsDto(numSeps)
+
+		_ = bNum.SetNumericSeparatorsDto(numSeps)
+
 		return
 	}
 
 	// Must be: bNum.precision >  precision
 
 	bigNumRound5 :=
-		BigIntNum{}.NewBigInt(big.NewInt(5), uint(precision+1))
+		new(BigIntNum).NewBigInt(big.NewInt(5), precision+1)
 
-	bigNumBase := BigIntNum{}.NewBigInt(bNum.absBigInt, bNum.precision)
+	bigNumBase :=
+		new(BigIntNum).NewBigInt(bNum.absBigInt, bNum.precision)
 
-	result := BigIntMathAdd{}.AddBigIntNums(bigNumBase, bigNumRound5)
+	result :=
+		new(BigIntMathAdd).AddBigIntNums(bigNumBase, bigNumRound5)
 
 	// 10^deltaPrecision
 	scaleVal := big.NewInt(0).Exp(big.NewInt(10),
@@ -3688,7 +3915,7 @@ func (bNum *BigIntNum) RoundToDecPlace(precision uint) {
 		result.bigInt = big.NewInt(0).Neg(result.bigInt)
 	}
 
-	bNum.SetNumericSeparatorsDto(numSeps)
+	_ = bNum.SetNumericSeparatorsDto(numSeps)
 
 	bNum.SetBigInt(result.bigInt, precision)
 }
@@ -3704,8 +3931,7 @@ func (bNum *BigIntNum) RoundToDecPlace(precision uint) {
 // Input Parameters
 // bigI *big.Int	- 'bigI' is a type *big.Int and represents the integer
 //
-//	value of the number; that is, the numeric value with
-//	out decimal digits.
+//	value of the number; that is, the numeric value with out decimal digits.
 //
 // precision uint	- This unsigned integer (always a positive value) identifies
 //
@@ -3741,7 +3967,7 @@ func (bNum *BigIntNum) SetBigInt(bigI *big.Int, precision uint) {
 		bNum.absBigInt = big.NewInt(0).Set(bNum.bigInt)
 	}
 
-	bNum.SetNumericSeparatorsDto(numSeps)
+	_ = bNum.SetNumericSeparatorsDto(numSeps)
 
 }
 
@@ -3881,7 +4107,7 @@ func (bNum *BigIntNum) SetBigRat(ratNum *big.Rat, maxPrecision uint) error {
 		biNum.SetPrecision(maxPrecision)
 	}
 
-	biNum.SetNumericSeparatorsDto(numSeps)
+	_ = biNum.SetNumericSeparatorsDto(numSeps)
 
 	bNum.CopyIn(biNum)
 
@@ -4079,61 +4305,6 @@ func (bNum *BigIntNum) SetFloat64(f64 float64, maxPrecision uint) error {
 			"Error returned by bNum.SetBigRat(rat, maxPrecision). "+
 			"Error='%v' \n", err.Error())
 	}
-
-	return nil
-}
-
-// SetINumMgr - Receives an input parameter implementing
-// the INumMgr interface and proceeds to set the current
-// BigIntNum instance to its equivalent numeric value.
-//
-// Currently, the following 'mathops' Types implement the INumMgr interface:
-//
-//	Decimal,
-//	IntAry,
-//	NumStrDto,
-//	BigIntNum
-//
-// 'numMgr' must be a pointer to a type. This method will not accept
-// 'numMgr' as a value. The pointer to the type is needed in or order to
-// call methods on 'numMgr'.
-//
-// This method will test the validity of input parameter, 'numMgr'.
-//
-// Example 1:
-//
-//	dec, err := Decimal{}.NewNumStr(nStr)
-//	bINum := BigIntNum{}
-//	err := bINum.SetINumMgr(&dec)
-//
-// Example 2:
-// dec, err := Decimal{}.NewNumStr(nStr)
-// bINum := BigIntNum{}
-// err := bINum.SetINumMgr(dec.GetThisPointer())
-//
-// Example 3:
-// dec := Decimal{}.NewPtr()
-// err := dec.SetNumStr(nStr)
-// bINum := BigIntNum{}
-// err := bINum.SetINumMgr(dec)
-func (bNum *BigIntNum) SetINumMgr(numMgr INumMgr) error {
-
-	ePrefix := "BigIntNum.SetINumMgr() "
-
-	err := numMgr.IsValid(ePrefix + "numMgr INVALID! ")
-
-	if err != nil {
-		return err
-	}
-
-	bigInt, err := numMgr.GetBigInt()
-
-	if err != nil {
-		return fmt.Errorf(ePrefix+"Error returned by numMgr.GetBigInt(). "+
-			"Error='%v'", err.Error())
-	}
-
-	bNum.SetBigInt(bigInt, numMgr.GetPrecisionUint())
 
 	return nil
 }

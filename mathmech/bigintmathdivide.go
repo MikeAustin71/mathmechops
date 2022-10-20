@@ -10,7 +10,6 @@ import (
 // division operation using *big.Int numeric types.
 //
 // Reference the 'big' math package: https://golang.org/pkg/math/big/
-//
 type BigIntMathDivide struct {
 	Input BigIntPair
 	// BigIntPair.Big1 = Dividend
@@ -30,14 +29,14 @@ type BigIntMathDivide struct {
 // Example:
 // ========
 //
-//            quotient =  dividend / 2^(exponent)
+//	quotient =  dividend / 2^(exponent)
 //
 // In the example of 33,333 / 2^8:
-//		(1) The fractional quotient of 33,333/256 (or 2^8) is 130.
 //
-//    (2) This method will use a right shift technique 33,333 / 2^(8) to generate
-//    		a quotient of 130.
+//			(1) The fractional quotient of 33,333/256 (or 2^8) is 130.
 //
+//	   (2) This method will use a right shift technique 33,333 / 2^(8) to generate
+//	   		a quotient of 130.
 func (bIDivide BigIntMathDivide) BigIntDividedByTwoToPower(
 	dividend *big.Int,
 	exponent uint) (integerQuotient *big.Int) {
@@ -62,71 +61,81 @@ func (bIDivide BigIntMathDivide) BigIntDividedByTwoToPower(
 // This division operation will produce a quotient which may include a fixed
 // number of fractional digits to the right of the decimal place:
 //
-//  								quotient = dividend / divisor
+//	quotient = dividend / divisor
 //
 // For the example
-// 									quotient =	752.314 / 21.67894
+//
+//	quotient =	752.314 / 21.67894
 //
 // 'dividend' and 'divisor' would be configured as follows:
-//									dividend 						= 752314
-//                  dividendPrecision		= 3
-//                  divisor 						= 2167894
-//                  divisorPrecision    = 5
+//
+//										dividend 						= 752314
+//	                 dividendPrecision		= 3
+//	                 divisor 						= 2167894
+//	                 divisorPrecision    = 5
 //
 // Assuming a 'maxPrecision' value of '30', the quotient would be
 // calculated as follows:
-//									quotient 						= 34702526968569496479071393712054
-//                  quotientPrecision   = 30
+//
+//										quotient 						= 34702526968569496479071393712054
+//	                 quotientPrecision   = 30
 //
 // Input Parameters
 // ================
 //
 // dividend				*big.Int	- The 'dividend' value will be divided by the 'divisor'
-//                          	to produce a 'quotient'.
+//
+//	to produce a 'quotient'.
 //
 // dividendPrecision	uint	- This unsigned integer value is a precision specification
-//                            associated with input parameter 'dividend'. The precision
-//                            specifies the number if digits to right of the decimal
-//                            place in the series of integer digits contained in
-//                            'dividend'.
+//
+//	associated with input parameter 'dividend'. The precision
+//	specifies the number if digits to right of the decimal
+//	place in the series of integer digits contained in
+//	'dividend'.
 //
 // divisor				*big.Int	- The 'dividend' value will be divided by the 'divisor'
-//                          	to produce a 'quotient'.
+//
+//	to produce a 'quotient'.
 //
 // divisorPrecision		uint	- This unsigned integer value is a precision specification
-//                            associated with input parameter 'divisor'. The precision
-//                            specifies the number if digits to right of the decimal
-//                            place in the series of integer digits contained in
-//                            'divisor'.
+//
+//	associated with input parameter 'divisor'. The precision
+//	specifies the number if digits to right of the decimal
+//	place in the series of integer digits contained in
+//	'divisor'.
 //
 // 'maxPrecision' 		uint	-	Maximum precision specifies the maximum number of
-//                            decimal digits to which the result or 'quotient'
-//                            will calculated and returned to the caller. The
-//                            quotient may consist of actual fractional digits
-//                            which number less than 'maxPrecision'. However, if
-//                            the number of digits to the right of the decimal
-//                            place exceeds 'maxPrecision', the returned quotient
-//                            will be rounded to 'maxPrecision' fractional digits
-//                            to the right of the decimal place.
+//
+//	decimal digits to which the result or 'quotient'
+//	will calculated and returned to the caller. The
+//	quotient may consist of actual fractional digits
+//	which number less than 'maxPrecision'. However, if
+//	the number of digits to the right of the decimal
+//	place exceeds 'maxPrecision', the returned quotient
+//	will be rounded to 'maxPrecision' fractional digits
+//	to the right of the decimal place.
 //
 // Return Values
 // =============
 //
 // quotient				*big.Int	- The result of the division operation expressed
-//                            as an integer.
+//
+//	as an integer.
 //
 // quotientPrecision	uint	- An unsigned integer which specifies the number of
-//                            fractional digits to the right of the decimal place
-//                            in the series of integer digits defined by 'quotient'
+//
+//	fractional digits to the right of the decimal place
+//	in the series of integer digits defined by 'quotient'
 //
 // err							 error	- If an error is encountered, this function will
-//                            return a quotient set equal to zero and an error
-//                            object will be returned containing an appropriate
-// 														error message. If the function completes the division
-// 														operation successfully, the returned 'quotient' will
-//                            be populated with the correct result and 'err' will
-// 														be set equal to 'nil'.
 //
+//	                           return a quotient set equal to zero and an error
+//	                           object will be returned containing an appropriate
+//															error message. If the function completes the division
+//															operation successfully, the returned 'quotient' will
+//	                           be populated with the correct result and 'err' will
+//															be set equal to 'nil'.
 func (bIDivide BigIntMathDivide) BigIntFracQuotient(
 	dividend,
 	dividendPrecision,
@@ -293,7 +302,8 @@ func (bIDivide BigIntMathDivide) BigIntFracQuotient(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -309,23 +319,23 @@ func (bIDivide BigIntMathDivide) BigIntFracQuotient(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division 'result' (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'
-//
 func (bIDivide BigIntMathDivide) BigIntNumQuotientMod(
 	dividend,
 	divisor BigIntNum,
@@ -378,28 +388,28 @@ func (bIDivide BigIntMathDivide) BigIntNumQuotientMod(
 //
 // Examples:
 // =========
-//																				Return Value
-//  Divisor	divided by	Dividend		=		Integer Quotient
-// 		 5 				/ 				 2 				= 				 2
-//     5.25 		/ 				 2  			= 				 2
-//     2 				/ 				 4				= 				 0
-// 		-5 				/ 				 2 				= 				-2
-//    -5.25     /    			 2  			= 				-2
-//    -2 				/ 				 4				= 				 0
-// 		 5 				/ 				-2 				=					-2
-//     5.25 		/ 				-2 				= 				-2
-//     2 				/ 				-4				= 				 0
-// 		-5 				/ 				-2 				= 				 2
-//    -5.25     /    			-2 				= 				 2
-//    -2 				/ 				-4				= 				 0
-//     12.555		/ 			  -2.5			=			    -5
-//    -12.555		/ 			  -2.5			=			     5
-//     12.555		/ 			  -2				=			    -6
+//
+//																					Return Value
+//	 Divisor	divided by	Dividend		=		Integer Quotient
+//			 5 				/ 				 2 				= 				 2
+//	    5.25 		/ 				 2  			= 				 2
+//	    2 				/ 				 4				= 				 0
+//			-5 				/ 				 2 				= 				-2
+//	   -5.25     /    			 2  			= 				-2
+//	   -2 				/ 				 4				= 				 0
+//			 5 				/ 				-2 				=					-2
+//	    5.25 		/ 				-2 				= 				-2
+//	    2 				/ 				-4				= 				 0
+//			-5 				/ 				-2 				= 				 2
+//	   -5.25     /    			-2 				= 				 2
+//	   -2 				/ 				-4				= 				 0
+//	    12.555		/ 			  -2.5			=			    -5
+//	   -12.555		/ 			  -2.5			=			     5
+//	    12.555		/ 			  -2				=			    -6
 //
 // The returned BigIntNum division 'result' (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumIntQuotient(
 	dividend,
 	divisor BigIntNum) (intQuotient BigIntNum, err error) {
@@ -450,7 +460,8 @@ func (bIDivide BigIntMathDivide) BigIntNumIntQuotient(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one BigIntNum value: 'modulo'.
 //
@@ -461,8 +472,9 @@ func (bIDivide BigIntMathDivide) BigIntNumIntQuotient(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -477,23 +489,23 @@ func (bIDivide BigIntMathDivide) BigIntNumIntQuotient(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division 'result' (modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumModulo(
 	dividend,
 	divisor BigIntNum,
@@ -543,23 +555,24 @@ func (bIDivide BigIntMathDivide) BigIntNumModulo(
 // =========
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				   Quotient
-//  Dividend		divided by	Divisor		=		BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					   Quotient
+//	 Dividend		divided by	Divisor		=		BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The input parameter 'maxPrecision' is used to control the precision of the
 // resulting fractional quotient. Be advised that this method is capable of
@@ -568,7 +581,6 @@ func (bIDivide BigIntMathDivide) BigIntNumModulo(
 // The returned BigIntNum division result ('fracQuotient') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumFracQuotient(
 	dividend,
 	divisor BigIntNum,
@@ -576,7 +588,7 @@ func (bIDivide BigIntMathDivide) BigIntNumFracQuotient(
 
 	ePrefix := "BigIntMathDivide.BigIntNumFracQuotient() "
 
-	fracQuotient = BigIntNum{}.NewZero(0)
+	fracQuotient = new(BigIntNum).NewZero(0)
 	err = nil
 
 	binDividend, errx := dividend.GetBigInt()
@@ -637,27 +649,27 @@ func (bIDivide BigIntMathDivide) BigIntNumFracQuotient(
 // =========
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//    	                                       Returned
-//  	Dividend		divided by	Divisor		=	       Array						=  	 Result
-//  	-------- 	  ----------	--------				-----------------	   		---------
-//	 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
-//	 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
-//	   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
-//	    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
-//		-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
-//	  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
-//	   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
-//	 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
-//	-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
-//	  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
-//	  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
-//	  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
+//
+//	   	                                       Returned
+//	 	Dividend		divided by	Divisor		=	       Array						=  	 Result
+//	 	-------- 	  ----------	--------				-----------------	   		---------
+//		 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
+//		 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
+//		   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
+//		    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
+//			-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
+//		  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
+//		   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
+//		 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
+//		-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
+//		  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
+//		  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
+//		  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
 //
 // Each element of the returned BigIntNum array resulting from this division operation
 // will contain contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from the first element of the input parameter 'dividends'
 // array.
-//
 func (bIDivide BigIntMathDivide) BigIntNumFracQuotientArray(
 	dividends []BigIntNum,
 	divisor BigIntNum,
@@ -733,7 +745,8 @@ func (bIDivide BigIntMathDivide) BigIntNumFracQuotientArray(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by two
 //
@@ -749,17 +762,17 @@ func (bIDivide BigIntMathDivide) BigIntNumFracQuotientArray(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//    4							/						 2			  =			 2							 0
-//    5  	 					/ 				 	 2  			= 		 2							 1
-//    2.5 					/ 				 	 2				= 	   1							 0.5
-//	-12.555 				/ 				   2  			= 		-6							-0.555
-//    0 						/ 				 	 2 				= 		 0							 0
-//  -19	 						/ 				   2    		= 		-9							-1
+//
+//	   4							/						 2			  =			 2							 0
+//	   5  	 					/ 				 	 2  			= 		 2							 1
+//	   2.5 					/ 				 	 2				= 	   1							 0.5
+//		-12.555 				/ 				   2  			= 		-6							-0.555
+//	   0 						/ 				 	 2 				= 		 0							 0
+//	 -19	 						/ 				   2    		= 		-9							-1
 //
 // The returned BigIntNum division 'result' (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTwoQuoMod(
 	dividend BigIntNum,
 	maxPrecision uint) (quotient, modulo BigIntNum, err error) {
@@ -780,7 +793,8 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTwoQuoMod(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by three
 //
@@ -796,15 +810,15 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTwoQuoMod(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//    4							/						 3			  =			  1							 	1
-//    5  	 					/ 				 	 3  			= 		  1							 	2
-//    8 						/ 				 	 3				= 	    2							 	2
-//   12							/            3				=				4								0
+//
+//	 4							/						 3			  =			  1							 	1
+//	 5  	 					/ 				 	 3  			= 		  1							 	2
+//	 8 						/ 				 	 3				= 	    2							 	2
+//	12							/            3				=				4								0
 //
 // The returned BigIntNum division 'result' (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByThreeQuoMod(
 	dividend BigIntNum,
 	maxPrecision uint) (quotient, modulo BigIntNum, err error) {
@@ -825,7 +839,8 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByThreeQuoMod(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by five
 //
@@ -841,14 +856,14 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByThreeQuoMod(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//    6							/						 5			  =			 1							 1
-//   12  	 					/ 				 	 5  			= 		 2							 2
-//   16 						/ 				 	 5				= 	   3							 1
+//
+//	 6							/						 5			  =			 1							 1
+//	12  	 					/ 				 	 5  			= 		 2							 2
+//	16 						/ 				 	 5				= 	   3							 1
 //
 // The returned BigIntNum division 'result' (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByFiveQuoMod(
 	dividend BigIntNum,
 	maxPrecision uint) (quotient, modulo BigIntNum, err error) {
@@ -869,7 +884,8 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByFiveQuoMod(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by 10
 //
@@ -885,14 +901,14 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByFiveQuoMod(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   16							/						 10			  =			 1							 6
-//   32  	 					/ 				 	 10  			= 		 3							 2
-//   96 						/ 				 	 10				= 	   9							 6
+//
+//	16							/						 10			  =			 1							 6
+//	32  	 					/ 				 	 10  			= 		 3							 2
+//	96 						/ 				 	 10				= 	   9							 6
 //
 // The returned BigIntNum division 'result' (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTenQuoMod(
 	dividend BigIntNum,
 	maxPrecision uint) (quotient, modulo BigIntNum, err error) {
@@ -907,7 +923,7 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenQuoMod(
 // (10) to the power of input parameter 'exponent'. There are two BigIntNum return
 // values: 'quotient' and 'modulo'.
 //
-//								quotient, modulo = dividend / (10^exponent)
+//	quotient, modulo = dividend / (10^exponent)
 //
 // The calculation of 'quotient' and 'modulo' is based on T-Division (Truncate Division).
 // See "Division and Modulus for Computer Scientists", DAAN LEIJEN, University of Utrecht
@@ -915,7 +931,8 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenQuoMod(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by 10
 //
@@ -930,7 +947,6 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenQuoMod(
 // The returned BigIntNum division 'result' (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerQuoMod(
 	dividend, exponent BigIntNum,
 	maxPrecision uint) (quotient, modulo BigIntNum, err error) {
@@ -964,11 +980,11 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerQuoMod(
 // Examples:
 // =========
 //
-//  Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
-//  -------- 	  ----------	--------				  ---------	 	 		------
-// 	 10.5  				/ 				   2 				= 			  2  			 	 	 5.25
-// 	 10    				/ 				   2 				= 			 	0  			 	 	 5
-//  -12.555     	/    			   2  			= 		  	4						-6.2775
+//	 Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
+//	 -------- 	  ----------	--------				  ---------	 	 		------
+//		 10.5  				/ 				   2 				= 			  2  			 	 	 5.25
+//		 10    				/ 				   2 				= 			 	0  			 	 	 5
+//	 -12.555     	/    			   2  			= 		  	4						-6.2775
 //
 // The input parameter 'maxPrecision' is used to control the maximum precision of the
 // resulting fractional quotient. Be advised that this method is capable of calculating
@@ -977,7 +993,6 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerQuoMod(
 // The returned BigIntNum division result ('fracQuotient') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTwoFracQuo(
 	dividend BigIntNum,
 	maxPrecision uint) (fracQuotient BigIntNum, err error) {
@@ -998,14 +1013,15 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTwoFracQuo(
 //
 // Examples:
 // =========
-//  For this example, assume that 'maxPrecision' = 15
 //
-//  Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
-//  -------- 	  ----------	--------				  ---------	 	 		------
-// 	 9.5  				/ 				   3 				= 			  2  			 	 	 3.166666666666667
-// 	 10    				/ 				   3 				= 			 	0  			 	 	 3.333333333333333
-//   12						/						 3			  =					0						 4
-//  -12     			/    			   3  			= 		  	0						-4
+//	 For this example, assume that 'maxPrecision' = 15
+//
+//	 Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
+//	 -------- 	  ----------	--------				  ---------	 	 		------
+//		 9.5  				/ 				   3 				= 			  2  			 	 	 3.166666666666667
+//		 10    				/ 				   3 				= 			 	0  			 	 	 3.333333333333333
+//	  12						/						 3			  =					0						 4
+//	 -12     			/    			   3  			= 		  	0						-4
 //
 // The input parameter 'maxPrecision' is used to control the maximum precision of the
 // resulting fractional quotient. Be advised that this method is capable of calculating
@@ -1014,7 +1030,6 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTwoFracQuo(
 // The returned BigIntNum division result ('fracQuotient') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByThreeFracQuo(
 	dividend BigIntNum,
 	maxPrecision uint) (fracQuotient BigIntNum, err error) {
@@ -1036,12 +1051,12 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByThreeFracQuo(
 // Examples:
 // =========
 //
-//  Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
-//  -------- 	  ----------	--------				  ---------	 	 		------
-// 	 16.2  				/ 				   5 				= 			  2  			 	 	 3.24
-// 	 10    				/ 				   5 				= 			 	0  			 	 	 2
-//   12						/						 5			  =					1						 2.4
-//  -12     			/    			   5  			= 		  	1						-2.4
+//	 Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
+//	 -------- 	  ----------	--------				  ---------	 	 		------
+//		 16.2  				/ 				   5 				= 			  2  			 	 	 3.24
+//		 10    				/ 				   5 				= 			 	0  			 	 	 2
+//	  12						/						 5			  =					1						 2.4
+//	 -12     			/    			   5  			= 		  	1						-2.4
 //
 // The input parameter 'maxPrecision' is used to control the maximum precision of the
 // resulting fractional quotient. Be advised that this method is capable of calculating
@@ -1050,7 +1065,6 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByThreeFracQuo(
 // The returned BigIntNum division result ('fracQuotient') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByFiveFracQuo(
 	dividend BigIntNum,
 	maxPrecision uint) (fracQuotient BigIntNum, err error) {
@@ -1071,14 +1085,15 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByFiveFracQuo(
 //
 // Examples:
 // =========
-//  For this example, assume that 'maxPrecision' = 15
 //
-//  Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
-//  -------- 	  ----------	--------				  ---------	 	 		------
-// 	 16.2  				/ 				  10				= 			  2  			 	 	 1.62
-// 	 10    				/ 				  10 				= 			 	0  			 	 	 1
-//   12						/						10			  =					1						 1.2
-//  -12     			/    			  10  			= 		  	1						-1.2
+//	 For this example, assume that 'maxPrecision' = 15
+//
+//	 Dividend		divided by	Divisor		  =		 	Precision	 		 	Result
+//	 -------- 	  ----------	--------				  ---------	 	 		------
+//		 16.2  				/ 				  10				= 			  2  			 	 	 1.62
+//		 10    				/ 				  10 				= 			 	0  			 	 	 1
+//	  12						/						10			  =					1						 1.2
+//	 -12     			/    			  10  			= 		  	1						-1.2
 //
 // The input parameter 'maxPrecision' is used to control the maximum precision of the
 // resulting fractional quotient. Be advised that this method is capable of calculating
@@ -1087,7 +1102,6 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByFiveFracQuo(
 // The returned BigIntNum division result ('fracQuotient') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTenFracQuo(
 	dividend BigIntNum,
 	maxPrecision uint) (fracQuotient BigIntNum, err error) {
@@ -1101,7 +1115,7 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenFracQuo(
 // parameter 'dividend'. This method will divide 'dividend' by the numeric value ten
 // ('10') to the power of input parameter 'exponent'.
 //
-//						fractional quotient = dividend / (10^exponent)
+//	fractional quotient = dividend / (10^exponent)
 //
 // The result of this division operation is returned as a BigIntNum type representing
 // quotient as integer and fractional digits. Remember that the BigIntNum type specifies
@@ -1115,7 +1129,6 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenFracQuo(
 // The returned BigIntNum division result ('fracQuotient') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerFracQuo(
 	dividend,
 	exponent BigIntNum,
@@ -1141,7 +1154,7 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerFracQuo(
 // parameter 'dividend'. This method will divide 'dividend' by the numeric value ten
 // ('10') to the power of input parameter 'exponent'.
 //
-//						integer quotient = dividend / (10^exponent)
+//	integer quotient = dividend / (10^exponent)
 //
 // The result of this division operation is returned as a BigIntNum type representing
 // 'quotient' as an integer value.
@@ -1154,7 +1167,6 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerFracQuo(
 // The returned BigIntNum division result ('intQuotient') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerIntQuo(
 	dividend,
 	exponent BigIntNum,
@@ -1179,11 +1191,12 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerIntQuo(
 // BigIntNumDivideByTenToPowerMod - Performs a modulo operation on BigIntNum input
 // parameters 'dividend' and ten (10) to the power of exponent.
 //
-// 						modulo = dividend / (10^exponent)
+//	modulo = dividend / (10^exponent)
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one BigIntNum value: 'modulo'.
 //
@@ -1194,8 +1207,9 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerIntQuo(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -1208,15 +1222,17 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerIntQuo(
 // Examples:
 // =========
 //
-//  Dividend			  mod by	Power 		Divisor			=			Modulo/Remainder
+//	Dividend			  mod by	Power 		Divisor			=			Modulo/Remainder
+//
 // ---------				------	-----		  -------						----------------
-//  1200.555					%				2		 			100			  =			 		0.555
+//
+//	1200.555					%				2		 			100			  =			 		0.555
+//
 // 10235.555					%				3		 		 1000			  =			 	235.555
 //
 // The returned BigIntNum division 'result' (modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerMod(
 	dividend,
 	exponent BigIntNum,
@@ -1249,7 +1265,8 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerMod(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -1266,23 +1283,23 @@ func (bIDivide BigIntMathDivide) BigIntNumDivideByTenToPowerMod(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division results ('quotient' and 'modulo') will
 // contain numeric separators (decimal separator, thousands separator and
 // currency symbol) copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) DecimalQuotientMod(
 	dividend,
 	divisor Decimal,
@@ -1350,28 +1367,28 @@ func (bIDivide BigIntMathDivide) DecimalQuotientMod(
 //
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				     Quotient
-//  Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					     Quotient
+//	 Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The returned BigIntNum division result ('fracQuotient') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from input parameter,
 // 'dividend'.
-//
 func (bIDivide BigIntMathDivide) DecimalFracQuotient(
 	dividend,
 	divisor Decimal,
@@ -1434,26 +1451,26 @@ func (bIDivide BigIntMathDivide) DecimalFracQuotient(
 // =========
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//    	                                       Returned
-//  	Dividend		divided by	Divisor		=	       Array						=  	 Result
-//  	-------- 	  ----------	--------				-----------------	   		---------
-//	 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
-//	 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
-//	   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
-//	    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
-//		-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
-//	  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
-//	   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
-//	 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
-//	-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
-//	  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
-//	  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
-//	  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
+//
+//	   	                                       Returned
+//	 	Dividend		divided by	Divisor		=	       Array						=  	 Result
+//	 	-------- 	  ----------	--------				-----------------	   		---------
+//		 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
+//		 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
+//		   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
+//		    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
+//			-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
+//		  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
+//		   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
+//		 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
+//		-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
+//		  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
+//		  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
+//		  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
 //
 // Each element in the returned division results array ('fracQuoArray') will contain
 // numeric separators (decimal separator, thousands separator and currency symbol)
 // copied from the first element of the input parameter 'dividends' array.
-//
 func (bIDivide BigIntMathDivide) DecimalFracQuotientArray(
 	dividends []Decimal,
 	divisor Decimal,
@@ -1543,7 +1560,8 @@ func (bIDivide BigIntMathDivide) DecimalFracQuotientArray(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one Decimal value: 'modulo'.
 //
@@ -1554,8 +1572,9 @@ func (bIDivide BigIntMathDivide) DecimalFracQuotientArray(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -1570,23 +1589,23 @@ func (bIDivide BigIntMathDivide) DecimalFracQuotientArray(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division result ('modulo') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) DecimalModulo(
 	dividend,
 	divisor Decimal,
@@ -1638,7 +1657,8 @@ func (bIDivide BigIntMathDivide) DecimalModulo(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one Decimal value: 'modulo'.
 //
@@ -1649,8 +1669,9 @@ func (bIDivide BigIntMathDivide) DecimalModulo(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -1665,18 +1686,19 @@ func (bIDivide BigIntMathDivide) DecimalModulo(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division result ('modulo') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
@@ -1685,7 +1707,6 @@ func (bIDivide BigIntMathDivide) DecimalModulo(
 // The difference between this method and BigIntMathDivide.DecimalModulo()
 // above, is that this method returns the resulting modulo value as a type
 // 'Decimal'.
-//
 func (bIDivide BigIntMathDivide) DecimalModuloToDecimal(
 	dividend,
 	divisor Decimal,
@@ -1752,76 +1773,82 @@ func (bIDivide BigIntMathDivide) DecimalModuloToDecimal(
 // This division operation will produce a quotient which may include a fixed
 // length floating point number:
 //
-//  								quotient = dividend / divisor
+//	quotient = dividend / divisor
 //
 // The BigIntFixedDecimal structure is defined as
-// type BigIntFixedDecimal struct {
-//	integerNum *big.Int  -	All of the numeric digits, both integer and fractional,
-// 													necessary to define a fixed length floating point number.
-// 													The number of digits to the right of the decimal place
-// 													is specified by the data field,
-// 													BigIntFixedDecimal.precision.
 //
-//	precision  uint				- Specifies the number of digits to the right of the decimal
-// 													place in the series of numeric digits represented by data
-// 													field BigIntFixedDecimal.integerNum.
+//	type BigIntFixedDecimal struct {
+//		integerNum *big.Int  -	All of the numeric digits, both integer and fractional,
+//														necessary to define a fixed length floating point number.
+//														The number of digits to the right of the decimal place
+//														is specified by the data field,
+//														BigIntFixedDecimal.precision.
+//
+//		precision  uint				- Specifies the number of digits to the right of the decimal
+//														place in the series of numeric digits represented by data
+//														field BigIntFixedDecimal.integerNum.
 //
 // }
 //
+//		To represent the floating point number 52.459
+//		a BigIntDecimal Structure would be configured as follows:
+//				BigIntFixedDecimal.integerNum	= 52459
+//				BigIntFixedDecimal.precision	= 3
 //
-// 	To represent the floating point number 52.459
-// 	a BigIntDecimal Structure would be configured as follows:
-// 			BigIntFixedDecimal.integerNum	= 52459
-// 			BigIntFixedDecimal.precision	= 3
-//
-//  Consider the following division example
-// 									quotient =	752.314 / 21.67894
+//	 Consider the following division example
+//										quotient =	752.314 / 21.67894
 //
 // 'dividend' and 'divisor' would be configured as follows:
-//									dividend.integerNum	= 752314
-//                  dividend.precision	= 3
-//                  divisor.integerNum	= 2167894
-//                  divisor.precision		= 5
+//
+//										dividend.integerNum	= 752314
+//	                 dividend.precision	= 3
+//	                 divisor.integerNum	= 2167894
+//	                 divisor.precision		= 5
 //
 // Assuming a 'maxPrecision' value of '30', the quotient would be
 // calculated as follows:
-//									quotient.integerNum	= 34702526968569496479071393712054
-//                  quotient.precision  = 30
+//
+//										quotient.integerNum	= 34702526968569496479071393712054
+//	                 quotient.precision  = 30
 //
 // Input Parameters
 // ================
 //
 // dividend	BigIntFixedDecimal	- The 'dividend' value will be divided by the 'divisor'
-//                          			to produce a 'quotient'.
+//
+//	to produce a 'quotient'.
 //
 // divisor	BigIntFixedDecimal	- The 'dividend' value will be divided by the 'divisor'
-//                          			to produce a 'quotient'.
+//
+//	to produce a 'quotient'.
 //
 // 'maxPrecision' 				uint	-	Maximum precision will determine the maximum number
-//                                of decimal digits to which the result or 'quotient'
-//                            		will calculated and returned to the caller. The
-//                            		quotient may consist of actual fractional digits
-//                            		which number less than 'maxPrecision'. However, if
-//                            		the number of digits to the right of the decimal
-//                            		place exceeds 'maxPrecision', the returned quotient
-//                            		will be rounded to 'maxPrecision' fractional digits
-//                            		to the right of the decimal place.
+//
+//	    of decimal digits to which the result or 'quotient'
+//			will calculated and returned to the caller. The
+//			quotient may consist of actual fractional digits
+//			which number less than 'maxPrecision'. However, if
+//			the number of digits to the right of the decimal
+//			place exceeds 'maxPrecision', the returned quotient
+//			will be rounded to 'maxPrecision' fractional digits
+//			to the right of the decimal place.
 //
 // Return Values
 // =============
 //
 // quotient	BigIntFixedDecimal	- The result of the division operation expressed
-//                            		as a type BigIntFixedDecimal.
+//
+//	as a type BigIntFixedDecimal.
 //
 // err			error								- If an error is encountered, this function will
-//                                return a quotient set equal to zero and an
-//                                error object will be returned containing an
-//                                appropriate error message. If the function
-//                                completes the division operation successfully,
-//                                the returned 'quotient' will be populated with
-// 																the correct result and 'err' will be set equal
-//                                to 'nil'.
 //
+//	                               return a quotient set equal to zero and an
+//	                               error object will be returned containing an
+//	                               appropriate error message. If the function
+//	                               completes the division operation successfully,
+//	                               the returned 'quotient' will be populated with
+//																	the correct result and 'err' will be set equal
+//	                               to 'nil'.
 func (bIDivide BigIntMathDivide) FixedDecimalFracQuotient(
 	dividend BigIntFixedDecimal,
 	divisor BigIntFixedDecimal,
@@ -1866,7 +1893,8 @@ func (bIDivide BigIntMathDivide) FixedDecimalFracQuotient(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -1882,23 +1910,23 @@ func (bIDivide BigIntMathDivide) FixedDecimalFracQuotient(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division results ('quotient' and 'modulo') will contain
 // numeric separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) IntAryQuotientMod(
 	dividend,
 	divisor IntAry,
@@ -1966,28 +1994,28 @@ func (bIDivide BigIntMathDivide) IntAryQuotientMod(
 //
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				      Quotient
-//  Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					      Quotient
+//	 Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The returned BigIntNum division result ('fracQuotient') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from input parameter,
 // 'dividend'.
-//
 func (bIDivide BigIntMathDivide) IntAryFracQuotient(
 	dividend,
 	divisor IntAry,
@@ -2052,26 +2080,26 @@ func (bIDivide BigIntMathDivide) IntAryFracQuotient(
 // =========
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//    	                                       Returned
-//  	Dividend		divided by	Divisor		=	       Array						=  	 Result
-//  	-------- 	  ----------	--------				-----------------	   		---------
-//	 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
-//	 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
-//	   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
-//	    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
-//		-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
-//	  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
-//	   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
-//	 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
-//	-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
-//	  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
-//	  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
-//	  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
+//
+//	   	                                       Returned
+//	 	Dividend		divided by	Divisor		=	       Array						=  	 Result
+//	 	-------- 	  ----------	--------				-----------------	   		---------
+//		 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
+//		 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
+//		   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
+//		    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
+//			-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
+//		  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
+//		   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
+//		 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
+//		-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
+//		  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
+//		  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
+//		  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
 //
 // The returned []IntAry division result ('fracQuoArray') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from the first
 // element of the input parameter 'dividends' array.
-//
 func (bIDivide BigIntMathDivide) IntAryFracQuotientArray(
 	dividends []IntAry,
 	divisor IntAry,
@@ -2163,7 +2191,8 @@ func (bIDivide BigIntMathDivide) IntAryFracQuotientArray(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one BigIntNum value: 'modulo'.
 //
@@ -2174,8 +2203,9 @@ func (bIDivide BigIntMathDivide) IntAryFracQuotientArray(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -2190,23 +2220,23 @@ func (bIDivide BigIntMathDivide) IntAryFracQuotientArray(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division result ('modulo') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from input
 // parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) IntAryModulo(
 	dividend,
 	divisor IntAry,
@@ -2258,7 +2288,8 @@ func (bIDivide BigIntMathDivide) IntAryModulo(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one IntAry value: 'modulo'.
 //
@@ -2269,8 +2300,9 @@ func (bIDivide BigIntMathDivide) IntAryModulo(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -2285,18 +2317,19 @@ func (bIDivide BigIntMathDivide) IntAryModulo(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned IntAry division result ('modulo') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from input
@@ -2304,7 +2337,6 @@ func (bIDivide BigIntMathDivide) IntAryModulo(
 //
 // The difference between this method and BigIntMathDivide.IntAryModulo() above,
 // is that the division result, 'modulo', is returned as Type IntAry.
-//
 func (bIDivide BigIntMathDivide) IntAryModuloToIntAry(
 	dividend,
 	divisor IntAry,
@@ -2374,7 +2406,8 @@ func (bIDivide BigIntMathDivide) IntAryModuloToIntAry(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -2391,23 +2424,23 @@ func (bIDivide BigIntMathDivide) IntAryModuloToIntAry(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division results ('quotient' and 'modulo') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol) copied from
 // input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) INumMgrQuotientMod(
 	dividend,
 	divisor INumMgr,
@@ -2476,28 +2509,28 @@ func (bIDivide BigIntMathDivide) INumMgrQuotientMod(
 //
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				     Quotient
-//  Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					     Quotient
+//	 Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The returned BigIntNum division result ('fracQuotient') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from input parameter,
 // 'dividend'.
-//
 func (bIDivide BigIntMathDivide) INumMgrFracQuotient(
 	dividend,
 	divisor INumMgr,
@@ -2561,26 +2594,26 @@ func (bIDivide BigIntMathDivide) INumMgrFracQuotient(
 // =========
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//    	                                       Returned
-//  	Dividend		divided by	Divisor		=	       Array						=  	 Result
-//  	-------- 	  ----------	--------				-----------------	   		---------
-//	 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
-//	 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
-//	   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
-//	    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
-//		-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
-//	  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
-//	   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
-//	 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
-//	-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
-//	  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
-//	  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
-//	  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
+//
+//	   	                                       Returned
+//	 	Dividend		divided by	Divisor		=	       Array						=  	 Result
+//	 	-------- 	  ----------	--------				-----------------	   		---------
+//		 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
+//		 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
+//		   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
+//		    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
+//			-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
+//		  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
+//		   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
+//		 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
+//		-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
+//		  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
+//		  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
+//		  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
 //
 // The returned INumMgr array division result ('fracQuoArray') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol) copied
 // from the first element of input parameter, 'dividends' array.
-//
 func (bIDivide BigIntMathDivide) INumMgrFracQuotientArray(
 	dividends []INumMgr,
 	divisor INumMgr,
@@ -2664,7 +2697,8 @@ func (bIDivide BigIntMathDivide) INumMgrFracQuotientArray(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one BigIntNum value: 'modulo'.
 //
@@ -2675,8 +2709,9 @@ func (bIDivide BigIntMathDivide) INumMgrFracQuotientArray(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -2691,23 +2726,23 @@ func (bIDivide BigIntMathDivide) INumMgrFracQuotientArray(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division result ('modulo') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) INumMgrModulo(
 	dividend,
 	divisor INumMgr,
@@ -2766,7 +2801,8 @@ func (bIDivide BigIntMathDivide) INumMgrModulo(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -2788,23 +2824,23 @@ func (bIDivide BigIntMathDivide) INumMgrModulo(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division results ('quotient' and 'modulo') will contain
 // numeric separators (decimal separator, thousands separator and currency
 // symbol) designated by the input parameter, 'numSeps'.
-//
 func (bIDivide BigIntMathDivide) NumStrQuotientMod(
 	dividend,
 	divisor string,
@@ -2901,28 +2937,28 @@ func (bIDivide BigIntMathDivide) NumStrQuotientMod(
 //
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				     Quotient
-//  Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					     Quotient
+//	 Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The returned BigIntNum division result ('fracQuotient') will contain
 // numeric separators (decimal separator, thousands separator and currency
 // symbol) designated by the input parameter, 'numSeps'.
-//
 func (bIDivide BigIntMathDivide) NumStrFracQuotient(
 	dividend,
 	divisor string,
@@ -3017,26 +3053,26 @@ func (bIDivide BigIntMathDivide) NumStrFracQuotient(
 // =========
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//    	                                       Returned
-//  	Dividend		divided by	Divisor		=	       Array						=  	 Result
-//  	-------- 	  ----------	--------				-----------------	   		---------
-//	 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
-//	 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
-//	   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
-//	    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
-//		-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
-//	  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
-//	   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
-//	 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
-//	-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
-//	  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
-//	  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
-//	  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
+//
+//	   	                                       Returned
+//	 	Dividend		divided by	Divisor		=	       Array						=  	 Result
+//	 	-------- 	  ----------	--------				-----------------	   		---------
+//		 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
+//		 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
+//		   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
+//		    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
+//			-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
+//		  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
+//		   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
+//		 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
+//		-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
+//		  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
+//		  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
+//		  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
 //
 // Each element of the returned BigIntNum Array ('fracQuoArray') will contain
 // numeric separators (decimal separator, thousands separator and currency symbol)
 // specified by the 'numSeps' input parameter.
-//
 func (bIDivide BigIntMathDivide) NumStrFracQuotientArray(
 	dividends []string,
 	divisor string,
@@ -3124,7 +3160,8 @@ func (bIDivide BigIntMathDivide) NumStrFracQuotientArray(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one BigIntNum value: 'modulo'.
 //
@@ -3135,8 +3172,9 @@ func (bIDivide BigIntMathDivide) NumStrFracQuotientArray(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -3157,23 +3195,23 @@ func (bIDivide BigIntMathDivide) NumStrFracQuotientArray(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division result ('modulo') will contain default
 // numeric separators (decimal separator, thousands separator and currency
 // symbol).
-//
 func (bIDivide BigIntMathDivide) NumStrModulo(
 	dividend,
 	divisor string,
@@ -3247,7 +3285,8 @@ func (bIDivide BigIntMathDivide) NumStrModulo(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -3264,23 +3303,23 @@ func (bIDivide BigIntMathDivide) NumStrModulo(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division results ('quotient' and 'modulo') will contain
 // numeric separators (decimal separator, thousands separator and currency symbol)
 // copied from input parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) NumStrDtoQuotientMod(
 	dividend,
 	divisor NumStrDto,
@@ -3349,28 +3388,28 @@ func (bIDivide BigIntMathDivide) NumStrDtoQuotientMod(
 //
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				      Quotient
-//  Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					      Quotient
+//	 Dividend		divided by	Divisor		=		  BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The returned BigIntNum division result ('fracQuotient') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from input parameter,
 // 'dividend'.
-//
 func (bIDivide BigIntMathDivide) NumStrDtoFracQuotient(
 	dividend,
 	divisor NumStrDto,
@@ -3435,26 +3474,26 @@ func (bIDivide BigIntMathDivide) NumStrDtoFracQuotient(
 // =========
 // Note: For all examples maximum precision is specified as '15'.
 // ----------------------------------------------------------------------------
-//    	                                       Returned
-//  	Dividend		divided by	Divisor		=	       Array						=  	 Result
-//  	-------- 	  ----------	--------				-----------------	   		---------
-//	 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
-//	 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
-//	   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
-//	    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
-//		-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
-//	  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
-//	   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
-//	 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
-//	-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
-//	  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
-//	  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
-//	  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
+//
+//	   	                                       Returned
+//	 	Dividend		divided by	Divisor		=	       Array						=  	 Result
+//	 	-------- 	  ----------	--------				-----------------	   		---------
+//		 	 10.5  				 / 				2.5 			= 		 fracQuoArray[0]		=   	 4.2
+//		 	 10    				 / 				2.5 			= 		 fracQuoArray[1]		=	 	   4
+//		   11.5  				 /        2.5				=  		 fracQuoArray[2]		=		   4.6
+//		    2.5					 /				2.5			  =			 fracQuoArray[3]    =      1
+//			-12.555 			 / 				2.5 			= 		 fracQuoArray[4]    =  -   5.022
+//		  - 2.5 				 / 			  2.5		    = 		 fracQuoArray[5]    =  -   1
+//		   12.555 			 / 			  2.5 			= 		 fracQuoArray[6]    =      5.022
+//		 -122.783 			 / 			  2.5 			= 		 fracQuoArray[7]    =  -  49.1132
+//		-6847.231   	   /    	  2.5 			= 		 fracQuoArray[8]    =  -2738.8924
+//		  - 2.5	 				 / 			  2.5		    = 		 fracQuoArray[9]    =  -   1
+//		  -10						 /			  2.5				=			 fracQuoArray[10]   =  -   4
+//		  -10.5					 /			  2.5				=			 fracQuoArray[11]   =  -   4.2
 //
 // The returned []NumStrDto division result ('fracQuoArray') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from the first
 // element of the input parameter 'dividends' array.
-//
 func (bIDivide BigIntMathDivide) NumStrDtoFracQuotientArray(
 	dividends []NumStrDto,
 	divisor NumStrDto,
@@ -3547,7 +3586,8 @@ func (bIDivide BigIntMathDivide) NumStrDtoFracQuotientArray(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one NumStrDto value: 'modulo'.
 //
@@ -3558,8 +3598,9 @@ func (bIDivide BigIntMathDivide) NumStrDtoFracQuotientArray(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -3574,23 +3615,23 @@ func (bIDivide BigIntMathDivide) NumStrDtoFracQuotientArray(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division result ('modulo') will contain numeric separators
 // (decimal separator, thousands separator and currency symbol) copied from input
 // parameter, 'dividend'.
-//
 func (bIDivide BigIntMathDivide) NumStrDtoModulo(
 	dividend,
 	divisor NumStrDto,
@@ -3644,7 +3685,8 @@ func (bIDivide BigIntMathDivide) NumStrDtoModulo(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // This method returns one NumStrDto value: 'modulo'.
 //
@@ -3655,8 +3697,9 @@ func (bIDivide BigIntMathDivide) NumStrDtoModulo(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -3671,18 +3714,19 @@ func (bIDivide BigIntMathDivide) NumStrDtoModulo(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned NumStrDto division result ('modulo') will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
@@ -3690,7 +3734,6 @@ func (bIDivide BigIntMathDivide) NumStrDtoModulo(
 //
 // This method is different from method BigIntMathDivide.NumStrDtoModulo()
 // above, in that this method returns 'modulo' as Type NumStrDto.
-//
 func (bIDivide BigIntMathDivide) NumStrDtoModuloToNumStrDto(
 	dividend,
 	divisor NumStrDto,
@@ -3739,7 +3782,7 @@ func (bIDivide BigIntMathDivide) NumStrDtoModuloToNumStrDto(
 // quotients with very long strings of fractional digits. Therefore, the user
 // is advised to set a relevant 'BigIntPair.maxPrecision' value.
 //
-// 	type BigIntPair struct {
+//	type BigIntPair struct {
 //				Big1							BigIntNum  // The Dividend
 //				Big2							BigIntNum	 // The Divisor
 //				maxPrecision			uint			 // Controls Precision
@@ -3756,7 +3799,8 @@ func (bIDivide BigIntMathDivide) NumStrDtoModuloToNumStrDto(
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -3772,24 +3816,24 @@ func (bIDivide BigIntMathDivide) NumStrDtoModuloToNumStrDto(
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division results (quotient and modulo) will
 // contain numeric separators (decimal separator, thousands separator
 // and currency symbol) copied from the the input parameter Dividend,
 // 'BigIntPair.Big1'.
-//
 func (bIDivide BigIntMathDivide) PairQuotientMod(
 	bPair BigIntPair) (quotient, modulo BigIntNum, err error) {
 
@@ -3848,7 +3892,7 @@ func (bIDivide BigIntMathDivide) PairQuotientMod(
 // of calculating modulo values with very long strings of fractional digits. Therefore,
 // the user is advised to set a relevant 'BigIntPair.maxPrecision' value.
 //
-// 	type BigIntPair struct {
+//	type BigIntPair struct {
 //				Big1							BigIntNum  // The Dividend
 //				Big2							BigIntNum	 // The Divisor
 //				maxPrecision			uint			 // Controls Precision
@@ -3856,7 +3900,8 @@ func (bIDivide BigIntMathDivide) PairQuotientMod(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // The calculation of 'modulo' is based on T-Division (Truncate Division). See
 // "Division and Modulus for Computer Scientists", DAAN LEIJEN, University of
@@ -3865,8 +3910,9 @@ func (bIDivide BigIntMathDivide) PairQuotientMod(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -3876,23 +3922,23 @@ func (bIDivide BigIntMathDivide) PairQuotientMod(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division result 'modulo' will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from the the input parameter Dividend, 'BigIntPair.Big1'.
-//
 func (bIDivide BigIntMathDivide) PairMod(
 	bPair BigIntPair) (modulo BigIntNum, err error) {
 
@@ -3948,28 +3994,28 @@ func (bIDivide BigIntMathDivide) PairMod(
 //
 // Examples:
 // =========
-//																				Return Value
-//  Dividend divided by	Divisor			=		Integer Quotient
-// 		 5 				/ 				 2 				= 				 2
-//     5.25 		/ 				 2  			= 				 2
-//     2 				/ 				 4				= 				 0
-// 		-5 				/ 				 2 				= 				-2
-//    -5.25     /    			 2  			= 				-2
-//    -2 				/ 				 4				= 				 0
-// 		 5 				/ 				-2 				=					-2
-//     5.25 		/ 				-2 				= 				-2
-//     2 				/ 				-4				= 				 0
-// 		-5 				/ 				-2 				= 				 2
-//    -5.25     /    			-2 				= 				 2
-//    -2 				/ 				-4				= 				 0
-//     12.555		/ 			  -2.5			=			    -5
-//    -12.555		/ 			  -2.5			=			     5
-//     12.555		/ 			  -2				=			    -6
+//
+//																					Return Value
+//	 Dividend divided by	Divisor			=		Integer Quotient
+//			 5 				/ 				 2 				= 				 2
+//	    5.25 		/ 				 2  			= 				 2
+//	    2 				/ 				 4				= 				 0
+//			-5 				/ 				 2 				= 				-2
+//	   -5.25     /    			 2  			= 				-2
+//	   -2 				/ 				 4				= 				 0
+//			 5 				/ 				-2 				=					-2
+//	    5.25 		/ 				-2 				= 				-2
+//	    2 				/ 				-4				= 				 0
+//			-5 				/ 				-2 				= 				 2
+//	   -5.25     /    			-2 				= 				 2
+//	   -2 				/ 				-4				= 				 0
+//	    12.555		/ 			  -2.5			=			    -5
+//	   -12.555		/ 			  -2.5			=			     5
+//	    12.555		/ 			  -2				=			    -6
 //
 // The returned BigIntNum division result 'intQuotient' will contain numeric
 // separators (decimal separator, thousands separator and currency symbol)
 // copied from the input parameter Dividend, 'BigIntPair.Big1'.
-//
 func (bIDivide BigIntMathDivide) PairIntQuotient(bPair BigIntPair) (intQuotient BigIntNum, err error) {
 
 	ePrefix := "BigIntMathDivide.PairIntQuotient() "
@@ -4014,7 +4060,7 @@ func (bIDivide BigIntMathDivide) PairIntQuotient(bPair BigIntPair) (intQuotient 
 // calculating quotients with very long strings of fractional digits. Therefore,
 // the user is advised to set a relevant 'BigIntPair.maxPrecision' value.
 //
-// 	type BigIntPair struct {
+//	type BigIntPair struct {
 //				Big1							BigIntNum  // The Dividend
 //				Big2							BigIntNum	 // The Divisor
 //				maxPrecision			uint			 // Controls Precision
@@ -4023,7 +4069,7 @@ func (bIDivide BigIntMathDivide) PairIntQuotient(bPair BigIntPair) (intQuotient 
 // This method performs a division operation on BigIntNum parameters 'dividend'
 // (BigIntPair.Big1) and 'divisor' (BigIntPair.Big2).
 //
-// 		Dividend (BigIntPair.Big1) divided Divisor (BigIntPair.Big2) = quotient
+//	Dividend (BigIntPair.Big1) divided Divisor (BigIntPair.Big2) = quotient
 //
 // The resulting quotient is returned as a BigIntNum type representing the result
 // of the division operation expressed as integer and fractional digits. The
@@ -4037,28 +4083,28 @@ func (bIDivide BigIntMathDivide) PairIntQuotient(bPair BigIntPair) (intQuotient 
 //
 // Note: For all examples BigIntPair.maxPrecision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				   Quotient
-//  Dividend		divided by	Divisor		=		BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					   Quotient
+//	 Dividend		divided by	Divisor		=		BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The returned BigIntNum division result 'fracQuotient' will contain numeric
 // separators (decimal separator, thousands separator and currency symbol) copied
 // from the input parameter Dividend, 'BigIntPair.Big1'.
-//
 func (bIDivide BigIntMathDivide) PairFracQuotient(
 	bPair BigIntPair) (fracQuotient BigIntNum, err error) {
 
@@ -4104,7 +4150,7 @@ func (bIDivide BigIntMathDivide) PairFracQuotient(
 // calculating quotients with very long strings of fractional digits. Therefore,
 // the user is advised to set a relevant 'BigIntPair.maxPrecision' value.
 //
-// 	type BigIntPair struct {
+//	type BigIntPair struct {
 //				Big1							BigIntNum  // The Dividend
 //				Big2							BigIntNum	 // The Divisor
 //				maxPrecision			uint			 // Controls Precision
@@ -4113,7 +4159,7 @@ func (bIDivide BigIntMathDivide) PairFracQuotient(
 // This method performs a division operation on BigIntNum parameters 'dividend'
 // (BigIntPair.Big1) and 'divisor' (BigIntPair.Big2).
 //
-// 		Dividend (BigIntPair.Big1) divided Divisor (BigIntPair.Big2) = quotient
+//	Dividend (BigIntPair.Big1) divided Divisor (BigIntPair.Big2) = quotient
 //
 // The resulting quotient is returned as a BigIntNum type representing the result
 // of the division operation expressed as integer and fractional digits. The
@@ -4127,28 +4173,28 @@ func (bIDivide BigIntMathDivide) PairFracQuotient(
 //
 // Note: For all examples BigIntPair.maxPrecision is specified as '15'.
 // ----------------------------------------------------------------------------
-//																				   Quotient
-//  Dividend		divided by	Divisor		=		BigIntNum Integer 	Precision	 Result
-//  -------- 	  ----------	--------				-----------------	  ---------	 ------
-// 	 10.5  				/ 				2 				= 			525  							  2  			 5.25
-// 	 10    				/ 				2 				= 			5	  							  0  			 5
-//   11.5  				/         2.5				=  			46								  1				 4.6
-//    2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
-//	-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
-//  -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
-//  - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
-//   12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
-//    2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
-// 	-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
-//  -12.555     	/    		- 2 				= 		  62775								4				 6.2775
-//  - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
-//  -10						/				- 2					=				5														 5
+//
+//																					   Quotient
+//	 Dividend		divided by	Divisor		=		BigIntNum Integer 	Precision	 Result
+//	 -------- 	  ----------	--------				-----------------	  ---------	 ------
+//		 10.5  				/ 				2 				= 			525  							  2  			 5.25
+//		 10    				/ 				2 				= 			5	  							  0  			 5
+//	  11.5  				/         2.5				=  			46								  1				 4.6
+//	   2.5					/				 12.555			=				199123855037834	   15				 0.199123855037834
+//		-12.555 			/ 				2.5 			= 		 -5022							  3				-5.022
+//	 -12.555     	/    			2  			  = 		 -62775							  4				-6.2775
+//	 - 2.5 				/ 			 12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		 12.555				/ 			- 2.5			  =			 -5022								3				-5.022
+//	  12.555 			/ 			- 2 				= 		 -62775								4				-6.2775
+//	   2.5 				/ 			-12.555		  = 		 -199123855037834	   15				-0.199123855037834
+//		-12.555 			/ 			- 2.5 			= 			5022								3				 5.022
+//	 -12.555     	/    		- 2 				= 		  62775								4				 6.2775
+//	 - 2.5	 				/ 			-12.555		  = 		  199123855037834	   15				 0.199123855037834
+//	 -10						/				- 2					=				5														 5
 //
 // The returned BigIntNum division result 'fracQuotient' will contain default
 // numeric separators (decimal separator, thousands separator and currency
 // symbol).
-//
 func (bIDivide BigIntMathDivide) pairFracQuotientNoNumSeps(
 	bPair BigIntPair) (fracQuotient BigIntNum, err error) {
 
@@ -4207,28 +4253,28 @@ func (bIDivide BigIntMathDivide) pairFracQuotientNoNumSeps(
 //
 // Examples:
 // =========
-//																				Return Value
-//  Divisor	divided by	Dividend		=		Integer Quotient
-// 		 5 				/ 				 2 				= 				 2
-//     5.25 		/ 				 2  			= 				 2
-//     2 				/ 				 4				= 				 0
-// 		-5 				/ 				 2 				= 				-2
-//    -5.25     /    			 2  			= 				-2
-//    -2 				/ 				 4				= 				 0
-// 		 5 				/ 				-2 				=					-2
-//     5.25 		/ 				-2 				= 				-2
-//     2 				/ 				-4				= 				 0
-// 		-5 				/ 				-2 				= 				 2
-//    -5.25     /    			-2 				= 				 2
-//    -2 				/ 				-4				= 				 0
-//     12.555		/ 			  -2.5			=			    -5
-//    -12.555		/ 			  -2.5			=			     5
-//     12.555		/ 			  -2				=			    -6
+//
+//																					Return Value
+//	 Divisor	divided by	Dividend		=		Integer Quotient
+//			 5 				/ 				 2 				= 				 2
+//	    5.25 		/ 				 2  			= 				 2
+//	    2 				/ 				 4				= 				 0
+//			-5 				/ 				 2 				= 				-2
+//	   -5.25     /    			 2  			= 				-2
+//	   -2 				/ 				 4				= 				 0
+//			 5 				/ 				-2 				=					-2
+//	    5.25 		/ 				-2 				= 				-2
+//	    2 				/ 				-4				= 				 0
+//			-5 				/ 				-2 				= 				 2
+//	   -5.25     /    			-2 				= 				 2
+//	   -2 				/ 				-4				= 				 0
+//	    12.555		/ 			  -2.5			=			    -5
+//	   -12.555		/ 			  -2.5			=			     5
+//	    12.555		/ 			  -2				=			    -6
 //
 // The returned BigIntNum division result 'intQuotient' will contain default
 // numeric separators (decimal separator, thousands separator and currency
 // symbol).
-//
 func (bIDivide BigIntMathDivide) pairIntQuotientNoNumSeps(
 	bPair BigIntPair) (intQuotient BigIntNum, err error) {
 
@@ -4264,7 +4310,7 @@ func (bIDivide BigIntMathDivide) pairIntQuotientNoNumSeps(
 // of calculating modulo values with very long strings of fractional digits. Therefore,
 // the user is advised to set a relevant 'BigIntPair.maxPrecision' value.
 //
-// 	type BigIntPair struct {
+//	type BigIntPair struct {
 //				Big1							BigIntNum  // The Dividend
 //				Big2							BigIntNum	 // The Divisor
 //				maxPrecision			uint			 // Controls Precision
@@ -4272,7 +4318,8 @@ func (bIDivide BigIntMathDivide) pairIntQuotientNoNumSeps(
 //
 // The modulo operation finds the remainder after division of one number
 // by another (sometimes called modulus).
-// 				Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
+//
+//	Wikipedia https://en.wikipedia.org/wiki/Modulo_operation
 //
 // The calculation of 'modulo' is based on T-Division (Truncate Division). See
 // "Division and Modulus for Computer Scientists", DAAN LEIJEN, University of
@@ -4281,8 +4328,9 @@ func (bIDivide BigIntMathDivide) pairIntQuotientNoNumSeps(
 // Also available at ../notes/divmodnote-letter.pdf.
 //
 // So, for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d)
-// 							r = D mod d = D − d ·q
+//
+//	  						q = D div d = f(D/d)
+//								r = D mod d = D − d ·q
 //
 // The modulo operation finds the remainder after division of one
 // number by another. (r = D mod d = D − d ·q)
@@ -4292,23 +4340,23 @@ func (bIDivide BigIntMathDivide) pairIntQuotientNoNumSeps(
 //
 // Dividend			  mod by			Divisor			=			Modulo/Remainder
 // --------				------			-------						----------------
-//   12.555					%						 2.5			=			 0.055
-//   12.555  	 			% 				 	 2  			= 		 0.555
-//    2.5 					% 				 	12.555		= 	   2.5
-//	-12.555 				% 				   2.5 			= 		-0.055
-//  -12.555     		%    			 	 2  			= 		-0.555
-//  - 2.5 					% 				 	12.555		= 		-2.5
-// 	 12.555					% 				 - 2.5			=			 0.055
-//   12.555 				% 				 - 2 				= 		 0.555
-//    2.5 				  % 				 -12.555		= 		 2.5
-// 	-12.555 				% 				 - 2.5 			= 		-0.055
-//  -12.555     		%    			 - 2 				= 		-0.555
-//  - 2.5	 					% 				 -12.555		= 		-2.5
+//
+//	  12.555					%						 2.5			=			 0.055
+//	  12.555  	 			% 				 	 2  			= 		 0.555
+//	   2.5 					% 				 	12.555		= 	   2.5
+//		-12.555 				% 				   2.5 			= 		-0.055
+//	 -12.555     		%    			 	 2  			= 		-0.555
+//	 - 2.5 					% 				 	12.555		= 		-2.5
+//		 12.555					% 				 - 2.5			=			 0.055
+//	  12.555 				% 				 - 2 				= 		 0.555
+//	   2.5 				  % 				 -12.555		= 		 2.5
+//		-12.555 				% 				 - 2.5 			= 		-0.055
+//	 -12.555     		%    			 - 2 				= 		-0.555
+//	 - 2.5	 					% 				 -12.555		= 		-2.5
 //
 // The returned BigIntNum division results (quotient and modulo) will
 // contain default numeric separators (decimal separator, thousands
 // separator and currency symbol).
-//
 func (bIDivide BigIntMathDivide) pairModNoNumSeps(bPair BigIntPair) (modulo BigIntNum, err error) {
 
 	modulo = BigIntNum{}.New()
@@ -4345,7 +4393,7 @@ func (bIDivide BigIntMathDivide) pairModNoNumSeps(bPair BigIntPair) (modulo BigI
 // quotients with very long strings of fractional digits. Therefore, the user
 // is advised to set a relevant 'BigIntPair.maxPrecision' value.
 //
-// 	type BigIntPair struct {
+//	type BigIntPair struct {
 //				Big1							BigIntNum  // The Dividend
 //				Big2							BigIntNum	 // The Divisor
 //				maxPrecision			uint			 // Controls Precision
@@ -4362,7 +4410,8 @@ func (bIDivide BigIntMathDivide) pairModNoNumSeps(bPair BigIntPair) (modulo BigI
 // https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
 // Also available at ../notes/divmodnote-letter.pdf.
 // So for q=quotient; D=Dividend d=Divisor r=Remainder or 'modulo' :
-//   						q = D div d = f(D/d) r = D mod d = D − d ·q
+//
+//	q = D div d = f(D/d) r = D mod d = D − d ·q
 //
 // 'quotient' is the integer result of dividing the 'dividend' by the 'divisor'
 //
@@ -4378,23 +4427,23 @@ func (bIDivide BigIntMathDivide) pairModNoNumSeps(bPair BigIntPair) (modulo BigI
 // =========
 //
 // Dividend			divided by		Divisor			=		Quotient			Modulo/Remainder
-//   12.555					/						 2.5			=			 5							 0.055
-//   12.555  	 			/ 				 	 2  			= 		 6							 0.555
-//    2.5 					/ 				 	12.555		= 	   0							 2.5
-//	-12.555 				/ 				   2.5 			= 		-5							-0.055
-//  -12.555     		/    			 	 2  			= 		-6							-0.555
-//  - 2.5 					/ 				 	12.555		= 		 0							-2.5
-// 	 12.555					/ 				 - 2.5			=			-5							 0.055
-//   12.555 				/ 				 - 2 				= 		-6							 0.555
-//    2.5 				  / 				 -12.555		= 		 0							 2.5
-// 	-12.555 				/ 				 - 2.5 			= 		 5							-0.055
-//  -12.555     		/    			 - 2 				= 		 6							-0.555
-//  - 2.5	 					/ 				 -12.555		= 		 0							-2.5
+//
+//	  12.555					/						 2.5			=			 5							 0.055
+//	  12.555  	 			/ 				 	 2  			= 		 6							 0.555
+//	   2.5 					/ 				 	12.555		= 	   0							 2.5
+//		-12.555 				/ 				   2.5 			= 		-5							-0.055
+//	 -12.555     		/    			 	 2  			= 		-6							-0.555
+//	 - 2.5 					/ 				 	12.555		= 		 0							-2.5
+//		 12.555					/ 				 - 2.5			=			-5							 0.055
+//	  12.555 				/ 				 - 2 				= 		-6							 0.555
+//	   2.5 				  / 				 -12.555		= 		 0							 2.5
+//		-12.555 				/ 				 - 2.5 			= 		 5							-0.055
+//	 -12.555     		/    			 - 2 				= 		 6							-0.555
+//	 - 2.5	 					/ 				 -12.555		= 		 0							-2.5
 //
 // The returned BigIntNum division results (quotient and modulo) will
 // contain default numeric separators (decimal separator, thousands
 // separator and currency symbol).
-//
 func (bIDivide BigIntMathDivide) pairQuotientModNoNumSeps(
 	bPair BigIntPair) (quotient, modulo BigIntNum, err error) {
 

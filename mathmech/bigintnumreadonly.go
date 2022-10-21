@@ -59,7 +59,7 @@ func (birO *BigIntNumReadOnly) NewBigIntNum(biNum BigIntNum) BigIntNumReadOnly {
 	return birO2
 }
 
-// NewBigIntNum
+// NewFixedDecimal
 //
 // Receives a BigIntFixedDecimal parameter and returns a new
 // BigIntNumReadOnly instance.

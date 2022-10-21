@@ -33,7 +33,6 @@ import (
 // See: https://en.wikipedia.org/wiki/Shifting_nth_root_algorithm
 //
 // Dependencies: intAry - intary.go
-//
 type NthRootOp struct {
 	NthRootIntAry      *IntAry
 	NthRootBigInt      *big.Int
@@ -96,7 +95,6 @@ func (nthrt *NthRootOp) Empty() {
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetNthRootFloat32(radicand float32, precision, nthRoot, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetNthRootFloat32() "
@@ -132,7 +130,6 @@ func (nthrt *NthRootOp) GetNthRootFloat32(radicand float32, precision, nthRoot, 
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetNthRootFloat64(radicand float64, precision, nthRoot, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetNthRootFloat64() "
@@ -161,11 +158,10 @@ func (nthrt *NthRootOp) GetNthRootFloat64(radicand float64, precision, nthRoot, 
 //
 // 'maxPrecision' specifies the number of decimals to the right of the decimal place to
 // which the Nth root will be calculated.
-
+//
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetNthRootBigFloat(radicand *big.Float, nthRoot, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp) GetNthRootBigFloat() "
@@ -202,7 +198,6 @@ func (nthrt *NthRootOp) GetNthRootBigFloat(radicand *big.Float, nthRoot, maxPrec
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetNthRootInt(radicand, precision, nthRoot, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetNthRootIn() "
@@ -249,7 +244,6 @@ func (nthrt *NthRootOp) GetNthRootInt(radicand, precision, nthRoot, maxPrecision
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetNthRootInt64(radicand int64, precision, nthRoot, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetNthRootInt64() "
@@ -295,7 +289,6 @@ func (nthrt *NthRootOp) GetNthRootInt64(radicand int64, precision, nthRoot, maxP
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetNthRootBigInt(radicand *big.Int, precision, nthRoot, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetNthRootBigInt()"
@@ -315,7 +308,7 @@ func (nthrt *NthRootOp) GetNthRootBigInt(radicand *big.Int, precision, nthRoot, 
 	return nthrt.GetNthRootIntAry(&ai, &iaNthRoot, maxPrecision)
 }
 
-// OriginalNthRoot  - Calculates the Nth Root of a real number ('radicand')
+// GetNthRootIntAry  - Calculates the Nth Root of a real number ('radicand')
 // passed to the method as a pointer to type intAry.  In addition, the
 // caller must supply input parameters for 'nthRoot' and 'maxPrecision'.
 //
@@ -330,7 +323,6 @@ func (nthrt *NthRootOp) GetNthRootBigInt(radicand *big.Int, precision, nthRoot, 
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetNthRootIntAry(radicand, nthRoot *IntAry, maxPrecision int) (IntAry, error) {
 
 	err := nthrt.calcNthRootGateway(radicand, nthRoot, maxPrecision)
@@ -357,7 +349,6 @@ func (nthrt *NthRootOp) GetNthRootIntAry(radicand, nthRoot *IntAry, maxPrecision
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootFloat32(
 	radicand float32,
 	precision, maxPrecision int) (IntAry, error) {
@@ -390,7 +381,6 @@ func (nthrt *NthRootOp) GetSquareRootFloat32(
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootFloat64(
 	radicand float64,
 	precision, maxPrecision int) (IntAry, error) {
@@ -419,7 +409,6 @@ func (nthrt *NthRootOp) GetSquareRootFloat64(
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootBigFloat(radicand *big.Float, maxPrecision int) (IntAry, error) {
 
 	ai := IntAry{}.New()
@@ -450,7 +439,6 @@ func (nthrt *NthRootOp) GetSquareRootBigFloat(radicand *big.Float, maxPrecision 
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootInt(radicand int, precision, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetSquareRootInt() "
@@ -483,7 +471,6 @@ func (nthrt *NthRootOp) GetSquareRootInt(radicand int, precision, maxPrecision i
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootInt32(radicand int32, precision, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetSquareRootInt32() "
@@ -525,7 +512,6 @@ func (nthrt *NthRootOp) GetSquareRootInt32(radicand int32, precision, maxPrecisi
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootInt64(radicand int64, precision, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetSquareRootInt64() "
@@ -566,7 +552,6 @@ func (nthrt *NthRootOp) GetSquareRootInt64(radicand int64, precision, maxPrecisi
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootBigInt(radicand *big.Int, precision, maxPrecision int) (IntAry, error) {
 	ai := IntAry{}.New()
 
@@ -589,7 +574,6 @@ func (nthrt *NthRootOp) GetSquareRootBigInt(radicand *big.Int, precision, maxPre
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) GetSquareRootIntAry(radicand *IntAry, maxPrecision int) (IntAry, error) {
 
 	ePrefix := "NthRootOp.GetSquareRootIntAry() "
@@ -627,7 +611,6 @@ func (nthrt *NthRootOp) GetSquareRootIntAry(radicand *IntAry, maxPrecision int) 
 // The calculation result is returned as an intAry object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt NthRootOp) NewNthRoot(radicand, nthRoot *IntAry, maxPrecision int) (IntAry, error) {
 
 	nthRtOp := NthRootOp{}
@@ -655,7 +638,6 @@ func (nthrt NthRootOp) NewNthRoot(radicand, nthRoot *IntAry, maxPrecision int) (
 // 'NthRootOp.ResultAry' is an intAry Object.
 //
 // Note: A negative 'radicand' value with an even nthRoot will generate an error.
-//
 func (nthrt *NthRootOp) SetNthRootIntAry(radicand, nthRoot *IntAry, maxPrecision int) error {
 
 	return nthrt.calcNthRootGateway(radicand, nthRoot, maxPrecision)
@@ -670,7 +652,6 @@ func (nthrt *NthRootOp) SetNthRootIntAry(radicand, nthRoot *IntAry, maxPrecision
 //
 // Note: If maxPrecision is less than zero it will automatically be set to a value of
 // 4,096 decimal places.
-//
 func (nthrt *NthRootOp) calcNthRootGateway(radicand, nthRoot *IntAry, maxPrecision int) error {
 
 	ePrefix := "NthRootOp.calcNthRootGateway() "
@@ -721,7 +702,6 @@ func (nthrt *NthRootOp) calcNthRootGateway(radicand, nthRoot *IntAry, maxPrecisi
 
 // calcPositiveIntegerNthRoot - Calculates the Nth Root of a radicand where
 // nth root is both positive and an integer value.
-//
 func (nthrt *NthRootOp) calcPositiveIntegerNthRoot(
 	radicand, nthRoot *IntAry,
 	maxPrecision int) error {
@@ -767,7 +747,6 @@ func (nthrt *NthRootOp) calcPositiveIntegerNthRoot(
 
 // calcNegativeIntegerNthRoot - Calculates the Nth Root of a radicand where
 // nth root is both negative and an integer value.
-//
 func (nthrt *NthRootOp) calcNegativeIntegerNthRoot(
 	radicand, nthRoot *IntAry,
 	maxPrecision int) error {
@@ -846,7 +825,6 @@ func (nthrt *NthRootOp) calcNegativeIntegerNthRoot(
 
 // calcPositiveFractionalNthRoot - Calculates the Nth Root of a radicand where
 // nth root is both negative and an integer value.
-//
 func (nthrt *NthRootOp) calcPositiveFractionalNthRoot(
 	radicand, nthRoot *IntAry,
 	maxPrecision int) error {
@@ -919,7 +897,6 @@ func (nthrt *NthRootOp) calcPositiveFractionalNthRoot(
 
 // calcNegativeFractionalNthRoot - Calculates the Nth Root of a radicand where
 // nth root is both negative and an integer value.
-//
 func (nthrt *NthRootOp) calcNegativeFractionalNthRoot(
 	radicand, nthRoot *IntAry,
 	maxPrecision int) error {
@@ -1030,7 +1007,6 @@ func (nthrt *NthRootOp) calcNegativeFractionalNthRoot(
 
 // initialize - Initializes the data fields of the NthRootOp structure and validates the
 // radicand and nthRoot numerical values passed to the Nth Root Calculation.
-//
 func (nthrt *NthRootOp) initialize(radicand, nthRoot *IntAry, maxPrecision int) error {
 
 	ePrefix := "NthRootOp.initialize() "
@@ -1128,7 +1104,6 @@ func (nthrt *NthRootOp) initialize(radicand, nthRoot *IntAry, maxPrecision int) 
 // bundleInts - computes the bundle size and creates the
 // bundle array elements necessary to process the integer
 // digits in the original number.
-//
 func (nthrt *NthRootOp) bundleInts() error {
 
 	intNums, err := nthrt.Radicand.GetIntegerDigits()
@@ -1189,7 +1164,6 @@ func (nthrt *NthRootOp) bundleInts() error {
 // bundleFracs - computes the numeric bundle size and creates
 // the bundle array elements required to process the fractional
 // digits in the original number.
-//
 func (nthrt *NthRootOp) bundleFracs() error {
 
 	if nthrt.Radicand.GetPrecision() < 1 {
@@ -1227,7 +1201,6 @@ func (nthrt *NthRootOp) bundleFracs() error {
 // the bundle array elements necessary to process the nth
 // root to the requested number of decimal places to the
 // right of the decimal point.
-//
 func (nthrt *NthRootOp) calcPrecision() error {
 
 	if nthrt.Radicand.GetPrecision() < 0 {

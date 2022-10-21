@@ -63,8 +63,8 @@ func (nDto *NumStrDto) AddNumStrs(n1Dto NumStrDto, n2Dto NumStrDto) (NumStrDto, 
 	newSignVal := n1DtoSetup.signVal
 
 	if n1DtoSetup.signVal != n2DtoSetup.signVal {
-		n1DtoSetup.SetSignValue(1)
-		n2DtoSetup.SetSignValue(1)
+		_ = n1DtoSetup.SetSignValue(1)
+		_ = n2DtoSetup.SetSignValue(1)
 		nDtoOut, err := nDto.SubtractNumStrs(n1DtoSetup, n2DtoSetup)
 
 		if err != nil {
@@ -75,7 +75,7 @@ func (nDto *NumStrDto) AddNumStrs(n1Dto NumStrDto, n2Dto NumStrDto) (NumStrDto, 
 			newSignVal = 1
 		}
 
-		nDtoOut.SetSignValue(newSignVal)
+		_ = nDtoOut.SetSignValue(newSignVal)
 
 		return nDtoOut, nil
 	}
@@ -331,20 +331,26 @@ func (nDto *NumStrDto) CopyIn(nInDto NumStrDto) {
 
 }
 
-// Divides the current NumStrDto by input parameter 'n2Dto'.
-// Maximum precision of the division result is controlled by the input
-// parameter, 'maximumPrecision'.
+// Divide
 //
-// If 'maximumPrecision' is greater than or equal to zero ('0'),
-// the number of digits to the right of the decimal place will
-// not exceed 'maximumPrecision'.
-
-// 'maximumPrecision' is set equal to minus one ('-1'), will be set
-// to a maximum of 1,024 digits to the right of the decimal
-// point.
+// This method divides the current NumStrDto by input
+// parameter 'n2Dto'. Maximum precision of the division
+// result is controlled by the input parameter,
+// 'maximumPrecision'.
 //
-// 'minimumPrecision' specifies the minimum precision of the final result.
-// If 'minimumPrecision' is less than zero, it is automatically set to zero.
+// If 'maximumPrecision' is greater than or equal to zero
+// ('0'), the number of digits to the right of the decimal
+// place will not exceed 'maximumPrecision'.
+//
+// 'maximumPrecision' is set equal to minus one ('-1'),
+// will be set to a maximum of 1,024 digits to the right
+// of the decimal point.
+//
+// 'minimumPrecision' specifies the minimum precision of
+// the final result.
+//
+// If 'minimumPrecision' is less than zero, it is
+// automatically set to zero.
 func (nDto *NumStrDto) Divide(n2Dto NumStrDto, minimumPrecision, maximumPrecision int) error {
 
 	ePrefix := "NumStrDto.Divide() "
@@ -463,13 +469,16 @@ func (nDto *NumStrDto) FindIntArraySignificantDigitLimits(intArray []int, precis
 	return nDto.FindNumStrSignificantDigitLimits(absNumStr, precision, signVal)
 }
 
-// FindSignificantDigitLimits - Analyzes an array of characters which constitute a number string
-// are returns the significant digits.
+// FindNumStrSignificantDigitLimits
+//
+// Analyzes an array of characters which constitute a
+// number string are returns the significant digits.
+//
 // Example:
-// absAllRunes  precision signVal			Result
-// 001236700			4					1					123.67
-// 000006700			4					1					  0.67
-// 001230000			4					1					123.0
+// absAllRunes	precision	signVal		Result
+// 001236700		4		 1			 123.67
+// 000006700		4		 1			   0.67
+// 001230000		4		 1			 123.0
 func (nDto *NumStrDto) FindNumStrSignificantDigitLimits(absAllRunes []rune, precision uint, signVal int) (NumStrDto, error) {
 	iPrecision := int(precision)
 	firstIntIdx := -1
@@ -1127,13 +1136,17 @@ func (nDto *NumStrDto) FormatThousandsStr(negValMode NegativeValueFmtMode) (stri
 	return string(outRunes), nil
 }
 
-// GetAbsoluteBigInt - Returns the absolute value of all numeric
-// digits in the number string (nDto.absAllNumRunes). As such,
-// Fractional digits to the right of the decimal are included
-// in the consolidate integer number. All of the numeric digits
-// in the number string are therefore returned as a *big.Int
-// This method will fail if the NumStrDto has not been properly
-// initialized with a valid number string.
+// GetAbsoluteBigInt
+//
+// Returns the absolute value of all numeric digits in
+// the number string (nDto.absAllNumRunes). As such,
+// Fractional digits to the right of the decimal are
+// included in the consolidate integer number. All the
+// numeric digits in the number string are therefore
+// returned as a *big.Int.
+//
+// This method will fail if the NumStrDto has not been
+// properly initialized with a valid number string.
 func (nDto *NumStrDto) GetAbsoluteBigInt() (*big.Int, error) {
 
 	ePrefix := "NumStrDto.GetAbsoluteBigInt() "
@@ -1169,13 +1182,16 @@ func (nDto *NumStrDto) GetAbsoluteBigInt() (*big.Int, error) {
 	return absBigInt, nil
 }
 
-// GetAbsAllNumRunes - Returns an array of runes representing
-// all of the integer and fractional digits included in the
-// current NumStrDto instance. The rune array returned will
-// consist of numeric digits with no sign value prefixed. This
-// effectively returns the absolute value of all integer and
-// fractional digits combined in one rune array (there is no
-// decimal point).
+// GetAbsAllNumRunes
+//
+// Returns an array of runes representing all the integer
+// and fractional digits included in the current
+// NumStrDto instance. The rune array returned will
+// consist of numeric digits with no sign value prefixed.
+//
+// This effectively returns the absolute value of all
+// integer and fractional digits combined in one rune
+// array (there is no decimal point).
 func (nDto *NumStrDto) GetAbsAllNumRunes() []rune {
 
 	lenAbsAllNumRunes := len(nDto.absAllNumRunes)
@@ -1193,13 +1209,16 @@ func (nDto *NumStrDto) GetAbsAllNumRunes() []rune {
 	return outRunes
 }
 
-// GetAbsFracRunes - Returns all of the fractional digits
-// to the right of the decimal place in the current NumStrDto
-// instance as an array of runes. The rune array is not signed;
-// that is, the rune array does not contain a '+' or '-' character
-// in the first array position. The rune array is therefore said
-// to represent the absolute value of the fractional digits in the
-// current NumStrDto numeric value.
+// GetAbsFracRunes
+//
+// Returns all the fractional digits to the right of the
+// decimal place in the current NumStrDto instance as an
+// array of runes. The rune array is not signed; that is,
+// the rune array does not contain a '+' or '-' character
+// in the first array position. The rune array is
+// therefore said to represent the absolute value of the
+// fractional digits in the current NumStrDto numeric
+// value.
 func (nDto *NumStrDto) GetAbsFracRunes() []rune {
 
 	precision := int(nDto.precision)
@@ -1229,16 +1248,22 @@ func (nDto *NumStrDto) GetAbsFracRunesLength() int {
 	return int(nDto.precision)
 }
 
-// GetAbsIntRunes - Returns all of the integer digits included
-// in the current NumStrDto numeric value as an array of runes.
-// The returned rune array does not contain a sign value in the
-// first position and therefore represents the absolute or positive
-// value of all the integer digits. The integer digits of a NumStrDto
-// numeric includes all of the digits to the left of the decimal point.
+// GetAbsIntRunes
 //
-// If the current NumStrDto consists of zero integers and fractional
-// digits (Example: '0.123456'), this method will return a rune array
-// consisting one array element with a '0' value.
+// Returns all the integer digits included in the current
+// NumStrDto numeric value as an array of runes.
+//
+// The returned rune array does not contain a sign value
+// in the first position and therefore represents the
+// absolute or positive value of all the integer digits.
+//
+// The integer digits of a NumStrDto numeric includes all
+// the digits to the left of the decimal point.
+//
+// If the current NumStrDto consists of zero integers and
+// fractional digits (Example: '0.123456'), this method
+// will return a rune array consisting one array element
+// with a '0' value.
 func (nDto *NumStrDto) GetAbsIntRunes() []rune {
 
 	lenAllNum := len(nDto.absAllNumRunes)
@@ -1284,12 +1309,15 @@ func (nDto *NumStrDto) GetAbsIntRunesLength() int {
 	return lenAllNums - int(nDto.precision)
 }
 
-// GetBigInt - returns a integer of type *big.Int representing
-// the signed integer value of NumStrDto.numStrDto. Decimal numbers
-// like '-123.456' will be returned as signed integer values, '-123456'.
+// GetBigInt
 //
-// This method will fail if the NumStrDto
-// has not been properly initialized with a valid number string.
+// Returns an integer of type *big.Int representing the
+// signed integer value of NumStrDto.numStrDto. Decimal
+// numbers like '-123.456' will be returned as signed
+// integer values, '-123456'.
+//
+// This method will fail if the NumStrDto has not been
+// properly initialized with a valid number string.
 func (nDto *NumStrDto) GetBigInt() (*big.Int, error) {
 
 	ePrefix := "NumStrDto.GetBigInt()"
@@ -1331,7 +1359,7 @@ func (nDto *NumStrDto) GetBigIntNum() (BigIntNum, error) {
 	err := nDto.IsValid(ePrefix + " This NumStrDto INVALID! ")
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0), err
+		return new(BigIntNum).NewZero(0), err
 	}
 
 	numSeps := nDto.GetNumericSeparatorsDto()
@@ -1339,18 +1367,18 @@ func (nDto *NumStrDto) GetBigIntNum() (BigIntNum, error) {
 	bInt, err := nDto.GetBigInt()
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by nDto.GetBigInt() "+
 				"Error='%v' ", err.Error())
 	}
 
-	bIntNum := BigIntNum{}.NewBigInt(bInt, nDto.precision)
+	bIntNum := new(BigIntNum).NewBigInt(bInt, nDto.precision)
 
 	err = bIntNum.SetNumericSeparatorsDto(numSeps)
 
 	if err != nil {
-		return BigIntNum{}.NewZero(0),
+		return new(BigIntNum).NewZero(0),
 			fmt.Errorf(ePrefix+
 				"Error returned by bIntNum.SetNumericSeparatorsDto(numSeps) "+
 				"Error='%v' \n", err.Error())
@@ -1444,43 +1472,10 @@ func (nDto *NumStrDto) GetDecimalSeparator() rune {
 
 }
 
-// GetDecimal - Converts the current NumStrDto instance
-// to a Type 'Decimal' and returns it to the calling
-// function.
+// GetIntAry
 //
-// The returned Decimal instance will contain numeric
-// separators (decimal separator, thousands separator
-// and currency symbol) copied from the current NumStrDto
-// instance.
-//
-// Before returning the Decimal result, this method
-// performs a validity test on the current NumStrDto instance.
-func (nDto *NumStrDto) GetDecimal() (Decimal, error) {
-
-	ePrefix := "NumStrDto.GetIntAryElements() "
-
-	err := nDto.IsValid(ePrefix)
-
-	if err != nil {
-		return Decimal{}, err
-	}
-
-	numSeps := nDto.GetNumericSeparatorsDto()
-
-	dec, err := Decimal{}.NewNumStrWithNumSeps(nDto.GetNumStr(), numSeps)
-
-	if err != nil {
-		return Decimal{},
-			fmt.Errorf(ePrefix+
-				"Error returned by Decimal{}.NewNumStrWithNumSeps(nDto.GetNumStr(), numSeps) "+
-				"Error='%v' ", err.Error())
-	}
-
-	return dec, nil
-}
-
-// GetIntAryElements - Converts the current NumStrDto instance
-// to a Type IntAry and returns it to the calling function.
+// Converts the current NumStrDto instance to a Type IntAry
+// and returns it to the calling function.
 func (nDto *NumStrDto) GetIntAry() (IntAry, error) {
 	ePrefix := "NumStrDto.GetIntAryElements() "
 
@@ -1957,7 +1952,7 @@ func (nDto *NumStrDto) GetZeroNumStrDto(numFracDigits uint) NumStrDto {
 			n2Dto.absAllNumRunes = append(n2Dto.absAllNumRunes, '0')
 		}
 
-		n2Dto.precision = uint(numFracDigits)
+		n2Dto.precision = numFracDigits
 	}
 
 	return n2Dto
@@ -2105,8 +2100,10 @@ func (nDto *NumStrDto) Multiply(n2Dto NumStrDto) error {
 	return nil
 }
 
-// MultiplyNumStrs - Multiplies two NumStrDto instances and returns the result as
-// an separate NumStrDto instance.
+// MultiplyNumStrs
+//
+// Multiplies two NumStrDto instances and returns the
+// result as an separate NumStrDto instance.
 func (nDto *NumStrDto) MultiplyNumStrs(n1Dto NumStrDto, n2Dto NumStrDto) (NumStrDto, error) {
 	ePrefix := "NumStrDto.MultiplyNumStrs() "
 
@@ -2179,11 +2176,11 @@ func (nDto *NumStrDto) MultiplyNumStrs(n1Dto NumStrDto, n2Dto NumStrDto) (NumStr
 			n1 = int(n1Setup.absAllNumRunes[j]) - 48
 			n2 = int(n2Setup.absAllNumRunes[i]) - 48
 			n3 = (n1 * n2) + carry
-			n4 = int(math.Mod(float64(n3), float64(10.00)))
+			n4 = int(math.Mod(float64(n3), 10.00))
 
 			intMAry[levels][place] = n4
 
-			carry = int(n3 / 10)
+			carry = n3 / 10
 
 			place--
 		}
@@ -2207,7 +2204,7 @@ func (nDto *NumStrDto) MultiplyNumStrs(n1Dto NumStrDto, n2Dto NumStrDto) (NumStr
 			n4 = 0
 
 			if n3 > 9 {
-				n4 = int(math.Mod(float64(n3), float64(10.0)))
+				n4 = int(math.Mod(float64(n3), 10.0))
 				carry = n3 / 10
 
 			} else {
@@ -2342,17 +2339,24 @@ func (nDto NumStrDto) NewFloat64(f64 float64, precision int) (NumStrDto, error) 
 	return n2, nil
 }
 
-// Creates a new NumStrDto from an int and a precision specification.
+// NewInt
 //
-// Input parameter 'precision' indicates the number of digits to be
-// formatted to the right of the decimal place.
+// Creates a new NumStrDto from an int and a precision
+// specification.
 //
-// The 'NewInt' method is designed to used in conjunction with
-// NumStrDto{} syntax thereby allowing NumStrDto type creation and
-// initialization in one step.
+// Input parameter 'precision' indicates the number of
+// digits to be formatted to the right of the decimal
+// place.
 //
-// Example: NumStrDto{}.NewInt(123456, 3) yields a new NumStrDto
-// instance with a numeric value of 123.456.
+// The 'NewInt' method is designed to used in conjunction
+// with NumStrDto{} syntax thereby allowing NumStrDto type
+// creation and initialization in one step.
+//
+// Example:
+//
+//	NumStrDto{}.NewInt(123456, 3)
+//		Yields a new NumStrDto instance with a
+//		numeric value of 123.456.
 func (nDto NumStrDto) NewInt(intNum int, precision uint) NumStrDto {
 
 	n2 := NumStrDto{}.NewInt64(int64(intNum), precision)
@@ -2464,7 +2468,7 @@ func (nDto NumStrDto) NewInt64(i64 int64, precision uint) NumStrDto {
 		panic(sErr)
 	}
 
-	n2.SetThisPrecision(precision, true)
+	_ = n2.SetThisPrecision(precision, true)
 
 	return n2
 }
@@ -2690,9 +2694,9 @@ func (nDto NumStrDto) NewUint64(uint64Num uint64, precision uint) NumStrDto {
 		panic(sError)
 	}
 
-	n2.SetThisPrecision(precision, true)
+	_ = n2.SetThisPrecision(precision, true)
 
-	n2.SetNumericSeparatorsDto(nDto.GetNumericSeparatorsDto())
+	_ = n2.SetNumericSeparatorsDto(nDto.GetNumericSeparatorsDto())
 
 	return n2
 }
@@ -2769,7 +2773,7 @@ func (nDto NumStrDto) NewUint64Exponent(uint64Num uint64, exponent int) NumStrDt
 
 	}
 
-	n2.SetNumericSeparatorsDto(nDto.GetNumericSeparatorsDto())
+	_ = n2.SetNumericSeparatorsDto(nDto.GetNumericSeparatorsDto())
 
 	return n2
 }
@@ -2898,8 +2902,10 @@ func (nDto NumStrDto) NewPtr() *NumStrDto {
 	return &n
 }
 
-// Creates a new NumStrDto with a value of zero and a precision specified by
-// input parameter 'precision'.
+// NewZero
+//
+// Creates a new NumStrDto with a value of zero and a
+// precision specified by input parameter 'precision'.
 func (nDto NumStrDto) NewZero(precision uint) NumStrDto {
 
 	numStr := "0"
@@ -2940,7 +2946,7 @@ func (nDto NumStrDto) ParseBigIntNum(biNum BigIntNum) (NumStrDto, error) {
 	n2Dto.SetCurrencySymbol(biNum.GetCurrencySymbol())
 	n2Dto.SetDecimalSeparator(biNum.GetDecimalSeparator())
 	n2Dto.SetThousandsSeparator(biNum.GetThousandsSeparator())
-	n2Dto.SetSignValue(biNum.GetSign())
+	_ = n2Dto.SetSignValue(biNum.GetSign())
 	n2Dto.precision = biNum.GetPrecisionUint()
 
 	scratchNum := big.NewInt(0).Set(biNum.bigInt)
@@ -3126,7 +3132,7 @@ func (nDto *NumStrDto) ParseNumStr(str string) (NumStrDto, error) {
 	n2Dto := NumStrDto{}.New()
 
 	n2Dto.signVal = 1
-	n2Dto.SetNumericSeparatorsDto(numSeps)
+	_ = n2Dto.SetNumericSeparatorsDto(numSeps)
 	baseRunes := []rune(str)
 	lBaseRunes := len(baseRunes)
 	isStartRunes := false
@@ -3911,7 +3917,7 @@ func (nDto *NumStrDto) SetPrecision(
 		n1.absAllNumRunes = []rune{}
 		n1AbsIntRunes = []rune{}
 		n1AbsFracRunes = []rune{}
-		n1.absAllNumRunes = []rune(string(actualAbsAllNums.String()))
+		n1.absAllNumRunes = []rune(actualAbsAllNums.String())
 		lenN1AbsAllNumRunes = len(n1.absAllNumRunes)
 
 		for i := 0; i < lenN1AbsAllNumRunes; i++ {
@@ -4096,7 +4102,7 @@ func (nDto *NumStrDto) SubtractNumStrs(n1Dto, n2Dto NumStrDto) (NumStrDto, error
 					"Error= %v", err)
 		}
 
-		nOutDto.SetSignValue(newSignVal)
+		_ = nOutDto.SetSignValue(newSignVal)
 
 		return nOutDto, nil
 	}

@@ -1,9 +1,10 @@
 package mathmech
 
 import (
-	ePref "github.com/MikeAustin71/errpref"
 	"strings"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // CharSearchResultsDto - Text character search results are more
@@ -410,7 +411,7 @@ type CharSearchResultsDto struct {
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (charSearchResults *CharSearchResultsDto) CopyIn(
@@ -439,7 +440,7 @@ func (charSearchResults *CharSearchResultsDto) CopyIn(
 		return err
 	}
 
-	return charSearchResultsDtoNanobot{}.ptr().
+	return new(charSearchResultsDtoNanobot).
 		copyIn(
 			charSearchResults,
 			incomingSearchResults,
@@ -553,7 +554,7 @@ func (charSearchResults *CharSearchResultsDto) CopyOut(
 		return CharSearchResultsDto{}, err
 	}
 
-	return charSearchResultsDtoNanobot{}.ptr().
+	return new(charSearchResultsDtoNanobot).
 		copyOut(
 			charSearchResults,
 			ePrefix.XCpy(
@@ -594,7 +595,7 @@ func (charSearchResults *CharSearchResultsDto) Empty() {
 
 	charSearchResults.lock.Lock()
 
-	charSearchResultsDtoAtom{}.ptr().empty(
+	new(charSearchResultsDtoAtom).empty(
 		charSearchResults)
 
 	charSearchResults.lock.Unlock()
@@ -637,14 +638,14 @@ func (charSearchResults *CharSearchResultsDto) EmptyRemainderString() {
 
 	charSearchResults.lock.Lock()
 
-	charSearchResultsDtoAtom{}.ptr().empty(
+	new(charSearchResultsDtoAtom).empty(
 		charSearchResults)
 
 	charSearchResults.lock.Unlock()
 
 	charSearchResults.lock = nil
 
-	charSearchResultsDtoElectron{}.ptr().
+	new(charSearchResultsDtoElectron).
 		emptyRemainderStrings(
 			charSearchResults)
 }
@@ -684,14 +685,14 @@ func (charSearchResults *CharSearchResultsDto) EmptyReplacementString() {
 
 	charSearchResults.lock.Lock()
 
-	charSearchResultsDtoAtom{}.ptr().empty(
+	new(charSearchResultsDtoAtom).empty(
 		charSearchResults)
 
 	charSearchResults.lock.Unlock()
 
 	charSearchResults.lock = nil
 
-	charSearchResultsDtoElectron{}.ptr().
+	new(charSearchResultsDtoElectron).
 		emptyReplacementStrings(
 			charSearchResults)
 }
@@ -741,7 +742,7 @@ func (charSearchResults *CharSearchResultsDto) Equal(
 
 	defer charSearchResults.lock.Unlock()
 
-	return charSearchResultsDtoAtom{}.ptr().equal(
+	return new(charSearchResultsDtoAtom).equal(
 		charSearchResults,
 		incomingSearchResults)
 }
@@ -849,7 +850,7 @@ func (charSearchResults *CharSearchResultsDto) GetParameterTextListing(
 		return err
 	}
 
-	return charSearchResultsDtoNanobot{}.ptr().
+	return new(charSearchResultsDtoNanobot).
 		getParameterTextListing(
 			strBuilder,
 			charSearchResults,
@@ -864,7 +865,7 @@ func (charSearchResults *CharSearchResultsDto) GetParameterTextListing(
 // zero or uninitialized states. Array index values are set to a
 // value of minus one (-1). All valid array indexes have values
 // greater than minus one (-1).
-func (charSearchResults CharSearchResultsDto) New() CharSearchResultsDto {
+func (charSearchResults *CharSearchResultsDto) New() CharSearchResultsDto {
 
 	if charSearchResults.lock == nil {
 		charSearchResults.lock = new(sync.Mutex)

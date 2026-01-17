@@ -45,7 +45,7 @@ import (
 // String and the Test String serves as the basis for determining
 // a 'Match' condition or successful outcome from a text character
 // search algorithm. The specific criterion for determining a
-// 'Match' condition vary between the different Character Search
+// 'Match' condition varies between the different Character Search
 // Types.
 //
 // When a 'Match' condition or successful search outcome is
@@ -53,7 +53,7 @@ import (
 // is bundled and returned to the calling function.
 //
 //	Number String        - As used here, a Number String is a
-//	                       string of text characters which
+//	                       string of text characters that
 //	                       contain numeric digit characters.
 //
 // Number String Parsing functions represent a specific type of
@@ -305,7 +305,7 @@ type CharSearchNumStrParseResultsDto struct {
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -319,11 +319,11 @@ type CharSearchNumStrParseResultsDto struct {
 //
 //	error
 //	   - If the method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) CopyIn(
@@ -413,7 +413,7 @@ func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) CopyIn(
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -433,11 +433,11 @@ func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) CopyIn(
 //
 //	error
 //	   - If the method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message occurs, the text value of input
+//	     If an error message occurs, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) CopyOut(
@@ -524,8 +524,8 @@ func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) Empty() {
 // Equal - Receives a pointer to another instance of
 // CharSearchNumStrParseResultsDto and proceeds to compare the
 // member variables to those of the current
-// CharSearchNumStrParseResultsDto instance in order to
-// determine if they are equivalent.
+// CharSearchNumStrParseResultsDto instance to determine if they
+// are equivalent.
 //
 // A boolean flag showing the result of this comparison is
 // returned. If the member variables of both instances are equal in
@@ -640,7 +640,7 @@ func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) Equal(
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -704,7 +704,7 @@ func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) GetParameterTex
 //
 // All member variables in this returned instance are set to their
 // zero or uninitialized states.
-func (searchNumStrParseResults CharSearchNumStrParseResultsDto) New() CharSearchNumStrParseResultsDto {
+func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) New() CharSearchNumStrParseResultsDto {
 
 	if searchNumStrParseResults.lock == nil {
 		searchNumStrParseResults.lock = new(sync.Mutex)
@@ -714,12 +714,12 @@ func (searchNumStrParseResults CharSearchNumStrParseResultsDto) New() CharSearch
 
 	defer searchNumStrParseResults.lock.Unlock()
 
-	newNumStrParseResults := CharSearchNumStrParseResultsDto{}
+	newNumStrParseResults := new(CharSearchNumStrParseResultsDto)
 
 	new(charSearchNumStrParseResultsDtoAtom).
-		empty(&newNumStrParseResults)
+		empty(newNumStrParseResults)
 
-	return newNumStrParseResults
+	return *newNumStrParseResults
 }
 
 // String - Returns a formatted text string detailing all the
@@ -740,7 +740,7 @@ func (searchNumStrParseResults CharSearchNumStrParseResultsDto) New() CharSearch
 // types RemainderString, DecimalSeparatorSearchResults,
 // NegativeNumberSymbolSearchResults and
 // ParsingTerminatorSearchResults. If this detail information is
-// required in the formatted text output, call method:
+// required in the formatted text output, call the method:
 //
 //	CharSearchNumStrParseResultsDto.GetParameterTextListing()
 func (searchNumStrParseResults *CharSearchNumStrParseResultsDto) String() string {

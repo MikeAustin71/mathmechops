@@ -4421,7 +4421,7 @@ func (runeArrayCol *RuneArrayCollection) SearchForTextCharacters(
 	var err error
 
 	errorSearchResults :=
-		CharSearchRuneArrayResultsDto{}.New()
+		new(CharSearchRuneArrayResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewIEmpty(

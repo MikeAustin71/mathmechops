@@ -2,10 +2,11 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"io"
 	"strings"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // TextFieldSpecLabel - This Text Field Specification is used to

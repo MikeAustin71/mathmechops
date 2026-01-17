@@ -2,8 +2,9 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // RuneArrayDto - A Rune Array Data Transfer Object. This type is
@@ -5831,7 +5832,7 @@ func (charsArrayDto *RuneArrayDto) SearchForTextCharacterString(
 	var ePrefix *ePref.ErrPrefixDto
 	var err error
 
-	errorResults := CharSearchRuneArrayResultsDto{}.New()
+	errorResults := new(CharSearchRuneArrayResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewIEmpty(

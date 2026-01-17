@@ -2,9 +2,10 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"math"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 type integerSeparatorSpecMolecule struct {

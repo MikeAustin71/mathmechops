@@ -551,7 +551,7 @@ func (runeDtoElectron *runeArrayDtoElectron) linearEndOfStringSearch(
 
 	var ePrefix *ePref.ErrPrefixDto
 	var err error
-	searchResults := CharSearchRuneArrayResultsDto{}.New()
+	searchResults := new(CharSearchRuneArrayResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewFromErrPrefDto(
@@ -1356,7 +1356,7 @@ func (runeDtoElectron *runeArrayDtoElectron) linearTargetStartingIndexSearch(
 
 	var ePrefix *ePref.ErrPrefixDto
 	var err error
-	searchResults := CharSearchRuneArrayResultsDto{}.New()
+	searchResults := new(CharSearchRuneArrayResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewFromErrPrefDto(
@@ -1881,7 +1881,7 @@ func (runeDtoElectron *runeArrayDtoElectron) singleCharacterSearch(
 
 	var ePrefix *ePref.ErrPrefixDto
 	var err error
-	searchResults := CharSearchRuneArrayResultsDto{}.New()
+	searchResults := new(CharSearchRuneArrayResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewFromErrPrefDto(

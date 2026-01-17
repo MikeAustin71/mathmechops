@@ -2,11 +2,12 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"io"
 	"strings"
 	"sync"
 	"time"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // TextFieldSpecDateTime - The Date/Time Text Field specification

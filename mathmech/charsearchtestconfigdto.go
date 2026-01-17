@@ -1,9 +1,10 @@
 package mathmech
 
 import (
-	ePref "github.com/MikeAustin71/errpref"
 	"strings"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // CharSearchTestConfigDto - This data transfer object transmits

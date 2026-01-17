@@ -2,9 +2,10 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"strings"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 type CharSearchRuneArrayResultsDto struct {
@@ -19,7 +20,7 @@ type CharSearchRuneArrayResultsDto struct {
 	IsNOP bool
 	// IsNOP - Stands for 'Is No Operation'. This boolean
 	// value signals whether the Rune Array, used in the
-	// current search algorithm is engaged and operational,
+	// current search algorithm, is engaged and operational,
 	// or not.
 	//
 	// If 'IsNOP' is set to 'true', it signals that the Rune
@@ -93,7 +94,7 @@ type CharSearchRuneArrayResultsDto struct {
 	// last Target character searched. If the Search
 	// Target was found, this value is equal to the
 	// 'TargetStringLastFoundIndex'. If the Search Target
-	// was NOT found this value is equal to the
+	// was NOT found, this value is equal to the
 	// 'TargetStringStartingSearchIndex'. This value is
 	// useful in computing the next index to be searched
 	// in the Target String.
@@ -292,11 +293,11 @@ type CharSearchRuneArrayResultsDto struct {
 //
 //	error
 //	   - If the method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) CopyIn(
@@ -325,7 +326,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) CopyIn(
 		return err
 	}
 
-	return charSearchRuneArrayResultsDtoNanobot{}.ptr().copyIn(
+	return new(charSearchRuneArrayResultsDtoNanobot).copyIn(
 		runesSearchResultsDto,
 		incomingRuneSearchResults,
 		ePrefix.XCpy(
@@ -404,11 +405,11 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) CopyIn(
 //
 //	 error
 //	    - If the method completes successfully and no errors are
-//	      encountered this return value is set to 'nil'. Otherwise,
+//	      encountered, this return value is set to 'nil'. Otherwise,
 //	      if errors are encountered, this return value will contain
 //	      an appropriate error message.
 //
-//		     If an error occurs, the text value of input parameter
+//		     If an error occurs, the text value of the input parameter
 //		     'errorPrefix' will be inserted or prefixed at the
 //		     beginning of the error message.
 func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) CopyOut(
@@ -438,7 +439,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) CopyOut(
 		return CharSearchRuneArrayResultsDto{}, err
 	}
 
-	return charSearchRuneArrayResultsDtoNanobot{}.ptr().copyOut(
+	return new(charSearchRuneArrayResultsDtoNanobot).copyOut(
 		runesSearchResultsDto,
 		ePrefix.XCpy(
 			"<-runesSearchResultsDto"))
@@ -494,7 +495,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) Empty() {
 // Equal - Receives a pointer to another instance of
 // CharSearchRuneArrayResultsDto and proceeds to compare the member
 // variables to those of the current CharSearchRuneArrayResultsDto
-// instance in order to determine if they are equivalent.
+// instance to determine if they are equivalent.
 //
 // A boolean flag showing the result of this comparison is
 // returned. If the member variables of both instances are equal in
@@ -642,7 +643,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) GetParameterTextList
 		return err
 	}
 
-	return charSearchRuneArrayResultsDtoNanobot{}.ptr().
+	return new(charSearchRuneArrayResultsDtoNanobot).
 		getParameterTextListing(
 			strBuilder,
 			runesSearchResultsDto,
@@ -772,7 +773,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) LoadTestBaseInputPar
 // zero or uninitialized states. Array index values are set to a
 // value of minus one (-1) to differentiate them from valid array
 // indexes which have values greater than minus one (-1).
-func (runesSearchResultsDto CharSearchRuneArrayResultsDto) New() CharSearchRuneArrayResultsDto {
+func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) New() CharSearchRuneArrayResultsDto {
 
 	if runesSearchResultsDto.lock == nil {
 		runesSearchResultsDto.lock = new(sync.Mutex)
@@ -798,7 +799,7 @@ func (runesSearchResultsDto CharSearchRuneArrayResultsDto) New() CharSearchRuneA
 // string returned by this method.
 //
 // This method implements the Stringer Interface.
-func (runesSearchResultsDto CharSearchRuneArrayResultsDto) String() string {
+func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) String() string {
 
 	if runesSearchResultsDto.lock == nil {
 		runesSearchResultsDto.lock = new(sync.Mutex)
@@ -830,10 +831,10 @@ func (runesSearchResultsDto CharSearchRuneArrayResultsDto) String() string {
 
 	strBuilder := strings.Builder{}
 
-	err = charSearchRuneArrayResultsDtoNanobot{}.ptr().
+	err = new(charSearchRuneArrayResultsDtoNanobot).
 		getParameterTextListing(
 			&strBuilder,
-			&runesSearchResultsDto,
+			runesSearchResultsDto,
 			false,
 			ePrefix.XCpy("runesSearchResultsDto"))
 

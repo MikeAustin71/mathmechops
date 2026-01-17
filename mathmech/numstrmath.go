@@ -1,8 +1,9 @@
 package mathmech
 
 import (
-	ePref "github.com/MikeAustin71/errpref"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // NumStrMath

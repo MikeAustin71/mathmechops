@@ -2,10 +2,11 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"strings"
 	"sync"
 	"time"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // charSearchResultsDtoNanobot - Provides helper methods for type
@@ -128,7 +129,7 @@ func (searchResultsDtoNanobot *charSearchResultsDtoNanobot) copyIn(
 		return err
 	}
 
-	charSearchResultsDtoAtom{}.ptr().empty(
+	new(charSearchResultsDtoAtom).empty(
 		targetSearchResultsDto)
 
 	targetSearchResultsDto.SearchResultsName =
@@ -372,7 +373,7 @@ func (searchResultsDtoNanobot *charSearchResultsDtoNanobot) copyOut(
 		return copySearchResultsDto, err
 	}
 
-	charSearchResultsDtoAtom{}.ptr().empty(
+	new(charSearchResultsDtoAtom).empty(
 		&copySearchResultsDto)
 
 	copySearchResultsDto.SearchResultsName =
@@ -1453,7 +1454,7 @@ func (searchResultsDtoNanobot *charSearchResultsDtoNanobot) getParameterTextList
 
 // ptr - Returns a pointer to a new instance of
 // charSearchResultsDtoNanobot.
-func (searchResultsDtoNanobot charSearchResultsDtoNanobot) ptr() *charSearchResultsDtoNanobot {
+func (searchResultsDtoNanobot *charSearchResultsDtoNanobot) ptr() *charSearchResultsDtoNanobot {
 
 	if searchResultsDtoNanobot.lock == nil {
 		searchResultsDtoNanobot.lock = new(sync.Mutex)

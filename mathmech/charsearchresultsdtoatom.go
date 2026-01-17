@@ -16,7 +16,7 @@ type charSearchResultsDtoAtom struct {
 //
 // # IMPORTANT
 //
-// All the member variable data values contained in input parameter
+// All the member variable data values contained in the input parameter
 // 'searchResultsDto' will be deleted and reset to their zero
 // values. All Array Index values will be set to minus one (-1).
 // Valid Array Indexes have values greater than minus one (-1).
@@ -109,11 +109,11 @@ func (searchResultsDtoAtom *charSearchResultsDtoAtom) empty(
 
 	searchResultsDto.CollectionTestObjIndex = -1
 
-	charSearchResultsDtoElectron{}.ptr().
+	new(charSearchResultsDtoElectron).
 		emptyReplacementStrings(
 			searchResultsDto)
 
-	charSearchResultsDtoElectron{}.ptr().
+	new(charSearchResultsDtoElectron).
 		emptyRemainderStrings(
 			searchResultsDto)
 
@@ -140,7 +140,7 @@ func (searchResultsDtoAtom *charSearchResultsDtoAtom) empty(
 
 // equal - Receives a pointer to two instances of
 // CharSearchResultsDto and proceeds to compare their
-// member variables in order to determine if they are equivalent.
+// member variables to determine if they are equivalent.
 //
 // A boolean flag showing the result of this comparison is
 // returned. If the member variables for both instances are equal
@@ -367,7 +367,7 @@ func (searchResultsDtoAtom *charSearchResultsDtoAtom) equal(
 		return false
 	}
 
-	areEqual := charSearchResultsDtoElectron{}.ptr().
+	areEqual := new(charSearchResultsDtoElectron).
 		equalReplacementStrings(
 			searchResultsDto1,
 			searchResultsDto2)
@@ -376,7 +376,7 @@ func (searchResultsDtoAtom *charSearchResultsDtoAtom) equal(
 		return false
 	}
 
-	areEqual = charSearchResultsDtoElectron{}.ptr().
+	areEqual = new(charSearchResultsDtoElectron).
 		equalRemainderStrings(
 			searchResultsDto1,
 			searchResultsDto2)
@@ -438,7 +438,7 @@ func (searchResultsDtoAtom *charSearchResultsDtoAtom) equal(
 
 // ptr - Returns a pointer to a new instance of
 // charSearchResultsDtoAtom.
-func (searchResultsDtoAtom charSearchResultsDtoAtom) ptr() *charSearchResultsDtoAtom {
+func (searchResultsDtoAtom *charSearchResultsDtoAtom) ptr() *charSearchResultsDtoAtom {
 
 	if searchResultsDtoAtom.lock == nil {
 		searchResultsDtoAtom.lock = new(sync.Mutex)

@@ -230,7 +230,7 @@ func (searchResultsDtoElectron charSearchResultsDtoElectron) equalReplacementStr
 
 // ptr - Returns a pointer to a new instance of
 // charSearchResultsDtoElectron.
-func (searchResultsDtoElectron charSearchResultsDtoElectron) ptr() *charSearchResultsDtoElectron {
+func (searchResultsDtoElectron *charSearchResultsDtoElectron) ptr() *charSearchResultsDtoElectron {
 
 	if searchResultsDtoElectron.lock == nil {
 		searchResultsDtoElectron.lock = new(sync.Mutex)

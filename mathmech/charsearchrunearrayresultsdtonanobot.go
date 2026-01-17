@@ -80,7 +80,7 @@ type charSearchRuneArrayResultsDtoNanobot struct {
 //	     If an error message is returned, the text value for input
 //	     parameter 'errPrefDto' (error prefix) will be prefixed or
 //	     attached at the beginning of the error message.
-func (searchRunesResultsDtoNanobot charSearchRuneArrayResultsDtoNanobot) copyIn(
+func (searchRunesResultsDtoNanobot *charSearchRuneArrayResultsDtoNanobot) copyIn(
 	destinationRuneSearchResults *CharSearchRuneArrayResultsDto,
 	sourceRuneSearchResults *CharSearchRuneArrayResultsDto,
 	errPrefDto *ePref.ErrPrefixDto) (
@@ -307,7 +307,7 @@ func (searchRunesResultsDtoNanobot charSearchRuneArrayResultsDtoNanobot) copyIn(
 //	     If an error message is returned, the text value for input
 //	     parameter 'errPrefDto' (error prefix) will be prefixed or
 //	     attached at the beginning of the error message.
-func (searchRunesResultsDtoNanobot charSearchRuneArrayResultsDtoNanobot) copyOut(
+func (searchRunesResultsDtoNanobot *charSearchRuneArrayResultsDtoNanobot) copyOut(
 	runeSearchResultsDto *CharSearchRuneArrayResultsDto,
 	errPrefDto *ePref.ErrPrefixDto) (
 	deepCopyRuneSearchResults CharSearchRuneArrayResultsDto,
@@ -519,7 +519,7 @@ func (searchRunesResultsDtoNanobot charSearchRuneArrayResultsDtoNanobot) copyOut
 //	     If an error message is returned, the text value for input
 //	     parameter 'errPrefDto' (error prefix) will be prefixed or
 //	     attached at the beginning of the error message.
-func (searchRunesResultsDtoNanobot charSearchRuneArrayResultsDtoNanobot) getParameterTextListing(
+func (searchRunesResultsDtoNanobot *charSearchRuneArrayResultsDtoNanobot) getParameterTextListing(
 	strBuilder *strings.Builder,
 	runeSearchResultsDto *CharSearchRuneArrayResultsDto,
 	displayFunctionChain bool,
@@ -1409,7 +1409,7 @@ exitMethodTrailer:
 
 // ptr - Returns a pointer to a new instance of
 // charSearchResultsDtoNanobot.
-func (searchRunesResultsDtoNanobot charSearchRuneArrayResultsDtoNanobot) ptr() *charSearchRuneArrayResultsDtoNanobot {
+func (searchRunesResultsDtoNanobot *charSearchRuneArrayResultsDtoNanobot) ptr() *charSearchRuneArrayResultsDtoNanobot {
 
 	if searchRunesResultsDtoNanobot.lock == nil {
 		searchRunesResultsDtoNanobot.lock = new(sync.Mutex)
@@ -1419,7 +1419,9 @@ func (searchRunesResultsDtoNanobot charSearchRuneArrayResultsDtoNanobot) ptr() *
 
 	defer searchRunesResultsDtoNanobot.lock.Unlock()
 
-	return &charSearchRuneArrayResultsDtoNanobot{
-		lock: new(sync.Mutex),
-	}
+	newCharSearchRuneArrayResDtoNanobot := new(charSearchRuneArrayResultsDtoNanobot)
+
+	newCharSearchRuneArrayResDtoNanobot.lock = new(sync.Mutex)
+
+	return newCharSearchRuneArrayResDtoNanobot
 }

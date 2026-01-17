@@ -2,11 +2,12 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"io"
 	"strings"
 	"sync"
 	"time"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // TextLineSpecStandardLine - is a text specification for a

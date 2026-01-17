@@ -2,10 +2,11 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"strconv"
 	"sync"
 	"time"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 type textLineSpecTimerLinesElectron struct {

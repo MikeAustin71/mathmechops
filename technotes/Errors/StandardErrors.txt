@@ -1,0 +1,106 @@
+
+************************************************
+         Standard Vanilla Error
+************************************************
+
+	if err != nil {
+
+		return BigIntNum{},
+			&FuncReturnError{
+				ErrPrefix:  ePrefix.String(),
+				ReturnFunc: "",
+				ErrContext: "",
+				ErrMessage: err.Error(),
+			}
+	}
+
+
+************************************************
+       Standard Sprintf Error 1-Param
+************************************************
+
+	if err != nil {
+
+		return BigIntNum{},
+			&FuncReturnError{
+				ErrPrefix:  ePrefix.String(),
+				ReturnFunc: "err = bResult.SetNumericSeparatorsDto(param1)",
+				ErrContext: fmt.Sprintf("param1='%v'",
+					param1),
+				ErrMessage: err.Error(),
+			}
+
+	}
+
+************************************************
+  Standard Sprintf Error 2-Param
+************************************************
+
+	if err != nil {
+
+		return BigIntNum{},
+			&FuncReturnError{
+				ErrPrefix:  ePrefix.String(),
+				ReturnFunc: "err = bResult.SetNumericSeparatorsDto(param1)",
+				ErrContext: fmt.Sprintf("param1= '%v'\n" +
+				"  param2= '%v'",
+					param1, param2),
+				ErrMessage: err.Error(),
+			}
+
+	}
+
+
+************************************************
+    Standard Input Parameter Pointer 'nil' Error
+************************************************
+
+	if bNum == nil {
+
+		return BigIntNum{},
+			&InputPtrNilError{
+				ErrPrefix:     ePrefix.String(),
+				ParameterName: "'bNum'",
+			}
+	}
+
+
+************************************************
+        Standard Multi-Level Error
+************************************************
+
+	if err != nil {
+
+		return BigIntNum{},
+			&FuncReturnError{
+				ErrPrefix:  ePrefix.String(),
+				ReturnFunc: "fracQuotient, err = new(BigIntMathDivide).\n" +
+					"    BigIntNumDivideByThreeFracQuo(\n" +
+					"    bNum2, numSepsDto, maxPrecision)",
+				ErrContext: "",
+				ErrMessage: err.Error(),
+			}
+		}
+
+
+
+*******************************************************
+  Standard Expected Error # 1 With Explanation
+ *******************************************************
+
+  if expectedValueNumStr != fixedDecNumStr2 {
+
+    return BigIntNum{},
+        &FuncReturnError{
+            ErrPrefix:  ePrefix.String(),
+            ReturnFunc: "",
+            ErrContext: "",
+            ErrMessage: fmt.Sprintf("%v\n" +
+             "Error: Unexpected Result!\n" +
+             "Because!!!!\n" +
+             "Expected fixedDecNumStr2 = '%v'\n" +
+             "  Actual fixedDecNumStr2 = '%v'\n\n",
+             ePrefix, expectedValueNumStr, fixedDecNumStr2),
+        }
+
+   }

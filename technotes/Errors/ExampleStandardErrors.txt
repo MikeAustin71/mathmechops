@@ -1,0 +1,175 @@
+
+************************************************
+    Example Input nil Error #4-a
+************************************************
+
+    if x == nil {
+		fmt.Printf("%v\n" +
+		    "Error: Input parameter is 'nil'\n"+
+			" x == nil\n\n",
+			ePrefix)
+		return
+    }
+
+
+************************************************
+         Example Standard Error #4-0
+************************************************
+
+	if err != nil {
+		fmt.Printf("%v\n" +
+		    "Error returned by:\n"+
+			"binRootPrecisionInt, err := binRoot.GetPrecisionInt()\n" +
+			"Error='%v'\n\n",
+			ePrefix, err.Error())
+		return
+	}
+
+************************************************
+         Example Standard Error #4-1
+************************************************
+
+	if err != nil {
+		fmt.Printf("%v\n" +
+		    "Error returned by:\n" +
+			"magnitude, err := new(mathops.BigIntMath).\n" +
+			" GetMagnitude(target)\n"+
+			"target= '%v'\n" +
+			"Error='%v'\n\n",
+			 ePrefix,
+			 target.Text(10),
+			 err.Error())
+		return
+	}
+
+************************************************
+         Example Standard Error #4-2
+************************************************
+
+	if err != nil {
+		fmt.Printf("%v\n" +
+		    "Error returned by:\n" +
+			"bigTarget, err := new(mathops.BigIntNum).\n" +
+			" NewBigInt(target, xrayStr)\n"+
+			"target= '%v'\n" +
+			"xrayStr= '%v'\n" +
+			"Error='%v'\n\n",
+			 ePrefix,
+			 target.Text(10),
+			 xrayStr,
+			 err.Error())
+		return
+	}
+
+************************************************
+         Example Standard Error #4-3
+************************************************
+
+	if err != nil {
+		fmt.Printf("%v\n" +
+		    "Error returned by:\n" +
+			"bigTarget, err := new(mathops.BigIntNum).\n" +
+			"  SomeFunc(param1, param2, param3)\n"+
+			"param1= '%v'\n" +
+			"param2= '%v'\n" +
+			"param3= '%v'\n" +
+			"Error='%v'\n\n",
+			 ePrefix,
+			 param1Str,
+			 param2Str,
+			 param3Str,
+			 err.Error())
+		return
+	}
+
+************************************************
+         Example Standard Error #4-4
+************************************************
+
+	if err != nil {
+		fmt.Printf("%v\n" +
+		    "Error returned by:\n" +
+			"bigTarget, err := new(mathops.BigIntNum).\n" +
+			"  SomeFunc(param1, param2, param3, param4)\n"+
+			"param1= '%v'\n" +
+			"param2= '%v'\n" +
+			"param3= '%v'\n" +
+			"param4= '%v'\n" +
+			"Error='%v'\n\n",
+			 ePrefix,
+			 param1Str,
+			 param2Str,
+			 param3Str,
+			 param4Str,
+			 err.Error())
+		return
+	}
+
+*******************************************************
+         Example Standard Error #4-5
+*******************************************************
+
+	if err != nil {
+		fmt.Printf("%v\n" +
+		    "Error returned by:\n" +
+			"bigTarget, err := new(mathops.BigIntNum).\n" +
+			"  SomeFunc(param1, param2, param3, param4, param5)\n"+
+			"param1= '%v'\n" +
+			"param2= '%v'\n" +
+			"param3= '%v'\n" +
+			"param4= '%v'\n" +
+			"param5= '%v'\n" +
+			"Error='%v'\n\n",
+			 ePrefix,
+			 param1Str,
+			 param2Str,
+			 param3Str,
+			 param4Str,
+			 param5Str,
+			 err.Error())
+		return
+	}
+
+*******************************************************
+         Example Standard Error #4-6
+*******************************************************
+
+	if err != nil {
+		fmt.Printf("%v\n" +
+		    "Error returned by:\n" +
+			"bigTarget, err := new(mathops.BigIntNum).\n" +
+			"  SomeFunc(param1, param2, param3, param4,\n" +
+			"    param5, param6)\n"+
+			"param1= '%v'\n" +
+			"param2= '%v'\n" +
+			"param3= '%v'\n" +
+			"param4= '%v'\n" +
+			"param5= '%v'\n" +
+			"param6= '%v'\n" +
+			"Error='%v'\n\n",
+			 ePrefix,
+			 param1Str,
+			 param2Str,
+			 param3Str,
+			 param4Str,
+			 param5Str,
+			 param6Str,
+			 err.Error())
+		return
+	}
+
+
+*******************************************************
+  Example Test Error # 5 With Explanation
+ *******************************************************
+
+  if expectedValueNumStr != fixedDecNumStr2 {
+    fmt.Printf("%v\n" +
+      "Error: Unexpected Result!\n" +
+      "Because!!!!\n" +
+      "Expected fixedDecNumStr2 = '%v'\n" +
+      "  Actual fixedDecNumStr2 = '%v'\n\n",
+      ePrefix, expectedValueNumStr, fixedDecNumStr)
+
+    return
+  }

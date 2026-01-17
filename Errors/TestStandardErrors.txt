@@ -1,0 +1,205 @@
+
+
+ *******************************************************
+  Test Standard Error 0-Parameter
+ *******************************************************
+
+ if err != nil {
+		t.Errorf("%v\n" +
+      "Error returned by:\n"+
+			"\n"+
+			"Error= '%v'\n\n", ePrefix, err.Error())
+		return
+	}
+
+
+
+ *******************************************************
+  Test Standard Error 1-Parameter
+ *******************************************************
+
+	if err != nil {
+		t.Errorf("%v\n" +
+			"Error returned by:\n"+
+			"\n"+
+			"multiplicandStr= '%v'\n" +
+       "Error= '%v'\n\n",
+			ePrefix, multiplicandStr, err.Error())
+		return
+	}
+
+
+ *******************************************************
+  Test Standard Error 2-Parameter
+ *******************************************************
+
+	if err != nil {
+		t.Errorf("%v\n" +
+			"Error returned by:\n"+
+			"\n"+
+      "multiplierStr= '%v'\n" +
+			"multiplicandStr= '%v'\n" +
+      "Error= '%v'\n\n",
+			ePrefix,
+      multiplierStr,
+      multiplicandStr,
+      err.Error())
+
+		return
+	}
+
+
+ *******************************************************
+  Test Standard Error 3-Parameter
+ *******************************************************
+
+	if err != nil {
+		t.Errorf("%v\n" +
+			"Error returned by:\n"+
+			"\n"+
+			"multiplicandBInt= '%v'\n" +
+			"multiplicandStr= '%v'\n" +
+			"exponent= '%v'\n" +
+			"Error= '%v'\n\n",
+			ePrefix,
+			multiplicandBInt.Text(10),
+			multiplicandPrecision,
+			exponent,
+			err.Error())
+
+		return
+	}
+
+
+ *******************************************************
+  Test Standard Error 4-Parameter
+ *******************************************************
+
+	if err != nil {
+		t.Errorf("%v\n" +
+			"Error returned by:\n"+
+			"\n"+
+			"multiplicandBInt= '%v'\n" +
+			"multiplicandStr= '%v'\n" +
+			"exponent= '%v'\n" +
+			"number4= '%v'\n" +
+			"Error= '%v'\n\n",
+			ePrefix,
+			multiplicandBInt.Text(10),
+			multiplicandPrecision,
+			exponent,
+      number4Str,
+			err.Error())
+
+		return
+	}
+
+
+===================================================================
+Test Expected Error == nil 0-Param
+===================================================================
+
+  if err == nil {
+    t.Errorf("%v\n"+
+      "Expected an Error, BUT NO ERROR WAS RETURNED!\n"+
+      "Function Call:\n"+
+      " x, err := SomeFunction()\n" +
+      "radicand= -78123456; nthRoot= 4\n"+
+      "Even nthRoot and negative radicand should produce an error.\n\n", ePrefix)
+
+    return
+  }
+
+===================================================================
+Test Expected Error == nil 1-Param
+1-Parameter
+===================================================================
+
+  if err == nil {
+    t.Errorf("%v\n"+
+      "Expected an Error, BUT NO ERROR WAS RETURNED!\n"+
+      "Function Call:\n"+
+      " _, err := NFactorial{}.CalcFactorialValueBigInt(\n" +
+      "  bigIntUpperLimit, bigIntLowerLimit)\n" +
+      "bigIntLowerLimit= '%v'\n"+
+      "Any lower limit value less than '+1' will produce an error.\n" +
+      "An error should have been generated!\n\n",
+      ePrefix, bigIntLowerLimit.Text(10))
+    return
+  }
+
+===================================================================
+ Test Expected Error == nil 2-Param
+ 2-Parameter
+===================================================================
+
+  if err == nil {
+    t.Errorf("%v\n"+
+      "Expected an Error, BUT NO ERROR WAS RETURNED!\n"+
+      "Function Call:\n"+
+      " _, err := NFactorial{}.CalcFactorialValueBigInt(\n" +
+      "  bigIntUpperLimit, bigIntLowerLimit)\n" +
+      "bigIntLowerLimit= '%v'\n"+
+      "bigIntUpperLimit= '%v'\n"+
+      "The lower limit MUST BE LESS Than The Upper Limit!\n" +
+      "An error should have been generated!\n\n",
+      ePrefix,
+      bigIntLowerLimit.Text(10),
+      bigIntUpperLimit.Text(10))
+    return
+  }
+
+
+===================================================================
+Test Expected Error == nil 3-Param
+3-Parameter
+===================================================================
+
+  if err == nil {
+    t.Errorf("%v\n"+
+      "Expected an Error, BUT NO ERROR WAS RETURNED!\n"+
+      "Function Call:\n"+
+      " _, err := NFactorial{}.CalcFactorialValueBigInt(\n" +
+      "  number1, number2, number3)\n" +
+      "number1= '%v'\n"+
+      "number2= '%v'\n"+
+      "number3= '%v'\n"+
+      "The lower limit MUST BE LESS Than The Upper Limit!\n" +
+      "An error should have been generated!\n\n",
+      ePrefix,
+      number1,
+      number2,
+      number3)
+    return
+  }
+
+*******************************************************
+  Test Expected Error #1
+ *******************************************************
+
+  if expectedValueNumStr != fixedDecNumStr2 {
+    t.Errorf("%v\n" +
+      "Error: Unexpected Result!\n" +
+      "Expected fixedDecNumStr2 = '%v'\n" +
+      "  Actual fixedDecNumStr2 = '%v'\n\n",
+      ePrefix, expectedValueNumStr, fixedDecNumStr2)
+
+    return
+  }
+
+
+*******************************************************
+  Test Expected Error # 2 With Explanation
+ *******************************************************
+
+  if expectedValueNumStr != fixedDecNumStr2 {
+    t.Errorf("%v\n" +
+      "Error: Unexpected Result!\n" +
+      "Because!!!!\n" +
+      "Expected fixedDecNumStr2 = '%v'\n" +
+      "  Actual fixedDecNumStr2 = '%v'\n\n",
+      ePrefix, expectedValueNumStr, fixedDecNumStr2)
+
+    return
+  }
+

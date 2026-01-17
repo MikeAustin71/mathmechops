@@ -1,0 +1,361 @@
+package mathmech
+
+import (
+	"fmt"
+	ePref "github.com/MikeAustin71/errpref"
+	"strings"
+	"sync"
+)
+
+type textLineSpecStandardLineMolecule struct {
+	lock *sync.Mutex
+}
+
+// emptyStandardLine - This method receives an instance of
+// TextLineSpecStandardLine and proceeds to set all the internal
+// member variables to their zero values.
+//
+// ----------------------------------------------------------------
+//
+// # IMPORTANT
+//
+// This method will delete all existing data values contained in
+// input parameter 'txtStdLine'.
+//
+// -----------------------------------------------------------------
+//
+// Input Parameters
+//
+//	txtStdLine                 *TextLineSpecStandardLine
+//	   - All the internal member variables contained in input
+//	     parameter 'txtStdLine' will be set to their initial or
+//	     zero values.
+//
+//
+//	errPrefDto                 *ePref.ErrPrefixDto
+//	   - This object encapsulates an error prefix string which is
+//	     included in all returned error messages. Usually, it
+//	     contains the name of the calling method or methods listed
+//	     as a function chain.
+//
+//	     If no error prefix information is needed, set this parameter
+//	     to 'nil'.
+//
+//	     Type ErrPrefixDto is included in the 'errpref' software
+//	     package, "github.com/MikeAustin71/errpref".
+//
+// ------------------------------------------------------------------------
+//
+// Return Values
+//
+//	error
+//	   - If this method completes successfully, this returned error
+//	     Type is set equal to 'nil'. If errors are encountered during
+//	     processing, the returned error Type will encapsulate an error
+//	     message.
+//
+//	     If an error message is returned, the text value for input
+//	     parameter 'errPrefDto' (error prefix) will be prefixed or
+//	     attached at the beginning of the error message.
+func (txtStdLineMolecule *textLineSpecStandardLineMolecule) emptyStandardLine(
+	txtStdLine *TextLineSpecStandardLine,
+	errPrefDto *ePref.ErrPrefixDto) error {
+
+	if txtStdLineMolecule.lock == nil {
+		txtStdLineMolecule.lock = new(sync.Mutex)
+	}
+
+	txtStdLineMolecule.lock.Lock()
+
+	defer txtStdLineMolecule.lock.Unlock()
+
+	var ePrefix *ePref.ErrPrefixDto
+	var err error
+
+	ePrefix,
+		err = ePref.ErrPrefixDto{}.NewFromErrPrefDto(
+		errPrefDto,
+		"textLineSpecStandardLineMolecule."+
+			"emptyStandardLine()",
+		"")
+
+	if err != nil {
+		return err
+	}
+
+	if txtStdLine == nil {
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'txtStdLine' is a nil pointer!\n",
+			ePrefix.String())
+
+		return err
+	}
+
+	txtStdLine.numOfStdLines = 0
+	txtStdLine.turnLineTerminatorOff = false
+	txtStdLine.newLineChars = nil
+	txtStdLine.textLineReader = nil
+
+	err = new(textLineSpecStandardLineElectron).
+		emptyTextFields(
+			&txtStdLine.textFields,
+			ePrefix.XCpy(
+				"Empty txtStdLine.textFields"))
+
+	return err
+}
+
+// emptyStdLineTextFields - Receives a pointer to an instance of
+// TextLineSpecStandardLine and proceeds to delete all the text
+// fields contained in the internal text field collection.
+//
+// ----------------------------------------------------------------
+//
+// # IMPORTANT
+//
+// All the text fields stored in the text field collection
+// maintained by input parameter 'txtStdLine' will be deleted.
+func (txtStdLineMolecule *textLineSpecStandardLineMolecule) emptyStdLineTextFields(
+	txtStdLine *TextLineSpecStandardLine) {
+
+	if txtStdLineMolecule.lock == nil {
+		txtStdLineMolecule.lock = new(sync.Mutex)
+	}
+
+	txtStdLineMolecule.lock.Lock()
+
+	defer txtStdLineMolecule.lock.Unlock()
+
+	if txtStdLine == nil {
+		return
+	}
+
+	_ = new(textLineSpecStandardLineElectron).
+		emptyTextFields(
+			&txtStdLine.textFields,
+			nil)
+
+	return
+}
+
+// equal - Receives pointers to two TextLineSpecStandardLine
+// instances and proceeds to compare the member data elements to
+// determine whether they are equal.
+//
+// If the data elements of both input parameters 'stdLineOne' and
+// 'stdLineTwo' are equal in all respects, this method returns a
+// boolean value of 'true'. Otherwise, this method returns 'false'.
+func (txtStdLineMolecule *textLineSpecStandardLineMolecule) equal(
+	stdLineOne *TextLineSpecStandardLine,
+	stdLineTwo *TextLineSpecStandardLine) bool {
+
+	if txtStdLineMolecule.lock == nil {
+		txtStdLineMolecule.lock = new(sync.Mutex)
+	}
+
+	txtStdLineMolecule.lock.Lock()
+
+	defer txtStdLineMolecule.lock.Unlock()
+
+	if stdLineOne == nil ||
+		stdLineTwo == nil {
+
+		return false
+	}
+
+	if stdLineOne.numOfStdLines !=
+		stdLineTwo.numOfStdLines {
+
+		return false
+	}
+
+	sMechPreon := strMechPreon{}
+
+	if !sMechPreon.equalRuneArrays(
+		stdLineOne.newLineChars,
+		stdLineTwo.newLineChars) {
+		return false
+	}
+
+	if stdLineOne.turnLineTerminatorOff !=
+		stdLineTwo.turnLineTerminatorOff {
+		return false
+	}
+
+	return new(textLineSpecStandardLineElectron).
+		equalTextFieldArrays(
+			&stdLineOne.textFields,
+			&stdLineTwo.textFields)
+}
+
+// getFormattedText - Returns the formatted text generated by this
+// Text Line Specification, 'txtStdLine', for output and printing.
+//
+// The standard line may be replicated multiple times if the
+// value of internal member variable' stdLine.numOfStdLines' is
+// greater than one ('1').
+//
+// ------------------------------------------------------------------------
+//
+// Input Parameters
+//
+//	strBuilder                 *strings.Builder
+//	   - A pointer to an instance of *strings.Builder. The
+//	     formatted text characters produced by this method will be
+//	     written to this instance of strings.Builder.
+//
+//
+//	txtStdLine                 *TextLineSpecStandardLine
+//	   - A pointer to an instance of TextLineSpecStandardLine. The
+//	     member variables encapsulated by this instance will be
+//	     used to generate formatted text for text display, file
+//	     output and printing.
+//
+//
+//	errPrefDto                 *ePref.ErrPrefixDto
+//	   - This object encapsulates an error prefix string which is
+//	     included in all returned error messages. Usually, it
+//	     contains the name of the calling method or methods listed
+//	     as a function chain.
+//
+//	     If no error prefix information is needed, set this parameter
+//	     to 'nil'.
+//
+//	     Type ErrPrefixDto is included in the 'errpref' software
+//	     package, "github.com/MikeAustin71/errpref".
+//
+// ------------------------------------------------------------------------
+//
+// Return Values
+//
+//	singleLineLength           int
+//	   - The length of a single text line including trailing new
+//	     line characters if new line characters are configured.
+//
+//
+//	totalLinesLength           int
+//	   - The length of all text lines including trailing new
+//	     line characters if new line characters are configured.
+//	     Users have the option of specifying a repeat count for
+//	     text lines. Therefore,
+//	      'totalLineLength' = 'singleLineLength' X repeat count
+//
+//
+//	error
+//	   - If this method completes successfully, this returned error
+//	     Type is set equal to 'nil'. If errors are encountered during
+//	     processing, the returned error Type will encapsulate an error
+//	     message.
+//
+//	     If an error message is returned, the text value for input
+//	     parameter 'errPrefDto' (error prefix) will be prefixed or
+//	     attached at the beginning of the error message.
+func (txtStdLineMolecule *textLineSpecStandardLineMolecule) getFormattedText(
+	strBuilder *strings.Builder,
+	txtStdLine *TextLineSpecStandardLine,
+	errPrefDto *ePref.ErrPrefixDto) (
+	singleLineLength int,
+	totalLinesLength int,
+	err error) {
+
+	if txtStdLineMolecule.lock == nil {
+		txtStdLineMolecule.lock = new(sync.Mutex)
+	}
+
+	txtStdLineMolecule.lock.Lock()
+
+	defer txtStdLineMolecule.lock.Unlock()
+
+	var ePrefix *ePref.ErrPrefixDto
+
+	ePrefix,
+		err = ePref.ErrPrefixDto{}.NewFromErrPrefDto(
+		errPrefDto,
+		"textLineSpecStandardLineMolecule."+
+			"getFormattedText()",
+		"")
+
+	if err != nil {
+		return singleLineLength, totalLinesLength, err
+	}
+
+	if strBuilder == nil {
+
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'strBuilder' is invalid!\n"+
+			"'strBuilder' is a nil pointer.\n",
+			ePrefix.String())
+
+		return singleLineLength, totalLinesLength, err
+	}
+
+	if txtStdLine == nil {
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'txtStdLine' is a nil pointer!\n",
+			ePrefix.String())
+
+		return singleLineLength, totalLinesLength, err
+	}
+
+	_,
+		err = new(textLineSpecStandardLineAtom).
+		testValidityOfTextLineSpecStdLine(
+			txtStdLine,
+			false, // allowZeroLengthTextFieldsArray
+			ePrefix.XCpy("txtStdLine"))
+
+	// If Text Fields Array Length has a zero length,
+	// an error is returned.
+	if err != nil {
+		return singleLineLength, totalLinesLength, err
+	}
+
+	lenTextFields := len(txtStdLine.textFields)
+
+	sb2 := strings.Builder{}
+
+	for i := 0; i < lenTextFields; i++ {
+
+		if txtStdLine.textFields[i] == nil {
+			err = fmt.Errorf("%v\n"+
+				"Error: 'txtStdLine.textFields' is an invalid array!\n"+
+				"txtStdLine.textFields[%v] is a 'nil'value.\n",
+				ePrefix.XCpy(
+					"txtStdLine.textFields[i] == nil"),
+				i)
+
+			return singleLineLength, totalLinesLength, err
+		}
+
+		err = txtStdLine.textFields[i].TextBuilder(
+			&sb2,
+			ePrefix.XCpy(
+				fmt.Sprintf(
+					"txtStdLine.textFields[%v]",
+					i)))
+
+		if err != nil {
+			return singleLineLength, totalLinesLength, err
+		}
+
+	}
+
+	if txtStdLine.turnLineTerminatorOff == false {
+		sb2.WriteString(string(txtStdLine.newLineChars))
+	}
+
+	singleLineLength = sb2.Len()
+
+	totalLinesLength = singleLineLength * txtStdLine.numOfStdLines
+
+	strBuilder.Grow(
+		totalLinesLength + 16)
+
+	for j := 0; j < txtStdLine.numOfStdLines; j++ {
+		strBuilder.WriteString(sb2.String())
+	}
+
+	sb2.Reset()
+
+	return singleLineLength, totalLinesLength, err
+}

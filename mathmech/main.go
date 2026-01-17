@@ -1,0 +1,5 @@
+package mathmech
+
+func main() {
+
+}

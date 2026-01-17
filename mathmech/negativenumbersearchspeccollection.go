@@ -1619,7 +1619,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) SearchForNegNumSignSymbols(
 	var ePrefix *ePref.ErrPrefixDto
 	var err error
 
-	searchResults := CharSearchNegativeNumberResultsDto{}.New()
+	searchResults := new(CharSearchNegativeNumberResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewIEmpty(

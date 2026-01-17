@@ -43,7 +43,7 @@ import (
 // String and the Test String serves as the basis for determining
 // a 'Match' condition or successful outcome from a text character
 // search algorithm. The specific criterion for determining a
-// 'Match' condition vary between the different Character Search
+// 'Match' condition varies between the different Character Search
 // Types.
 //
 // When a 'Match' condition or successful search outcome is
@@ -51,7 +51,7 @@ import (
 // is bundled and returned to the calling function.
 //
 //	Number String        - As used here, a Number String is a
-//	                       string of text characters which
+//	                       string of text characters that
 //	                       contain numeric digit characters.
 //
 // Number String Parsing functions represent a specific type of
@@ -62,7 +62,7 @@ import (
 // numeric values.
 //
 // A key feature of Number String Parsing operations is the
-// classification of numeric values integer or floating point
+// classification of numeric values, integer or floating point
 // values. This classification logic searches for a specific
 // decimal separator character or characters which separate integer
 // numeric digits from fractional numeric digits.
@@ -107,7 +107,7 @@ type CharSearchDecimalSeparatorResultsDto struct {
 
 	FoundDecimalSeparatorSymbols bool
 	// Signals a successful search outcome. If set to 'true'
-	// the/ Decimal Separator Symbol character or characters
+	// the Decimal Separator Symbol character or characters
 	// were found in the Target Search String.
 
 	FoundDecimalSepSymbolsOnPreviousSearch bool
@@ -164,7 +164,7 @@ type CharSearchDecimalSeparatorResultsDto struct {
 	// last Target character searched. If the Search
 	// Target was found, this value is equal to the
 	// 'TargetStringLastFoundIndex'. If the Search Target
-	// was NOT found this value is equal to the
+	// was NOT found, this value is equal to the
 	// 'TargetStringStartingSearchIndex'. This value is
 	// useful in computing the next index to be searched
 	// in the Target String.
@@ -192,7 +192,7 @@ type CharSearchDecimalSeparatorResultsDto struct {
 	// of the current search operation.
 
 	TargetStringDescription2 string
-	// Second of two optional description strings
+	// The second of two optional description strings
 	// describing the Target Search String in the context
 	// of the current search operation.
 
@@ -236,7 +236,7 @@ type CharSearchDecimalSeparatorResultsDto struct {
 	// current search operation.
 
 	TestStringDescription2 string
-	// Second of two optional description strings
+	// The second of two optional description strings
 	// describing the Test String in the context of the
 	// current search operation.
 
@@ -379,7 +379,7 @@ type CharSearchDecimalSeparatorResultsDto struct {
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -393,11 +393,11 @@ type CharSearchDecimalSeparatorResultsDto struct {
 //
 //	error
 //	   - If the method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) CopyIn(
@@ -487,7 +487,7 @@ func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) CopyIn(
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -507,11 +507,11 @@ func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) CopyIn(
 //
 //	error
 //	   - If the method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message occurs, the text value of input
+//	     If an error message occurs, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) CopyOut(
@@ -593,41 +593,43 @@ func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) Empty() {
 	decSepSearchResultsDto.lock = nil
 }
 
-// Equal - Receives a pointer to another instance of
-// CharSearchDecimalSeparatorResultsDto and proceeds to compare the
-// member variables to those of the current
-// CharSearchDecimalSeparatorResultsDto instance in order to
-// determine if they are equivalent.
+// Equal
 //
-// A boolean flag showing the result of this comparison is
-// returned. If the member variables of both instances are equal in
-// all respects, this flag is set to 'true'. Otherwise, this method
-// returns 'false'.
+//	Receives a pointer to another instance of
+//	CharSearchDecimalSeparatorResultsDto and proceeds to compare the
+//	member variables to those of the current
+//	CharSearchDecimalSeparatorResultsDto instance to
+//	determine if they are equivalent.
 //
-// ----------------------------------------------------------------
+//	A boolean flag showing the result of this comparison is
+//	returned. If the member variables of both instances are equal in
+//	all respects, this flag is set to 'true'. Otherwise, this method
+//	returns 'false'.
 //
-// Input Parameters
+//	----------------------------------------------------------------
 //
-//	incomingDecSepResults *CharSearchDecimalSeparatorResultsDto
-//	   - A pointer to an incoming instance of
-//	     CharSearchDecimalSeparatorResultsDto. This method will
-//	     compare all member variable data values in this instance
-//	     against those contained in the current instance of
-//	     CharSearchDecimalSeparatorResultsDto. If the data values
-//	     in both instances are found to be equal in all respects,
-//	     this method will return a boolean value of 'true'.
+//	Input Parameters
 //
-// ----------------------------------------------------------------
+//	  incomingDecSepResults *CharSearchDecimalSeparatorResultsDto
+//	       A pointer to an incoming instance of
+//	       CharSearchDecimalSeparatorResultsDto. This method will
+//	       compare all member variable data values in this instance
+//	       against those contained in the current instance of
+//	       CharSearchDecimalSeparatorResultsDto. If the data values
+//	       in both instances are found to be equal in all respects,
+//	       this method will return a boolean value of 'true'.
 //
-// Return Values
+//	----------------------------------------------------------------
 //
-//	bool
-//	   - If the member variable data values contained in input
-//	     parameter 'incomingDecSepResults' are equal in all
-//	     respects to those contained in the current instance of
-//	     CharSearchDecimalSeparatorResultsDto, this method will
-//	     return a boolean value of 'true'. Otherwise, a value of
-//	     'false' will be returned to the calling function.
+//	Return Values
+//
+//	  bool
+//	       If the member variable data values contained in input
+//	       parameter 'incomingDecSepResults' are equal in all
+//	       respects to those contained in the current instance of
+//	       CharSearchDecimalSeparatorResultsDto, this method will
+//	       return a boolean value of 'true'. Otherwise, a value of
+//	       'false' will be returned to the calling function.
 func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) Equal(
 	incomingDecSepResults *CharSearchDecimalSeparatorResultsDto) bool {
 
@@ -704,8 +706,8 @@ func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) Equal(
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
-//	     the valid types listed above, it will be considered
+//	     If the parameter 'errorPrefix' is NOT convertible to one
+//	     of the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
 //	     Types ErrPrefixDto and IBasicErrorPrefix are included in
@@ -771,6 +773,8 @@ func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) GetParameter
 //
 // This method performs NO DATA VALIDATION on input parameter
 // 'runeArraySearchResults'.
+//
+//goland:noinspection DuplicatedCode
 func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) LoadRuneArraySearchResults(
 	runeArraySearchResults CharSearchRuneArrayResultsDto) {
 
@@ -1028,7 +1032,7 @@ func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) LoadTestBase
 // zero or uninitialized states. Array index values are set to a
 // value of minus one (-1) to differentiate them from valid array
 // indexes which have values greater than minus one (-1).
-func (decSepSearchResultsDto CharSearchDecimalSeparatorResultsDto) New() CharSearchDecimalSeparatorResultsDto {
+func (decSepSearchResultsDto *CharSearchDecimalSeparatorResultsDto) New() CharSearchDecimalSeparatorResultsDto {
 
 	if decSepSearchResultsDto.lock == nil {
 		decSepSearchResultsDto.lock = new(sync.Mutex)

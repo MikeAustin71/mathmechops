@@ -16,7 +16,7 @@ type charSearchDecimalSeparatorResultsDtoNanobot struct {
 
 // copyIn - Copies all data from input parameter
 // 'sourceDecSepResults' to input parameter
-// 'destinationDecSepResults'. Both instances are of type
+// 'destinationDecSepResults'. Both instances are of the type
 // CharSearchDecimalSeparatorResultsDto.
 //
 // # IMPORTANT
@@ -35,7 +35,7 @@ type charSearchDecimalSeparatorResultsDtoNanobot struct {
 //	destinationDecSepRes   *CharSearchDecimalSeparatorResultsDto
 //	   - A pointer to a CharSearchDecimalSeparatorResultsDto instance.
 //	     All the member variable data fields in this object will be
-//	     replaced by data values copied from input parameter
+//	     replaced by data values copied from the input parameter
 //	     'sourceDecSepResults'.
 //
 //	     'destinationDecSepResults' is the destination for this
@@ -522,7 +522,7 @@ func (searchDecimalSepResultsNanobot *charSearchDecimalSeparatorResultsDtoNanobo
 //	     CharSearchDecimalSeparatorResultsDto instance. Formatted
 //	     text output will be generated listing the member variable
 //	     names and their corresponding values. The formatted text
-//	     can then be used for text displays, file output or
+//	     can then be used for text displays, file output, or
 //	     printing.
 //
 //	     No data validation is performed on this instance of

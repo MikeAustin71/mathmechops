@@ -2,9 +2,10 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"strings"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // CharSearchNegativeNumberResultsDto - Contains parameters
@@ -42,7 +43,7 @@ import (
 // String and the Test String serves as the basis for determining
 // a 'Match' condition or successful outcome from a text character
 // search algorithm. The specific criterion for determining a
-// 'Match' condition vary between the different Character Search
+// 'Match' condition varies between the different Character Search
 // Types.
 //
 // When a 'Match' condition or successful search outcome is
@@ -50,7 +51,7 @@ import (
 // is bundled and returned to the calling function.
 //
 //	Number String        - As used here, a Number String is a
-//	                       string of text characters which
+//	                       string of text characters that
 //	                       contain numeric digit characters.
 //
 // Number String Parsing functions represent a specific type of
@@ -179,7 +180,7 @@ type CharSearchNegativeNumberResultsDto struct {
 	// last Target character searched. If the Search
 	// Target was found, this value is equal to the
 	// 'TargetStringLastFoundIndex'. If the Search Target
-	// was NOT found this value is equal to the
+	// was NOT found, this value is equal to the
 	// 'TargetStringStartingSearchIndex'. This value is
 	// useful in computing the next index to be searched
 	// in the Target String.
@@ -207,7 +208,7 @@ type CharSearchNegativeNumberResultsDto struct {
 	// of the current search operation.
 
 	TargetStringDescription2 string
-	// Second of two optional description strings
+	// The second of two optional description strings
 	// describing the Target Search String in the context
 	// of the current search operation.
 
@@ -251,7 +252,7 @@ type CharSearchNegativeNumberResultsDto struct {
 	// current search operation.
 
 	TestStringDescription2 string
-	// Second of two optional description strings
+	// The second of two optional description strings
 	// describing the Test String in the context of the
 	// current search operation.
 
@@ -272,7 +273,7 @@ type CharSearchNegativeNumberResultsDto struct {
 	//  NumSignVal.Positive()
 
 	PrimaryNumSignPosition NumSignSymbolPosition
-	// Optional This enumeration value specifies the
+	// Optionally, This enumeration value specifies the
 	// relative position of positive and negative number
 	// sign symbols in a number string. This is the
 	// Primary Type Code for Number Signs. Cases involving
@@ -286,10 +287,10 @@ type CharSearchNegativeNumberResultsDto struct {
 	//  NumSignSymPos.BeforeAndAfter()
 
 	SecondaryNumSignPosition NumSignSymbolPosition
-	// Optional. This enumeration value specifies the
+	// Optionally, This enumeration value specifies the
 	// relative position of positive and negative number
 	// sign symbols in a number string. This value is used
-	// in searches involving number signs which occur both
+	// in searches involving the number signs which occur both
 	// before and after the numeric value.
 	//
 	// Possible values are listed as follows:
@@ -414,7 +415,7 @@ type CharSearchNegativeNumberResultsDto struct {
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -428,11 +429,11 @@ type CharSearchNegativeNumberResultsDto struct {
 //
 //	error
 //	   - If the method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (negNumSearchResults *CharSearchNegativeNumberResultsDto) CopyIn(
@@ -522,7 +523,7 @@ func (negNumSearchResults *CharSearchNegativeNumberResultsDto) CopyIn(
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -542,11 +543,11 @@ func (negNumSearchResults *CharSearchNegativeNumberResultsDto) CopyIn(
 //
 //	error
 //	   - If the method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message occurs, the text value of input
+//	     If an error message occurs, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (negNumSearchResults *CharSearchNegativeNumberResultsDto) CopyOut(
@@ -628,7 +629,7 @@ func (negNumSearchResults *CharSearchNegativeNumberResultsDto) Empty() {
 // Equal - Receives a pointer to another instance of
 // CharSearchNegativeNumberResultsDto and proceeds to compare the member
 // variables to those of the current CharSearchNegativeNumberResultsDto
-// instance in order to determine if they are equivalent.
+// instance to determine if they are equivalent.
 //
 // A boolean flag showing the result of this comparison is
 // returned. If the member variables of both instances are equal in
@@ -735,7 +736,7 @@ func (negNumSearchResults *CharSearchNegativeNumberResultsDto) Equal(
 //	                            containing error prefix and error
 //	                            context information.
 //
-//	     If parameter 'errorPrefix' is NOT convertible to one of
+//	     If the parameter 'errorPrefix' is NOT convertible to one of
 //	     the valid types listed above, it will be considered
 //	     invalid and trigger the return of an error.
 //
@@ -1152,7 +1153,7 @@ func (negNumSearchResults *CharSearchNegativeNumberResultsDto) LoadTargetBaseInp
 //
 // This method assumes that the input data elements contained in
 // 'testInputParms' have been validated. Therefore, NO DATA
-// VALIDATION is performed on input parameter, 'testInputParms'.
+// VALIDATION is performed on the input parameter, 'testInputParms'.
 func (negNumSearchResults *CharSearchNegativeNumberResultsDto) LoadTestBaseInputParameters(
 	testInputParms CharSearchTestInputParametersDto) {
 
@@ -1212,7 +1213,7 @@ func (negNumSearchResults *CharSearchNegativeNumberResultsDto) LoadTestBaseInput
 // zero or uninitialized states. Array index values are set to a
 // value of minus one (-1) to differentiate them from valid array
 // indexes which have values greater than minus one (-1).
-func (negNumSearchResults CharSearchNegativeNumberResultsDto) New() CharSearchNegativeNumberResultsDto {
+func (negNumSearchResults *CharSearchNegativeNumberResultsDto) New() CharSearchNegativeNumberResultsDto {
 
 	if negNumSearchResults.lock == nil {
 		negNumSearchResults.lock = new(sync.Mutex)

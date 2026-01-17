@@ -638,11 +638,6 @@ func (nStrHelperNanobot *numStrHelperNanobot) formatNumStrElements(
 
 	var numSignSymbolSpec NumStrNumberSymbolSpec
 
-	if err != nil {
-
-		return numStr, err
-	}
-
 	if numberSign == NumSignVal.Negative() {
 
 		if negativeNumberSign.IsNOP() == true {

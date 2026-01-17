@@ -2,8 +2,9 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // numStrFmtSpecNanobot - This type provides
@@ -4898,11 +4899,6 @@ func (nStrFmtSpecNanobot *numStrFmtSpecNanobot) setSignedPureNStrSpec(
 
 	intSeparatorSpec =
 		new(IntegerSeparatorSpec).NewNoIntegerSeparation()
-
-	if err != nil {
-
-		return err
-	}
 
 	var numSymbolsSpec NumStrNumberSymbolGroup
 

@@ -2076,7 +2076,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SearchForNegNumSignSymbols(
 
 	var err error
 
-	searchResults := CharSearchNegativeNumberResultsDto{}.New()
+	searchResults := new(CharSearchNegativeNumberResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewIEmpty(
@@ -2243,10 +2243,6 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SearchForNegNumSignSymbols(
 		testConfigDto.TestStringName = "TrailingNegNumSign"
 		testConfigDto.TestStringLengthName = "TrailingNegNumSignLength"
 		testConfigDto.TestStringStartingIndex = 0
-
-		if err != nil {
-			return searchResults, err
-		}
 
 		if negNumSearchSpec.foundTrailingNegNumSign {
 

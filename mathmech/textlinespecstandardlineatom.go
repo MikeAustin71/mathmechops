@@ -2,8 +2,9 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 type textLineSpecStandardLineAtom struct {
@@ -362,10 +363,6 @@ func (txtStdLineAtom *textLineSpecStandardLineAtom) peekPopTextField(
 			"Input parameter 'txtStdLine' is a nil pointer!\n",
 			ePrefix.String())
 
-		return iTextField, err
-	}
-
-	if err != nil {
 		return iTextField, err
 	}
 

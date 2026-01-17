@@ -2,10 +2,11 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"io"
 	"strings"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // TextLineSpecTitleMarquee
@@ -987,20 +988,6 @@ func (txtLineSpecTitleMarquee *TextLineSpecTitleMarquee) AddStdLineColumns(
 		"TextLineSpecTitleMarquee."+
 			"AddStdLineColumns()",
 		"")
-
-	if err != nil {
-		return err
-	}
-	//
-	//var newStdLine TextLineSpecStandardLine
-	//
-	//newStdLine,
-	//	err = TextLineSpecStandardLine{}.NewStdLineColumns(
-	//	lineTerminator,
-	//	turnLineTerminatorOff,
-	//	ePrefix.XCpy(
-	//		"newStdLine<-textFieldColumns..."),
-	//	textFieldColumns...)
 
 	if err != nil {
 		return err

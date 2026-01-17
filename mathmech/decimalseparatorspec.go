@@ -2,8 +2,9 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // DecimalSeparatorSpec
@@ -1876,7 +1877,7 @@ func (decSeparatorSpec *DecimalSeparatorSpec) SearchForDecimalSeparator(
 
 	var err error
 
-	decimalSearchResults := CharSearchDecimalSeparatorResultsDto{}.New()
+	decimalSearchResults := new(CharSearchDecimalSeparatorResultsDto).New()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewIEmpty(

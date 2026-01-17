@@ -2,8 +2,9 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 type textLineSpecStandardLineNanobot struct {
@@ -1492,7 +1493,7 @@ func (txtStdLineNanobot *textLineSpecStandardLineNanobot) setTextFieldDtosStdLin
 		return err
 	}
 
-	_ =
+	err =
 		new(textLineSpecStandardLineMolecule).
 			emptyStandardLine(
 				txtStdLine,

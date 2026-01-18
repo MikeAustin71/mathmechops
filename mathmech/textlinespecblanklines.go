@@ -137,7 +137,7 @@ func (blkLines *TextLineSpecBlankLines) CopyIn(
 		return err
 	}
 
-	return textLineSpecBlankLinesMolecule{}.ptr().
+	return new(textLineSpecBlankLinesMolecule).
 		copyIn(
 			blkLines,
 			incomingBlkLines,
@@ -247,7 +247,7 @@ func (blkLines *TextLineSpecBlankLines) CopyOut(
 	var newBlankLinesSpec TextLineSpecBlankLines
 
 	newBlankLinesSpec,
-		err = textLineSpecBlankLinesMolecule{}.ptr().
+		err = new(textLineSpecBlankLinesMolecule).
 		copyOut(
 			blkLines,
 			ePrefix.XCpy("blkLines"))
@@ -381,7 +381,7 @@ func (blkLines *TextLineSpecBlankLines) CopyOutITextLine(
 	var newBlankLinesSpec TextLineSpecBlankLines
 
 	newBlankLinesSpec,
-		err = textLineSpecBlankLinesMolecule{}.ptr().
+		err = new(textLineSpecBlankLinesMolecule).
 		copyOut(
 			blkLines,
 			ePrefix)
@@ -489,7 +489,7 @@ func (blkLines *TextLineSpecBlankLines) CopyOutPtr(
 	var newBlankLinesSpec TextLineSpecBlankLines
 
 	newBlankLinesSpec,
-		err = textLineSpecBlankLinesMolecule{}.ptr().
+		err = new(textLineSpecBlankLinesMolecule).
 		copyOut(
 			blkLines,
 			ePrefix.XCpy("blkLines"))
@@ -506,7 +506,8 @@ func (blkLines *TextLineSpecBlankLines) Empty() {
 	}
 
 	blkLines.lock.Lock()
-	textLineSpecBlankLinesMolecule{}.ptr().
+
+	new(textLineSpecBlankLinesMolecule).
 		empty(blkLines)
 
 	blkLines.lock.Unlock()
@@ -534,7 +535,7 @@ func (blkLines *TextLineSpecBlankLines) Equal(
 
 	defer blkLines.lock.Unlock()
 
-	return textLineSpecBlankLinesMolecule{}.ptr().equal(
+	return new(textLineSpecBlankLinesMolecule).equal(
 		blkLines,
 		incomingBlkLines)
 }
@@ -571,7 +572,7 @@ func (blkLines *TextLineSpecBlankLines) EqualITextLine(
 		return false
 	}
 
-	return textLineSpecBlankLinesMolecule{}.ptr().equal(
+	return new(textLineSpecBlankLinesMolecule).equal(
 		blkLines,
 		txtBlkLine)
 }
@@ -708,7 +709,7 @@ func (blkLines *TextLineSpecBlankLines) GetFormattedText(
 		return "", err
 	}
 
-	return textLineSpecBlankLinesMolecule{}.ptr().
+	return new(textLineSpecBlankLinesMolecule).
 		getFormattedText(
 			blkLines,
 			ePrefix)
@@ -835,7 +836,7 @@ func (blkLines *TextLineSpecBlankLines) IsValidInstance() bool {
 	defer blkLines.lock.Unlock()
 
 	isValid,
-		_ := textLineSpecBlankLinesAtom{}.ptr().
+		_ := new(textLineSpecBlankLinesAtom).
 		testValidityOfTextLineSpecBlankLines(
 			blkLines,
 			nil)
@@ -966,7 +967,7 @@ func (blkLines *TextLineSpecBlankLines) IsValidInstanceError(
 	}
 
 	_,
-		err = textLineSpecBlankLinesAtom{}.ptr().
+		err = new(textLineSpecBlankLinesAtom).
 		testValidityOfTextLineSpecBlankLines(
 			blkLines,
 			ePrefix.XCpy("blkLines"))
@@ -1071,7 +1072,7 @@ func (blkLines *TextLineSpecBlankLines) IsValidInstanceError(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (blkLines TextLineSpecBlankLines) NewBlankLines(
+func (blkLines *TextLineSpecBlankLines) NewBlankLines(
 	numOfBlankLines int,
 	newLineChars string,
 	errorPrefix interface{}) (
@@ -1102,7 +1103,7 @@ func (blkLines TextLineSpecBlankLines) NewBlankLines(
 		return newBlankLinesSpec, err
 	}
 
-	err = textLineSpecBlankLinesMolecule{}.ptr().
+	err = new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			&newBlankLinesSpec,
 			numOfBlankLines,
@@ -1211,7 +1212,7 @@ func (blkLines TextLineSpecBlankLines) NewBlankLines(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (blkLines TextLineSpecBlankLines) NewBlankLineRunes(
+func (blkLines *TextLineSpecBlankLines) NewBlankLineRunes(
 	numOfBlankLines int,
 	newLineRunes []rune,
 	errorPrefix interface{}) (
@@ -1242,7 +1243,7 @@ func (blkLines TextLineSpecBlankLines) NewBlankLineRunes(
 		return newBlankLinesSpec, err
 	}
 
-	err = textLineSpecBlankLinesMolecule{}.ptr().
+	err = new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			&newBlankLinesSpec,
 			numOfBlankLines,
@@ -1349,7 +1350,7 @@ func (blkLines TextLineSpecBlankLines) NewBlankLineRunes(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (blkLines TextLineSpecBlankLines) NewDefaultBlankLines(
+func (blkLines *TextLineSpecBlankLines) NewDefaultBlankLines(
 	numOfBlankLines int,
 	errorPrefix interface{}) (
 	TextLineSpecBlankLines,
@@ -1379,7 +1380,7 @@ func (blkLines TextLineSpecBlankLines) NewDefaultBlankLines(
 		return newBlankLinesSpec, err
 	}
 
-	err = textLineSpecBlankLinesMolecule{}.ptr().
+	err = new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			&newBlankLinesSpec,
 			numOfBlankLines,
@@ -1487,7 +1488,7 @@ func (blkLines TextLineSpecBlankLines) NewDefaultBlankLines(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (blkLines TextLineSpecBlankLines) NewPtrBlankLines(
+func (blkLines *TextLineSpecBlankLines) NewPtrBlankLines(
 	numOfBlankLines int,
 	newLineChars string,
 	errorPrefix interface{}) (
@@ -1518,7 +1519,7 @@ func (blkLines TextLineSpecBlankLines) NewPtrBlankLines(
 		return &newBlankLinesSpec, err
 	}
 
-	err = textLineSpecBlankLinesMolecule{}.ptr().
+	err = new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			&newBlankLinesSpec,
 			numOfBlankLines,
@@ -1627,7 +1628,7 @@ func (blkLines TextLineSpecBlankLines) NewPtrBlankLines(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (blkLines TextLineSpecBlankLines) NewPtrBlankLineRunes(
+func (blkLines *TextLineSpecBlankLines) NewPtrBlankLineRunes(
 	numOfBlankLines int,
 	newLineRunes []rune,
 	errorPrefix interface{}) (
@@ -1658,7 +1659,7 @@ func (blkLines TextLineSpecBlankLines) NewPtrBlankLineRunes(
 		return &newBlankLinesSpec, err
 	}
 
-	err = textLineSpecBlankLinesMolecule{}.ptr().
+	err = new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			&newBlankLinesSpec,
 			numOfBlankLines,
@@ -1765,7 +1766,7 @@ func (blkLines TextLineSpecBlankLines) NewPtrBlankLineRunes(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (blkLines TextLineSpecBlankLines) NewPtrDefaultBlankLines(
+func (blkLines *TextLineSpecBlankLines) NewPtrDefaultBlankLines(
 	numOfBlankLines int,
 	errorPrefix interface{}) (
 	*TextLineSpecBlankLines,
@@ -1795,7 +1796,7 @@ func (blkLines TextLineSpecBlankLines) NewPtrDefaultBlankLines(
 		return &newBlankLinesSpec, err
 	}
 
-	err = textLineSpecBlankLinesMolecule{}.ptr().
+	err = new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			&newBlankLinesSpec,
 			numOfBlankLines,
@@ -1990,7 +1991,7 @@ func (blkLines *TextLineSpecBlankLines) Read(
 		var formattedText string
 
 		formattedText,
-			err = textLineSpecBlankLinesMolecule{}.ptr().
+			err = new(textLineSpecBlankLinesMolecule).
 			getFormattedText(
 				blkLines,
 				ePrefix.XCpy("blkLines"))
@@ -2197,7 +2198,7 @@ func (blkLines *TextLineSpecBlankLines) SetNewLineChars(
 
 	newLineTermRunes := []rune(newLineChars)
 
-	err = textLineSpecBlankLinesElectron{}.ptr().
+	err = new(textLineSpecBlankLinesElectron).
 		testValidityNewLinesChars(
 			[]rune(newLineChars),
 			ePrefix.XCpy(
@@ -2357,7 +2358,7 @@ func (blkLines *TextLineSpecBlankLines) SetNewLineRunes(
 		return err
 	}
 
-	err = textLineSpecBlankLinesElectron{}.ptr().
+	err = new(textLineSpecBlankLinesElectron).
 		testValidityNewLinesChars(
 			newLineRunes,
 			ePrefix.XCpy(
@@ -2517,7 +2518,7 @@ func (blkLines *TextLineSpecBlankLines) SetNumberOfBlankLines(
 		return err
 	}
 
-	err = textLineSpecBlankLinesElectron{}.ptr().
+	err = new(textLineSpecBlankLinesElectron).
 		testValidityNumOfBlankLines(
 			numOfBlankLines,
 			ePrefix.XCpy(
@@ -2660,7 +2661,7 @@ func (blkLines *TextLineSpecBlankLines) SetSpecBlankLines(
 		return err
 	}
 
-	return textLineSpecBlankLinesMolecule{}.ptr().
+	return new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			blkLines,
 			numOfBlankLines,
@@ -2787,7 +2788,7 @@ func (blkLines *TextLineSpecBlankLines) SetSpecDefaultBlankLines(
 		return err
 	}
 
-	return textLineSpecBlankLinesMolecule{}.ptr().
+	return new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			blkLines,
 			numOfBlankLines,
@@ -2926,7 +2927,7 @@ func (blkLines *TextLineSpecBlankLines) SetSpecBlankLineRunes(
 		return err
 	}
 
-	return textLineSpecBlankLinesMolecule{}.ptr().
+	return new(textLineSpecBlankLinesMolecule).
 		setTextLinesSpecBlankLines(
 			blkLines,
 			numOfBlankLines,
@@ -2987,7 +2988,7 @@ func (blkLines *TextLineSpecBlankLines) SetSpecBlankLineRunes(
 //		If an error condition is encountered, this string
 //		will contain an appropriate error message. This
 //		error message will contain the word 'Error'.
-func (blkLines TextLineSpecBlankLines) String() string {
+func (blkLines *TextLineSpecBlankLines) String() string {
 
 	if blkLines.lock == nil {
 		blkLines.lock = new(sync.Mutex)
@@ -3004,7 +3005,7 @@ func (blkLines TextLineSpecBlankLines) String() string {
 	formattedText,
 		err := new(textLineSpecBlankLinesMolecule).
 		getFormattedText(
-			&blkLines,
+			blkLines,
 			&ePrefix)
 
 	if err != nil {
@@ -3155,7 +3156,7 @@ func (blkLines *TextLineSpecBlankLines) TextBuilder(
 	var formattedTxtStr string
 
 	formattedTxtStr,
-		err = textLineSpecBlankLinesMolecule{}.ptr().
+		err = new(textLineSpecBlankLinesMolecule).
 		getFormattedText(
 			blkLines,
 			ePrefix.XCpy("blkLines"))
@@ -3198,9 +3199,9 @@ func (blkLines *TextLineSpecBlankLines) TextBuilder(
 //
 // Returns Text Line Specification Name.
 //
-// This method fulfills requirements of interface
+// This method fulfills the requirements of interface
 // ITextLineSpecification.
-func (blkLines TextLineSpecBlankLines) TextLineSpecName() string {
+func (blkLines *TextLineSpecBlankLines) TextLineSpecName() string {
 
 	if blkLines.lock == nil {
 		blkLines.lock = new(sync.Mutex)
@@ -3220,7 +3221,7 @@ func (blkLines TextLineSpecBlankLines) TextLineSpecName() string {
 //
 // This method fulfills requirements of interface
 // ITextLineSpecification.
-func (blkLines TextLineSpecBlankLines) TextTypeName() string {
+func (blkLines *TextLineSpecBlankLines) TextTypeName() string {
 
 	if blkLines.lock == nil {
 		blkLines.lock = new(sync.Mutex)

@@ -119,7 +119,7 @@ func (txtBlankLinesMolecule *textLineSpecBlankLinesMolecule) copyIn(
 	targetBlkLines.textLineReader = nil
 
 	_,
-		err = textLineSpecBlankLinesAtom{}.ptr().
+		err = new(textLineSpecBlankLinesAtom).
 		testValidityOfTextLineSpecBlankLines(
 			incomingBlkLines,
 			ePrefix.XCpy("incomingBlkLines"))
@@ -228,7 +228,7 @@ func (txtBlankLinesMolecule *textLineSpecBlankLinesMolecule) copyOut(
 	}
 
 	_,
-		err = textLineSpecBlankLinesAtom{}.ptr().
+		err = new(textLineSpecBlankLinesAtom).
 		testValidityOfTextLineSpecBlankLines(
 			txtBlankLines,
 			ePrefix.XCpy("txtBlankLines"))
@@ -419,7 +419,7 @@ func (txtBlankLinesMolecule *textLineSpecBlankLinesMolecule) getFormattedText(
 	}
 
 	_,
-		err = textLineSpecBlankLinesAtom{}.ptr().
+		err = new(textLineSpecBlankLinesAtom).
 		testValidityOfTextLineSpecBlankLines(
 			txtBlankLines,
 			ePrefix.XCpy("txtBlankLines"))
@@ -435,23 +435,6 @@ func (txtBlankLinesMolecule *textLineSpecBlankLinesMolecule) getFormattedText(
 	}
 
 	return formattedText, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSpecBlankLinesMolecule.
-func (txtBlankLinesMolecule textLineSpecBlankLinesMolecule) ptr() *textLineSpecBlankLinesMolecule {
-
-	if txtBlankLinesMolecule.lock == nil {
-		txtBlankLinesMolecule.lock = new(sync.Mutex)
-	}
-
-	txtBlankLinesMolecule.lock.Lock()
-
-	defer txtBlankLinesMolecule.lock.Unlock()
-
-	return &textLineSpecBlankLinesMolecule{
-		lock: new(sync.Mutex),
-	}
 }
 
 // setTextLinesSpecBlankLines - Receives a pointer to an instance

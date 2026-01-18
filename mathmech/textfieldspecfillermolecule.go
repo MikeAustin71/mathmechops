@@ -124,7 +124,7 @@ func (txtFieldFillerMolecule *textFieldSpecFillerMolecule) copyIn(
 
 	_,
 		err =
-		textFieldSpecFillerAtom{}.ptr().
+		new(textFieldSpecFillerAtom).
 			isValidTextFieldSpecFiller(
 				incomingTxtFiller,
 				ePrefix.XCpy("incomingTxtFiller validation - "))
@@ -238,7 +238,7 @@ func (txtFieldFillerMolecule *textFieldSpecFillerMolecule) copyOut(
 
 	_,
 		err =
-		textFieldSpecFillerAtom{}.ptr().
+		new(textFieldSpecFillerAtom).
 			isValidTextFieldSpecFiller(
 				txtFieldFiller,
 				ePrefix.XCpy("txtFieldFiller validation - "))
@@ -414,7 +414,7 @@ func (txtFieldFillerMolecule *textFieldSpecFillerMolecule) getFormattedText(
 
 	_,
 		err =
-		textFieldSpecFillerAtom{}.ptr().
+		new(textFieldSpecFillerAtom).
 			isValidTextFieldSpecFiller(
 				txtFieldFiller,
 				ePrefix.XCpy("txtFieldFiller validation - "))
@@ -457,21 +457,4 @@ func (txtFieldFillerMolecule *textFieldSpecFillerMolecule) newEmpty() TextFieldS
 	newFillerField.lock = new(sync.Mutex)
 
 	return newFillerField
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecFillerMolecule.
-func (txtFieldFillerMolecule textFieldSpecFillerMolecule) ptr() *textFieldSpecFillerMolecule {
-
-	if txtFieldFillerMolecule.lock == nil {
-		txtFieldFillerMolecule.lock = new(sync.Mutex)
-	}
-
-	txtFieldFillerMolecule.lock.Lock()
-
-	defer txtFieldFillerMolecule.lock.Unlock()
-
-	return &textFieldSpecFillerMolecule{
-		lock: new(sync.Mutex),
-	}
 }

@@ -1984,7 +1984,7 @@ func (stdLine *TextLineSpecStandardLine) AddTextFieldLabel(
 	var newLabelField *TextFieldSpecLabel
 
 	newLabelField,
-		err = TextFieldSpecLabel{}.NewPtrTextLabel(
+		err = new(TextFieldSpecLabel).NewPtrTextLabel(
 		textLabel,
 		fieldLen,
 		textJustification,
@@ -2150,7 +2150,7 @@ func (stdLine *TextLineSpecStandardLine) AddTextFieldSpacer(
 	var newSpacerField *TextFieldSpecSpacer
 
 	newSpacerField,
-		err = TextFieldSpecSpacer{}.NewPtrSpacer(
+		err = new(TextFieldSpecSpacer).NewPtrSpacer(
 		fieldLen,
 		ePrefix.XCpy(
 			"newSpacerField"))
@@ -4009,7 +4009,7 @@ func (stdLine *TextLineSpecStandardLine) IsValidInstanceError(
 //	                 or characters, see methods:
 //	                 TextLineSpecStandardLine.SetNewLineChars()
 //	                 TextLineSpecStandardLine.SetNewLineRunes()
-func (stdLine TextLineSpecStandardLine) New() TextLineSpecStandardLine {
+func (stdLine *TextLineSpecStandardLine) New() TextLineSpecStandardLine {
 
 	if stdLine.lock == nil {
 		stdLine.lock = new(sync.Mutex)
@@ -4168,7 +4168,7 @@ func (stdLine TextLineSpecStandardLine) New() TextLineSpecStandardLine {
 //	     instance of TextLineSpecStandardLine which is fully
 //	     configured except for text fields. To add text fields,
 //	     see method TextLineSpecStandardLine.AddTextField()
-func (stdLine TextLineSpecStandardLine) NewPtr() *TextLineSpecStandardLine {
+func (stdLine *TextLineSpecStandardLine) NewPtr() *TextLineSpecStandardLine {
 
 	if stdLine.lock == nil {
 		stdLine.lock = new(sync.Mutex)
@@ -4386,7 +4386,7 @@ func (stdLine TextLineSpecStandardLine) NewPtr() *TextLineSpecStandardLine {
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (stdLine TextLineSpecStandardLine) NewPtrStandardLine(
+func (stdLine *TextLineSpecStandardLine) NewPtrStandardLine(
 	numOfStdLines int,
 	textFields []ITextFieldSpecification,
 	errorPrefix interface{}) (
@@ -4655,7 +4655,7 @@ func (stdLine TextLineSpecStandardLine) NewPtrStandardLine(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (stdLine TextLineSpecStandardLine) NewPtrStandardLineAllParms(
+func (stdLine *TextLineSpecStandardLine) NewPtrStandardLineAllParms(
 	numOfStdLines int,
 	textFields []ITextFieldSpecification,
 	newLineChars []rune,
@@ -4923,7 +4923,7 @@ func (stdLine TextLineSpecStandardLine) NewPtrStandardLineAllParms(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (stdLine TextLineSpecStandardLine) NewStandardLine(
+func (stdLine *TextLineSpecStandardLine) NewStandardLine(
 	numOfStdLines int,
 	textFields []ITextFieldSpecification,
 	errorPrefix interface{}) (
@@ -5191,7 +5191,7 @@ func (stdLine TextLineSpecStandardLine) NewStandardLine(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (stdLine TextLineSpecStandardLine) NewStandardLineAllParms(
+func (stdLine *TextLineSpecStandardLine) NewStandardLineAllParms(
 	numOfStdLines int,
 	textFields []ITextFieldSpecification,
 	newLineChars []rune,
@@ -5617,7 +5617,7 @@ func (stdLine TextLineSpecStandardLine) NewStandardLineAllParms(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (stdLine TextLineSpecStandardLine) NewStdLineColumns(
+func (stdLine *TextLineSpecStandardLine) NewStdLineColumns(
 	lineTerminator string,
 	turnLineTerminatorOff bool,
 	errorPrefix interface{},
@@ -6014,7 +6014,7 @@ func (stdLine TextLineSpecStandardLine) NewStdLineColumns(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (stdLine TextLineSpecStandardLine) NewStdLineMultipleColumns(
+func (stdLine *TextLineSpecStandardLine) NewStdLineMultipleColumns(
 	textFieldDtos []ITextFieldFormatDto,
 	lineTerminator string,
 	turnLineTerminatorOff bool,
@@ -8656,7 +8656,7 @@ func (stdLine *TextLineSpecStandardLine) SetTextFields(
 //
 // This method fulfills requirements of the ITextLineSpecification
 // interface.
-func (stdLine TextLineSpecStandardLine) String() string {
+func (stdLine *TextLineSpecStandardLine) String() string {
 
 	if stdLine.lock == nil {
 		stdLine.lock = new(sync.Mutex)
@@ -8680,7 +8680,7 @@ func (stdLine TextLineSpecStandardLine) String() string {
 		err = new(textLineSpecStandardLineMolecule).
 		getFormattedText(
 			&strBuilder,
-			&stdLine,
+			stdLine,
 			ePrefix.XCpy("stdLine"))
 
 	if err != nil {

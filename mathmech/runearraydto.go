@@ -3074,7 +3074,7 @@ func (charsArrayDto *RuneArrayDto) NewRunesDefault(
 //	RuneArrayDto is automatically defaulted to:
 //
 //		CharSearchType.LinearTargetStartingIndex()
-func (charsArrayDto RuneArrayDto) NewStringDefault(
+func (charsArrayDto *RuneArrayDto) NewStringDefault(
 	stringChars string) RuneArrayDto {
 
 	if charsArrayDto.lock == nil {
@@ -3176,7 +3176,7 @@ func (charsArrayDto RuneArrayDto) NewStringDefault(
 //	   - This method returns an instance of RuneArrayDto configured
 //	     with upper and lower case letters of the Latin Alphabet -
 //	     English Version (a-z, A-Z).
-func (charsArrayDto RuneArrayDto) NewNumericCharacters() RuneArrayDto {
+func (charsArrayDto *RuneArrayDto) NewNumericCharacters() RuneArrayDto {
 
 	if charsArrayDto.lock == nil {
 		charsArrayDto.lock = new(sync.Mutex)
@@ -3205,7 +3205,7 @@ func (charsArrayDto RuneArrayDto) NewNumericCharacters() RuneArrayDto {
 	return newRuneArrayDto
 }
 
-func (charsArrayDto RuneArrayDto) NewLatinAlphabet() RuneArrayDto {
+func (charsArrayDto *RuneArrayDto) NewLatinAlphabet() RuneArrayDto {
 
 	if charsArrayDto.lock == nil {
 		charsArrayDto.lock = new(sync.Mutex)
@@ -3368,7 +3368,7 @@ func (charsArrayDto RuneArrayDto) NewLatinAlphabet() RuneArrayDto {
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (charsArrayDto RuneArrayDto) NewNumStr(
+func (charsArrayDto *RuneArrayDto) NewNumStr(
 	numStr string,
 	errorPrefix interface{}) (
 	newRuneArrayDto RuneArrayDto,
@@ -3621,14 +3621,14 @@ func (charsArrayDto RuneArrayDto) NewNumStr(
 //
 //	err                        error
 //	   - If this method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (charsArrayDto RuneArrayDto) NewRunes(
+func (charsArrayDto *RuneArrayDto) NewRunes(
 	charArray []rune,
 	charSearchType CharacterSearchType,
 	errorPrefix interface{}) (
@@ -3926,7 +3926,7 @@ func (charsArrayDto RuneArrayDto) NewRunes(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (charsArrayDto RuneArrayDto) NewRunesAllParams(
+func (charsArrayDto *RuneArrayDto) NewRunesAllParams(
 	charArray []rune,
 	description1 string,
 	description2 string,
@@ -4210,7 +4210,7 @@ func (charsArrayDto RuneArrayDto) NewRunesAllParams(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (charsArrayDto RuneArrayDto) NewRunesPtr(
+func (charsArrayDto *RuneArrayDto) NewRunesPtr(
 	charArray []rune,
 	charSearchType CharacterSearchType,
 	errorPrefix interface{}) (
@@ -4516,7 +4516,7 @@ func (charsArrayDto RuneArrayDto) NewRunesPtr(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (charsArrayDto RuneArrayDto) NewString(
+func (charsArrayDto *RuneArrayDto) NewString(
 	stringChars string,
 	charSearchType CharacterSearchType,
 	errorPrefix interface{}) (
@@ -4716,7 +4716,7 @@ func (charsArrayDto RuneArrayDto) NewString(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (charsArrayDto RuneArrayDto) NewStrings(
+func (charsArrayDto *RuneArrayDto) NewStrings(
 	errorPrefix interface{},
 	charStrings ...string) (
 	RuneArrayDto,
@@ -4982,7 +4982,7 @@ func (charsArrayDto RuneArrayDto) NewStrings(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (charsArrayDto RuneArrayDto) NewStringAllParams(
+func (charsArrayDto *RuneArrayDto) NewStringAllParams(
 	stringChars string,
 	description1 string,
 	description2 string,
@@ -5265,7 +5265,7 @@ func (charsArrayDto RuneArrayDto) NewStringAllParams(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (charsArrayDto RuneArrayDto) NewStringPtr(
+func (charsArrayDto *RuneArrayDto) NewStringPtr(
 	stringChars string,
 	charSearchType CharacterSearchType,
 	errorPrefix interface{}) (
@@ -6645,7 +6645,7 @@ func (charsArrayDto *RuneArrayDto) SetString(
 //	   - This method returns a string of characters extracted from
 //	     the internal member variable rune array
 //	     'RuneArrayDto.CharsArray'.
-func (charsArrayDto RuneArrayDto) String() string {
+func (charsArrayDto *RuneArrayDto) String() string {
 
 	if charsArrayDto.lock == nil {
 		charsArrayDto.lock = new(sync.Mutex)

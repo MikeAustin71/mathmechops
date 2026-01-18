@@ -16,7 +16,7 @@ type textFieldSpecLabelAtom struct {
 // the object to determine if it is valid or not.
 //
 // This method returns two parameters, 'isValid' and 'err'. If
-// input parameter 'txtFieldLabel' is valid, the return parameter
+// the input parameter 'txtFieldLabel' is valid, the return parameter
 // 'isValid' is set to 'true' and 'err' is set to 'nil'.
 //
 // If input parameter 'txtFieldLabel' is invalid, the return
@@ -92,21 +92,4 @@ func (txtFieldLabelAtom *textFieldSpecLabelAtom) isValidTextFieldLabel(
 	isValid = true
 
 	return isValid, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecLabelAtom.
-func (txtFieldLabelAtom textFieldSpecLabelAtom) ptr() *textFieldSpecLabelAtom {
-
-	if txtFieldLabelAtom.lock == nil {
-		txtFieldLabelAtom.lock = new(sync.Mutex)
-	}
-
-	txtFieldLabelAtom.lock.Lock()
-
-	defer txtFieldLabelAtom.lock.Unlock()
-
-	return &textFieldSpecLabelAtom{
-		lock: new(sync.Mutex),
-	}
 }

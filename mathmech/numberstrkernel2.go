@@ -4583,7 +4583,7 @@ func (numStrKernel *NumberStrKernel) NewParseCustomNumberStr(
 	var runeDto RuneArrayDto
 
 	runeDto,
-		err = RuneArrayDto{}.NewString(
+		err = new(RuneArrayDto).NewString(
 		rawNumStr,
 		CharSearchType.LinearTargetStartingIndex(),
 		ePrefix.XCpy("rawNumStr"))
@@ -5504,7 +5504,7 @@ func (numStrKernel *NumberStrKernel) NewParseFrenchNumberStr(
 
 	var runeDto RuneArrayDto
 
-	runeDto = RuneArrayDto{}.NewStringDefault(
+	runeDto = new(RuneArrayDto).NewStringDefault(
 		rawNumStr)
 
 	var decSeparator DecimalSeparatorSpec
@@ -5861,7 +5861,7 @@ func (numStrKernel *NumberStrKernel) NewParseGermanNumberStr(
 
 	var runeDto RuneArrayDto
 
-	runeDto = RuneArrayDto{}.NewStringDefault(
+	runeDto = new(RuneArrayDto).NewStringDefault(
 		rawNumStr)
 
 	var decSeparator DecimalSeparatorSpec
@@ -7175,7 +7175,7 @@ func (numStrKernel *NumberStrKernel) NewParseUSNumberStr(
 	var runeDto RuneArrayDto
 
 	runeDto,
-		err = RuneArrayDto{}.NewString(
+		err = new(RuneArrayDto).NewString(
 		rawNumStr,
 		CharSearchType.LinearTargetStartingIndex(),
 		ePrefix.XCpy("rawNumStr"))

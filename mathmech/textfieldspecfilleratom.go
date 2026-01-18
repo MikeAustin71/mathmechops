@@ -16,7 +16,7 @@ type textFieldSpecFillerAtom struct {
 // the object to determine if it is valid or not.
 //
 // This method returns two parameters, 'isValid' and 'err'. If
-// input parameter 'txtFieldFiller' is valid, the return parameter
+// the input parameter 'txtFieldFiller' is valid, the return parameter
 // 'isValid' is set to 'true' and 'err' is set to 'nil'.
 //
 // If input parameter 'txtFieldFiller' is invalid, the return
@@ -83,21 +83,4 @@ func (txtFieldFillerAtom *textFieldSpecFillerAtom) isValidTextFieldSpecFiller(
 	isValid = true
 
 	return isValid, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecFillerAtom.
-func (txtFieldFillerAtom textFieldSpecFillerAtom) ptr() *textFieldSpecFillerAtom {
-
-	if txtFieldFillerAtom.lock == nil {
-		txtFieldFillerAtom.lock = new(sync.Mutex)
-	}
-
-	txtFieldFillerAtom.lock.Lock()
-
-	defer txtFieldFillerAtom.lock.Unlock()
-
-	return &textFieldSpecFillerAtom{
-		lock: new(sync.Mutex),
-	}
 }

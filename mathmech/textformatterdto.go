@@ -144,7 +144,7 @@ type TextFormatterDto struct {
 //
 //	NONE
 func (txtFmtDto *TextFormatterDto) CopyIn(
-	incomingTxtFmtDto TextFormatterDto) {
+	incomingTxtFmtDto TextFormatterDto) error {
 
 	if txtFmtDto.lock == nil {
 		txtFmtDto.lock = new(sync.Mutex)
@@ -154,13 +154,13 @@ func (txtFmtDto *TextFormatterDto) CopyIn(
 
 	defer txtFmtDto.lock.Unlock()
 
-	_ = textFormatterDtoNanobot{}.ptr().
+	err := new(textFormatterDtoNanobot).
 		copyData(
 			txtFmtDto,
 			&incomingTxtFmtDto,
 			nil)
 
-	return
+	return err
 }
 
 // CopyOut - Returns a deep copy of the current
@@ -183,7 +183,7 @@ func (txtFmtDto *TextFormatterDto) CopyIn(
 //	   - This parameter will return a deep copy of the current
 //	     TextFormatterDto instance.
 func (txtFmtDto *TextFormatterDto) CopyOut() (
-	deepCopyTxtFmtDto TextFormatterDto) {
+	deepCopyTxtFmtDto TextFormatterDto, err error) {
 
 	if txtFmtDto.lock == nil {
 		txtFmtDto.lock = new(sync.Mutex)
@@ -193,13 +193,13 @@ func (txtFmtDto *TextFormatterDto) CopyOut() (
 
 	defer txtFmtDto.lock.Unlock()
 
-	_ = textFormatterDtoNanobot{}.ptr().
+	err = new(textFormatterDtoNanobot).
 		copyData(
 			&deepCopyTxtFmtDto,
 			txtFmtDto,
 			nil)
 
-	return deepCopyTxtFmtDto
+	return deepCopyTxtFmtDto, err
 }
 
 // Empty - Resets all internal member variables for the current
@@ -236,7 +236,7 @@ func (txtFmtDto *TextFormatterDto) Empty() {
 
 	txtFmtDto.lock.Lock()
 
-	textFormatterDtoMolecule{}.ptr().
+	new(textFormatterDtoMolecule).
 		empty(txtFmtDto)
 
 	txtFmtDto.lock.Unlock()
@@ -290,7 +290,7 @@ func (txtFmtDto *TextFormatterDto) Equal(
 
 	defer txtFmtDto.lock.Unlock()
 
-	return textFormatterDtoMolecule{}.ptr().
+	return new(textFormatterDtoMolecule).
 		equal(
 			txtFmtDto,
 			&incomingTxtFmtDto)
@@ -353,7 +353,7 @@ func (textFMtDtoNanobot *textFormatterDtoNanobot) copyData(
 		return err
 	}
 
-	textFormatterDtoMolecule{}.ptr().
+	new(textFormatterDtoMolecule).
 		empty(destinationTxtFormatterDto)
 
 	destinationTxtFormatterDto.FormatType =
@@ -374,8 +374,12 @@ func (textFMtDtoNanobot *textFormatterDtoNanobot) copyData(
 	destinationTxtFormatterDto.BlankLine.CopyIn(
 		sourceTxtFormatterDto.BlankLine)
 
-	destinationTxtFormatterDto.SolidLine.CopyIn(
+	err = destinationTxtFormatterDto.SolidLine.CopyIn(
 		sourceTxtFormatterDto.SolidLine)
+
+	if err != nil {
+		return err
+	}
 
 	destinationTxtFormatterDto.LineColumns.CopyIn(
 		sourceTxtFormatterDto.LineColumns)
@@ -391,7 +395,7 @@ func (textFMtDtoNanobot *textFormatterDtoNanobot) copyData(
 
 // ptr - Returns a pointer to a new instance of
 // textFormatterDtoNanobot.
-func (textFMtDtoNanobot textFormatterDtoNanobot) ptr() *textFormatterDtoNanobot {
+func (textFMtDtoNanobot *textFormatterDtoNanobot) ptr() *textFormatterDtoNanobot {
 
 	if textFMtDtoNanobot.lock == nil {
 		textFMtDtoNanobot.lock = new(sync.Mutex)
@@ -541,21 +545,4 @@ func (textFmtDtoMolecule *textFormatterDtoMolecule) equal(
 	}
 
 	return true
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFormatterDtoMolecule.
-func (textFmtDtoMolecule textFormatterDtoMolecule) ptr() *textFormatterDtoMolecule {
-
-	if textFmtDtoMolecule.lock == nil {
-		textFmtDtoMolecule.lock = new(sync.Mutex)
-	}
-
-	textFmtDtoMolecule.lock.Lock()
-
-	defer textFmtDtoMolecule.lock.Unlock()
-
-	return &textFormatterDtoMolecule{
-		lock: new(sync.Mutex),
-	}
 }

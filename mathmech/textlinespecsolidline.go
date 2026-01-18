@@ -166,7 +166,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) CopyIn(
 		return err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		copyIn(
 			txtSpecSolidLine,
 			incomingTxtSolidLine,
@@ -277,7 +277,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) CopyOut(
 	}
 
 	newTxtSolidLine,
-		err = textLineSpecSolidLineMolecule{}.ptr().
+		err = new(textLineSpecSolidLineMolecule).
 		copyOut(
 			txtSpecSolidLine,
 			ePrefix)
@@ -389,7 +389,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) CopyOutITextLine(
 	var newTxtSolidLine TextLineSpecSolidLine
 
 	newTxtSolidLine,
-		err = textLineSpecSolidLineMolecule{}.ptr().
+		err = new(textLineSpecSolidLineMolecule).
 		copyOut(
 			txtSpecSolidLine,
 			ePrefix)
@@ -500,7 +500,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) CopyOutPtr(
 	}
 
 	newTxtSolidLine,
-		err = textLineSpecSolidLineMolecule{}.ptr().
+		err = new(textLineSpecSolidLineMolecule).
 		copyOut(
 			txtSpecSolidLine,
 			ePrefix)
@@ -521,7 +521,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) Empty() {
 
 	txtSpecSolidLine.lock.Lock()
 
-	textLineSpecSolidLineAtom{}.ptr().
+	new(textLineSpecSolidLineAtom).
 		empty(txtSpecSolidLine)
 
 	txtSpecSolidLine.lock.Unlock()
@@ -549,7 +549,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) Equal(
 
 	defer txtSpecSolidLine.lock.Unlock()
 
-	return textLineSpecSolidLineAtom{}.ptr().
+	return new(textLineSpecSolidLineAtom).
 		equal(
 			txtSpecSolidLine,
 			incomingTxtSpecSolidLine)
@@ -585,7 +585,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) EqualITextLine(
 		return false
 	}
 
-	return textLineSpecSolidLineAtom{}.ptr().
+	return new(textLineSpecSolidLineAtom).
 		equal(
 			txtSpecSolidLine,
 			incomingTxtSpecSolidLine)
@@ -715,7 +715,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) GetFormattedText(
 		return "", err
 	}
 
-	return textLineSpecSolidLineMolecule{}.ptr().
+	return new(textLineSpecSolidLineMolecule).
 		getFormattedText(
 			txtSpecSolidLine,
 			ePrefix)
@@ -1036,10 +1036,14 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) IsValidInstance() bool {
 	defer txtSpecSolidLine.lock.Unlock()
 
 	isValid,
-		_ := textLineSpecSolidLineAtom{}.ptr().
+		err := new(textLineSpecSolidLineAtom).
 		testValidityOfTextSpecSolidLine(
 			txtSpecSolidLine,
 			nil)
+
+	if err != nil {
+		isValid = false
+	}
 
 	return isValid
 }
@@ -1140,7 +1144,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) IsValidInstanceError(
 	}
 
 	_,
-		err = textLineSpecSolidLineAtom{}.ptr().
+		err = new(textLineSpecSolidLineAtom).
 		testValidityOfTextSpecSolidLine(
 			txtSpecSolidLine,
 			ePrefix)
@@ -1299,7 +1303,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) IsValidInstanceError(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewDefaultSolidLine(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewDefaultSolidLine(
 	solidLineChars string,
 	solidLineCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -1329,7 +1333,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewDefaultSolidLine(
 		return txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			[]rune{}, // Empty Rune Array - No Left Margin
@@ -1518,7 +1522,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewDefaultSolidLine(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewFullSolidLineConfig(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewFullSolidLineConfig(
 	leftMarginStr string,
 	rightMarginStr string,
 	solidLineChars string,
@@ -1549,7 +1553,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewFullSolidLineConfig(
 		return txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			[]rune(leftMarginStr),
@@ -1751,7 +1755,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewFullSolidLineConfig(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewFullSolidLineRunesConfig(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewFullSolidLineRunesConfig(
 	leftMarginChars []rune,
 	rightMarginChars []rune,
 	solidLineChars []rune,
@@ -1782,7 +1786,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewFullSolidLineRunesConfig(
 		return txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			leftMarginChars,
@@ -1965,7 +1969,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewFullSolidLineRunesConfig(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewSolidLine(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewSolidLine(
 	leftMarginStr string,
 	rightMarginStr string,
 	solidLineChars string,
@@ -1995,7 +1999,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewSolidLine(
 		return txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			[]rune(leftMarginStr),
@@ -2199,7 +2203,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewSolidLine(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewSolidLineAllParms(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewSolidLineAllParms(
 	leftMarginStr string,
 	rightMarginStr string,
 	solidLineChars string,
@@ -2231,7 +2235,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewSolidLineAllParms(
 		return txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			[]rune(leftMarginStr),
@@ -2399,7 +2403,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewSolidLineAllParms(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrDefaultSolidLine(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewPtrDefaultSolidLine(
 	solidLineChars string,
 	solidLineCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -2431,7 +2435,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrDefaultSolidLine(
 		return &txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			[]rune{},
@@ -2622,7 +2626,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrDefaultSolidLine(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrFullSolidLineConfig(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewPtrFullSolidLineConfig(
 	leftMarginStr string,
 	rightMarginStr string,
 	solidLineChars string,
@@ -2657,7 +2661,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrFullSolidLineConfig(
 		return &txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			[]rune(leftMarginStr),
@@ -2861,7 +2865,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrFullSolidLineConfig(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrFullSolidLineRunesConfig(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewPtrFullSolidLineRunesConfig(
 	leftMarginChars []rune,
 	rightMarginChars []rune,
 	solidLineChars []rune,
@@ -2895,7 +2899,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrFullSolidLineRunesConfig(
 		return &txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			leftMarginChars,
@@ -3079,7 +3083,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrFullSolidLineRunesConfig(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrSolidLine(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewPtrSolidLine(
 	leftMarginStr string,
 	rightMarginStr string,
 	solidLineChars string,
@@ -3113,7 +3117,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrSolidLine(
 		return &txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			&txtSolidLine,
 			[]rune(leftMarginStr),
@@ -3319,7 +3323,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrSolidLine(
 //		     and text passed by input parameter, 'errorPrefix'. The
 //		     'errorPrefix' text will be attached to the beginning of
 //		     the error message.
-func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrSolidLineAllParms(
+func (txtSpecSolidLine *TextLineSpecSolidLine) NewPtrSolidLineAllParms(
 	leftMarginStr string,
 	rightMarginStr string,
 	solidLineChars string,
@@ -3353,7 +3357,7 @@ func (txtSpecSolidLine TextLineSpecSolidLine) NewPtrSolidLineAllParms(
 		return txtSolidLine, err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			txtSolidLine,
 			[]rune(leftMarginStr),
@@ -3541,7 +3545,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) Read(
 		var formattedText string
 
 		formattedText,
-			err = textLineSpecSolidLineMolecule{}.ptr().
+			err = new(textLineSpecSolidLineMolecule).
 			getFormattedText(
 				txtSpecSolidLine,
 				ePrefix.XCpy("txtSpecSolidLine->formattedText"))
@@ -3818,7 +3822,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) SetFullSolidLineConfig(
 		return err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			txtSpecSolidLine,
 			[]rune(leftMarginStr),
@@ -4035,7 +4039,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) SetFullSolidLineRunesConfig(
 		return err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			txtSpecSolidLine,
 			leftMarginChars,
@@ -4694,7 +4698,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) SetSolidLineAllParms(
 		return err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			txtSpecSolidLine,
 			[]rune(leftMarginStr),
@@ -5231,7 +5235,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) SetSolidLine(
 		return err
 	}
 
-	err = textLineSpecSolidLineMolecule{}.ptr().
+	err = new(textLineSpecSolidLineMolecule).
 		setTxtSolidLine(
 			txtSpecSolidLine,
 			[]rune(leftMarginStr),
@@ -5732,9 +5736,9 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) SetSolidLineRuneChars(
 // TextLineSpecSolidLine.GetFormattedText() with the sole
 // difference being that this method does not return an error.
 //
-// This method fulfills requirements of the ITextLineSpecification
+// This method fulfills the requirements of the ITextLineSpecification
 // interface.
-func (txtSpecSolidLine TextLineSpecSolidLine) String() string {
+func (txtSpecSolidLine *TextLineSpecSolidLine) String() string {
 
 	if txtSpecSolidLine.lock == nil {
 		txtSpecSolidLine.lock = new(sync.Mutex)
@@ -5749,9 +5753,9 @@ func (txtSpecSolidLine TextLineSpecSolidLine) String() string {
 		"")
 
 	formattedText,
-		err := textLineSpecSolidLineMolecule{}.ptr().
+		err := new(textLineSpecSolidLineMolecule).
 		getFormattedText(
-			&txtSpecSolidLine,
+			txtSpecSolidLine,
 			&ePrefix)
 
 	if err != nil {
@@ -5874,7 +5878,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) TextBuilder(
 	var formattedTxtStr string
 
 	formattedTxtStr,
-		err = textLineSpecSolidLineMolecule{}.ptr().
+		err = new(textLineSpecSolidLineMolecule).
 		getFormattedText(
 			txtSpecSolidLine,
 			ePrefix.XCpy("txtSpecSolidLine"))

@@ -1825,7 +1825,7 @@ func (txtLabelFieldFmtDtoMolecule *textLabelFieldFormatDtoMolecule) getFieldCont
 	}
 
 	fieldContentsLabel,
-		err = TextFieldSpecLabel{}.NewTextLabel(
+		err = new(TextFieldSpecLabel).NewTextLabel(
 		fieldContentsText,
 		txtLabelFieldFmtDto.FieldLength,
 		txtLabelFieldFmtDto.FieldJustify,

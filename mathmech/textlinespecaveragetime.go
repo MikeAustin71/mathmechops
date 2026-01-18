@@ -2535,7 +2535,7 @@ func (txtLineAvgTime *TextLineSpecAverageTime) SetInitializeTimerToZero() {
 //		If an error condition is encountered, this string
 //		will contain an appropriate error message. This
 //		error message will contain the word 'Error'.
-func (txtLineAvgTime TextLineSpecAverageTime) String() string {
+func (txtLineAvgTime *TextLineSpecAverageTime) String() string {
 
 	if txtLineAvgTime.lock == nil {
 		txtLineAvgTime.lock = new(sync.Mutex)
@@ -2555,7 +2555,7 @@ func (txtLineAvgTime TextLineSpecAverageTime) String() string {
 
 	err := new(textLineSpecAverageTimeMechanics).
 		getFormattedText(
-			&txtLineAvgTime,
+			txtLineAvgTime,
 			&strBuilder,
 			txtLineAvgTime.applyAbbreviatedReportFormat,
 			ePrefix.XCpy(

@@ -11,23 +11,6 @@ type textLineSpecBlankLinesAtom struct {
 	lock *sync.Mutex
 }
 
-// ptr - Returns a pointer to a new instance of
-// textLineSpecBlankLinesAtom.
-func (txtBlankLinesAtom textLineSpecBlankLinesAtom) ptr() *textLineSpecBlankLinesAtom {
-
-	if txtBlankLinesAtom.lock == nil {
-		txtBlankLinesAtom.lock = new(sync.Mutex)
-	}
-
-	txtBlankLinesAtom.lock.Lock()
-
-	defer txtBlankLinesAtom.lock.Unlock()
-
-	return &textLineSpecBlankLinesAtom{
-		lock: new(sync.Mutex),
-	}
-}
-
 // testValidityOfTextLineSpecBlankLines - Receives a pointer to an
 // instance of TextLineSpecBlankLines and performs a diagnostic
 // analysis to determine if that instance is valid in all respects.

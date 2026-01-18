@@ -46,9 +46,9 @@ type textLineSpecTitleMarqueeMechanics struct {
 //		A pointer to an instance of
 //		TextLineSpecTitleMarquee. This instance will be
 //		configured with the Text Line Title specifications
-//		contained in input parameter 'configSpecs'.
+//		contained in the input parameter 'configSpecs'.
 //
-//		All pre-existing data value in
+//		All pre-existing data values in
 //		'txtLineTitleMarquee' will be deleted and reset
 //		to the configuration specifications contained in
 //		'configSpecs'.
@@ -264,7 +264,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 	if len(configSpecs.StandardSolidLineLeftMargin) > 0 {
 
 		solidLeftMarginLabel,
-			err = TextFieldSpecLabel{}.NewTextLabel(
+			err = new(TextFieldSpecLabel).NewTextLabel(
 			configSpecs.StandardSolidLineLeftMargin,
 			-1,
 			TxtJustify.Left(),
@@ -279,7 +279,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 	if len(configSpecs.StandardSolidLineRightMargin) > 0 {
 
 		solidRightMarginLabel,
-			err = TextFieldSpecLabel{}.NewTextLabel(
+			err = new(TextFieldSpecLabel).NewTextLabel(
 			configSpecs.StandardSolidLineRightMargin,
 			-1,
 			TxtJustify.Right(),
@@ -305,7 +305,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 		}
 
 		txtFieldLabel,
-			err = TextFieldSpecLabel{}.
+			err = new(TextFieldSpecLabel).
 			NewTextLabel(
 				solidLineCharStr,
 				-1,
@@ -336,7 +336,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 		}
 
 		stdLine,
-			err = TextLineSpecStandardLine{}.NewStandardLineAllParms(
+			err = new(TextLineSpecStandardLine).NewStandardLineAllParms(
 			configSpecs.NumLeadingSolidLines,
 			textFieldSpecs,
 			[]rune{'\n'},
@@ -367,7 +367,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 			configSpecs.StandardTextFieldLen)
 
 		txtFieldLabel,
-			err = TextFieldSpecLabel{}.
+			err = new(TextFieldSpecLabel).
 			NewTextLabel(
 				solidLineCharStr,
 				-1,
@@ -398,7 +398,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 		}
 
 		stdLine,
-			err = TextLineSpecStandardLine{}.NewStandardLineAllParms(
+			err = new(TextLineSpecStandardLine).NewStandardLineAllParms(
 			configSpecs.NumTopTitleBlankLines,
 			textFieldSpecs,
 			[]rune{'\n'},
@@ -429,7 +429,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 			configSpecs.StandardTextFieldLen)
 
 		txtFieldLabel,
-			err = TextFieldSpecLabel{}.
+			err = new(TextFieldSpecLabel).
 			NewTextLabel(
 				solidLineCharStr,
 				-1,
@@ -460,7 +460,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 		}
 
 		stdLine,
-			err = TextLineSpecStandardLine{}.NewStandardLineAllParms(
+			err = new(TextLineSpecStandardLine).NewStandardLineAllParms(
 			configSpecs.NumBottomTitleBlankLines,
 			textFieldSpecs,
 			[]rune{'\n'},
@@ -495,7 +495,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 		}
 
 		txtFieldLabel,
-			err = TextFieldSpecLabel{}.
+			err = new(TextFieldSpecLabel).
 			NewTextLabel(
 				solidLineCharStr,
 				-1,
@@ -526,7 +526,7 @@ func (txtLineTitleMarqueeMech *textLineSpecTitleMarqueeMechanics) setTxtLineTitl
 		}
 
 		stdLine,
-			err = TextLineSpecStandardLine{}.NewStandardLineAllParms(
+			err = new(TextLineSpecStandardLine).NewStandardLineAllParms(
 			configSpecs.NumTrailingSolidLines,
 			textFieldSpecs,
 			[]rune{'\n'},

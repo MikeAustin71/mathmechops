@@ -16,7 +16,7 @@ type textLineSpecPlainTextElectron struct {
 //
 // # IMPORTANT
 //
-// All the member variable data values contained in input parameter
+// All the member variable data values contained in the input parameter
 // 'plainTextLine' will be deleted and reset to their zero values.
 func (txtLinePlainTextElectron *textLineSpecPlainTextElectron) empty(
 	plainTextLine *TextLineSpecPlainText) {
@@ -108,21 +108,4 @@ func (txtLinePlainTextElectron *textLineSpecPlainTextElectron) equal(
 	}
 
 	return true
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSpecPlainTextElectron.
-func (txtLinePlainTextElectron textLineSpecPlainTextElectron) ptr() *textLineSpecPlainTextElectron {
-
-	if txtLinePlainTextElectron.lock == nil {
-		txtLinePlainTextElectron.lock = new(sync.Mutex)
-	}
-
-	txtLinePlainTextElectron.lock.Lock()
-
-	defer txtLinePlainTextElectron.lock.Unlock()
-
-	return &textLineSpecPlainTextElectron{
-		lock: new(sync.Mutex),
-	}
 }

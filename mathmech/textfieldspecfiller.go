@@ -10,9 +10,8 @@ import (
 )
 
 // TextFieldSpecFiller - The Filler Text Field Specification is a
-// single character or character sequence which is replicated
-// multiple times to create the entire length of the Filler Text
-// Field.
+// single character or character sequence replicated multiple times
+// to create the entire length of the Filler Text Field.
 //
 // Text Field Specifications are designed to be configured within a
 // line of text. Those lines of text can then be formatted for text
@@ -20,7 +19,7 @@ import (
 // can be used to compose a line of text consisting of multiple Text
 // Field Specifications like TextFieldSpecFiller. Text Field
 // Specifications are therefore used as the components or building
-// blocks for constructing a single lines of text.
+// blocks for constructing a single line of text.
 //
 // Typically, filler fields are used as margins containing multiple
 // white space characters, or line separators containing multiple
@@ -43,7 +42,7 @@ import (
 //
 // The 'fillerCharsRepeatCount' integer value is the number times
 // that 'fillerCharacters' is repeated in order to construct the
-// Filler Text Field. Be advised that Filler Text Fields requires a
+// Filler Text Field. Be advised that Filler Text Fields require a
 // 'fillerCharsRepeatCount' value greater than zero.
 // 'fillerCharsRepeatCount' values less than or equal to zero
 // constitute an error condition.
@@ -55,7 +54,7 @@ import (
 //	fillerCharacters           []rune
 //	   - A rune array containing the text characters which will be
 //	     included in the Text Filler Field. The final Text Filler
-//	     Field will be constructed from ths filler characters
+//	     Field will be constructed from these filler characters
 //	     repeated one or more times as specified by the
 //	     'fillerCharsRepeatCount' parameter.
 //
@@ -67,7 +66,7 @@ import (
 //
 //
 //	fillerCharsRepeatCount     int
-//	   - Controls the number of times 'fillerCharacters' is
+//	   - Controls the number of times 'fillerCharacters' are
 //	     repeated when constructing the final Text Filler Field
 //	     returned by this method. The actual length of the string
 //	     which will populate the completed Text Filler Field is
@@ -98,7 +97,7 @@ type TextFieldSpecFiller struct {
 // of the current TextFieldSpecFiller instance ('txtFillerField').
 //
 // IMPORTANT
-// All the data fields in current TextFieldSpecFiller instance
+// All the data fields in the current TextFieldSpecFiller instance
 // ('txtFillerField') will be modified and overwritten.
 //
 // ----------------------------------------------------------------
@@ -111,10 +110,10 @@ type TextFieldSpecFiller struct {
 //	      variables contained in this instance.
 //
 //	      All data values in this TextFieldSpecFiller instance
-//	      will be copied to current TextFieldSpecFiller
+//	      will be copied to the current TextFieldSpecFiller
 //	      instance ('txtFillerField').
 //
-//	      If parameter 'incomingTxtFieldFiller' is determined to be
+//	      If the parameter 'incomingTxtFieldFiller' is determined to be
 //	      invalid, an error will be returned.
 //
 //
@@ -154,7 +153,7 @@ type TextFieldSpecFiller struct {
 //		        a two-dimensional slice of strings containing error
 //		        prefix and error context information.
 //
-//		     If parameter 'errorPrefix' is NOT convertible to one of
+//		     If the parameter 'errorPrefix' is NOT convertible to one of
 //		     the valid types listed above, it will be considered
 //		     invalid and trigger the return of an error.
 //
@@ -168,11 +167,11 @@ type TextFieldSpecFiller struct {
 //
 //	error
 //	   - If this method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (txtFillerField *TextFieldSpecFiller) CopyIn(
@@ -200,7 +199,7 @@ func (txtFillerField *TextFieldSpecFiller) CopyIn(
 		return err
 	}
 
-	return textFieldSpecFillerMolecule{}.ptr().
+	return new(textFieldSpecFillerMolecule).
 		copyIn(
 			txtFillerField,
 			incomingTxtFieldFiller,
@@ -253,7 +252,7 @@ func (txtFillerField *TextFieldSpecFiller) CopyIn(
 //		        a two-dimensional slice of strings containing error
 //		        prefix and error context information.
 //
-//		     If parameter 'errorPrefix' is NOT convertible to one of
+//		     If the parameter 'errorPrefix' is NOT convertible to one of
 //		     the valid types listed above, it will be considered
 //		     invalid and trigger the return of an error.
 //
@@ -273,11 +272,11 @@ func (txtFillerField *TextFieldSpecFiller) CopyIn(
 //
 //	error
 //	   - If this method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error occurs, the text value of input parameter
+//	     If an error occurs, the text value of the input parameter
 //	     'errorPrefix' will be inserted or prefixed at the
 //	     beginning of the error message.
 func (txtFillerField *TextFieldSpecFiller) CopyOut(
@@ -306,7 +305,7 @@ func (txtFillerField *TextFieldSpecFiller) CopyOut(
 		return TextFieldSpecFiller{}, err
 	}
 
-	return textFieldSpecFillerMolecule{}.ptr().
+	return new(textFieldSpecFillerMolecule).
 		copyOut(
 			txtFillerField,
 			ePrefix)
@@ -362,7 +361,7 @@ func (txtFillerField *TextFieldSpecFiller) CopyOut(
 //		        a two-dimensional slice of strings containing error
 //		        prefix and error context information.
 //
-//		     If parameter 'errorPrefix' is NOT convertible to one of
+//		     If the parameter 'errorPrefix' is NOT convertible to one of
 //		     the valid types listed above, it will be considered
 //		     invalid and trigger the return of an error.
 //
@@ -383,11 +382,11 @@ func (txtFillerField *TextFieldSpecFiller) CopyOut(
 //
 //	error
 //	   - If this method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error occurs, the text value of input parameter
+//	     If an error occurs, the text value of the input parameter
 //	     'errorPrefix' will be inserted or prefixed at the
 //	     beginning of the error message.
 func (txtFillerField *TextFieldSpecFiller) CopyOutITextField(
@@ -422,7 +421,7 @@ func (txtFillerField *TextFieldSpecFiller) CopyOutITextField(
 
 	newTextFillerField,
 		err =
-		textFieldSpecFillerMolecule{}.ptr().
+		new(textFieldSpecFillerMolecule).
 			copyOut(
 				txtFillerField,
 				ePrefix)
@@ -539,7 +538,7 @@ func (txtFillerField *TextFieldSpecFiller) CopyOutPtr(
 
 	newTextFillerField,
 		err =
-		textFieldSpecFillerMolecule{}.ptr().
+		new(textFieldSpecFillerMolecule).
 			copyOut(
 				txtFillerField,
 				ePrefix)
@@ -557,7 +556,7 @@ func (txtFillerField *TextFieldSpecFiller) Empty() {
 
 	txtFillerField.lock.Lock()
 
-	textFieldSpecFillerMolecule{}.ptr().
+	new(textFieldSpecFillerMolecule).
 		empty(txtFillerField)
 
 	txtFillerField.lock.Unlock()
@@ -585,7 +584,7 @@ func (txtFillerField *TextFieldSpecFiller) Equal(
 
 	defer txtFillerField.lock.Unlock()
 
-	return textFieldSpecFillerMolecule{}.ptr().
+	return new(textFieldSpecFillerMolecule).
 		equal(
 			txtFillerField,
 			incomingTxtFieldFiller)
@@ -621,7 +620,7 @@ func (txtFillerField *TextFieldSpecFiller) EqualITextField(
 		return false
 	}
 
-	return textFieldSpecFillerMolecule{}.ptr().
+	return new(textFieldSpecFillerMolecule).
 		equal(
 			txtFillerField,
 			txtFiller)
@@ -779,7 +778,7 @@ func (txtFillerField *TextFieldSpecFiller) GetFormattedStrLength() int {
 		"")
 
 	formattedTextStr,
-		err := textFieldSpecFillerMolecule{}.ptr().
+		err := new(textFieldSpecFillerMolecule).
 		getFormattedText(
 			txtFillerField,
 			ePrefix.XCpy(
@@ -927,7 +926,7 @@ func (txtFillerField *TextFieldSpecFiller) GetFormattedText(
 		return "", err
 	}
 
-	return textFieldSpecFillerMolecule{}.ptr().
+	return new(textFieldSpecFillerMolecule).
 		getFormattedText(
 			txtFillerField,
 			ePrefix.XCpy(
@@ -968,11 +967,17 @@ func (txtFillerField *TextFieldSpecFiller) IsValidInstance() (
 
 	defer txtFillerField.lock.Unlock()
 
+	var err error
+
 	isValid,
-		_ = textFieldSpecFillerAtom{}.ptr().
+		err = new(textFieldSpecFillerAtom).
 		isValidTextFieldSpecFiller(
 			txtFillerField,
 			nil)
+
+	if err != nil {
+		isValid = false
+	}
 
 	return isValid
 }
@@ -1042,7 +1047,7 @@ func (txtFillerField *TextFieldSpecFiller) IsValidInstance() (
 //	     invalid, this method will return an error  along with an
 //	     appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' (error prefix) will be inserted or
 //	     prefixed at the beginning of the error message.
 func (txtFillerField *TextFieldSpecFiller) IsValidInstanceError(
@@ -1070,7 +1075,7 @@ func (txtFillerField *TextFieldSpecFiller) IsValidInstanceError(
 	}
 
 	_,
-		err = textFieldSpecFillerAtom{}.ptr().
+		err = new(textFieldSpecFillerAtom).
 		isValidTextFieldSpecFiller(
 			txtFillerField,
 			ePrefix)
@@ -1118,7 +1123,7 @@ func (txtFillerField *TextFieldSpecFiller) New() TextFieldSpecFiller {
 
 	defer txtFillerField.lock.Unlock()
 
-	newFillerField := textFieldSpecFillerMolecule{}.ptr().
+	newFillerField := new(textFieldSpecFillerMolecule).
 		newEmpty()
 
 	return newFillerField
@@ -1162,7 +1167,7 @@ func (txtFillerField *TextFieldSpecFiller) NewPtr() *TextFieldSpecFiller {
 
 	defer txtFillerField.lock.Unlock()
 
-	newFillerField := textFieldSpecFillerMolecule{}.ptr().
+	newFillerField := new(textFieldSpecFillerMolecule).
 		newEmpty()
 
 	return &newFillerField
@@ -1335,7 +1340,7 @@ func (txtFillerField *TextFieldSpecFiller) NewPtrTextFiller(
 
 	fillerCharsRunes := []rune(fillerCharacters)
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			&newTxtFillerField,
 			fillerCharsRunes,
@@ -1507,7 +1512,7 @@ func (txtFillerField *TextFieldSpecFiller) NewPtrTextFillerRune(
 
 	fillerCharsRunes := []rune{fillerCharacter}
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			&newTxtFillerField,
 			fillerCharsRunes,
@@ -1684,7 +1689,7 @@ func (txtFillerField *TextFieldSpecFiller) NewPtrTextFillerRuneArray(
 		return &newTxtFillerField, err
 	}
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			&newTxtFillerField,
 			fillerCharacters,
@@ -1865,7 +1870,7 @@ func (txtFillerField *TextFieldSpecFiller) NewTextFiller(
 
 	fillerCharsRunes := []rune(fillerCharacters)
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			&newTxtFillerField,
 			fillerCharsRunes,
@@ -2036,7 +2041,7 @@ func (txtFillerField *TextFieldSpecFiller) NewTextFillerRune(
 
 	fillerCharsRunes := []rune{fillerCharacter}
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			&newTxtFillerField,
 			fillerCharsRunes,
@@ -2212,7 +2217,7 @@ func (txtFillerField *TextFieldSpecFiller) NewTextFillerRuneArray(
 		return newTxtFillerField, err
 	}
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			&newTxtFillerField,
 			fillerCharacters,
@@ -2395,7 +2400,7 @@ func (txtFillerField *TextFieldSpecFiller) Read(
 		var formattedText string
 
 		formattedText,
-			err = textFieldSpecFillerMolecule{}.ptr().
+			err = new(textFieldSpecFillerMolecule).
 			getFormattedText(
 				txtFillerField,
 				ePrefix.XCpy("txtFillerField"))
@@ -2615,7 +2620,7 @@ func (txtFillerField *TextFieldSpecFiller) SetFillerCharsRepeatCount(
 		return err
 	}
 
-	err = textFieldSpecFillerElectron{}.ptr().
+	err = new(textFieldSpecFillerElectron).
 		isFillerCharsRepeatCountValid(
 			fillerCharsRepeatCount,
 			ePrefix.XCpy(
@@ -2784,7 +2789,7 @@ func (txtFillerField *TextFieldSpecFiller) SetTextFiller(
 
 	fillerCharsRunes := []rune(fillerCharacters)
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			txtFillerField,
 			fillerCharsRunes,
@@ -2945,7 +2950,7 @@ func (txtFillerField *TextFieldSpecFiller) SetTextFillerRune(
 
 	fillerCharsRunes := []rune{fillerCharacter}
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			txtFillerField,
 			fillerCharsRunes,
@@ -3110,7 +3115,7 @@ func (txtFillerField *TextFieldSpecFiller) SetTextFillerRuneArray(
 		return err
 	}
 
-	err = textFieldSpecFillerNanobot{}.ptr().
+	err = new(textFieldSpecFillerNanobot).
 		setTxtFieldSpecFiller(
 			txtFillerField,
 			fillerCharacters,
@@ -3183,7 +3188,7 @@ func (txtFillerField *TextFieldSpecFiller) String() string {
 		"")
 
 	result,
-		err := textFieldSpecFillerMolecule{}.ptr().
+		err := new(textFieldSpecFillerMolecule).
 		getFormattedText(
 			txtFillerField,
 			&ePrefix)
@@ -3314,7 +3319,7 @@ func (txtFillerField *TextFieldSpecFiller) TextBuilder(
 	var formattedTxtStr string
 
 	formattedTxtStr,
-		err = textFieldSpecFillerMolecule{}.ptr().
+		err = new(textFieldSpecFillerMolecule).
 		getFormattedText(
 			txtFillerField,
 			ePrefix.XCpy(

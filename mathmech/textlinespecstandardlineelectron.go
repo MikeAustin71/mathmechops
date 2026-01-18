@@ -374,7 +374,7 @@ func (txtStdLineElectron *textLineSpecStandardLineElectron) addTextFieldDtosToAr
 			var txtLeftMarginLabel TextFieldSpecLabel
 
 			txtLeftMarginLabel,
-				err = TextFieldSpecLabel{}.NewTextLabel(
+				err = new(TextFieldSpecLabel).NewTextLabel(
 				fieldContentsText,
 				-1,
 				TxtJustify.Left(),
@@ -416,7 +416,7 @@ func (txtStdLineElectron *textLineSpecStandardLineElectron) addTextFieldDtosToAr
 			var txtRightMarginLabel TextFieldSpecLabel
 
 			txtRightMarginLabel,
-				err = TextFieldSpecLabel{}.NewTextLabel(
+				err = new(TextFieldSpecLabel).NewTextLabel(
 				fieldContentsText,
 				-1,
 				TxtJustify.Left(),

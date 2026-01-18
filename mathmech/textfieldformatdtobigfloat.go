@@ -4434,7 +4434,7 @@ func (txtBigFloatFieldFmtDtoMolecule *textBigFloatFieldFormatDtoMolecule) getFie
 	}
 
 	fieldContentsLabel,
-		err = TextFieldSpecLabel{}.NewTextLabel(
+		err = new(TextFieldSpecLabel).NewTextLabel(
 		pureNumStr,
 		txtBigFloatFieldFmtDto.FieldLength,
 		txtBigFloatFieldFmtDto.FieldJustify,

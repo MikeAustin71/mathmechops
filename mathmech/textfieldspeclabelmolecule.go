@@ -119,7 +119,7 @@ func (txtFieldLabelMolecule *textFieldSpecLabelMolecule) copyTextFieldLabel(
 	}
 
 	_,
-		err = textFieldSpecLabelAtom{}.ptr().
+		err = new(textFieldSpecLabelAtom).
 		isValidTextFieldLabel(
 			sourceTxtFieldLabel,
 			ePrefix.XCpy("sourceTxtFieldLabel"))

@@ -11,23 +11,6 @@ type textLineSpecPlainTextAtom struct {
 	lock *sync.Mutex
 }
 
-// ptr - Returns a pointer to a new instance of
-// textLineSpecPlainTextAtom.
-func (txtLinePlainTextAtom textLineSpecPlainTextAtom) ptr() *textLineSpecPlainTextAtom {
-
-	if txtLinePlainTextAtom.lock == nil {
-		txtLinePlainTextAtom.lock = new(sync.Mutex)
-	}
-
-	txtLinePlainTextAtom.lock.Lock()
-
-	defer txtLinePlainTextAtom.lock.Unlock()
-
-	return &textLineSpecPlainTextAtom{
-		lock: new(sync.Mutex),
-	}
-}
-
 // setPlainTextSpec - Receives a pointer to an instance of
 // TextLineSpecPlainText and proceeds to reset all the member
 // variable data values using the values passed through input

@@ -11,23 +11,6 @@ type textLineSpecBlankLinesElectron struct {
 	lock *sync.Mutex
 }
 
-// ptr - Returns a pointer to a new instance of
-// textLineSpecBlankLinesElectron.
-func (txtBlankLinesElectron textLineSpecBlankLinesElectron) ptr() *textLineSpecBlankLinesElectron {
-
-	if txtBlankLinesElectron.lock == nil {
-		txtBlankLinesElectron.lock = new(sync.Mutex)
-	}
-
-	txtBlankLinesElectron.lock.Lock()
-
-	defer txtBlankLinesElectron.lock.Unlock()
-
-	return &textLineSpecBlankLinesElectron{
-		lock: new(sync.Mutex),
-	}
-}
-
 // testValidityNumOfBlankLines - Tests the validity of the "number of
 // blank lines" parameter used in configuring instances of
 // TextLineSpecBlankLines.

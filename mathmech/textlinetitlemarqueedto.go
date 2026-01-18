@@ -1550,7 +1550,7 @@ func (txtLineTitleMarqueeDto *TextLineTitleMarqueeDto) AddTitleLineITextFields(
 		return err
 	}
 
-	stdLine := TextLineSpecStandardLine{}.New()
+	stdLine := new(TextLineSpecStandardLine).New()
 
 	lenStr := len(txtLineTitleMarqueeDto.StandardTitleLeftMargin)
 
@@ -3804,7 +3804,7 @@ func (txtTitleMarqueeDtoNanobot *textLineTitleMarqueeDtoNanobot) addTitleLineFmt
 	var stdLine TextLineSpecStandardLine
 
 	stdLine,
-		err = TextLineSpecStandardLine{}.NewStdLineColumns(
+		err = new(TextLineSpecStandardLine).NewStdLineColumns(
 		"\n",
 		false,
 		ePrefix.XCpy("stdLine"),
@@ -4129,7 +4129,7 @@ func (txtTitleMarqueeDtoNanobot *textLineTitleMarqueeDtoNanobot) addTitleLineLab
 
 	}
 
-	stdLine := TextLineSpecStandardLine{}.New()
+	stdLine := new(TextLineSpecStandardLine).New()
 
 	fieldLen,
 		err = new(textLineTitleMarqueeDtoAtom).

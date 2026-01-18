@@ -76,9 +76,19 @@ func (textFmtCollectionNanobot *textFormatterCollectionNanobot) copy(
 
 		for i := 0; i < lenItems; i++ {
 
-			destinationTxtFmtCol.fmtCollection[i].CopyIn(
+			err = destinationTxtFmtCol.fmtCollection[i].CopyIn(
 				sourceTxtFmtCol.fmtCollection[i])
 
+			if err != nil {
+
+				return &FuncReturnError{
+					ErrPrefix: ePrefix.String(),
+					ReturnFunc: fmt.Sprintf("err = destinationTxtFmtCol.fmtCollection[i].CopyIn(\n"+
+						"sourceTxtFmtCol.fmtCollection[%v])", i),
+					ErrContext: "",
+					ErrMessage: err.Error(),
+				}
+			}
 		}
 	}
 

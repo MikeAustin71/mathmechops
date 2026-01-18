@@ -185,7 +185,7 @@ type TextLineSpecPlainText struct {
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (plainTextLine *TextLineSpecPlainText) CopyIn(
@@ -213,7 +213,7 @@ func (plainTextLine *TextLineSpecPlainText) CopyIn(
 		return err
 	}
 
-	err = textLineSpecPlainTextNanobot{}.ptr().
+	err = new(textLineSpecPlainTextNanobot).
 		copyIn(
 			plainTextLine,
 			incomingPlainTxtLine,
@@ -325,7 +325,7 @@ func (plainTextLine *TextLineSpecPlainText) CopyOut(
 	var newPlainTxtLine TextLineSpecPlainText
 
 	newPlainTxtLine,
-		err = textLineSpecPlainTextNanobot{}.ptr().
+		err = new(textLineSpecPlainTextNanobot).
 		copyOut(
 			plainTextLine,
 			ePrefix.XCpy(
@@ -439,7 +439,7 @@ func (plainTextLine *TextLineSpecPlainText) CopyOutITextLine(
 	var newPlainTxtLine TextLineSpecPlainText
 
 	newPlainTxtLine,
-		err = textLineSpecPlainTextNanobot{}.ptr().
+		err = new(textLineSpecPlainTextNanobot).
 		copyOut(
 			plainTextLine,
 			ePrefix.XCpy(
@@ -552,7 +552,7 @@ func (plainTextLine *TextLineSpecPlainText) CopyOutPtr(
 	var newPlainTxtLine TextLineSpecPlainText
 
 	newPlainTxtLine,
-		err = textLineSpecPlainTextNanobot{}.ptr().
+		err = new(textLineSpecPlainTextNanobot).
 		copyOut(
 			plainTextLine,
 			ePrefix.XCpy(
@@ -579,7 +579,7 @@ func (plainTextLine *TextLineSpecPlainText) Empty() {
 
 	plainTextLine.lock.Lock()
 
-	textLineSpecPlainTextElectron{}.ptr().
+	new(textLineSpecPlainTextElectron).
 		empty(plainTextLine)
 
 	plainTextLine.lock.Unlock()
@@ -607,7 +607,7 @@ func (plainTextLine *TextLineSpecPlainText) Equal(
 
 	defer plainTextLine.lock.Unlock()
 
-	return textLineSpecPlainTextElectron{}.ptr().
+	return new(textLineSpecPlainTextElectron).
 		equal(
 			plainTextLine,
 			incomingPlainTxtLine)
@@ -643,7 +643,7 @@ func (plainTextLine *TextLineSpecPlainText) EqualITextLine(
 		return false
 	}
 
-	return textLineSpecPlainTextElectron{}.ptr().
+	return new(textLineSpecPlainTextElectron).
 		equal(
 			plainTextLine,
 			plainTxtLineTwo)
@@ -760,7 +760,7 @@ func (plainTextLine *TextLineSpecPlainText) GetFormattedText(
 		return "", err
 	}
 
-	return textLineSpecPlainTextNanobot{}.ptr().
+	return new(textLineSpecPlainTextNanobot).
 		getFormattedText(
 			plainTextLine,
 			ePrefix.XCpy("plainTextLine"))
@@ -1088,10 +1088,14 @@ func (plainTextLine *TextLineSpecPlainText) IsValidInstance() bool {
 	defer plainTextLine.lock.Unlock()
 
 	isValid,
-		_ := textLineSpecPlainTextAtom{}.ptr().
+		err := new(textLineSpecPlainTextAtom).
 		testValidityOfTextLineSpecPlainText(
 			plainTextLine,
 			nil)
+
+	if err != nil {
+		isValid = false
+	}
 
 	return isValid
 }
@@ -1193,7 +1197,7 @@ func (plainTextLine *TextLineSpecPlainText) IsValidInstanceError(
 	}
 
 	_,
-		err = textLineSpecPlainTextAtom{}.ptr().
+		err = new(textLineSpecPlainTextAtom).
 		testValidityOfTextLineSpecPlainText(
 			plainTextLine,
 			ePrefix.XCpy(
@@ -1507,7 +1511,7 @@ func (plainTextLine *TextLineSpecPlainText) IsValidInstanceError(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewDefault(
+func (plainTextLine *TextLineSpecPlainText) NewDefault(
 	leftMarginSpaces int,
 	rightMarginSpaces int,
 	textString string,
@@ -1540,7 +1544,7 @@ func (plainTextLine TextLineSpecPlainText) NewDefault(
 		return newPlainTxtLine, err
 	}
 
-	err = textLineSpecPlainTextNanobot{}.ptr().
+	err = new(textLineSpecPlainTextNanobot).
 		setDefaultPlainTextSpec(
 			&newPlainTxtLine,
 			leftMarginSpaces,
@@ -1860,7 +1864,7 @@ func (plainTextLine TextLineSpecPlainText) NewDefault(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewPlainTextAllParms(
+func (plainTextLine *TextLineSpecPlainText) NewPlainTextAllParms(
 	leftMarginChars []rune,
 	rightMarginChars []rune,
 	textString string,
@@ -1896,7 +1900,7 @@ func (plainTextLine TextLineSpecPlainText) NewPlainTextAllParms(
 		return newPlainTxtLine, err
 	}
 
-	err = textLineSpecPlainTextAtom{}.ptr().
+	err = new(textLineSpecPlainTextAtom).
 		setPlainTextSpec(
 			&newPlainTxtLine,
 			leftMarginChars,
@@ -2226,7 +2230,7 @@ func (plainTextLine TextLineSpecPlainText) NewPlainTextAllParms(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewPlainTextRunes(
+func (plainTextLine *TextLineSpecPlainText) NewPlainTextRunes(
 	leftMarginChars []rune,
 	rightMarginChars []rune,
 	textRunes []rune,
@@ -2262,7 +2266,7 @@ func (plainTextLine TextLineSpecPlainText) NewPlainTextRunes(
 
 	newPlainTxtLine := TextLineSpecPlainText{}
 
-	err = textLineSpecPlainTextNanobot{}.ptr().
+	err = new(textLineSpecPlainTextNanobot).
 		setPlainTextSpecRunes(
 			&newPlainTxtLine,
 			leftMarginChars,
@@ -2590,7 +2594,7 @@ func (plainTextLine TextLineSpecPlainText) NewPlainTextRunes(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewPlainTextStrings(
+func (plainTextLine *TextLineSpecPlainText) NewPlainTextStrings(
 	leftMarginStr string,
 	rightMarginStr string,
 	textString string,
@@ -2943,7 +2947,7 @@ func (plainTextLine TextLineSpecPlainText) NewPlainTextStrings(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewPtrDefault(
+func (plainTextLine *TextLineSpecPlainText) NewPtrDefault(
 	leftMarginSpaces int,
 	rightMarginSpaces int,
 	textString string,
@@ -2976,7 +2980,7 @@ func (plainTextLine TextLineSpecPlainText) NewPtrDefault(
 		return &newPlainTxtLine, err
 	}
 
-	err = textLineSpecPlainTextNanobot{}.ptr().
+	err = new(textLineSpecPlainTextNanobot).
 		setDefaultPlainTextSpec(
 			&newPlainTxtLine,
 			leftMarginSpaces,
@@ -3295,10 +3299,10 @@ func (plainTextLine TextLineSpecPlainText) NewPtrDefault(
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewPtrPlainText(
+func (plainTextLine *TextLineSpecPlainText) NewPtrPlainText(
 	leftMarginChars []rune,
 	rightMarginChars []rune,
 	textString string,
@@ -3334,7 +3338,7 @@ func (plainTextLine TextLineSpecPlainText) NewPtrPlainText(
 		return &newPlainTxtLine, err
 	}
 
-	err = textLineSpecPlainTextAtom{}.ptr().
+	err = new(textLineSpecPlainTextAtom).
 		setPlainTextSpec(
 			&newPlainTxtLine,
 			leftMarginChars,
@@ -3653,10 +3657,10 @@ func (plainTextLine TextLineSpecPlainText) NewPtrPlainText(
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewPtrPlainTextRunes(
+func (plainTextLine *TextLineSpecPlainText) NewPtrPlainTextRunes(
 	leftMarginChars []rune,
 	rightMarginChars []rune,
 	textRunes []rune,
@@ -3692,7 +3696,7 @@ func (plainTextLine TextLineSpecPlainText) NewPtrPlainTextRunes(
 		return &newPlainTxtLine, err
 	}
 
-	err = textLineSpecPlainTextNanobot{}.ptr().
+	err = new(textLineSpecPlainTextNanobot).
 		setPlainTextSpecRunes(
 			&newPlainTxtLine,
 			leftMarginChars,
@@ -4015,7 +4019,7 @@ func (plainTextLine TextLineSpecPlainText) NewPtrPlainTextRunes(
 //		input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
-func (plainTextLine TextLineSpecPlainText) NewPtrPlainTextStrings(
+func (plainTextLine *TextLineSpecPlainText) NewPtrPlainTextStrings(
 	leftMarginStr string,
 	rightMarginStr string,
 	textString string,
@@ -4051,7 +4055,7 @@ func (plainTextLine TextLineSpecPlainText) NewPtrPlainTextStrings(
 		return &newPlainTxtLine, err
 	}
 
-	err = textLineSpecPlainTextNanobot{}.ptr().
+	err = new(textLineSpecPlainTextNanobot).
 		setPlainTextSpecStrings(
 			&newPlainTxtLine,
 			leftMarginStr,
@@ -4240,7 +4244,7 @@ func (plainTextLine *TextLineSpecPlainText) Read(
 		var formattedText string
 
 		formattedText,
-			err = textLineSpecPlainTextNanobot{}.ptr().
+			err = new(textLineSpecPlainTextNanobot).
 			getFormattedText(
 				plainTextLine,
 				ePrefix.XCpy("plainTextLine"))
@@ -5363,7 +5367,7 @@ func (plainTextLine *TextLineSpecPlainText) SetPlainTextDefault(
 		return err
 	}
 
-	return textLineSpecPlainTextNanobot{}.ptr().
+	return new(textLineSpecPlainTextNanobot).
 		setDefaultPlainTextSpec(
 			plainTextLine,
 			leftMarginSpaces,
@@ -5713,7 +5717,7 @@ func (plainTextLine *TextLineSpecPlainText) SetPlainTextSpec(
 		return err
 	}
 
-	return textLineSpecPlainTextAtom{}.ptr().
+	return new(textLineSpecPlainTextAtom).
 		setPlainTextSpec(
 			plainTextLine,
 			leftMarginChars,
@@ -6070,7 +6074,7 @@ func (plainTextLine *TextLineSpecPlainText) SetPlainTextSpecRunes(
 		return err
 	}
 
-	return textLineSpecPlainTextNanobot{}.ptr().
+	return new(textLineSpecPlainTextNanobot).
 		setPlainTextSpecRunes(
 			plainTextLine,
 			leftMarginChars,
@@ -6739,7 +6743,7 @@ func (plainTextLine *TextLineSpecPlainText) SetTextString(
 //	TextLineSpecPlainText.String()
 //	TextLineSpecPlainText.TextBuilder()
 //	TextLineSpecPlainText.GetFormattedText()
-func (plainTextLine TextLineSpecPlainText) String() string {
+func (plainTextLine *TextLineSpecPlainText) String() string {
 
 	if plainTextLine.lock == nil {
 		plainTextLine.lock = new(sync.Mutex)
@@ -6754,9 +6758,9 @@ func (plainTextLine TextLineSpecPlainText) String() string {
 		"")
 
 	formattedTxtStr,
-		err := textLineSpecPlainTextNanobot{}.ptr().
+		err := new(textLineSpecPlainTextNanobot).
 		getFormattedText(
-			&plainTextLine,
+			plainTextLine,
 			ePrefix.XCpy("plainTextLine"))
 
 	if err != nil {
@@ -6904,7 +6908,7 @@ func (plainTextLine *TextLineSpecPlainText) TextBuilder(
 	var formattedTxtStr string
 
 	formattedTxtStr,
-		err = textLineSpecPlainTextNanobot{}.ptr().
+		err = new(textLineSpecPlainTextNanobot).
 		getFormattedText(
 			plainTextLine,
 			ePrefix.XCpy("plainTextLine"))

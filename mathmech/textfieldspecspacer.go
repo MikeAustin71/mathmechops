@@ -116,11 +116,11 @@ type TextFieldSpecSpacer struct {
 //
 //	error
 //	   - If this method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (txtFieldSpacer *TextFieldSpecSpacer) CopyIn(
@@ -148,7 +148,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) CopyIn(
 		return err
 	}
 
-	err = textFieldSpecSpacerNanobot{}.ptr().
+	err = new(textFieldSpecSpacerNanobot).
 		copyIn(
 			txtFieldSpacer,
 			incomingTxtFieldSpacer,
@@ -256,7 +256,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) CopyOut(
 		return TextFieldSpecSpacer{}, err
 	}
 
-	return textFieldSpecSpacerNanobot{}.ptr().
+	return new(textFieldSpecSpacerNanobot).
 		copyOut(
 			txtFieldSpacer,
 			ePrefix)
@@ -372,7 +372,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) CopyOutITextField(
 	var newTxtFieldSpacer TextFieldSpecSpacer
 
 	newTxtFieldSpacer,
-		err = textFieldSpecSpacerNanobot{}.ptr().
+		err = new(textFieldSpecSpacerNanobot).
 		copyOut(
 			txtFieldSpacer,
 			ePrefix)
@@ -485,7 +485,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) CopyOutPtr(
 	var newTxtFieldSpacer TextFieldSpecSpacer
 
 	newTxtFieldSpacer,
-		err = textFieldSpecSpacerNanobot{}.ptr().
+		err = new(textFieldSpecSpacerNanobot).
 		copyOut(
 			txtFieldSpacer,
 			ePrefix)
@@ -503,7 +503,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) Empty() {
 
 	txtFieldSpacer.lock.Lock()
 
-	textFieldSpecSpacerNanobot{}.ptr().empty(
+	new(textFieldSpecSpacerNanobot).empty(
 		txtFieldSpacer)
 
 	txtFieldSpacer.lock.Unlock()
@@ -533,7 +533,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) Equal(
 
 	defer txtFieldSpacer.lock.Unlock()
 
-	return textFieldSpecSpacerNanobot{}.ptr().
+	return new(textFieldSpecSpacerNanobot).
 		equal(
 			txtFieldSpacer,
 			incomingTxtFieldSpacer)
@@ -570,7 +570,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) EqualITextField(
 		return false
 	}
 
-	return textFieldSpecSpacerNanobot{}.ptr().
+	return new(textFieldSpecSpacerNanobot).
 		equal(
 			txtFieldSpacer,
 			txtSpacer)
@@ -627,7 +627,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) GetFormattedStrLength() int {
 		"")
 
 	formattedTextStr,
-		err := textFieldSpecSpacerNanobot{}.ptr().
+		err := new(textFieldSpecSpacerNanobot).
 		getFormattedText(
 			txtFieldSpacer,
 			ePrefix.XCpy(
@@ -763,7 +763,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) GetFormattedText(
 		return "", err
 	}
 
-	return textFieldSpecSpacerNanobot{}.ptr().
+	return new(textFieldSpecSpacerNanobot).
 		getFormattedText(
 			txtFieldSpacer,
 			ePrefix.XCpy(
@@ -804,11 +804,17 @@ func (txtFieldSpacer *TextFieldSpecSpacer) IsValidInstance() (
 
 	defer txtFieldSpacer.lock.Unlock()
 
+	var err error
+
 	isValid,
-		_ = textFieldSpecSpacerElectron{}.ptr().
+		err = new(textFieldSpecSpacerElectron).
 		isFieldLenValidError(
 			txtFieldSpacer.fieldLen,
 			nil)
+
+	if err != nil {
+		isValid = false
+	}
 
 	return isValid
 }
@@ -877,7 +883,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) IsValidInstance() (
 //	     the current instance of TextFieldSpecSpacer are found to be
 //	     invalid, this method will return an error.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' (error prefix) will be inserted or
 //	     prefixed at the beginning of the error message.
 func (txtFieldSpacer *TextFieldSpecSpacer) IsValidInstanceError(
@@ -905,7 +911,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) IsValidInstanceError(
 	}
 
 	_,
-		err = textFieldSpecSpacerElectron{}.ptr().
+		err = new(textFieldSpecSpacerElectron).
 		isFieldLenValidError(
 			txtFieldSpacer.fieldLen,
 			ePrefix.XCpy(
@@ -940,7 +946,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) IsValidInstanceError(
 //	   - This parameter returns a new and empty concrete instance
 //	     of TextFieldSpecSpacer. Member variable data values are
 //	     set to their initial or zero values.
-func (txtFieldSpacer TextFieldSpecSpacer) New() TextFieldSpecSpacer {
+func (txtFieldSpacer *TextFieldSpecSpacer) New() TextFieldSpecSpacer {
 
 	if txtFieldSpacer.lock == nil {
 		txtFieldSpacer.lock = new(sync.Mutex)
@@ -982,7 +988,7 @@ func (txtFieldSpacer TextFieldSpecSpacer) New() TextFieldSpecSpacer {
 //	     of TextFieldSpecSpacer. Member variable data values are
 //	     set to their initial or zero values. The returned Text
 //	     Field Spacer Specification is therefore invalid.
-func (txtFieldSpacer TextFieldSpecSpacer) NewPtr() *TextFieldSpecSpacer {
+func (txtFieldSpacer *TextFieldSpecSpacer) NewPtr() *TextFieldSpecSpacer {
 
 	if txtFieldSpacer.lock == nil {
 		txtFieldSpacer.lock = new(sync.Mutex)
@@ -1083,14 +1089,14 @@ func (txtFieldSpacer TextFieldSpecSpacer) NewPtr() *TextFieldSpecSpacer {
 //
 //	error
 //	   - If this method completes successfully and no errors are
-//	     encountered this return value is set to 'nil'. Otherwise,
+//	     encountered, this return value is set to 'nil'. Otherwise,
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtFieldSpacer TextFieldSpecSpacer) NewPtrSpacer(
+func (txtFieldSpacer *TextFieldSpecSpacer) NewPtrSpacer(
 	fieldLen int,
 	errorPrefix interface{}) (*TextFieldSpecSpacer, error) {
 
@@ -1117,7 +1123,7 @@ func (txtFieldSpacer TextFieldSpecSpacer) NewPtrSpacer(
 		return &newTextSpacer, err
 	}
 
-	err = textFieldSpecSpacerNanobot{}.ptr().
+	err = new(textFieldSpecSpacerNanobot).
 		setTextFieldSpacer(
 			&newTextSpacer,
 			fieldLen,
@@ -1222,7 +1228,7 @@ func (txtFieldSpacer TextFieldSpecSpacer) NewPtrSpacer(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtFieldSpacer TextFieldSpecSpacer) NewSpacer(
+func (txtFieldSpacer *TextFieldSpecSpacer) NewSpacer(
 	fieldLen int,
 	errorPrefix interface{}) (
 	TextFieldSpecSpacer, error) {
@@ -1250,7 +1256,7 @@ func (txtFieldSpacer TextFieldSpecSpacer) NewSpacer(
 		return newTextSpacer, err
 	}
 
-	err = textFieldSpecSpacerNanobot{}.ptr().
+	err = new(textFieldSpecSpacerNanobot).
 		setTextFieldSpacer(
 			&newTextSpacer,
 			fieldLen,
@@ -1432,7 +1438,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) Read(
 		var formattedText string
 
 		formattedText,
-			err = textFieldSpecSpacerNanobot{}.ptr().
+			err = new(textFieldSpecSpacerNanobot).
 			getFormattedText(
 				txtFieldSpacer,
 				ePrefix.XCpy(
@@ -1619,7 +1625,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) SetFieldLen(
 		return err
 	}
 
-	err = textFieldSpecSpacerNanobot{}.ptr().
+	err = new(textFieldSpecSpacerNanobot).
 		setTextFieldSpacer(
 			txtFieldSpacer,
 			fieldLen,
@@ -1691,7 +1697,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) String() string {
 		"")
 
 	formattedText,
-		err := textFieldSpecSpacerNanobot{}.ptr().
+		err := new(textFieldSpecSpacerNanobot).
 		getFormattedText(
 			txtFieldSpacer,
 			&ePrefix)
@@ -1823,7 +1829,7 @@ func (txtFieldSpacer *TextFieldSpecSpacer) TextBuilder(
 	var formattedTxtStr string
 
 	formattedTxtStr,
-		err = textFieldSpecSpacerNanobot{}.ptr().
+		err = new(textFieldSpecSpacerNanobot).
 		getFormattedText(
 			txtFieldSpacer,
 			ePrefix.XCpy(

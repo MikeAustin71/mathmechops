@@ -1146,7 +1146,7 @@ func (txtFieldLabel *TextFieldSpecLabel) IsValidInstanceError(
 //	   - This parameter returns a new and empty concrete instance
 //	     of TextFieldSpecLabel. Member variable data values are
 //	     set to their initial or zero values.
-func (txtFieldLabel TextFieldSpecLabel) New() TextFieldSpecLabel {
+func (txtFieldLabel *TextFieldSpecLabel) New() TextFieldSpecLabel {
 
 	if txtFieldLabel.lock == nil {
 		txtFieldLabel.lock = new(sync.Mutex)
@@ -1191,7 +1191,7 @@ func (txtFieldLabel TextFieldSpecLabel) New() TextFieldSpecLabel {
 //	   - This parameter returns a pointer to a new, empty instance
 //	     of TextFieldSpecLabel. Member variable data values are
 //	     set to their initial or zero values.
-func (txtFieldLabel TextFieldSpecLabel) NewPtr() *TextFieldSpecLabel {
+func (txtFieldLabel *TextFieldSpecLabel) NewPtr() *TextFieldSpecLabel {
 
 	if txtFieldLabel.lock == nil {
 		txtFieldLabel.lock = new(sync.Mutex)
@@ -1369,7 +1369,7 @@ func (txtFieldLabel TextFieldSpecLabel) NewPtr() *TextFieldSpecLabel {
 //	  fieldLen = -1
 //	  textJustification = TextJustify(0).Right()
 //	    result = "Hi There"
-func (txtFieldLabel TextFieldSpecLabel) NewPtrTextLabel(
+func (txtFieldLabel *TextFieldSpecLabel) NewPtrTextLabel(
 	textLabel string,
 	fieldLen int,
 	textJustification TextJustify,
@@ -1574,7 +1574,7 @@ func (txtFieldLabel TextFieldSpecLabel) NewPtrTextLabel(
 //	  fieldLen = -1
 //	  textJustification = TextJustify(0).Right()
 //	    result = "Hi There"
-func (txtFieldLabel TextFieldSpecLabel) NewPtrTextLabelRunes(
+func (txtFieldLabel *TextFieldSpecLabel) NewPtrTextLabelRunes(
 	textLabelChars []rune,
 	fieldLen int,
 	textJustification TextJustify,
@@ -1774,7 +1774,7 @@ func (txtFieldLabel TextFieldSpecLabel) NewPtrTextLabelRunes(
 //	  fieldLen = -1
 //	  textJustification = TextJustify(0).Right()
 //	    result = "Hi There"
-func (txtFieldLabel TextFieldSpecLabel) NewTextLabel(
+func (txtFieldLabel *TextFieldSpecLabel) NewTextLabel(
 	textLabel string,
 	fieldLen int,
 	textJustification TextJustify,
@@ -1979,7 +1979,7 @@ func (txtFieldLabel TextFieldSpecLabel) NewTextLabel(
 //	  fieldLen = -1
 //	  textJustification = TextJustify(0).Right()
 //	    result = "Hi There"
-func (txtFieldLabel TextFieldSpecLabel) NewTextLabelRunes(
+func (txtFieldLabel *TextFieldSpecLabel) NewTextLabelRunes(
 	textLabelChars []rune,
 	fieldLen int,
 	textJustification TextJustify,
@@ -3294,7 +3294,7 @@ func (txtFieldLabel *TextFieldSpecLabel) SetTextRunes(
 //	  fieldLen = -1
 //	  textJustification = TextJustify(0).Right()
 //	    result = "Hi There"
-func (txtFieldLabel TextFieldSpecLabel) String() string {
+func (txtFieldLabel *TextFieldSpecLabel) String() string {
 
 	if txtFieldLabel.lock == nil {
 		txtFieldLabel.lock = new(sync.Mutex)

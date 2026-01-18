@@ -1613,7 +1613,7 @@ func (numStrKernelMolecule *numberStrKernelMolecule) getAllIntFracDigits(
 
 	}
 
-	charsArrayDto := RuneArrayDto{}
+	charsArrayDto := new(RuneArrayDto)
 	var negNumSymbolRuneArray RuneArrayDto
 
 	negNumSymbolRuneArray,

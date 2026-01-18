@@ -119,7 +119,7 @@ func (txtSolidLineMolecule *textLineSpecSolidLineMolecule) copyIn(
 	}
 
 	_,
-		err = textLineSpecSolidLineAtom{}.ptr().
+		err = new(textLineSpecSolidLineAtom).
 		testValidityOfTextSpecSolidLine(
 			incomingTxtSolidLine,
 			ePrefix.XCpy(
@@ -269,7 +269,7 @@ func (txtSolidLineMolecule *textLineSpecSolidLineMolecule) copyOut(
 	}
 
 	_,
-		err = textLineSpecSolidLineAtom{}.ptr().
+		err = new(textLineSpecSolidLineAtom).
 		testValidityOfTextSpecSolidLine(
 			txtSolidLine,
 			ePrefix.XCpy(
@@ -423,7 +423,7 @@ func (txtSolidLineMolecule *textLineSpecSolidLineMolecule) getFormattedText(
 	}
 
 	_,
-		err = textLineSpecSolidLineAtom{}.ptr().
+		err = new(textLineSpecSolidLineAtom).
 		testValidityOfTextSpecSolidLine(
 			txtSolidLine,
 			ePrefix.XCpy(
@@ -450,23 +450,6 @@ func (txtSolidLineMolecule *textLineSpecSolidLineMolecule) getFormattedText(
 	formattedText = sb.String()
 
 	return formattedText, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSpecSolidLineMolecule.
-func (txtSolidLineMolecule textLineSpecSolidLineMolecule) ptr() *textLineSpecSolidLineMolecule {
-
-	if txtSolidLineMolecule.lock == nil {
-		txtSolidLineMolecule.lock = new(sync.Mutex)
-	}
-
-	txtSolidLineMolecule.lock.Lock()
-
-	defer txtSolidLineMolecule.lock.Unlock()
-
-	return &textLineSpecSolidLineMolecule{
-		lock: new(sync.Mutex),
-	}
 }
 
 // setTxtSolidLine - Sets the member variable data values for an
@@ -746,7 +729,7 @@ func (txtSolidLineMolecule *textLineSpecSolidLineMolecule) setTxtSolidLine(
 		return err
 	}
 
-	textLineSpecSolidLineAtom{}.ptr().empty(
+	new(textLineSpecSolidLineAtom).empty(
 		txtSolidLine)
 
 	err = sMechPreon.copyRuneArrays(

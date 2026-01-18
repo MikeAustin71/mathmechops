@@ -4317,7 +4317,7 @@ func (txtFloat64FmtDtoMolecule *textFieldFormatDtoFloat64Molecule) getFieldConte
 	}
 
 	fieldContentsLabel,
-		err = TextFieldSpecLabel{}.NewTextLabel(
+		err = new(TextFieldSpecLabel).NewTextLabel(
 		pureNumStr,
 		txtFieldFmtDtoFloat64.FieldLength,
 		txtFieldFmtDtoFloat64.FieldJustify,

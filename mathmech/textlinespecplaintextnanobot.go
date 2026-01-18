@@ -128,7 +128,7 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) copyIn(
 	}
 
 	_,
-		err = textLineSpecPlainTextAtom{}.ptr().
+		err = new(textLineSpecPlainTextAtom).
 		testValidityOfTextLineSpecPlainText(
 			incomingPlainTextLine,
 			ePrefix.XCpy(
@@ -275,7 +275,7 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) copyOut(
 	}
 
 	_,
-		err = textLineSpecPlainTextAtom{}.ptr().
+		err = new(textLineSpecPlainTextAtom).
 		testValidityOfTextLineSpecPlainText(
 			plainTxtLine,
 			ePrefix.XCpy(
@@ -413,7 +413,7 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) getFormattedText(
 	}
 
 	_,
-		err = textLineSpecPlainTextAtom{}.ptr().
+		err = new(textLineSpecPlainTextAtom).
 		testValidityOfTextLineSpecPlainText(
 			plainTxtLine,
 			ePrefix.XCpy(
@@ -440,23 +440,6 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) getFormattedText(
 	formattedText += string(plainTxtLine.newLineChars)
 
 	return formattedText, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSpecPlainTextNanobot.
-func (txtLinePlainTextNanobot textLineSpecPlainTextNanobot) ptr() *textLineSpecPlainTextNanobot {
-
-	if txtLinePlainTextNanobot.lock == nil {
-		txtLinePlainTextNanobot.lock = new(sync.Mutex)
-	}
-
-	txtLinePlainTextNanobot.lock.Lock()
-
-	defer txtLinePlainTextNanobot.lock.Unlock()
-
-	return &textLineSpecPlainTextNanobot{
-		lock: new(sync.Mutex),
-	}
 }
 
 // setDefaultPlainTextSpec - Receives a pointer to an instance of
@@ -1289,7 +1272,7 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) setPlainTextSpecRun
 
 	textString := string(textRunes)
 
-	return textLineSpecPlainTextAtom{}.ptr().
+	return new(textLineSpecPlainTextAtom).
 		setPlainTextSpec(
 			plainTxtLine,
 			leftMarginChars,
@@ -1639,7 +1622,7 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) setPlainTextSpecStr
 		rightMarginRunes = []rune(rightMarginChars)
 	}
 
-	return textLineSpecPlainTextAtom{}.ptr().
+	return new(textLineSpecPlainTextAtom).
 		setPlainTextSpec(
 			plainTxtLine,
 			leftMarginRunes,

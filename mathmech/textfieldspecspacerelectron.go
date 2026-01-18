@@ -79,20 +79,3 @@ func (txtFieldSpacerElectron *textFieldSpecSpacerElectron) isFieldLenValidError(
 
 	return isValid, err
 }
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecSpacerElectron.
-func (txtFieldSpacerElectron textFieldSpecSpacerElectron) ptr() *textFieldSpecSpacerElectron {
-
-	if txtFieldSpacerElectron.lock == nil {
-		txtFieldSpacerElectron.lock = new(sync.Mutex)
-	}
-
-	txtFieldSpacerElectron.lock.Lock()
-
-	defer txtFieldSpacerElectron.lock.Unlock()
-
-	return &textFieldSpecSpacerElectron{
-		lock: new(sync.Mutex),
-	}
-}

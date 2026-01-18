@@ -305,7 +305,7 @@ func (txtFieldDateTimeNanobot *textFieldSpecDateTimeNanobot) getFormattedText(
 	textLabel := dateTimeTxtField.dateTime.Format(
 		dateTimeTxtField.dateTimeFormat)
 
-	return textSpecificationMolecule{}.ptr().
+	return new(textSpecificationMolecule).
 		getFormattedText(
 			[]rune(textLabel),
 			dateTimeTxtField.fieldLen,

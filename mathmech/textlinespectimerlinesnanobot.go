@@ -235,7 +235,7 @@ func (txtTimerLinesNanobot *textLineSpecTimerLinesNanobot) copyOut(
 	}
 
 	_,
-		err = textLineSpecTimerLinesAtom{}.ptr().
+		err = new(textLineSpecTimerLinesAtom).
 		testValidityOfTxtSpecTimerLines(
 			txtTimerLines,
 			ePrefix.XCpy("txtTimerLines"))

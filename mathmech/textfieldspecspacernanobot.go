@@ -120,7 +120,7 @@ func (txtFieldSpacerNanobot *textFieldSpecSpacerNanobot) copyIn(
 	targetTxtFieldSpacer.textLineReader = nil
 
 	_,
-		err = textFieldSpecSpacerElectron{}.ptr().
+		err = new(textFieldSpecSpacerElectron).
 		isFieldLenValidError(
 			incomingTxtFieldSpacer.fieldLen,
 			ePrefix.XCpy("incomingTxtFieldSpacer.fieldLen is invalid!"))
@@ -223,7 +223,7 @@ func (txtFieldSpacerNanobot *textFieldSpecSpacerNanobot) copyOut(
 	}
 
 	_,
-		err = textFieldSpecSpacerElectron{}.ptr().
+		err = new(textFieldSpecSpacerElectron).
 		isFieldLenValidError(
 			txtFieldSpacer.fieldLen,
 			ePrefix.XCpy("txtFieldSpacer.fieldLen is invalid!"))
@@ -359,7 +359,7 @@ func (txtFieldSpacerNanobot *textFieldSpecSpacerNanobot) getFormattedText(
 	}
 
 	_,
-		err = textFieldSpecSpacerElectron{}.ptr().
+		err = new(textFieldSpecSpacerElectron).
 		isFieldLenValidError(
 			txtFieldSpacer.fieldLen,
 			ePrefix.XCpy(
@@ -373,23 +373,6 @@ func (txtFieldSpacerNanobot *textFieldSpecSpacerNanobot) getFormattedText(
 		txtFieldSpacer.fieldLen)
 
 	return formattedText, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecSpacerNanobot.
-func (txtFieldSpacerNanobot textFieldSpecSpacerNanobot) ptr() *textFieldSpecSpacerNanobot {
-
-	if txtFieldSpacerNanobot.lock == nil {
-		txtFieldSpacerNanobot.lock = new(sync.Mutex)
-	}
-
-	txtFieldSpacerNanobot.lock.Lock()
-
-	defer txtFieldSpacerNanobot.lock.Unlock()
-
-	return &textFieldSpecSpacerNanobot{
-		lock: new(sync.Mutex),
-	}
 }
 
 // setTextFieldSpacer - Receives a pointer to an instance of
@@ -489,7 +472,7 @@ func (txtFieldSpacerNanobot *textFieldSpecSpacerNanobot) setTextFieldSpacer(
 	}
 
 	_,
-		err = textFieldSpecSpacerElectron{}.ptr().
+		err = new(textFieldSpecSpacerElectron).
 		isFieldLenValidError(
 			fieldLen,
 			ePrefix.XCpy("fieldLen is invalid!"))

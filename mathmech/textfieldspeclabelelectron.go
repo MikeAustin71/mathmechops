@@ -371,20 +371,3 @@ func (txtFieldLabelElectron *textFieldSpecLabelElectron) isTextLabelValid(
 
 	return lenTextLabel, err
 }
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecLabelElectron.
-func (txtFieldLabelElectron textFieldSpecLabelElectron) ptr() *textFieldSpecLabelElectron {
-
-	if txtFieldLabelElectron.lock == nil {
-		txtFieldLabelElectron.lock = new(sync.Mutex)
-	}
-
-	txtFieldLabelElectron.lock.Lock()
-
-	defer txtFieldLabelElectron.lock.Unlock()
-
-	return &textFieldSpecLabelElectron{
-		lock: new(sync.Mutex),
-	}
-}

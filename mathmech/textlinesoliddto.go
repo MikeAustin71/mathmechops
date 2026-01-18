@@ -286,7 +286,7 @@ type TextLineSolidDto struct {
 //
 //	NONE
 func (txtSolidLineDto *TextLineSolidDto) CopyIn(
-	incomingSolidLineDto TextLineSolidDto) {
+	incomingSolidLineDto TextLineSolidDto) error {
 
 	if txtSolidLineDto.lock == nil {
 		txtSolidLineDto.lock = new(sync.Mutex)
@@ -296,12 +296,12 @@ func (txtSolidLineDto *TextLineSolidDto) CopyIn(
 
 	defer txtSolidLineDto.lock.Unlock()
 
-	_ = textLineSolidLineDtoNanobot{}.ptr().copyData(
+	err := new(textLineSolidLineDtoNanobot).copyData(
 		txtSolidLineDto,
 		&incomingSolidLineDto,
 		nil)
 
-	return
+	return err
 }
 
 // CopyOut - Returns a deep copy of the current TextLineSolidDto
@@ -334,7 +334,7 @@ func (txtSolidLineDto *TextLineSolidDto) CopyOut() (
 
 	defer txtSolidLineDto.lock.Unlock()
 
-	_ = textLineSolidLineDtoNanobot{}.ptr().copyData(
+	_ = new(textLineSolidLineDtoNanobot).copyData(
 		&deepCopyTxtLineSolidDto,
 		txtSolidLineDto,
 		nil)
@@ -375,7 +375,7 @@ func (txtSolidLineDto *TextLineSolidDto) Empty() {
 
 	txtSolidLineDto.lock.Lock()
 
-	textLineSolidLineDtoMolecule{}.ptr().empty(
+	new(textLineSolidLineDtoMolecule).empty(
 		txtSolidLineDto)
 
 	txtSolidLineDto.lock.Unlock()
@@ -429,7 +429,7 @@ func (txtSolidLineDto *TextLineSolidDto) Equal(
 
 	defer txtSolidLineDto.lock.Unlock()
 
-	return textLineSolidLineDtoMolecule{}.ptr().equal(
+	return new(textLineSolidLineDtoMolecule).equal(
 		txtSolidLineDto,
 		&incomingTxtLineSolidDto)
 }
@@ -491,7 +491,7 @@ func (txtSolidLineDtoNanobot *textLineSolidLineDtoNanobot) copyData(
 		return err
 	}
 
-	textLineSolidLineDtoMolecule{}.ptr().empty(
+	new(textLineSolidLineDtoMolecule).empty(
 		destinationSolidLineDto)
 
 	destinationSolidLineDto.FormatType =
@@ -522,23 +522,6 @@ func (txtSolidLineDtoNanobot *textLineSolidLineDtoNanobot) copyData(
 		sourceSolidLineDto.TurnAutoLineLengthBreaksOn
 
 	return err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSolidLineDtoNanobot.
-func (txtSolidLineDtoNanobot textLineSolidLineDtoNanobot) ptr() *textLineSolidLineDtoNanobot {
-
-	if txtSolidLineDtoNanobot.lock == nil {
-		txtSolidLineDtoNanobot.lock = new(sync.Mutex)
-	}
-
-	txtSolidLineDtoNanobot.lock.Lock()
-
-	defer txtSolidLineDtoNanobot.lock.Unlock()
-
-	return &textLineSolidLineDtoNanobot{
-		lock: new(sync.Mutex),
-	}
 }
 
 // textLineSolidLineDtoMolecule - Provides helper methods for
@@ -664,21 +647,4 @@ func (txtSolidLineDtoMolecule *textLineSolidLineDtoMolecule) equal(
 	}
 
 	return true
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpacerDtoMolecule.
-func (txtSolidLineDtoMolecule textLineSolidLineDtoMolecule) ptr() *textLineSolidLineDtoMolecule {
-
-	if txtSolidLineDtoMolecule.lock == nil {
-		txtSolidLineDtoMolecule.lock = new(sync.Mutex)
-	}
-
-	txtSolidLineDtoMolecule.lock.Lock()
-
-	defer txtSolidLineDtoMolecule.lock.Unlock()
-
-	return &textLineSolidLineDtoMolecule{
-		lock: new(sync.Mutex),
-	}
 }

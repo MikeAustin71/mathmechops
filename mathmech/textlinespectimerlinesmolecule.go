@@ -165,7 +165,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) getFormattedText(
 
 	var stdLineStr string
 
-	stdLine := TextLineSpecStandardLine{}.New()
+	stdLine := new(TextLineSpecStandardLine).New()
 
 	// Begin First Line
 
@@ -196,7 +196,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) getFormattedText(
 	}
 
 	txtDescLabel,
-		err = TextFieldSpecLabel{}.NewPtrTextLabelRunes(
+		err = new(TextFieldSpecLabel).NewPtrTextLabelRunes(
 		txtTimerLines.startTimeLabel,
 		txtTimerLines.textLabelFieldLen,
 		txtTimerLines.textLabelJustification,
@@ -243,7 +243,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) getFormattedText(
 		txtTimerLines.timeFormat)
 
 	txtOutputLabel,
-		err = TextFieldSpecLabel{}.NewPtrTextLabel(
+		err = new(TextFieldSpecLabel).NewPtrTextLabel(
 		startTimeStr,
 		-1,
 		TxtJustify.Left(),
@@ -389,7 +389,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) getFormattedText(
 	// Begin summary time duration lines
 
 	totalLabelLen :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getTotalLabelLength(
 				txtTimerLines.labelLeftMarginChars,
 				txtTimerLines.startTimeLabel,
@@ -459,7 +459,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) getFormattedText(
 			}
 
 			txtDescLabel,
-				err = TextFieldSpecLabel{}.NewPtrTextLabelRunes(
+				err = new(TextFieldSpecLabel).NewPtrTextLabelRunes(
 				txtTimerLines.timeDurationLabel,
 				txtTimerLines.textLabelFieldLen,
 				txtTimerLines.textLabelJustification,
@@ -498,7 +498,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) getFormattedText(
 			}
 
 			txtOutputLabel,
-				err = TextFieldSpecLabel{}.NewPtrTextLabel(
+				err = new(TextFieldSpecLabel).NewPtrTextLabel(
 				timeDurationStrs[i],
 				-1,
 				TxtJustify.Left(),
@@ -543,7 +543,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) getFormattedText(
 			}
 
 			txtOutputLabel,
-				err = TextFieldSpecLabel{}.NewPtrTextLabel(
+				err = new(TextFieldSpecLabel).NewPtrTextLabel(
 				timeDurationStrs[i],
 				-1,
 				TxtJustify.Left(),
@@ -858,7 +858,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) setTxtLineSpecTimer
 
 	if len(timeFormat) == 0 {
 		timeFormat =
-			textSpecificationMolecule{}.ptr().
+			new(textSpecificationMolecule).
 				getDefaultDateTimeFormat()
 	}
 
@@ -927,7 +927,7 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) setTxtLineSpecTimer
 			textLabelFieldLen,
 			labelRightMarginChars)
 
-	maxAllowableLabelLen := textLineSpecTimerLinesPreon{}.ptr().
+	maxAllowableLabelLen := new(textLineSpecTimerLinesPreon).
 		getMaximumTimerLabelLen()
 
 	if totalLabelLen > maxAllowableLabelLen {
@@ -1040,21 +1040,4 @@ func (txtTimerLinesMolecule *textLineSpecTimerLinesMolecule) setTxtLineSpecTimer
 			"labelRightMarginChars"))
 
 	return err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSpecTimerLinesMolecule.
-func (txtTimerLinesMolecule textLineSpecTimerLinesMolecule) ptr() *textLineSpecTimerLinesMolecule {
-
-	if txtTimerLinesMolecule.lock == nil {
-		txtTimerLinesMolecule.lock = new(sync.Mutex)
-	}
-
-	txtTimerLinesMolecule.lock.Lock()
-
-	defer txtTimerLinesMolecule.lock.Unlock()
-
-	return &textLineSpecTimerLinesMolecule{
-		lock: new(sync.Mutex),
-	}
 }

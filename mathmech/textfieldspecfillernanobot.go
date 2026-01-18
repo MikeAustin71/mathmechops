@@ -29,7 +29,7 @@ type textFieldSpecFillerNanobot struct {
 //	fillerCharacters           []rune
 //	   - A rune array containing the text characters which will be
 //	     included in the Text Filler Field. The final Text Filler
-//	     Field will be constructed from ths filler characters
+//	     Field will be constructed from these filler characters
 //	     repeated one or more times as specified by the
 //	     'fillerCharsRepeatCount' parameter.
 //
@@ -39,15 +39,15 @@ type textFieldSpecFillerNanobot struct {
 //	                 fillerRepeatCount = 3
 //	                 Final Text Filler Field = "-*-*-*"
 //
-//	     If 'fillerCharacters' is submitted with a zero length rune
+//	     If 'fillerCharacters' is submitted with a zero-length rune
 //	     array, this method will return an error.
 //
 //
 //	fillerCharsRepeatCount     int
-//	   - Controls the number of times 'fillerCharacters' is
+//	   - Controls the number of times 'fillerCharacters' are
 //	     repeated when constructing the final Text Filler Field
 //	     returned by this method. The actual length of the string
-//	     which will populated the completed Text Filler Field is
+//	     which will populate the completed Text Filler Field is
 //	     equal to the length of 'fillerCharacters' times the value
 //	     of 'fillerCharsRepeatCount'.
 //
@@ -179,21 +179,4 @@ func (txtFieldFillerNanobot *textFieldSpecFillerNanobot) setTxtFieldSpecFiller(
 	}
 
 	return err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecFillerNanobot.
-func (txtFieldFillerNanobot textFieldSpecFillerNanobot) ptr() *textFieldSpecFillerNanobot {
-
-	if txtFieldFillerNanobot.lock == nil {
-		txtFieldFillerNanobot.lock = new(sync.Mutex)
-	}
-
-	txtFieldFillerNanobot.lock.Lock()
-
-	defer txtFieldFillerNanobot.lock.Unlock()
-
-	return &textFieldSpecFillerNanobot{
-		lock: new(sync.Mutex),
-	}
 }

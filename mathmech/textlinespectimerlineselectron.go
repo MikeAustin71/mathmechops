@@ -166,7 +166,7 @@ func (txtTimerLinesElectron *textLineSpecTimerLinesElectron) computeTimeDuration
 	if endTime.Before(startTime) {
 
 		timeFormat :=
-			textSpecificationMolecule{}.ptr().
+			new(textSpecificationMolecule).
 				getDefaultDateTimeFormat()
 
 		err = fmt.Errorf("%v\n"+
@@ -790,21 +790,4 @@ func (txtTimerLinesElectron *textLineSpecTimerLinesElectron) getTotalLabelLength
 	return textLabelFieldLen +
 		len(labelLeftMarginChars) +
 		len(labelRightMarginChars)
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSpecTimerLinesElectron.
-func (txtTimerLinesElectron textLineSpecTimerLinesElectron) ptr() *textLineSpecTimerLinesElectron {
-
-	if txtTimerLinesElectron.lock == nil {
-		txtTimerLinesElectron.lock = new(sync.Mutex)
-	}
-
-	txtTimerLinesElectron.lock.Lock()
-
-	defer txtTimerLinesElectron.lock.Unlock()
-
-	return &textLineSpecTimerLinesElectron{
-		lock: new(sync.Mutex),
-	}
 }

@@ -9,7 +9,7 @@ type textLineSpecTimerLinesPreon struct {
 // getMaximumOutputTimerLineLen - Returns the maximum allowable line
 // length for TextLineSpecTimerLines text output. This maximum
 // line length specifies the total length allowed for labels,
-// margins and context text.
+// margins, and context text.
 func (txtTimerLinesPreon *textLineSpecTimerLinesPreon) getMaximumOutputTimerLineLen() int {
 
 	if txtTimerLinesPreon.lock == nil {
@@ -53,21 +53,4 @@ func (txtTimerLinesPreon *textLineSpecTimerLinesPreon) getMaximumTimerLabelLen()
 	defer txtTimerLinesPreon.lock.Unlock()
 
 	return 55
-}
-
-// ptr - Returns a pointer to a new instance of
-// textLineSpecTimerLinesElectron.
-func (txtTimerLinesPreon textLineSpecTimerLinesPreon) ptr() *textLineSpecTimerLinesPreon {
-
-	if txtTimerLinesPreon.lock == nil {
-		txtTimerLinesPreon.lock = new(sync.Mutex)
-	}
-
-	txtTimerLinesPreon.lock.Lock()
-
-	defer txtTimerLinesPreon.lock.Unlock()
-
-	return &textLineSpecTimerLinesPreon{
-		lock: new(sync.Mutex),
-	}
 }

@@ -1728,7 +1728,7 @@ func (txtDateFieldFmtDtoMolecule *textDateFieldFormatDtoMolecule) getFieldConten
 		FieldDateTime.Format(txtDateFieldDto.FieldDateTimeFormat)
 
 	fieldContentsLabel,
-		err = TextFieldSpecLabel{}.NewTextLabel(
+		err = new(TextFieldSpecLabel).NewTextLabel(
 		fieldContentsText,
 		txtDateFieldDto.FieldLength,
 		txtDateFieldDto.FieldJustify,

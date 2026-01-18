@@ -11,23 +11,6 @@ type textLineSpecTimerLinesAtom struct {
 	lock *sync.Mutex
 }
 
-// ptr - Returns a pointer to a new instance of
-// textLineSpecTimerLinesAtom.
-func (txtTimerLinesAtom textLineSpecTimerLinesAtom) ptr() *textLineSpecTimerLinesAtom {
-
-	if txtTimerLinesAtom.lock == nil {
-		txtTimerLinesAtom.lock = new(sync.Mutex)
-	}
-
-	txtTimerLinesAtom.lock.Lock()
-
-	defer txtTimerLinesAtom.lock.Unlock()
-
-	return &textLineSpecTimerLinesAtom{
-		lock: new(sync.Mutex),
-	}
-}
-
 // equal - Receives pointers to two TextLineSpecTimerLines
 // instances and proceeds to compare the member data elements to
 // determine whether they are equal.
@@ -166,7 +149,7 @@ func (txtTimerLinesAtom *textLineSpecTimerLinesAtom) equal(
 //	     in all respects, this return parameter will be set to
 //	     'nil'.
 //
-//	     If input parameter, 'txtTimerLines' is found to be
+//	     If the input parameter, 'txtTimerLines' is found to be
 //	     invalid, this return parameter will be configured with an
 //	     appropriate error message.
 //
@@ -252,7 +235,7 @@ func (txtTimerLinesAtom *textLineSpecTimerLinesAtom) testValidityOfTxtSpecTimerL
 
 	if len(txtTimerLines.timeFormat) == 0 {
 		txtTimerLines.timeFormat =
-			textSpecificationMolecule{}.ptr().
+			new(textSpecificationMolecule).
 				getDefaultDateTimeFormat()
 	}
 
@@ -292,7 +275,7 @@ func (txtTimerLinesAtom *textLineSpecTimerLinesAtom) testValidityOfTxtSpecTimerL
 			txtTimerLines.textLabelFieldLen,
 			txtTimerLines.labelRightMarginChars)
 
-	maxAllowableLabelLen := textLineSpecTimerLinesPreon{}.ptr().
+	maxAllowableLabelLen := new(textLineSpecTimerLinesPreon).
 		getMaximumTimerLabelLen()
 
 	if totalLabelLen > maxAllowableLabelLen {

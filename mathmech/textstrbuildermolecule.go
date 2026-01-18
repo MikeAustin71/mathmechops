@@ -331,7 +331,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildFieldLabelWithDto(
 	var txtLabelSpec TextFieldSpecLabel
 
 	txtLabelSpec,
-		err = TextFieldSpecLabel{}.NewTextLabel(
+		err = new(TextFieldSpecLabel).NewTextLabel(
 		labelFieldDto.FieldText,
 		labelFieldDto.FieldLength,
 		labelFieldDto.FieldJustify,
@@ -437,7 +437,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildFieldSpacerWithDto(
 	var txtFieldSpecSpacer TextFieldSpecSpacer
 
 	txtFieldSpecSpacer,
-		err = TextFieldSpecSpacer{}.NewSpacer(
+		err = new(TextFieldSpecSpacer).NewSpacer(
 		spacerFieldDto.FieldLength,
 		ePrefix.XCpy(
 			fmt.Sprintf("spacerFieldDto.FieldLength='%v'",
@@ -607,7 +607,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildLineBlankWithDto(
 	if len(blankLineDto.LineTerminator) == 0 {
 
 		blankLinesSpec,
-			err = TextLineSpecBlankLines{}.NewDefaultBlankLines(
+			err = new(TextLineSpecBlankLines).NewDefaultBlankLines(
 			blankLineDto.NumOfBlankLines,
 			ePrefix.XCpy(
 				fmt.Sprintf(
@@ -617,7 +617,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildLineBlankWithDto(
 	} else {
 
 		blankLinesSpec,
-			err = TextLineSpecBlankLines{}.NewBlankLines(
+			err = new(TextLineSpecBlankLines).NewBlankLines(
 			blankLineDto.NumOfBlankLines,
 			blankLineDto.LineTerminator,
 			ePrefix.XCpy(
@@ -757,7 +757,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildLineColumnsWithDto(
 			var txtLabelSpec TextFieldSpecLabel
 
 			txtLabelSpec,
-				err = TextFieldSpecLabel{}.NewTextLabel(
+				err = new(TextFieldSpecLabel).NewTextLabel(
 				lineCols.TextFieldsContent[i].TextFieldString,
 				lineCols.FmtParameters.FieldFormatParams[i].FieldLength,
 				lineCols.FmtParameters.FieldFormatParams[i].FieldJustify,
@@ -872,7 +872,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildLineSolidWithDto(
 	var txtSpecSolidLine TextLineSpecSolidLine
 
 	txtSpecSolidLine,
-		err = TextLineSpecSolidLine{}.NewFullSolidLineConfig(
+		err = new(TextLineSpecSolidLine).NewFullSolidLineConfig(
 		solidLineDto.LeftMarginStr,
 		solidLineDto.RightMarginStr,
 		solidLineDto.SolidLineChars,
@@ -945,7 +945,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildLineTimerStartStopWithDto
 	var timerLinesSpec *TextLineSpecTimerLines
 
 	timerLinesSpec,
-		err = TextLineSpecTimerLines{}.NewFullTimerEvent(
+		err = new(TextLineSpecTimerLines).NewFullTimerEvent(
 		timerStartStopDto.LeftMarginStr,
 		timerStartStopDto.StartTimeLabel,
 		timerStartStopDto.StartTime,

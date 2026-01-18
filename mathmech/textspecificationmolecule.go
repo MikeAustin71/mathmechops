@@ -106,7 +106,7 @@ func (txtSpecMolecule *textSpecificationMolecule) getDefaultDateTimeFormat() str
 //	     processing, the returned error Type will encapsulate an error
 //	     message.
 //
-//	     If an error occurs, the text value for input parameter
+//	     If an error occurs, the text value for the input parameter
 //	     'errPrefDto' (error prefix) will be prefixed or attached
 //	     at the beginning of the error message.
 func (txtSpecMolecule *textSpecificationMolecule) getFormattedText(
@@ -179,23 +179,6 @@ func (txtSpecMolecule *textSpecificationMolecule) getFormattedText(
 			ePrefix)
 
 	return formattedText, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textSpecificationMolecule.
-func (txtSpecMolecule textSpecificationMolecule) ptr() *textSpecificationMolecule {
-
-	if txtSpecMolecule.lock == nil {
-		txtSpecMolecule.lock = new(sync.Mutex)
-	}
-
-	txtSpecMolecule.lock.Lock()
-
-	defer txtSpecMolecule.lock.Unlock()
-
-	return &textSpecificationMolecule{
-		lock: new(sync.Mutex),
-	}
 }
 
 // setDefaultNewLineChars - Receives a pointer to a target rune

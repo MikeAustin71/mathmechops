@@ -115,23 +115,6 @@ func (txtSolidLineAtom *textLineSpecSolidLineAtom) equal(
 	return true
 }
 
-// ptr - Returns a pointer to a new instance of
-// textLineSpecSolidLineAtom.
-func (txtSolidLineAtom textLineSpecSolidLineAtom) ptr() *textLineSpecSolidLineAtom {
-
-	if txtSolidLineAtom.lock == nil {
-		txtSolidLineAtom.lock = new(sync.Mutex)
-	}
-
-	txtSolidLineAtom.lock.Lock()
-
-	defer txtSolidLineAtom.lock.Unlock()
-
-	return &textLineSpecSolidLineAtom{
-		lock: new(sync.Mutex),
-	}
-}
-
 // testValidityOfTxtSpecTimerLines - Receives a pointer to an
 // instance of TextLineSpecSolidLine and performs a diagnostic
 // analysis to determine if that instance is valid in all respects.

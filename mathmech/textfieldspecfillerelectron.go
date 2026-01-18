@@ -74,7 +74,7 @@ type textFieldSpecFillerElectron struct {
 //	     If errors are encountered during processing, the returned
 //	     error Type will encapsulate an error message. This
 //	     returned error message will incorporate the method chain
-//	     and text passed by input parameter, 'errPrefDto'. The
+//	     and text passed by the input parameter, 'errPrefDto'. The
 //	     'errPrefDto' text will be attached to the beginning of the
 //	     error message.
 func (txtFieldFillerElectron *textFieldSpecFillerElectron) isFillerCharsRepeatCountValid(
@@ -255,21 +255,4 @@ func (txtFieldFillerElectron *textFieldSpecFillerElectron) isFillerCharsValid(
 	}
 
 	return lenFillerChars, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecFillerElectron.
-func (txtFieldFillerElectron textFieldSpecFillerElectron) ptr() *textFieldSpecFillerElectron {
-
-	if txtFieldFillerElectron.lock == nil {
-		txtFieldFillerElectron.lock = new(sync.Mutex)
-	}
-
-	txtFieldFillerElectron.lock.Lock()
-
-	defer txtFieldFillerElectron.lock.Unlock()
-
-	return &textFieldSpecFillerElectron{
-		lock: new(sync.Mutex),
-	}
 }

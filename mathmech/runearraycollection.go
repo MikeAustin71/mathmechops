@@ -278,7 +278,7 @@ func (runeArrayCol *RuneArrayCollection) AddLatinAlphabetEnglishDto() {
 	runeArrayCol.runeArrayDtoCol =
 		append(
 			runeArrayCol.runeArrayDtoCol,
-			RuneArrayDto{}.NewLatinAlphabet())
+			new(RuneArrayDto).NewLatinAlphabet())
 
 }
 
@@ -366,13 +366,13 @@ func (runeArrayCol *RuneArrayCollection) AddNumericDigitsDto() {
 	runeArrayCol.runeArrayDtoCol =
 		append(
 			runeArrayCol.runeArrayDtoCol,
-			RuneArrayDto{}.NewNumericCharacters())
+			new(RuneArrayDto).NewNumericCharacters())
 }
 
 // AddRuneArrayDto - Receives an instance of RuneArrayDto and
 // appends that instance to the RuneArrayDto Collection.
 //
-// This differs from method:
+// This differs from the method:
 //
 //	RuneArrayCollection.AddRuneArrayDtoDeepCopy()
 //
@@ -912,7 +912,7 @@ func (runeArrayCol *RuneArrayCollection) AddRuneArrayRunes(
 	var newRuneArrayDto RuneArrayDto
 
 	newRuneArrayDto,
-		err = RuneArrayDto{}.NewRunes(
+		err = new(RuneArrayDto).NewRunes(
 		charArray,
 		charSearchType,
 		ePrefix.XCpy(
@@ -1184,7 +1184,7 @@ func (runeArrayCol *RuneArrayCollection) AddRuneArrayRunesDesc(
 	var newRuneArrayDto RuneArrayDto
 
 	newRuneArrayDto,
-		err = RuneArrayDto{}.NewRunesAllParams(
+		err = new(RuneArrayDto).NewRunesAllParams(
 		charArray,
 		description1,
 		description2,
@@ -1431,7 +1431,7 @@ func (runeArrayCol *RuneArrayCollection) AddRuneArrayString(
 	var newRuneArrayDto RuneArrayDto
 
 	newRuneArrayDto,
-		err = RuneArrayDto{}.NewString(
+		err = new(RuneArrayDto).NewString(
 		stringChars,
 		charSearchType,
 		ePrefix.XCpy(
@@ -1703,7 +1703,7 @@ func (runeArrayCol *RuneArrayCollection) AddRuneArrayStringDesc(
 	var newRuneArrayDto RuneArrayDto
 
 	newRuneArrayDto,
-		err = RuneArrayDto{}.NewStringAllParams(
+		err = new(RuneArrayDto).NewStringAllParams(
 		stringChars,
 		description1,
 		description2,
@@ -2008,7 +2008,7 @@ func (runeArrayCol *RuneArrayCollection) AddStringDefault(
 
 	var newRuneArrayDto RuneArrayDto
 
-	newRuneArrayDto = RuneArrayDto{}.NewStringDefault(
+	newRuneArrayDto = new(RuneArrayDto).NewStringDefault(
 		stringChars)
 
 	runeArrayCol.runeArrayDtoCol =
@@ -3102,7 +3102,7 @@ func (runeArrayCol *RuneArrayCollection) NewColMemberString(
 	var newRuneArrayDto RuneArrayDto
 
 	newRuneArrayDto,
-		err = RuneArrayDto{}.NewStringAllParams(
+		err = new(RuneArrayDto).NewStringAllParams(
 		stringChars,
 		description1,
 		description2,
@@ -3380,7 +3380,7 @@ func (runeArrayCol *RuneArrayCollection) NewColMemberRunes(
 	var newRuneArrayDto RuneArrayDto
 
 	newRuneArrayDto,
-		err = RuneArrayDto{}.NewRunesAllParams(
+		err = new(RuneArrayDto).NewRunesAllParams(
 		charArray,
 		description1,
 		description2,

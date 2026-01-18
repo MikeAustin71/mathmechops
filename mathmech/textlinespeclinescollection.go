@@ -118,7 +118,7 @@ type TextLineSpecLinesCollection struct {
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
 func (txtLinesSpecCol *TextLineSpecLinesCollection) AddBlankLine(
@@ -519,7 +519,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) AddDateTimeLine(
 	var plainTextLine TextLineSpecPlainText
 
 	plainTextLine,
-		err = TextLineSpecPlainText{}.NewPlainTextStrings(
+		err = new(TextLineSpecPlainText).NewPlainTextStrings(
 		leftMarginStr,
 		rightMarginStr,
 		textString,
@@ -838,7 +838,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) AddPlainTextLine(
 	var plainTextLine TextLineSpecPlainText
 
 	plainTextLine,
-		err = TextLineSpecPlainText{}.NewPlainTextStrings(
+		err = new(TextLineSpecPlainText).NewPlainTextStrings(
 		leftMarginStr,
 		rightMarginStr,
 		textString,
@@ -1174,7 +1174,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) AddPlainTextLines(
 	for idx, textString := range textStrings {
 
 		plainTextLine,
-			err = TextLineSpecPlainText{}.NewPlainTextStrings(
+			err = new(TextLineSpecPlainText).NewPlainTextStrings(
 			leftMarginStr,
 			rightMarginStr,
 			textString,
@@ -1519,7 +1519,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) AddPlainTextStrArray(
 	for idx, textString := range textStrings.StrArray {
 
 		plainTextLine,
-			err = TextLineSpecPlainText{}.NewPlainTextStrings(
+			err = new(TextLineSpecPlainText).NewPlainTextStrings(
 			leftMarginStr,
 			rightMarginStr,
 			textString,
@@ -1805,7 +1805,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) AddSolidLine(
 	var txtSolidLine TextLineSpecSolidLine
 
 	txtSolidLine,
-		err = TextLineSpecSolidLine{}.
+		err = new(TextLineSpecSolidLine).
 		NewSolidLineAllParms(
 			leftMarginStr,
 			rightMarginStr,
@@ -2229,7 +2229,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) AddStdLineColumns(
 	var newStdLine TextLineSpecStandardLine
 
 	newStdLine,
-		err = TextLineSpecStandardLine{}.NewStdLineColumns(
+		err = new(TextLineSpecStandardLine).NewStdLineColumns(
 		lineTerminator,
 		turnLineTerminatorOff,
 		ePrefix.XCpy(
@@ -4225,7 +4225,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) IsValidInstanceError(
 //	     of TextLineSpecLinesCollection. The Text Line Collection
 //	     encapsulated by this instance contains zero member
 //	     elements.
-func (txtLinesSpecCol TextLineSpecLinesCollection) New() TextLineSpecLinesCollection {
+func (txtLinesSpecCol *TextLineSpecLinesCollection) New() TextLineSpecLinesCollection {
 
 	if txtLinesSpecCol.lock == nil {
 		txtLinesSpecCol.lock = new(sync.Mutex)
@@ -4330,10 +4330,10 @@ func (txtLinesSpecCol TextLineSpecLinesCollection) New() TextLineSpecLinesCollec
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtLinesSpecCol TextLineSpecLinesCollection) NewTextLine(
+func (txtLinesSpecCol *TextLineSpecLinesCollection) NewTextLine(
 	textLine ITextLineSpecification,
 	errorPrefix interface{}) (
 	newTextLineCol TextLineSpecLinesCollection,
@@ -4397,7 +4397,7 @@ func (txtLinesSpecCol TextLineSpecLinesCollection) NewTextLine(
 //	     uninitialized instance of TextLineSpecLinesCollection. The
 //	     Text Line Collection encapsulated by this instance
 //	     contains zero member elements.
-func (txtLinesSpecCol TextLineSpecLinesCollection) NewPtr() *TextLineSpecLinesCollection {
+func (txtLinesSpecCol *TextLineSpecLinesCollection) NewPtr() *TextLineSpecLinesCollection {
 
 	if txtLinesSpecCol.lock == nil {
 		txtLinesSpecCol.lock = new(sync.Mutex)
@@ -4503,10 +4503,10 @@ func (txtLinesSpecCol TextLineSpecLinesCollection) NewPtr() *TextLineSpecLinesCo
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtLinesSpecCol TextLineSpecLinesCollection) NewPtrTextLine(
+func (txtLinesSpecCol *TextLineSpecLinesCollection) NewPtrTextLine(
 	textLine ITextLineSpecification,
 	errorPrefix interface{}) (
 	newTextLineCol *TextLineSpecLinesCollection,
@@ -6286,7 +6286,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) String() string {
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		 the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
 func (txtLinesSpecCol *TextLineSpecLinesCollection) TextBuilder(

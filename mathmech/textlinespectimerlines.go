@@ -652,7 +652,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) CopyOutPtr(
 // Empty - Resets all internal member variables to their initial
 // or zero states.
 //
-// This method fulfills requirements of the ITextLineSpecification
+// This method fulfills the requirements of the ITextLineSpecification
 // interface.
 func (txtSpecTimerLines *TextLineSpecTimerLines) Empty() {
 
@@ -727,7 +727,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) EqualITextLine(
 		return false
 	}
 
-	return textLineSpecTimerLinesAtom{}.ptr().
+	return new(textLineSpecTimerLinesAtom).
 		equal(
 			txtSpecTimerLines,
 			incomingTxtSpecTimerLines)
@@ -1120,7 +1120,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) GetMaximumTextLabelLength() int
 
 	defer txtSpecTimerLines.lock.Unlock()
 
-	return textLineSpecTimerLinesPreon{}.ptr().
+	return new(textLineSpecTimerLinesPreon).
 		getMaximumTimerLabelLen()
 }
 
@@ -1310,7 +1310,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) GetTextLabelFieldLength() int {
 
 	defer txtSpecTimerLines.lock.Unlock()
 
-	lenLongestLabel := textLineSpecTimerLinesElectron{}.ptr().
+	lenLongestLabel := new(textLineSpecTimerLinesElectron).
 		getLengthOfLongestLabel(
 			txtSpecTimerLines.endTimeLabel,
 			txtSpecTimerLines.startTimeLabel,
@@ -1506,10 +1506,14 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) IsValidInstance() bool {
 	defer txtSpecTimerLines.lock.Unlock()
 
 	isValid,
-		_ := textLineSpecTimerLinesAtom{}.ptr().
+		err := new(textLineSpecTimerLinesAtom).
 		testValidityOfTxtSpecTimerLines(
 			txtSpecTimerLines,
 			nil)
+
+	if err != nil {
+		isValid = false
+	}
 
 	return isValid
 }
@@ -1615,7 +1619,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) IsValidInstanceError(
 	}
 
 	_,
-		err = textLineSpecTimerLinesAtom{}.ptr().
+		err = new(textLineSpecTimerLinesAtom).
 		testValidityOfTxtSpecTimerLines(
 			txtSpecTimerLines,
 			ePrefix.XCpy("txtSpecTimerLines"))
@@ -1747,7 +1751,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) IsValidInstanceError(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtSpecTimerLines TextLineSpecTimerLines) NewDefaultFullTimerEvent(
+func (txtSpecTimerLines *TextLineSpecTimerLines) NewDefaultFullTimerEvent(
 	startTime time.Time,
 	endTime time.Time,
 	errorPrefix interface{}) (
@@ -1778,10 +1782,10 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewDefaultFullTimerEvent(
 	}
 
 	timeDurationLabel :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTimeDurationLabel()
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			&newTxtTimerLines,
 			nil,
@@ -1866,7 +1870,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewDefaultFullTimerEvent(
 //	   - This method will create and return a pointer to a new
 //	     instance of TextLineSpecTimerLines which is fully
 //	     configured except for the starting time and ending times.
-func (txtSpecTimerLines TextLineSpecTimerLines) NewDefaultShellTimerEvent() *TextLineSpecTimerLines {
+func (txtSpecTimerLines *TextLineSpecTimerLines) NewDefaultShellTimerEvent() *TextLineSpecTimerLines {
 
 	if txtSpecTimerLines.lock == nil {
 		txtSpecTimerLines.lock = new(sync.Mutex)
@@ -1879,14 +1883,14 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewDefaultShellTimerEvent() *Tex
 	newTxtTimerLines := TextLineSpecTimerLines{}
 
 	timeDurationLabel :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTimeDurationLabel()
 
 	defaultTime :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTime()
 
-	_ = textLineSpecTimerLinesMolecule{}.ptr().
+	_ = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			&newTxtTimerLines,
 			nil,
@@ -1915,7 +1919,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewDefaultShellTimerEvent() *Tex
 // to valid values:
 //
 //	TextLineSpecTimerLines.SetFullTimerEvent()
-func (txtSpecTimerLines TextLineSpecTimerLines) NewEmptyTimerEvent() TextLineSpecTimerLines {
+func (txtSpecTimerLines *TextLineSpecTimerLines) NewEmptyTimerEvent() TextLineSpecTimerLines {
 
 	if txtSpecTimerLines.lock == nil {
 		txtSpecTimerLines.lock = new(sync.Mutex)
@@ -2165,7 +2169,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewEmptyTimerEvent() TextLineSpe
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtSpecTimerLines TextLineSpecTimerLines) NewFullTimerEvent(
+func (txtSpecTimerLines *TextLineSpecTimerLines) NewFullTimerEvent(
 	labelLeftMarginChars string,
 	startTimeLabel string,
 	startTime time.Time,
@@ -2203,7 +2207,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewFullTimerEvent(
 		return &newTxtTimerLines, err
 	}
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			&newTxtTimerLines,
 			[]rune(labelLeftMarginChars),
@@ -2462,7 +2466,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewFullTimerEvent(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtSpecTimerLines TextLineSpecTimerLines) NewFullTimerEventRunes(
+func (txtSpecTimerLines *TextLineSpecTimerLines) NewFullTimerEventRunes(
 	labelLeftMarginChars []rune,
 	startTimeLabel []rune,
 	startTime time.Time,
@@ -2500,7 +2504,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewFullTimerEventRunes(
 		return &newTxtTimerLines, err
 	}
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			&newTxtTimerLines,
 			labelLeftMarginChars,
@@ -2745,7 +2749,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewFullTimerEventRunes(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (txtSpecTimerLines TextLineSpecTimerLines) NewShellTimerEvent(
+func (txtSpecTimerLines *TextLineSpecTimerLines) NewShellTimerEvent(
 	labelLeftMarginChars string,
 	startTimeLabel string,
 	endTimeLabel string,
@@ -2782,10 +2786,10 @@ func (txtSpecTimerLines TextLineSpecTimerLines) NewShellTimerEvent(
 	}
 
 	defaultTime :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTime()
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			&newTxtTimerLines,
 			[]rune(labelLeftMarginChars),
@@ -3208,10 +3212,10 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetDefaultFullTimerEvent(
 	}
 
 	timeDurationLabel :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTimeDurationLabel()
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			txtSpecTimerLines,
 			nil,
@@ -3321,14 +3325,14 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetDefaultShellTimerEvent() {
 	defer txtSpecTimerLines.lock.Unlock()
 
 	timeDurationLabel :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTimeDurationLabel()
 
 	defaultTime :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTime()
 
-	_ = textLineSpecTimerLinesMolecule{}.ptr().
+	_ = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			txtSpecTimerLines,
 			nil,
@@ -3474,7 +3478,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetEndTimeLabel(
 
 	lengthOfNewEndTimeLabel := len(endTimeLabel)
 
-	maxAllowableLabelLen := textLineSpecTimerLinesPreon{}.ptr().
+	maxAllowableLabelLen := new(textLineSpecTimerLinesPreon).
 		getMaximumTimerLabelLen()
 
 	if lengthOfNewEndTimeLabel > maxAllowableLabelLen {
@@ -3494,7 +3498,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetEndTimeLabel(
 	if lengthOfNewEndTimeLabel == 0 {
 
 		txtSpecTimerLines.endTimeLabel =
-			textLineSpecTimerLinesElectron{}.ptr().
+			new(textLineSpecTimerLinesElectron).
 				getDefaultEndTimeLabel()
 
 	}
@@ -3941,7 +3945,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetFullTimerEvent(
 		return err
 	}
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			txtSpecTimerLines,
 			[]rune(labelLeftMarginChars),
@@ -4240,7 +4244,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetFullTimerEventRunes(
 		return err
 	}
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			txtSpecTimerLines,
 			labelLeftMarginChars,
@@ -4551,7 +4555,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetLabelRightMarginChars(
 	if len(labelRightMarginChars) == 0 {
 
 		labelRightMarginCharsRunes =
-			textLineSpecTimerLinesElectron{}.ptr().
+			new(textLineSpecTimerLinesElectron).
 				getDefaultLabelRightMarginChars()
 
 	} else {
@@ -4843,10 +4847,10 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetShellTimerEvent(
 	}
 
 	defaultTime :=
-		textLineSpecTimerLinesElectron{}.ptr().
+		new(textLineSpecTimerLinesElectron).
 			getDefaultTime()
 
-	err = textLineSpecTimerLinesMolecule{}.ptr().
+	err = new(textLineSpecTimerLinesMolecule).
 		setTxtLineSpecTimerLines(
 			txtSpecTimerLines,
 			[]rune(labelLeftMarginChars),
@@ -5112,7 +5116,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetStartTimeLabel(
 
 	lengthOfNewStartTimeLabel := len(startTimeLabel)
 
-	maxAllowableLabelLen := textLineSpecTimerLinesPreon{}.ptr().
+	maxAllowableLabelLen := new(textLineSpecTimerLinesPreon).
 		getMaximumTimerLabelLen()
 
 	if lengthOfNewStartTimeLabel > maxAllowableLabelLen {
@@ -5131,7 +5135,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetStartTimeLabel(
 
 	if lengthOfNewStartTimeLabel == 0 {
 		txtSpecTimerLines.startTimeLabel =
-			textLineSpecTimerLinesElectron{}.ptr().
+			new(textLineSpecTimerLinesElectron).
 				getDefaultStartTimeLabel()
 	}
 
@@ -5477,7 +5481,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetTextLabelFieldLength(
 		return err
 	}
 
-	lenLongestLabel := textLineSpecTimerLinesElectron{}.ptr().
+	lenLongestLabel := new(textLineSpecTimerLinesElectron).
 		getLengthOfLongestLabel(
 			txtSpecTimerLines.endTimeLabel,
 			txtSpecTimerLines.startTimeLabel,
@@ -5654,7 +5658,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetTimeDurationLabel(
 
 	lengthOfNewTimeDurationLabel := len(timeDurationLabel)
 
-	maxAllowableLabelLen := textLineSpecTimerLinesPreon{}.ptr().
+	maxAllowableLabelLen := new(textLineSpecTimerLinesPreon).
 		getMaximumTimerLabelLen()
 
 	if lengthOfNewTimeDurationLabel > maxAllowableLabelLen {
@@ -5673,7 +5677,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetTimeDurationLabel(
 
 	if lengthOfNewTimeDurationLabel == 0 {
 		txtSpecTimerLines.timeDurationLabel =
-			textLineSpecTimerLinesElectron{}.ptr().
+			new(textLineSpecTimerLinesElectron).
 				getDefaultTimeDurationLabel()
 	}
 
@@ -5775,7 +5779,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetTimeFormat(
 	if len(timeFormat) == 0 {
 
 		txtSpecTimerLines.timeFormat =
-			textSpecificationMolecule{}.ptr().
+			new(textSpecificationMolecule).
 				getDefaultDateTimeFormat()
 
 	} else {
@@ -5803,9 +5807,9 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) SetTimeFormat(
 // TextLineSpecTimerLines.GetFormattedText() with the sole
 // difference being that this method does not return an error.
 //
-// This method fulfills requirements of the ITextLineSpecification
+// This method fulfills the requirements of the ITextLineSpecification
 // interface.
-func (txtSpecTimerLines TextLineSpecTimerLines) String() string {
+func (txtSpecTimerLines *TextLineSpecTimerLines) String() string {
 
 	if txtSpecTimerLines.lock == nil {
 		txtSpecTimerLines.lock = new(sync.Mutex)
@@ -5827,7 +5831,7 @@ func (txtSpecTimerLines TextLineSpecTimerLines) String() string {
 		err = new(textLineSpecTimerLinesMolecule).
 		getFormattedText(
 			&strBuilder,
-			&txtSpecTimerLines,
+			txtSpecTimerLines,
 			&ePrefix)
 
 	if err != nil {
@@ -5956,7 +5960,7 @@ func (txtSpecTimerLines *TextLineSpecTimerLines) TextBuilder(
 
 	_,
 		_,
-		err = textLineSpecTimerLinesMolecule{}.ptr().
+		err = new(textLineSpecTimerLinesMolecule).
 		getFormattedText(
 			strBuilder,
 			txtSpecTimerLines,

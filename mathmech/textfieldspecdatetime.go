@@ -3381,7 +3381,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) SetFieldLength(
 	}
 
 	err =
-		textFieldSpecLabelElectron{}.ptr().
+		new(textFieldSpecLabelElectron).
 			isFieldLengthValid(
 				fieldLen,
 				ePrefix.XCpy(

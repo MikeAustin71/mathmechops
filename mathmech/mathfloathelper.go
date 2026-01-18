@@ -268,7 +268,7 @@ func (mathFloatHelper *MathFloatHelper) FloatNumToIntFracRunes(
 //	https://oeis.org/A000796
 //	https://oeis.org/A000796/b000796.txt
 //
-//	If the user sets input parameter 'roundingType' to
+//	If the user sets the input parameter 'roundingType' to
 //	NumRoundType.NoRounding(), the entire 20,000
 //	fractional digits will be configured and returned
 //	as an instance of *big.Float.
@@ -408,7 +408,7 @@ func (mathFloatHelper *MathFloatHelper) FloatNumToIntFracRunes(
 //					Examples of HalfToOdd
 //
 //					HalfToOdd only applies to 0.5. Other numbers
-//					(not ending	in 0.5) round to nearest as usual.
+//					(not ending	in 0.5) round to the nearest as usual.
 //
 //					7.5 rounds down to 7 (because 7 is an odd number)
 //
@@ -604,7 +604,7 @@ func (mathFloatHelper *MathFloatHelper) FloatNumToIntFracRunes(
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
 func (mathFloatHelper *MathFloatHelper) PiTo20k(

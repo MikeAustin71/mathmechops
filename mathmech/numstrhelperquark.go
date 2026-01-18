@@ -813,7 +813,7 @@ func (nStrHelperQuark *numStrHelperQuark) extractNumRunes(
 			err
 	}
 
-	targetInputParms := CharSearchTargetInputParametersDto{}.New()
+	targetInputParms := new(CharSearchTargetInputParametersDto).New()
 
 	targetInputParms.TargetString = &targetSearchString
 

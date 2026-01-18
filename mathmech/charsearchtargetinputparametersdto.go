@@ -258,7 +258,7 @@ type CharSearchTargetInputParametersDto struct {
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) CopyIn(
@@ -380,7 +380,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) CopyIn(
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error occurs, the text value of input parameter
+//	     If an error occurs, the text value of the input parameter
 //	     'errorPrefix' will be inserted or prefixed at the
 //	     beginning of the error message.
 func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) CopyOut(
@@ -451,7 +451,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) Empty() {
 
 	searchTargetInputParmsDto.lock.Lock()
 
-	charSearchTargetInputParametersDtoAtom{}.ptr().
+	new(charSearchTargetInputParametersDtoAtom).
 		empty(searchTargetInputParmsDto)
 
 	searchTargetInputParmsDto.lock.Unlock()
@@ -541,7 +541,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) Equal(
 
 	defer searchTargetInputParmsDto.lock.Unlock()
 
-	return charSearchTargetInputParametersDtoAtom{}.ptr().
+	return new(charSearchTargetInputParametersDtoAtom).
 		equal(searchTargetInputParmsDto,
 			incomingTargetInputParms)
 }
@@ -765,7 +765,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) IsValidInst
 	defer searchTargetInputParmsDto.lock.Unlock()
 
 	isValid,
-		_ = charSearchTargetInputParametersDtoAtom{}.ptr().
+		_ = new(charSearchTargetInputParametersDtoAtom).
 		testValidityOfTargetInputParms(
 			searchTargetInputParmsDto,
 			nil)
@@ -880,7 +880,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) IsValidInst
 		return err
 	}
 	_,
-		err = charSearchTargetInputParametersDtoAtom{}.ptr().
+		err = new(charSearchTargetInputParametersDtoAtom).
 		testValidityOfTargetInputParms(
 			searchTargetInputParmsDto,
 			ePrefix.XCpy(
@@ -908,7 +908,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) IsValidInst
 //	     of type CharSearchTargetInputParametersDto. All member
 //	     variables are guaranteed to be set to their or
 //	     uninitialized states.
-func (searchTargetInputParmsDto CharSearchTargetInputParametersDto) New() CharSearchTargetInputParametersDto {
+func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) New() CharSearchTargetInputParametersDto {
 
 	if searchTargetInputParmsDto.lock == nil {
 		searchTargetInputParmsDto.lock = new(sync.Mutex)
@@ -1027,10 +1027,10 @@ func (searchTargetInputParmsDto CharSearchTargetInputParametersDto) New() CharSe
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (searchTargetInputParmsDto CharSearchTargetInputParametersDto) NewTargetString(
+func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) NewTargetString(
 	targetString *RuneArrayDto,
 	targetInputParametersName string,
 	targetStringStartingSearchIndex int,
@@ -1118,7 +1118,7 @@ func (searchTargetInputParmsDto CharSearchTargetInputParametersDto) NewTargetStr
 		targetStringSearchLength
 
 	_,
-		err = charSearchTargetInputParametersDtoAtom{}.ptr().
+		err = new(charSearchTargetInputParametersDtoAtom).
 		testValidityOfTargetInputParms(
 			&newEmptyTargetInputParms,
 			ePrefix.XCpy(

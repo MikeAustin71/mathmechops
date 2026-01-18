@@ -287,23 +287,6 @@ func (searchTargetInputParmsAtom *charSearchTargetInputParametersDtoAtom) equal(
 	return true
 }
 
-// ptr - Returns a pointer to a new instance of
-// charSearchTargetInputParametersDtoAtom.
-func (searchTargetInputParmsAtom charSearchTargetInputParametersDtoAtom) ptr() *charSearchTargetInputParametersDtoAtom {
-
-	if searchTargetInputParmsAtom.lock == nil {
-		searchTargetInputParmsAtom.lock = new(sync.Mutex)
-	}
-
-	searchTargetInputParmsAtom.lock.Lock()
-
-	defer searchTargetInputParmsAtom.lock.Unlock()
-
-	return &charSearchTargetInputParametersDtoAtom{
-		lock: new(sync.Mutex),
-	}
-}
-
 // testValidityOfTargetInputParms - Receives a pointer to an
 // instance of CharSearchTargetInputParametersDto,
 // 'targetInputParms', and performs a diagnostic analysis to

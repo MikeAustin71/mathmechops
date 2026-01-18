@@ -127,7 +127,7 @@ func (searchRunesResultsDtoNanobot *charSearchRuneArrayResultsDtoNanobot) copyIn
 		return err
 	}
 
-	charSearchRuneArrayResultsDtoAtom{}.ptr().
+	new(charSearchRuneArrayResultsDtoAtom).
 		empty(destinationRuneSearchResults)
 
 	destinationRuneSearchResults.SearchResultsName =
@@ -337,7 +337,7 @@ func (searchRunesResultsDtoNanobot *charSearchRuneArrayResultsDtoNanobot) copyOu
 		return deepCopyRuneSearchResults, err
 	}
 
-	charSearchRuneArrayResultsDtoAtom{}.ptr().
+	new(charSearchRuneArrayResultsDtoAtom).
 		empty(&deepCopyRuneSearchResults)
 
 	deepCopyRuneSearchResults.SearchResultsName =

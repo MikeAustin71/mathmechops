@@ -235,21 +235,21 @@ func (txtBuilderElectron *textStrBuilderElectron) writeLeftMargin(
 
 			return newCurrentLineLength, err
 
-		} else {
-			// MUST BE
-			// lenLeftMarginStr < netMaximumLength
-
-			strBuilder.WriteString(leftMarginStr)
-
-			newCurrentLineLength = lenLeftMarginStr
-
-			return newCurrentLineLength, err
-
 		}
+
+		// MUST BE
+		// lenLeftMarginStr < netMaximumLength
+
+		strBuilder.WriteString(leftMarginStr)
+
+		newCurrentLineLength = lenLeftMarginStr
+
+		return newCurrentLineLength, err
 
 	}
 
 	newCurrentLineLength = 0
+
 	return newCurrentLineLength, err
 }
 
@@ -499,20 +499,20 @@ func (txtBuilderElectron *textStrBuilderElectron) writeRightMargin(
 				lastWriteWasLineTerminator,
 				err
 
-		} else {
-			// MUST BE
-			// lenRightMarginStr < netMaximumLength
-
-			strBuilder.WriteString(rightMarginStr)
-
-			newCurrentLineLength = lenRightMarginStr
-
-			lastWriteWasLineTerminator = false
-
-			return newCurrentLineLength,
-				lastWriteWasLineTerminator,
-				err
 		}
+
+		// MUST BE
+		// lenRightMarginStr < netMaximumLength
+
+		strBuilder.WriteString(rightMarginStr)
+
+		newCurrentLineLength = lenRightMarginStr
+
+		lastWriteWasLineTerminator = false
+
+		return newCurrentLineLength,
+			lastWriteWasLineTerminator,
+			err
 
 	} // for lenRightMarginStr > 0
 
@@ -891,21 +891,20 @@ func (txtBuilderElectron *textStrBuilderElectron) writeText(
 				lastWriteWasLineTerminator,
 				err
 
-		} else {
-
-			// MUST BE
-			// lenTextStr < currLineNetMaxLen
-
-			strBuilder.WriteString(textStr)
-
-			newCurrentLineLength = lenTextStr
-
-			lastWriteWasLineTerminator = false
-
-			return newCurrentLineLength,
-				lastWriteWasLineTerminator,
-				err
 		}
+
+		// MUST BE
+		// lenTextStr < currLineNetMaxLen
+
+		strBuilder.WriteString(textStr)
+
+		newCurrentLineLength = lenTextStr
+
+		lastWriteWasLineTerminator = false
+
+		return newCurrentLineLength,
+			lastWriteWasLineTerminator,
+			err
 
 	} // for lenTextStr > 0
 

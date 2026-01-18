@@ -571,85 +571,83 @@ func (numStrKernelMech *numberStrKernelMechanics) compareNumStrKernels(
 
 			return comparisonValue, err
 
-		} else {
-			// MUST BE -
-			//	Number Sign is NumSignVal.Positive() OR
-			//	NumSignVal.Negative() AND the Number Signs
-			//	are equal.
+		}
+		// MUST BE -
+		//	Number Sign is NumSignVal.Positive() OR
+		//	NumSignVal.Negative() AND the Number Signs
+		//	are equal.
 
-			if numStrStats01.NumOfSignificantIntegerDigits >
-				numStrStats02.NumOfSignificantIntegerDigits {
+		if numStrStats01.NumOfSignificantIntegerDigits >
+			numStrStats02.NumOfSignificantIntegerDigits {
 
-				if numStrStats01.NumberSign == NumSignVal.Positive() {
+			if numStrStats01.NumberSign == NumSignVal.Positive() {
 
-					comparisonValue = 1
-
-				} else {
-					// MUST BE
-					// numStrStats01.NumberSign == NumSignVal.Negative()
-
-					comparisonValue = -1
-				}
-
-				return comparisonValue, err
-
-			} else if numStrStats01.NumOfSignificantIntegerDigits <
-				numStrStats02.NumOfSignificantIntegerDigits {
-
-				if numStrStats01.NumberSign == NumSignVal.Positive() {
-
-					comparisonValue = -1
-
-				} else {
-					// MUST BE
-					// numStrStats01.NumberSign == NumSignVal.Negative()
-
-					comparisonValue = 1
-				}
-
-				return comparisonValue, err
+				comparisonValue = 1
 
 			} else {
-				// MUST BE EQUAL Number Signs And EQUAL
-				//		Significant Integer Digits
-				// numStrStats01.NumOfSignificantIntegerDigits ==
-				// 		numStrStats02.NumOfSignificantIntegerDigits
+				// MUST BE
+				// numStrStats01.NumberSign == NumSignVal.Negative()
 
-				if numStrStats01.NumOfIntegerDigits ==
-					numStrStats02.NumOfIntegerDigits &&
-					numStrStats01.NumOfFractionalDigits ==
-						numStrStats02.NumOfFractionalDigits {
-					// Int and Frac arrays have equal lengths
-
-					comparisonValue,
-						err = new(numberStrKernelQuark).
-						compareNumStrKernelValues(
-							numStrKernel01,
-							numStrKernel02,
-							ePrefix.XCpy(
-								"numStrKernel01 vs "+
-									"numStrKernel02"))
-
-					return comparisonValue, err
-				}
-
-				// Int and Frac arrays have unequal lengths
-
-				comparisonValue,
-					err = new(numberStrKernelAtom).
-					prepareCompareNumStrKernels(
-						numStrKernel01,
-						numStrKernel02,
-						ePrefix.XCpy(
-							"numStrKernel01 vs "+
-								"numStrKernel02"))
-
-				return comparisonValue, err
+				comparisonValue = -1
 			}
 
+			return comparisonValue, err
+
+		} else if numStrStats01.NumOfSignificantIntegerDigits <
+			numStrStats02.NumOfSignificantIntegerDigits {
+
+			if numStrStats01.NumberSign == NumSignVal.Positive() {
+
+				comparisonValue = -1
+
+			} else {
+				// MUST BE
+				// numStrStats01.NumberSign == NumSignVal.Negative()
+
+				comparisonValue = 1
+			}
+
+			return comparisonValue, err
+
+		}
+		// MUST BE EQUAL Number Signs And EQUAL
+		//		Significant Integer Digits
+		// numStrStats01.NumOfSignificantIntegerDigits ==
+		// 		numStrStats02.NumOfSignificantIntegerDigits
+
+		if numStrStats01.NumOfIntegerDigits ==
+			numStrStats02.NumOfIntegerDigits &&
+			numStrStats01.NumOfFractionalDigits ==
+				numStrStats02.NumOfFractionalDigits {
+			// Int and Frac arrays have equal lengths
+
+			comparisonValue,
+				err = new(numberStrKernelQuark).
+				compareNumStrKernelValues(
+					numStrKernel01,
+					numStrKernel02,
+					ePrefix.XCpy(
+						"numStrKernel01 vs "+
+							"numStrKernel02"))
+
+			return comparisonValue, err
 		}
 
-	} // End Of
+		// Int and Frac arrays have unequal lengths
+
+		comparisonValue,
+			err = new(numberStrKernelAtom).
+			prepareCompareNumStrKernels(
+				numStrKernel01,
+				numStrKernel02,
+				ePrefix.XCpy(
+					"numStrKernel01 vs "+
+						"numStrKernel02"))
+
+		return comparisonValue, err
+
+	}
+	// End Of
 	// if numStrStats01.NumberSign == numStrStats02.NumberSign
 
 	// Number Signs Are NOT Equal

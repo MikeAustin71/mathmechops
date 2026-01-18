@@ -14,7 +14,7 @@ type charSearchResultsDtoElectron struct {
 //
 // Since member variable 'RemainderString' is a pointer to an
 // instance of RuneArrayDto, the 'RemainderString' pointer is
-// reset to 'nil'. This step is taken in order to preserve data
+// reset to 'nil'. This step is taken to preserve data
 // sharing in case another object also holds a pointer to that same
 // instance of RuneArrayDto.
 //
@@ -32,7 +32,7 @@ type charSearchResultsDtoElectron struct {
 // Return Values
 //
 //	NONE
-func (searchResultsDtoElectron charSearchResultsDtoElectron) emptyRemainderStrings(
+func (searchResultsDtoElectron *charSearchResultsDtoElectron) emptyRemainderStrings(
 	searchResultsDto *CharSearchResultsDto) {
 
 	if searchResultsDtoElectron.lock == nil {
@@ -58,7 +58,7 @@ func (searchResultsDtoElectron charSearchResultsDtoElectron) emptyRemainderStrin
 //
 // Since member variable 'ReplacementString' is a pointer to an
 // instance of RuneArrayDto, the 'ReplacementString' pointer is
-// reset to 'nil'. This step is taken in order to preserve data
+// reset to 'nil'. This step is taken to preserve data
 // sharing in case another object also holds a pointer to that same
 // instance of RuneArrayDto.
 //
@@ -76,7 +76,7 @@ func (searchResultsDtoElectron charSearchResultsDtoElectron) emptyRemainderStrin
 // Return Values
 //
 //	NONE
-func (searchResultsDtoElectron charSearchResultsDtoElectron) emptyReplacementStrings(
+func (searchResultsDtoElectron *charSearchResultsDtoElectron) emptyReplacementStrings(
 	searchResultsDto *CharSearchResultsDto) {
 
 	if searchResultsDtoElectron.lock == nil {
@@ -114,15 +114,15 @@ func (searchResultsDtoElectron charSearchResultsDtoElectron) emptyReplacementStr
 //
 //	searchResultsDto1          *CharSearchResultsDto
 //	   - An instance of CharSearchResultsDto. If the
-//	     internal member variable, 'RemainderString', will be
+//	     internal member variable, 'RemainderString', is
 //	     compared to the same internal member variable
-//	     ('RemainderString') in parameter 'searchResultsDto2' to
+//	     ('RemainderString') in the parameter 'searchResultsDto2' to
 //	     determine if the two Remainder Strings are equivalent.
 //
 //
 //	searchResultsDto2          *CharSearchResultsDto
 //	   - An instance of CharSearchResultsDto. If the internal
-//	     member variable, 'RemainderString', will be compared to
+//	     member variable, 'RemainderString', is compared to
 //	     the same internal member variable ('RemainderString') in
 //	     parameter 'searchResultsDto1' to determine if the two
 //	     Remainder Strings are equivalent.
@@ -140,7 +140,7 @@ func (searchResultsDtoElectron charSearchResultsDtoElectron) emptyReplacementStr
 //
 //	     If the two target strings are NOT equal, this method will
 //	     return a boolean value of 'false' to the calling function.
-func (searchResultsDtoElectron charSearchResultsDtoElectron) equalRemainderStrings(
+func (searchResultsDtoElectron *charSearchResultsDtoElectron) equalRemainderStrings(
 	searchResultsDto1 *CharSearchResultsDto,
 	searchResultsDto2 *CharSearchResultsDto) bool {
 
@@ -180,15 +180,15 @@ func (searchResultsDtoElectron charSearchResultsDtoElectron) equalRemainderStrin
 //
 //	searchResultsDto1          *CharSearchResultsDto
 //	   - An instance of CharSearchResultsDto. If the
-//	     internal member variable, 'ReplacementString', will be
+//	     internal member variable, 'ReplacementString', is
 //	     compared to the same internal member variable
-//	     ('ReplacementString') in parameter 'searchResultsDto2' to
+//	     ('ReplacementString') in the parameter 'searchResultsDto2' to
 //	     determine if the two Replacement Strings are equivalent.
 //
 //
 //	searchResultsDto2          *CharSearchResultsDto
 //	   - An instance of CharSearchResultsDto. If the internal
-//	     member variable, 'ReplacementString', will be compared to
+//	     member variable, 'ReplacementString', is compared to
 //	     the same internal member variable ('ReplacementString') in
 //	     parameter 'searchResultsDto1' to determine if the two
 //	     Replacement Strings are equivalent.
@@ -206,7 +206,7 @@ func (searchResultsDtoElectron charSearchResultsDtoElectron) equalRemainderStrin
 //
 //	     If the two target strings are NOT equal, this method will
 //	     return a boolean value of 'false' to the calling function.
-func (searchResultsDtoElectron charSearchResultsDtoElectron) equalReplacementStrings(
+func (searchResultsDtoElectron *charSearchResultsDtoElectron) equalReplacementStrings(
 	searchResultsDto1 *CharSearchResultsDto,
 	searchResultsDto2 *CharSearchResultsDto) bool {
 

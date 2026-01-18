@@ -387,7 +387,7 @@ func (searchRunesResultsDtoAtom *charSearchRuneArrayResultsDtoAtom) equal(
 
 // ptr - Returns a pointer to a new instance of
 // charSearchResultsDtoAtom.
-func (searchRunesResultsDtoAtom charSearchRuneArrayResultsDtoAtom) ptr() *charSearchRuneArrayResultsDtoAtom {
+func (searchRunesResultsDtoAtom *charSearchRuneArrayResultsDtoAtom) ptr() *charSearchRuneArrayResultsDtoAtom {
 
 	if searchRunesResultsDtoAtom.lock == nil {
 		searchRunesResultsDtoAtom.lock = new(sync.Mutex)

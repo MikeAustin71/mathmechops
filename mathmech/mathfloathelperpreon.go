@@ -216,11 +216,9 @@ func (floatHelperPreon *mathFloatHelperPreon) estimateDigitsToPrecision(
 
 		return precisionBits, err
 
-	} else {
-
-		precisionBits = uint(numOfPrecisionBitsUint64)
-
 	}
+
+	precisionBits = uint(numOfPrecisionBitsUint64)
 
 	return precisionBits, err
 }

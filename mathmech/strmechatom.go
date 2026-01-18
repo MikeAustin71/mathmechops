@@ -915,23 +915,21 @@ func (sMechAtom *strMechAtom) extractDataField(
 				goto cycleMainTargetLoop
 			}
 
-		} else {
+		}
 
-			for k := 0; k < lenTrailingFieldSeparators; k++ {
+		for k := 0; k < lenTrailingFieldSeparators; k++ {
 
-				idxTrailingFieldSep := strings.Index(targetStr[i:], trailingFieldSeparators[k])
+			idxTrailingFieldSep := strings.Index(targetStr[i:], trailingFieldSeparators[k])
 
-				if idxTrailingFieldSep != 0 {
-					continue
-				}
-
-				newDataDto.DataFieldTrailingDelimiter = trailingFieldSeparators[k]
-
-				newDataDto.DataFieldTrailingDelimType = DfTrailDelimiter.EndOfField()
-
-				goto exitMainTargetLoop
+			if idxTrailingFieldSep != 0 {
+				continue
 			}
 
+			newDataDto.DataFieldTrailingDelimiter = trailingFieldSeparators[k]
+
+			newDataDto.DataFieldTrailingDelimType = DfTrailDelimiter.EndOfField()
+
+			goto exitMainTargetLoop
 		}
 
 		if firstDataFieldIdx == -1 {

@@ -2,10 +2,11 @@ package mathmech
 
 import (
 	"fmt"
-	ePref "github.com/MikeAustin71/errpref"
 	"io"
 	"strings"
 	"sync"
+
+	ePref "github.com/MikeAustin71/errpref"
 )
 
 // TextLineSpecSolidLine - Used to create a solid line of text

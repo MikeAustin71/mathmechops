@@ -482,7 +482,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) Empty() {
 
 	runesSearchResultsDto.lock.Lock()
 
-	charSearchRuneArrayResultsDtoAtom{}.ptr().
+	new(charSearchRuneArrayResultsDtoAtom).
 		empty(runesSearchResultsDto)
 
 	runesSearchResultsDto.lock.Unlock()
@@ -537,7 +537,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) Equal(
 
 	defer runesSearchResultsDto.lock.Unlock()
 
-	return charSearchRuneArrayResultsDtoAtom{}.ptr().
+	return new(charSearchRuneArrayResultsDtoAtom).
 		equal(runesSearchResultsDto,
 			incomingRuneSearchResults)
 }
@@ -785,7 +785,7 @@ func (runesSearchResultsDto *CharSearchRuneArrayResultsDto) New() CharSearchRune
 
 	newRunesSearchResults := CharSearchRuneArrayResultsDto{}
 
-	charSearchRuneArrayResultsDtoAtom{}.ptr().
+	new(charSearchRuneArrayResultsDtoAtom).
 		empty(&newRunesSearchResults)
 
 	return newRunesSearchResults

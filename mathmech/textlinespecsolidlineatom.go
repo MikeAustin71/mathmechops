@@ -370,25 +370,24 @@ func (txtSolidLineAtom *textLineSpecSolidLineAtom) testValidityOfTextSpecSolidLi
 
 		return isValid, err
 
-	} else {
-		_,
-			err2 = sMechPreon.testValidityOfRuneCharArray(
+	}
+
+	_,
+		err2 = sMechPreon.testValidityOfRuneCharArray(
+		txtSolidLine.newLineChars,
+		nil)
+
+	if err2 != nil {
+
+		err = fmt.Errorf("%v\n"+
+			"Error: 'txtSolidLine.newLineChars' is invalid!\n"+
+			"txtSolidLine.newLineChars='%v'\n"+
+			"Error Msg: %v\n",
+			ePrefix.String(),
 			txtSolidLine.newLineChars,
-			nil)
+			err2.Error())
 
-		if err2 != nil {
-
-			err = fmt.Errorf("%v\n"+
-				"Error: 'txtSolidLine.newLineChars' is invalid!\n"+
-				"txtSolidLine.newLineChars='%v'\n"+
-				"Error Msg: %v\n",
-				ePrefix.String(),
-				txtSolidLine.newLineChars,
-				err2.Error())
-
-			return isValid, err
-		}
-
+		return isValid, err
 	}
 
 	isValid = true

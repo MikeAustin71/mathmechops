@@ -128,7 +128,7 @@ func (searchTestConfigNanobot *charSearchTestConfigDtoNanobot) copyIn(
 		return err
 	}
 
-	charSearchTestConfigDtoAtom{}.ptr().empty(
+	new(charSearchTestConfigDtoAtom).empty(
 		destinationTestCfgDto)
 
 	destinationTestCfgDto.TestInputParametersName =
@@ -282,7 +282,7 @@ func (searchTestConfigNanobot *charSearchTestConfigDtoNanobot) copyOut(
 		return deepCopySearchTestCfgDto, err
 	}
 
-	charSearchTestConfigDtoAtom{}.ptr().empty(
+	new(charSearchTestConfigDtoAtom).empty(
 		&deepCopySearchTestCfgDto)
 
 	deepCopySearchTestCfgDto.TestInputParametersName =
@@ -977,21 +977,4 @@ func (searchTestConfigNanobot *charSearchTestConfigDtoNanobot) getParameterTextL
 			"Final Text Output"))
 
 	return err
-}
-
-// ptr - Returns a pointer to a new instance of
-// charSearchTestConfigDtoNanobot.
-func (searchTestConfigNanobot charSearchTestConfigDtoNanobot) ptr() *charSearchTestConfigDtoNanobot {
-
-	if searchTestConfigNanobot.lock == nil {
-		searchTestConfigNanobot.lock = new(sync.Mutex)
-	}
-
-	searchTestConfigNanobot.lock.Lock()
-
-	defer searchTestConfigNanobot.lock.Unlock()
-
-	return &charSearchTestConfigDtoNanobot{
-		lock: new(sync.Mutex),
-	}
 }

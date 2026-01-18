@@ -117,7 +117,7 @@ func (txtFieldDateTimeNanobot *textFieldSpecDateTimeNanobot) copyIn(
 	}
 
 	_,
-		err = textFieldSpecDateTimeAtom{}.ptr().isValidTextFieldDateTime(
+		err = new(textFieldSpecDateTimeAtom).isValidTextFieldDateTime(
 		incomingDateTimeTxtField,
 		ePrefix.XCpy("testing incomingDateTimeTxtField"))
 
@@ -227,7 +227,7 @@ func (txtFieldDateTimeNanobot *textFieldSpecDateTimeNanobot) copyOut(
 	}
 
 	_,
-		err = textFieldSpecDateTimeAtom{}.ptr().isValidTextFieldDateTime(
+		err = new(textFieldSpecDateTimeAtom).isValidTextFieldDateTime(
 		dateTimeTxtField,
 		ePrefix.XCpy("testing validity of dateTimeTxtField"))
 
@@ -293,7 +293,7 @@ func (txtFieldDateTimeNanobot *textFieldSpecDateTimeNanobot) getFormattedText(
 	}
 
 	_,
-		err = textFieldSpecDateTimeAtom{}.ptr().
+		err = new(textFieldSpecDateTimeAtom).
 		isValidTextFieldDateTime(
 			dateTimeTxtField,
 			ePrefix.XCpy("testing validity of dateTimeTxtField"))
@@ -312,21 +312,4 @@ func (txtFieldDateTimeNanobot *textFieldSpecDateTimeNanobot) getFormattedText(
 			dateTimeTxtField.textJustification,
 			ePrefix.XCpy(
 				"dateTimeTxtField"))
-}
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecDateTimeNanobot.
-func (txtFieldDateTimeNanobot textFieldSpecDateTimeNanobot) ptr() *textFieldSpecDateTimeNanobot {
-
-	if txtFieldDateTimeNanobot.lock == nil {
-		txtFieldDateTimeNanobot.lock = new(sync.Mutex)
-	}
-
-	txtFieldDateTimeNanobot.lock.Lock()
-
-	defer txtFieldDateTimeNanobot.lock.Unlock()
-
-	return &textFieldSpecDateTimeNanobot{
-		lock: new(sync.Mutex),
-	}
 }

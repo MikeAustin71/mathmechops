@@ -136,20 +136,3 @@ func (searchTargetInputParmsElectron *charSearchTargetInputParametersDtoElectron
 	return targetInputParms1.TargetString.Equal(
 		targetInputParms2.TargetString)
 }
-
-// ptr - Returns a pointer to a new instance of
-// charSearchTargetInputParametersDtoElectron.
-func (searchTargetInputParmsElectron charSearchTargetInputParametersDtoElectron) ptr() *charSearchTargetInputParametersDtoElectron {
-
-	if searchTargetInputParmsElectron.lock == nil {
-		searchTargetInputParmsElectron.lock = new(sync.Mutex)
-	}
-
-	searchTargetInputParmsElectron.lock.Lock()
-
-	defer searchTargetInputParmsElectron.lock.Unlock()
-
-	return &charSearchTargetInputParametersDtoElectron{
-		lock: new(sync.Mutex),
-	}
-}

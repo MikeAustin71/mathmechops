@@ -1108,7 +1108,7 @@ func (txtFillerField *TextFieldSpecFiller) IsValidInstanceError(
 //	   - This parameter returns a new and empty concrete instance
 //	     of TextFieldSpecFiller. Member variable data values are
 //	     set to their initial or zero values.
-func (txtFillerField TextFieldSpecFiller) New() TextFieldSpecFiller {
+func (txtFillerField *TextFieldSpecFiller) New() TextFieldSpecFiller {
 
 	if txtFillerField.lock == nil {
 		txtFillerField.lock = new(sync.Mutex)
@@ -1152,7 +1152,7 @@ func (txtFillerField TextFieldSpecFiller) New() TextFieldSpecFiller {
 //	   - This parameter returns a pointer to a new, empty instance
 //	     of TextFieldSpecFiller. Member variable data values are
 //	     set to their initial or zero values.
-func (txtFillerField TextFieldSpecFiller) NewPtr() *TextFieldSpecFiller {
+func (txtFillerField *TextFieldSpecFiller) NewPtr() *TextFieldSpecFiller {
 
 	if txtFillerField.lock == nil {
 		txtFillerField.lock = new(sync.Mutex)
@@ -1303,7 +1303,7 @@ func (txtFillerField TextFieldSpecFiller) NewPtr() *TextFieldSpecFiller {
 //	 Filler Characters = "-*"
 //	 Filler Characters Repeat Count = 3
 //	 Formatted Text = "-*-*-*"
-func (txtFillerField TextFieldSpecFiller) NewPtrTextFiller(
+func (txtFillerField *TextFieldSpecFiller) NewPtrTextFiller(
 	fillerCharacters string,
 	fillerCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -1475,7 +1475,7 @@ func (txtFillerField TextFieldSpecFiller) NewPtrTextFiller(
 //	 Filler Character = '*'
 //	 Filler Characters Repeat Count = 3
 //	 Formatted Text = "***"
-func (txtFillerField TextFieldSpecFiller) NewPtrTextFillerRune(
+func (txtFillerField *TextFieldSpecFiller) NewPtrTextFillerRune(
 	fillerCharacter rune,
 	fillerCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -1653,7 +1653,7 @@ func (txtFillerField TextFieldSpecFiller) NewPtrTextFillerRune(
 //	 Filler Characters Array = []rune{'-','*'}
 //	 Filler Characters Repeat Count = 3
 //	 Formatted Text = "-*-*-*"
-func (txtFillerField TextFieldSpecFiller) NewPtrTextFillerRuneArray(
+func (txtFillerField *TextFieldSpecFiller) NewPtrTextFillerRuneArray(
 	fillerCharacters []rune,
 	fillerCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -1833,7 +1833,7 @@ func (txtFillerField TextFieldSpecFiller) NewPtrTextFillerRuneArray(
 //	 Filler Characters = "-*"
 //	 Filler Characters Repeat Count = 3
 //	 Formatted Text = "-*-*-*"
-func (txtFillerField TextFieldSpecFiller) NewTextFiller(
+func (txtFillerField *TextFieldSpecFiller) NewTextFiller(
 	fillerCharacters string,
 	fillerCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -2004,7 +2004,7 @@ func (txtFillerField TextFieldSpecFiller) NewTextFiller(
 //	 Filler Characters Array = '*'
 //	 Filler Characters Repeat Count = 3
 //	 Formatted Text = "***"
-func (txtFillerField TextFieldSpecFiller) NewTextFillerRune(
+func (txtFillerField *TextFieldSpecFiller) NewTextFillerRune(
 	fillerCharacter rune,
 	fillerCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -2181,7 +2181,7 @@ func (txtFillerField TextFieldSpecFiller) NewTextFillerRune(
 //	 Filler Characters Array = []rune{'-','*'}
 //	 Filler Characters Repeat Count = 3
 //	 Formatted Text = "-*-*-*"
-func (txtFillerField TextFieldSpecFiller) NewTextFillerRuneArray(
+func (txtFillerField *TextFieldSpecFiller) NewTextFillerRuneArray(
 	fillerCharacters []rune,
 	fillerCharsRepeatCount int,
 	errorPrefix interface{}) (
@@ -3168,7 +3168,7 @@ func (txtFillerField *TextFieldSpecFiller) SetTextFillerRuneArray(
 //	 Filler Characters Array = []rune{'-','*'}
 //	 Filler Characters Repeat Count = 3
 //	 Formatted Text = "-*-*-*"
-func (txtFillerField TextFieldSpecFiller) String() string {
+func (txtFillerField *TextFieldSpecFiller) String() string {
 
 	if txtFillerField.lock == nil {
 		txtFillerField.lock = new(sync.Mutex)
@@ -3185,7 +3185,7 @@ func (txtFillerField TextFieldSpecFiller) String() string {
 	result,
 		err := textFieldSpecFillerMolecule{}.ptr().
 		getFormattedText(
-			&txtFillerField,
+			txtFillerField,
 			&ePrefix)
 
 	if err != nil {

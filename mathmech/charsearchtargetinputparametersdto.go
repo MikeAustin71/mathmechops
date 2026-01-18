@@ -410,7 +410,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) CopyOut(
 	}
 
 	deepCopyTargetInputParms,
-		err = charSearchTargetInputParametersDtoNanobot{}.ptr().
+		err = new(charSearchTargetInputParametersDtoNanobot).
 		copyOut(
 			searchTargetInputParmsDto,
 			ePrefix.XCpy(
@@ -488,7 +488,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) EmptyTarget
 
 	defer searchTargetInputParmsDto.lock.Unlock()
 
-	charSearchTargetInputParametersDtoElectron{}.ptr().
+	new(charSearchTargetInputParametersDtoElectron).
 		emptyTargetStrings(searchTargetInputParmsDto)
 
 	return
@@ -598,7 +598,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) EqualTarget
 
 	defer searchTargetInputParmsDto.lock.Unlock()
 
-	return charSearchTargetInputParametersDtoElectron{}.ptr().
+	return new(charSearchTargetInputParametersDtoElectron).
 		equalTargetStrings(searchTargetInputParmsDto,
 			incomingTargetInputParms)
 }
@@ -704,7 +704,7 @@ func (searchTargetInputParmsDto *CharSearchTargetInputParametersDto) GetParamete
 
 	}
 
-	return charSearchTargetInputParametersDtoNanobot{}.ptr().
+	return new(charSearchTargetInputParametersDtoNanobot).
 		getParameterTextListing(
 			strBuilder,
 			searchTargetInputParmsDto,

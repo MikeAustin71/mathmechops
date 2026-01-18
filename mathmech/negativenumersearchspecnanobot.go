@@ -369,7 +369,7 @@ func (negNumSearchNanobot *negNumSignSearchNanobot) copyOut(
 
 	_,
 		err2 =
-		negNumSearchSpecAtom{}.ptr().
+		new(negNumSearchSpecAtom).
 			testValidityOfNegNumSearchSpec(
 				negNumSearchSpec,
 				nil)
@@ -970,23 +970,6 @@ func (negNumSearchNanobot *negNumSignSearchNanobot) getParameterTextListing(
 	return err
 }
 
-// ptr - Returns a pointer to a new instance of
-// negNumSignSearchNanobot.
-func (negNumSearchNanobot negNumSignSearchNanobot) ptr() *negNumSignSearchNanobot {
-
-	if negNumSearchNanobot.lock == nil {
-		negNumSearchNanobot.lock = new(sync.Mutex)
-	}
-
-	negNumSearchNanobot.lock.Lock()
-
-	defer negNumSearchNanobot.lock.Unlock()
-
-	return &negNumSignSearchNanobot{
-		lock: new(sync.Mutex),
-	}
-}
-
 // setLeadingNegNumSearchSpec - Receives an instance of
 // NegativeNumberSearchSpec and proceeds to configure that instance
 // as a Leading Negative Number Sign Specification. All internal
@@ -1461,7 +1444,7 @@ func (negNumSearchNanobot *negNumSignSearchNanobot) setTrailingNegNumSearchSpec(
 		return err
 	}
 
-	negNumSearchSpecAtom{}.ptr().empty(
+	new(negNumSearchSpecAtom).empty(
 		negNumSearchSpec)
 
 	sMechPreon := strMechPreon{}

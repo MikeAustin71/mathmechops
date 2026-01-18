@@ -134,7 +134,7 @@ func (txtFieldFillerMolecule *textFieldSpecFillerMolecule) copyIn(
 	}
 
 	// Setting zero length array to nil.
-	err = strMechPreon{}.ptr().copyRuneArrays(
+	err = new(strMechPreon).copyRuneArrays(
 		&targetTxtFiller.fillerCharacters,
 		&incomingTxtFiller.fillerCharacters,
 		true,
@@ -250,7 +250,7 @@ func (txtFieldFillerMolecule *textFieldSpecFillerMolecule) copyOut(
 	newTxtFieldFiller := TextFieldSpecFiller{}
 
 	// Set zero length array to nil = true
-	err = strMechPreon{}.ptr().copyRuneArrays(
+	err = new(strMechPreon).copyRuneArrays(
 		&newTxtFieldFiller.fillerCharacters,
 		&txtFieldFiller.fillerCharacters,
 		true,

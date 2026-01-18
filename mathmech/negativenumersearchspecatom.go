@@ -63,27 +63,10 @@ func (negNumSearchAtom *negNumSearchSpecAtom) empty(
 	negNumSearchSpec.leadingNegNumSignSymbols.Empty()
 	negNumSearchSpec.trailingNegNumSignSymbols.Empty()
 
-	negNumSearchSpecElectron{}.ptr().
+	new(negNumSearchSpecElectron).
 		emptyProcessingFlags(negNumSearchSpec)
 
 	return
-}
-
-// ptr - Returns a pointer to a new instance of
-// negNumSearchSpecAtom.
-func (negNumSearchAtom negNumSearchSpecAtom) ptr() *negNumSearchSpecAtom {
-
-	if negNumSearchAtom.lock == nil {
-		negNumSearchAtom.lock = new(sync.Mutex)
-	}
-
-	negNumSearchAtom.lock.Lock()
-
-	defer negNumSearchAtom.lock.Unlock()
-
-	return &negNumSearchSpecAtom{
-		lock: new(sync.Mutex),
-	}
 }
 
 // testValidityOfNegNumSearchSpec - Receives a pointer to an

@@ -5448,7 +5448,7 @@ func (txtSpecSolidLine *TextLineSpecSolidLine) SetSolidLineStrChars(
 
 	solidLineRunes := []rune(solidLineChars)
 
-	err = strMechPreon{}.ptr().copyRuneArrays(
+	err = new(strMechPreon).copyRuneArrays(
 		&txtSpecSolidLine.solidLineChars,
 		&solidLineRunes,
 		true,

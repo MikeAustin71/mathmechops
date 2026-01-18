@@ -72,23 +72,6 @@ func (negNumSearchColAtom *negNumSearchSpecCollectionAtom) empty(
 	return
 }
 
-// ptr - Returns a pointer to a new instance of
-// negNumSearchColAtom.
-func (negNumSearchColAtom negNumSearchSpecCollectionAtom) ptr() *negNumSearchSpecCollectionAtom {
-
-	if negNumSearchColAtom.lock == nil {
-		negNumSearchColAtom.lock = new(sync.Mutex)
-	}
-
-	negNumSearchColAtom.lock.Lock()
-
-	defer negNumSearchColAtom.lock.Unlock()
-
-	return &negNumSearchSpecCollectionAtom{
-		lock: new(sync.Mutex),
-	}
-}
-
 // testValidityOfNegNumSearchCol - Receives a pointer to an
 // instance of NegNumSearchSpecCollection and performs a diagnostic
 // analysis to determine if that instance is valid in all respects.

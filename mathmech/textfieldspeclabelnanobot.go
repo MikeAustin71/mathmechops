@@ -191,7 +191,7 @@ func (txtFieldLabelNanobot textFieldSpecLabelNanobot) setTextFieldLabel(
 		return err
 	}
 
-	err = strMechPreon{}.ptr().copyRuneArrays(
+	err = new(strMechPreon).copyRuneArrays(
 		&textFieldLabel.textLabel,
 		&textLabel,
 		true,

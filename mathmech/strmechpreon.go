@@ -1710,20 +1710,3 @@ func (sMechPreon *strMechPreon) testValidityOfRuneIntArray(
 
 	return isValid, err
 }
-
-// ptr - Returns a pointer to a new instance of
-// strMechPreon.
-func (sMechPreon strMechPreon) ptr() *strMechPreon {
-
-	if sMechPreon.lock == nil {
-		sMechPreon.lock = new(sync.Mutex)
-	}
-
-	sMechPreon.lock.Lock()
-
-	defer sMechPreon.lock.Unlock()
-
-	return &strMechPreon{
-		lock: new(sync.Mutex),
-	}
-}

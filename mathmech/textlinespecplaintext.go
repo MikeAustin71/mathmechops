@@ -816,7 +816,7 @@ func (plainTextLine *TextLineSpecPlainText) GetLeftMarginRunes() []rune {
 	var newLeftMarginChars []rune
 
 	err :=
-		strMechPreon{}.ptr().copyRuneArrays(
+		new(strMechPreon).copyRuneArrays(
 			&newLeftMarginChars,
 			&plainTextLine.leftMarginChars,
 			true,
@@ -902,7 +902,7 @@ func (plainTextLine *TextLineSpecPlainText) GetLineTerminationRunes() []rune {
 
 	var newLineChars []rune
 
-	err := strMechPreon{}.ptr().
+	err := new(strMechPreon).
 		copyRuneArrays(
 			&newLineChars,
 			&plainTextLine.newLineChars,
@@ -966,7 +966,7 @@ func (plainTextLine *TextLineSpecPlainText) GetRightMarginRunes() []rune {
 	var newRightMarginChars []rune
 
 	err :=
-		strMechPreon{}.ptr().copyRuneArrays(
+		new(strMechPreon).copyRuneArrays(
 			&newRightMarginChars,
 			&plainTextLine.rightMarginChars,
 			true,
@@ -4463,7 +4463,7 @@ func (plainTextLine *TextLineSpecPlainText) SetLeftMarginChars(
 
 	leftMarginRunes := []rune(leftMarginChars)
 
-	err = strMechPreon{}.ptr().
+	err = new(strMechPreon).
 		copyRuneArrays(
 			&plainTextLine.leftMarginChars,
 			&leftMarginRunes,
@@ -6229,7 +6229,7 @@ func (plainTextLine *TextLineSpecPlainText) SetRightMarginChars(
 
 	rightMarginRunes := []rune(rightMarginChars)
 
-	err = strMechPreon{}.ptr().
+	err = new(strMechPreon).
 		copyRuneArrays(
 			&plainTextLine.rightMarginChars,
 			&rightMarginRunes,
@@ -6556,7 +6556,7 @@ func (plainTextLine *TextLineSpecPlainText) SetTextRunes(
 	}
 
 	_,
-		err = strMechPreon{}.ptr().
+		err = new(strMechPreon).
 		testValidityOfRuneCharArray(
 			textRunes,
 			ePrefix.XCpy(

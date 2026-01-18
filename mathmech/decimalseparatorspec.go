@@ -1941,7 +1941,7 @@ func (decSeparatorSpec *DecimalSeparatorSpec) SearchForDecimalSeparator(
 		return decimalSearchResults, err
 	}
 
-	testInputParms := CharSearchTestInputParametersDto{}.New()
+	testInputParms := new(CharSearchTestInputParametersDto).New()
 	testInputParms.TestStringLength =
 		decSeparatorSpec.decimalSeparatorChars.GetRuneArrayLength()
 
@@ -1962,7 +1962,7 @@ func (decSeparatorSpec *DecimalSeparatorSpec) SearchForDecimalSeparator(
 		return decimalSearchResults, err
 	}
 
-	testConfigDto := CharSearchTestConfigDto{}.New()
+	testConfigDto := new(CharSearchTestConfigDto).New()
 	testConfigDto.TestStringName = "Decimal Separator"
 	testConfigDto.TestInputParametersName = "Decimal Separator Search Parameters"
 	testConfigDto.TestStringLengthName = "Decimal Separator Chars Length"

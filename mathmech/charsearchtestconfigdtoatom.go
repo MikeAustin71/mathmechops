@@ -268,20 +268,3 @@ func (searchTestConfigAtom *charSearchTestConfigDtoAtom) equal(
 
 	return true
 }
-
-// ptr - Returns a pointer to a new instance of
-// charSearchTestConfigDtoAtom.
-func (searchTestConfigAtom charSearchTestConfigDtoAtom) ptr() *charSearchTestConfigDtoAtom {
-
-	if searchTestConfigAtom.lock == nil {
-		searchTestConfigAtom.lock = new(sync.Mutex)
-	}
-
-	searchTestConfigAtom.lock.Lock()
-
-	defer searchTestConfigAtom.lock.Unlock()
-
-	return &charSearchTestConfigDtoAtom{
-		lock: new(sync.Mutex),
-	}
-}

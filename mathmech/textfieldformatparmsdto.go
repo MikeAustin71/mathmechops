@@ -102,7 +102,7 @@ func (txtFieldFmtParams *TextFieldFmtParamsDto) CopyIn(
 //	   - This parameter will return a deep copy of the current
 //	     TextFieldFmtParamsDto instance.
 func (txtFieldFmtParams *TextFieldFmtParamsDto) CopyOut() (
-	deepCopyTxtFieldParams TextFieldFmtParamsDto) {
+	deepCopyTxtFieldParams TextFieldFmtParamsDto, err error) {
 
 	if txtFieldFmtParams.lock == nil {
 		txtFieldFmtParams.lock = new(sync.Mutex)
@@ -112,13 +112,13 @@ func (txtFieldFmtParams *TextFieldFmtParamsDto) CopyOut() (
 
 	defer txtFieldFmtParams.lock.Unlock()
 
-	_ = textFieldFmtParamsDtoNanobot{}.ptr().
+	err = new(textFieldFmtParamsDtoNanobot).
 		copy(
 			&deepCopyTxtFieldParams,
 			txtFieldFmtParams,
 			nil)
 
-	return deepCopyTxtFieldParams
+	return deepCopyTxtFieldParams, err
 }
 
 // Empty - Resets all internal member variables for the current
@@ -154,7 +154,7 @@ func (txtFieldFmtParams *TextFieldFmtParamsDto) Empty() {
 
 	txtFieldFmtParams.lock.Lock()
 
-	textFieldFmtParamsDtoNanobot{}.ptr().
+	new(textFieldFmtParamsDtoNanobot).
 		empty(
 			txtFieldFmtParams)
 
@@ -209,7 +209,7 @@ func (txtFieldFmtParams *TextFieldFmtParamsDto) Equal(
 
 	defer txtFieldFmtParams.lock.Unlock()
 
-	return textFieldFmtParamsDtoNanobot{}.ptr().
+	return new(textFieldFmtParamsDtoNanobot).
 		equal(txtFieldFmtParams,
 			&incomingFieldParams)
 }
@@ -374,7 +374,7 @@ func (txtFmtParamsNanobot *textFieldFmtParamsDtoNanobot) equal(
 
 // ptr - Returns a pointer to a new instance of
 // textFieldFmtParamsDtoNanobot.
-func (txtFmtParamsNanobot textFieldFmtParamsDtoNanobot) ptr() *textFieldFmtParamsDtoNanobot {
+func (txtFmtParamsNanobot *textFieldFmtParamsDtoNanobot) ptr() *textFieldFmtParamsDtoNanobot {
 
 	if txtFmtParamsNanobot.lock == nil {
 		txtFmtParamsNanobot.lock = new(sync.Mutex)

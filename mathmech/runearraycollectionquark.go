@@ -163,7 +163,7 @@ func (runeArrayColQuark *runeArrayCollectionQuark) deleteCollectionElement(
 
 // ptr - Returns a pointer to a new instance of
 // runeArrayCollectionQuark.
-func (runeArrayColQuark runeArrayCollectionQuark) ptr() *runeArrayCollectionQuark {
+func (runeArrayColQuark *runeArrayCollectionQuark) ptr() *runeArrayCollectionQuark {
 
 	if runeArrayColQuark.lock == nil {
 		runeArrayColQuark.lock = new(sync.Mutex)

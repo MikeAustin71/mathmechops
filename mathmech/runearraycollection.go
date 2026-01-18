@@ -121,7 +121,7 @@ type RuneArrayCollection struct {
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (runeArrayCol *RuneArrayCollection) AddCollection(
@@ -1860,7 +1860,7 @@ func (runeArrayCol *RuneArrayCollection) AddRunesDefault(
 
 	var newRuneArrayDto RuneArrayDto
 
-	newRuneArrayDto = RuneArrayDto{}.NewRunesDefault(
+	newRuneArrayDto = new(RuneArrayDto).NewRunesDefault(
 		charArray)
 
 	runeArrayCol.runeArrayDtoCol =
@@ -2359,7 +2359,7 @@ func (runeArrayCol *RuneArrayCollection) DeleteCollectionElement(
 		return err
 	}
 
-	return runeArrayCollectionQuark{}.ptr().
+	return new(runeArrayCollectionQuark).
 		deleteCollectionElement(
 			runeArrayCol,
 			zeroBasedIndex,
@@ -2401,7 +2401,7 @@ func (runeArrayCol *RuneArrayCollection) Empty() {
 
 	runeArrayCol.lock.Lock()
 
-	runeArrayCollectionAtom{}.ptr().
+	new(runeArrayCollectionAtom).
 		empty(runeArrayCol)
 
 	runeArrayCol.lock.Unlock()
@@ -2457,7 +2457,7 @@ func (runeArrayCol *RuneArrayCollection) Equal(
 
 	defer runeArrayCol.lock.Unlock()
 
-	return runeArrayCollectionAtom{}.ptr().
+	return new(runeArrayCollectionAtom).
 		equal(
 			runeArrayCol,
 			incomingRuneArrayCol)
@@ -2824,7 +2824,7 @@ func (runeArrayCol *RuneArrayCollection) IsValidInstanceError(
 //	   - This method returns an empty an uninitialized instance of
 //	     RuneArrayCollection. The internal RuneArrayDto Collection
 //	     is empty.
-func (runeArrayCol RuneArrayCollection) New() RuneArrayCollection {
+func (runeArrayCol *RuneArrayCollection) New() RuneArrayCollection {
 
 	if runeArrayCol.lock == nil {
 		runeArrayCol.lock = new(sync.Mutex)
@@ -2836,7 +2836,7 @@ func (runeArrayCol RuneArrayCollection) New() RuneArrayCollection {
 
 	newRuneArrayCol := RuneArrayCollection{}
 
-	runeArrayCollectionAtom{}.ptr().
+	new(runeArrayCollectionAtom).
 		empty(&newRuneArrayCol)
 
 	return newRuneArrayCol
@@ -3069,7 +3069,7 @@ func (runeArrayCol RuneArrayCollection) New() RuneArrayCollection {
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (runeArrayCol RuneArrayCollection) NewColMemberString(
+func (runeArrayCol *RuneArrayCollection) NewColMemberString(
 	stringChars string,
 	description1 string,
 	description2 string,
@@ -3347,7 +3347,7 @@ func (runeArrayCol RuneArrayCollection) NewColMemberString(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (runeArrayCol RuneArrayCollection) NewColMemberRunes(
+func (runeArrayCol *RuneArrayCollection) NewColMemberRunes(
 	charArray []rune,
 	description1 string,
 	description2 string,
@@ -3508,7 +3508,7 @@ func (runeArrayCol *RuneArrayCollection) PeekAtFirstElement(
 	}
 
 	firstRuneArrayDto,
-		err = runeArrayCollectionAtom{}.ptr().
+		err = new(runeArrayCollectionAtom).
 		peekPopRuneArrayCol(
 			runeArrayCol,
 			0,
@@ -3647,7 +3647,7 @@ func (runeArrayCol *RuneArrayCollection) PeekAtIndexElement(
 	}
 
 	targetRuneArrayDto,
-		err = runeArrayCollectionAtom{}.ptr().
+		err = new(runeArrayCollectionAtom).
 		peekPopRuneArrayCol(
 			runeArrayCol,
 			zeroBasedIndex,
@@ -3780,7 +3780,7 @@ func (runeArrayCol *RuneArrayCollection) PeekAtLastElement(
 	}
 
 	lastRuneArrayDto,
-		err = runeArrayCollectionAtom{}.ptr().
+		err = new(runeArrayCollectionAtom).
 		peekPopRuneArrayCol(
 			runeArrayCol,
 			lastIdx,
@@ -3910,7 +3910,7 @@ func (runeArrayCol *RuneArrayCollection) PopFirstElement(
 	}
 
 	firstRuneArrayDto,
-		err = runeArrayCollectionAtom{}.ptr().
+		err = new(runeArrayCollectionAtom).
 		peekPopRuneArrayCol(
 			runeArrayCol,
 			0,
@@ -4060,7 +4060,7 @@ func (runeArrayCol *RuneArrayCollection) PopIndexElement(
 	}
 
 	targetRuneArrayDto,
-		err = runeArrayCollectionAtom{}.ptr().
+		err = new(runeArrayCollectionAtom).
 		peekPopRuneArrayCol(
 			runeArrayCol,
 			zeroBasedIndex,
@@ -4200,7 +4200,7 @@ func (runeArrayCol *RuneArrayCollection) PopLastElement(
 	}
 
 	lastRuneArrayDto,
-		err = runeArrayCollectionAtom{}.ptr().
+		err = new(runeArrayCollectionAtom).
 		peekPopRuneArrayCol(
 			runeArrayCol,
 			lastIdx,
@@ -4457,7 +4457,7 @@ func (runeArrayCol *RuneArrayCollection) SearchForTextCharacters(
 
 	var dtoSearchResults CharSearchRuneArrayResultsDto
 
-	testConfigDto := CharSearchTestConfigDto{}.New()
+	testConfigDto := new(CharSearchTestConfigDto).New()
 	testConfigDto.RequestFoundTestCharacters = true
 	for i := 0; i < lenRuneDtoCollection; i++ {
 
@@ -4663,7 +4663,7 @@ func (runeArrayCol *RuneArrayCollection) SetCollection(
 		}
 	}
 
-	runeArrayCollectionAtom{}.ptr().
+	new(runeArrayCollectionAtom).
 		empty(runeArrayCol)
 
 	runeArrayCol.runeArrayDtoCol =

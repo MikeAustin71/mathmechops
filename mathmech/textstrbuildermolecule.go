@@ -100,7 +100,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildFieldDateTimeWithDto(
 	var txtDateTimeField TextFieldSpecDateTime
 
 	txtDateTimeField,
-		err = TextFieldSpecDateTime{}.NewDateTimeField(
+		err = new(TextFieldSpecDateTime).NewDateTimeField(
 		dateTimeFieldDto.FieldDateTime,
 		dateTimeFieldDto.FieldLength,
 		dateTimeFormat,
@@ -226,7 +226,7 @@ func (txtBuilderMolecule *textStrBuilderMolecule) buildFieldFillerWithDto(
 	var txtFillerFieldSpec TextFieldSpecFiller
 
 	txtFillerFieldSpec,
-		err = TextFieldSpecFiller{}.NewTextFiller(
+		err = new(TextFieldSpecFiller).NewTextFiller(
 		fillerCharacters,
 		fillerFieldDto.FillerCharsRepeatCount,
 		ePrefix.XCpy(

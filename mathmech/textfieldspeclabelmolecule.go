@@ -131,7 +131,7 @@ func (txtFieldLabelMolecule *textFieldSpecLabelMolecule) copyTextFieldLabel(
 	destinationTxtFieldLabel.textLineReader = nil
 
 	// Set zero length arrays to nil == true
-	err = strMechPreon{}.ptr().copyRuneArrays(
+	err = new(strMechPreon).copyRuneArrays(
 		&destinationTxtFieldLabel.textLabel,
 		&sourceTxtFieldLabel.textLabel,
 		true,

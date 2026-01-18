@@ -699,7 +699,7 @@ func (sMechQuark *strMechQuark) equalRuneArraysNil(
 		return false
 	}
 
-	return strMechPreon{}.ptr().
+	return new(strMechPreon).
 		equalRuneArrays(
 			runeAryOne,
 			runeAryTwo)
@@ -1820,23 +1820,6 @@ func (sMechQuark *strMechQuark) makeSingleCharString(
 	}
 
 	return b.String(), nil
-}
-
-// ptr - Returns a pointer to a new instance of
-// strMechQuark.
-func (sMechQuark strMechQuark) ptr() *strMechQuark {
-
-	if sMechQuark.lock == nil {
-		sMechQuark.lock = new(sync.Mutex)
-	}
-
-	sMechQuark.lock.Lock()
-
-	defer sMechQuark.lock.Unlock()
-
-	return &strMechQuark{
-		lock: new(sync.Mutex),
-	}
 }
 
 // removeStringChar - Removes or deletes a specified character

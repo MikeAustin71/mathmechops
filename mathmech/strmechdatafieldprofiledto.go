@@ -36,7 +36,7 @@ func (dfProfile *DataFieldProfileDto) ConvertToErrorState() {
 
 // New - Creates and returns a new instance of DataFieldProfileDto
 // containing properly initialized internal data fields.
-func (dfProfile DataFieldProfileDto) New() DataFieldProfileDto {
+func (dfProfile *DataFieldProfileDto) New() DataFieldProfileDto {
 	newDataDto := DataFieldProfileDto{}
 	newDataDto.TargetStr = ""
 	newDataDto.TargetStrStartIndex = -1

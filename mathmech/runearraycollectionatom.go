@@ -345,7 +345,7 @@ func (runeArrayColAtom *runeArrayCollectionAtom) peekPopRuneArrayCol(
 	// popCollectionElement == true
 	// Now, Delete Array Element at
 	// Index == zeroBasedIndex
-	err = runeArrayCollectionQuark{}.ptr().deleteCollectionElement(
+	err = new(runeArrayCollectionQuark).deleteCollectionElement(
 		runeArrayCol,
 		zeroBasedIndex,
 		ePrefix.XCpy(
@@ -358,7 +358,7 @@ func (runeArrayColAtom *runeArrayCollectionAtom) peekPopRuneArrayCol(
 
 // ptr - Returns a pointer to a new instance of
 // runeArrayCollectionAtom.
-func (runeArrayColAtom runeArrayCollectionAtom) ptr() *runeArrayCollectionAtom {
+func (runeArrayColAtom *runeArrayCollectionAtom) ptr() *runeArrayCollectionAtom {
 
 	if runeArrayColAtom.lock == nil {
 		runeArrayColAtom.lock = new(sync.Mutex)

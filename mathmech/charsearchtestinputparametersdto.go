@@ -306,7 +306,7 @@ type CharSearchTestInputParametersDto struct {
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (testSearchInputParms *CharSearchTestInputParametersDto) CopyIn(
@@ -463,8 +463,7 @@ func (testSearchInputParms *CharSearchTestInputParametersDto) CopyOut(
 	}
 
 	deepCopyTestInputParms,
-		err = charSearchTestInputParametersDtoNanobot{}.
-		ptr().
+		err = new(charSearchTestInputParametersDtoNanobot).
 		copyOut(
 			testSearchInputParms,
 			ePrefix.XCpy(
@@ -549,7 +548,7 @@ func (testSearchInputParms *CharSearchTestInputParametersDto) EmptyTestString() 
 
 	defer testSearchInputParms.lock.Unlock()
 
-	charSearchTestInputParametersDtoElectron{}.ptr().
+	new(charSearchTestInputParametersDtoElectron).
 		emptyTestStrings(testSearchInputParms)
 
 	return
@@ -660,7 +659,7 @@ func (testSearchInputParms *CharSearchTestInputParametersDto) EqualTestStrings(
 
 	defer testSearchInputParms.lock.Unlock()
 
-	return charSearchTestInputParametersDtoElectron{}.ptr().
+	return new(charSearchTestInputParametersDtoElectron).
 		equalTestStrings(
 			testSearchInputParms,
 			incomingTestInputParms)
@@ -1095,7 +1094,7 @@ func (testSearchInputParms *CharSearchTestInputParametersDto) LoadTestConfigDto(
 
 // New - Returns a new uninitialized instance of
 // CharSearchTestInputParametersDto
-func (testSearchInputParms CharSearchTestInputParametersDto) New() CharSearchTestInputParametersDto {
+func (testSearchInputParms *CharSearchTestInputParametersDto) New() CharSearchTestInputParametersDto {
 
 	if testSearchInputParms.lock == nil {
 		testSearchInputParms.lock = new(sync.Mutex)
@@ -1150,7 +1149,7 @@ func (testSearchInputParms *CharSearchTestInputParametersDto) String() string {
 
 	strBuilder := strings.Builder{}
 
-	err = charSearchTestInputParametersDtoNanobot{}.ptr().
+	err = new(charSearchTestInputParametersDtoNanobot).
 		getParameterTextListing(
 			&strBuilder,
 			testSearchInputParms,

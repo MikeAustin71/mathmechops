@@ -58,7 +58,7 @@ func (searchTargetInputParmsAtom *charSearchTargetInputParametersDtoAtom) empty(
 
 	targetInputParms.TargetInputParametersName = ""
 
-	charSearchTargetInputParametersDtoElectron{}.ptr().
+	new(charSearchTargetInputParametersDtoElectron).
 		emptyTargetStrings(targetInputParms)
 
 	targetInputParms.TargetStringName = ""

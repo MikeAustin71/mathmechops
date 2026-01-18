@@ -2089,7 +2089,7 @@ func (strArrayDto *StringArrayDto) InsertAtIndex(
 //
 //		The internal string array maintained by this new
 //		instance is empty and set to 'nil'.
-func (strArrayDto StringArrayDto) New() StringArrayDto {
+func (strArrayDto *StringArrayDto) New() StringArrayDto {
 
 	if strArrayDto.lock == nil {
 		strArrayDto.lock = new(sync.Mutex)
@@ -2143,7 +2143,7 @@ func (strArrayDto StringArrayDto) New() StringArrayDto {
 //		- This method returns a new instance of StringArrayDto.
 //	      The internal string array maintained by this new
 //	      instance is empty and set to 'nil'.
-func (strArrayDto StringArrayDto) NewStringArray(
+func (strArrayDto *StringArrayDto) NewStringArray(
 	strArray []string,
 	desc1 string,
 	desc2 string) StringArrayDto {

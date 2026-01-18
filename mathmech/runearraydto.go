@@ -3011,12 +3011,12 @@ func (charsArrayDto *RuneArrayDto) NewRuneArrays(
 //
 //	This method returns a new instance of RuneArrayDto.
 //	The internal rune array is set according to text
-//	characters supplied by input parameter, 'runeChars'.
+//	characters supplied by the input parameter, 'runeChars'.
 //
 //	The Character Search type for the new
 //	RuneArrayDto is defaulted to:
 //		CharSearchType.LinearTargetStartingIndex()
-func (charsArrayDto RuneArrayDto) NewRunesDefault(
+func (charsArrayDto *RuneArrayDto) NewRunesDefault(
 	runeChars []rune) RuneArrayDto {
 
 	if charsArrayDto.lock == nil {

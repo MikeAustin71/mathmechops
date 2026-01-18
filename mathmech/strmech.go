@@ -815,7 +815,7 @@ func (sMech *StrMech) ConvertPrintableChars(
 	}
 
 	nonPrintableChars,
-		err = strMechQuark{}.ptr().convertPrintableChars(
+		err = new(strMechQuark).convertPrintableChars(
 		printableChars,
 		ePrefix)
 
@@ -980,7 +980,7 @@ func (sMech *StrMech) ConvertPrintableString(
 	}
 
 	nonPrintableChars,
-		err = strMechQuark{}.ptr().convertPrintableChars(
+		err = new(strMechQuark).convertPrintableChars(
 		printableString,
 		ePrefix)
 
@@ -1139,7 +1139,7 @@ func (sMech *StrMech) CopyRuneArrays(
 		return err
 	}
 
-	return strMechPreon{}.ptr().
+	return new(strMechPreon).
 		copyRuneArrays(
 			targetRuneArray,
 			sourceRuneArray,
@@ -1321,7 +1321,7 @@ func (sMech *StrMech) CutStringAtIndex(
 	cutStr,
 		remainderStr,
 		lenOfRemainderStr,
-		err = strMechElectron{}.ptr().cutStringAtIndex(
+		err = new(strMechElectron).cutStringAtIndex(
 		targetStr,
 		cutAtIndex,
 		ePrefix.XCpy(
@@ -1374,7 +1374,7 @@ func (sMech *StrMech) EqualRuneArrays(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechPreon{}.ptr().
+	return new(strMechPreon).
 		equalRuneArrays(
 			runeAryOne,
 			runeAryTwo)
@@ -1402,7 +1402,7 @@ func (sMech *StrMech) EqualRuneArraysNil(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		equalRuneArraysNil(
 			runeAryOne,
 			runeAryTwo)
@@ -2386,7 +2386,7 @@ func (sMech *StrMech) ExtractTextLines(
 	textLineStrs,
 		numOfTextLines,
 		remainderStr,
-		err = strMechNanobot{}.ptr().
+		err = new(strMechNanobot).
 		extractTextLines(
 			targetStr,
 			endOfLineDelimiters,
@@ -2655,7 +2655,7 @@ func (sMech *StrMech) FindLastNonSpaceChar(
 		return -99, err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		findLastNonSpaceChar(
 			targetStr,
 			startIdx,
@@ -2815,7 +2815,7 @@ func (sMech *StrMech) FindLastSpace(
 		return -99, err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		findLastSpace(
 			targetStr,
 			startIdx,
@@ -3005,7 +3005,7 @@ func (sMech *StrMech) FindLastWord(
 			err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		findLastWord(
 			targetStr,
 			startIndex,
@@ -3183,7 +3183,7 @@ func (sMech *StrMech) FindRunesInRunes(
 	}
 
 	foundIndex,
-		err = strMechPreon{}.ptr().findRunesInRunes(
+		err = new(strMechPreon).findRunesInRunes(
 		hostRunes,
 		hostStartIndex,
 		targetRunes,
@@ -3634,7 +3634,7 @@ func (sMech *StrMech) GetValidBytes(
 		return []byte{}, err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		getValidBytes(
 			targetBytes,
 			validBytes,
@@ -3914,7 +3914,7 @@ func (sMech *StrMech) GetValidString(
 		return "", err
 	}
 
-	return strMechElectron{}.ptr().
+	return new(strMechElectron).
 		getValidString(
 			targetStr,
 			validRunes,
@@ -4047,7 +4047,7 @@ func (sMech *StrMech) InsertStrAtIndex(
 		return "", err
 	}
 
-	return strMechElectron{}.ptr().insertStringAtIndex(
+	return new(strMechElectron).insertStringAtIndex(
 		targetStr,
 		insertStr,
 		targetStrIndex,
@@ -4346,7 +4346,7 @@ func (sMech *StrMech) IsTargetRunesIndex(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	isTargetRunesIndex = strMechPreon{}.ptr().
+	isTargetRunesIndex = new(strMechPreon).
 		isTargetRunesIndex(
 			hostRunes,
 			hostStartIndex,
@@ -4482,7 +4482,7 @@ func (sMech *StrMech) IsValidRuneCharArray(
 	}
 
 	isValid,
-		err = strMechPreon{}.ptr().
+		err = new(strMechPreon).
 		testValidityOfRuneCharArray(
 			charArray,
 			ePrefix)
@@ -4628,7 +4628,7 @@ func (sMech *StrMech) IsValidRuneIntArray(
 	}
 
 	isValid,
-		err = strMechPreon{}.ptr().
+		err = new(strMechPreon).
 		testValidityOfRuneIntArray(
 			intDigitsArray,
 			ePrefix)
@@ -4815,7 +4815,7 @@ func (sMech *StrMech) JustifyTextInStrField(
 		return "", err
 	}
 
-	return strMechNanobot{}.ptr().
+	return new(strMechNanobot).
 		justifyTextInStrField(
 			strToJustify,
 			fieldLen,
@@ -4835,7 +4835,7 @@ func (sMech *StrMech) LowerCaseFirstLetter(str string) string {
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		lowerCaseFirstLetter(str)
 }
 
@@ -4957,7 +4957,7 @@ func (sMech *StrMech) MakeSingleCharString(
 		return "", err
 	}
 
-	return strMechQuark{}.ptr().makeSingleCharString(
+	return new(strMechQuark).makeSingleCharString(
 		charRune,
 		strLen,
 		ePrefix)
@@ -5027,7 +5027,7 @@ func (sMech *StrMech) MakeSingleCharString(
 //	     If an operational error is encountered during processing,
 //	     this error return parameter will be populated with an
 //	     appropriate error message.
-func (sMech StrMech) Read(p []byte) (n int, err error) {
+func (sMech *StrMech) Read(p []byte) (n int, err error) {
 
 	if sMech.stringDataMutex == nil {
 		sMech.stringDataMutex = new(sync.Mutex)
@@ -5044,7 +5044,7 @@ func (sMech StrMech) Read(p []byte) (n int, err error) {
 	n,
 		err = new(strMechElectron).
 		readBytes(
-			&sMech,
+			sMech,
 			p,
 			&ePrefix)
 
@@ -5236,7 +5236,7 @@ func (sMech *StrMech) RemoveStringChar(
 		return newStr, numOfDeletions, err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		removeStringChar(
 			targetStr,
 			charToRemove,
@@ -5393,7 +5393,7 @@ func (sMech *StrMech) ReplaceBytes(
 		return []byte{}, err
 	}
 
-	return strMechElectron{}.ptr().replaceBytes(
+	return new(strMechElectron).replaceBytes(
 		targetBytes,
 		replacementBytes,
 		ePrefix)
@@ -5541,7 +5541,7 @@ func (sMech *StrMech) ReplaceMultipleStrs(
 		return "", err
 	}
 
-	return strMechElectron{}.ptr().
+	return new(strMechElectron).
 		replaceMultipleStrs(
 			targetStr,
 			replaceArray,
@@ -5777,7 +5777,7 @@ func (sMech *StrMech) ReplaceRunes(
 		return []rune{}, err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		replaceRunes(
 			targetRunes,
 			replacementRunes,
@@ -5923,7 +5923,7 @@ func (sMech *StrMech) ReplaceStringChar(
 		return "", -99, err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		replaceStringChar(
 			targetStr,
 			charToReplace,
@@ -6245,7 +6245,7 @@ func (sMech *StrMech) StrCenterInStrLeft(
 		return "", err
 	}
 
-	return strMechNanobot{}.ptr().
+	return new(strMechNanobot).
 		strCenterInStrLeft(
 			strToCenter,
 			fieldLen,
@@ -6389,7 +6389,7 @@ func (sMech *StrMech) StrCenterInStr(
 		return "", err
 	}
 
-	return strMechMolecule{}.ptr().
+	return new(strMechMolecule).
 		strCenterInStr(
 			strToCenter,
 			fieldLen,
@@ -6410,7 +6410,7 @@ func (sMech *StrMech) StrGetRuneCnt(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		getRuneCountInStr(targetStr)
 }
 
@@ -6428,7 +6428,7 @@ func (sMech *StrMech) StrGetCharCnt(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		getCharCountInStr(targetStr)
 }
 
@@ -6502,7 +6502,7 @@ func (sMech *StrMech) StripBadChars(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		stripBadChars(
 			targetStr,
 			badChars)
@@ -6592,7 +6592,7 @@ func (sMech *StrMech) StripLeadingChars(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		stripLeadingChars(
 			targetStr,
 			badChars)
@@ -6684,7 +6684,7 @@ func (sMech *StrMech) StripTrailingChars(
 
 	defer sMech.stringDataMutex.Unlock()
 
-	return strMechQuark{}.ptr().stripTrailingChars(
+	return new(strMechQuark).stripTrailingChars(
 		targetStr,
 		badChars)
 }
@@ -6823,7 +6823,7 @@ func (sMech *StrMech) StrLeftJustify(
 		return "", err
 	}
 
-	return strMechMolecule{}.ptr().
+	return new(strMechMolecule).
 		strLeftJustify(
 			strToJustify,
 			fieldLen,
@@ -6974,7 +6974,7 @@ func (sMech *StrMech) StrPadLeftToCenter(
 		return "", err
 	}
 
-	return strMechMolecule{}.ptr().
+	return new(strMechMolecule).
 		strPadLeftToCenter(
 			strToCenter,
 			fieldLen,
@@ -7123,7 +7123,7 @@ func (sMech *StrMech) StrRightJustify(
 		return "", err
 	}
 
-	return strMechMolecule{}.ptr().
+	return new(strMechMolecule).
 		strRightJustify(
 			strToJustify,
 			fieldLen,
@@ -7296,7 +7296,7 @@ func (sMech *StrMech) SwapRune(
 			err
 	}
 
-	return strMechQuark{}.ptr().swapRune(
+	return new(strMechQuark).swapRune(
 		targetStr,
 		oldRune,
 		newRune,
@@ -7436,7 +7436,7 @@ func (sMech *StrMech) TrimMultipleChars(
 		return "", err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		trimMultipleChars(
 			targetStr,
 			trimChar,
@@ -7545,7 +7545,7 @@ func (sMech *StrMech) TrimMultipleChars(
 //	            ePrefix)
 //
 //	result is now equal to "Hello WorlXd"
-func (sMech StrMech) TrimStringEnds(
+func (sMech *StrMech) TrimStringEnds(
 	targetStr string,
 	trimChar rune,
 	errorPrefix interface{}) (
@@ -7572,7 +7572,7 @@ func (sMech StrMech) TrimStringEnds(
 		return rStr, err
 	}
 
-	return strMechQuark{}.ptr().
+	return new(strMechQuark).
 		trimStringEnds(
 			targetStr,
 			trimChar,

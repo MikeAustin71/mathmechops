@@ -593,7 +593,7 @@ func (sMechAtom *strMechAtom) extractDataField(
 		"strMechAtom." +
 			"extractDataField()")
 
-	newDataDto := DataFieldProfileDto{}.New()
+	newDataDto := new(DataFieldProfileDto).New()
 	newDataDto.TargetStr = targetStr
 	newDataDto.TargetStrLength = len(targetStr)
 	newDataDto.TargetStrStartIndex = startIdx

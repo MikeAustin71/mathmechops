@@ -117,12 +117,12 @@ type NegNumSearchSpecCollection struct {
 //	err							error
 //
 //		If this method completes successfully and no errors
-//		are encountered this return value is set to 'nil'.
+//		are encountered, this return value is set to 'nil'.
 //		Otherwise, if errors are encountered, this return
 //		value will contain an appropriate error message.
 //
 //		If an error message is returned, the text value of
-//		input parameter 'errorPrefix' will be inserted or
+//		the input parameter 'errorPrefix' will be inserted or
 //		prefixed at	the beginning of the error message.
 func (negNumSignCol *NegNumSearchSpecCollection) AddLeadingNegNumSearchRunes(
 	leadingNegNumSignSymbols []rune,
@@ -154,7 +154,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) AddLeadingNegNumSearchRunes(
 
 	newLeadingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewLeadingNegNumSearchRunes(
+		new(NegativeNumberSearchSpec).NewLeadingNegNumSearchRunes(
 			leadingNegNumSignSymbols,
 			ePrefix.XCpy(
 				"newLeadingNegNumSign<-leadingNegNumSignSymbols"))
@@ -301,7 +301,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) AddLeadingNegNumSearchStr(
 
 	newLeadingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewLeadingNegNumSearchStr(
+		new(NegativeNumberSearchSpec).NewLeadingNegNumSearchStr(
 			leadingNegNumSignSymbols,
 			ePrefix.XCpy(
 				"newLeadingNegNumSign<-leadingNegNumSignSymbols"))
@@ -473,7 +473,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) AddLeadingAndTrailingNegNumSear
 
 	newLeadingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewLeadingAndTrailingNegNumSearchRunes(
+		new(NegativeNumberSearchSpec).NewLeadingAndTrailingNegNumSearchRunes(
 			leadingNegNumSignSymbols,
 			trailingNegNumSignSymbols,
 			ePrefix.XCpy(
@@ -644,7 +644,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) AddLeadingAndTrailingNegNumSear
 
 	newLeadingTrailingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewLeadingAndTrailingNegNumSearchStr(
+		new(NegativeNumberSearchSpec).NewLeadingAndTrailingNegNumSearchStr(
 			leadingNegNumSignSymbols,
 			trailingNegNumSignSymbols,
 			ePrefix.XCpy(
@@ -791,7 +791,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) AddTrailingNegNumSearchRunes(
 
 	newLeadingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewTrailingNegNumSearchRunes(
+		new(NegativeNumberSearchSpec).NewTrailingNegNumSearchRunes(
 			trailingNegNumSignSymbols,
 			ePrefix.XCpy(
 				"newLeadingNegNumSign<-trailingNegNumSignSymbols"))
@@ -937,7 +937,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) AddTrailingNegNumSearchStr(
 
 	newTrailingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewTrailingNegNumSearchStr(
+		new(NegativeNumberSearchSpec).NewTrailingNegNumSearchStr(
 			trailingNegNumSignSymbols,
 			ePrefix.XCpy(
 				"newTrailingNegNumSign"))
@@ -1284,7 +1284,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) IsValidInstanceError(
 	}
 
 	_,
-		err = negNumSearchSpecCollectionAtom{}.ptr().
+		err = new(negNumSearchSpecCollectionAtom).
 		testValidityOfNegNumSearchCol(
 			negNumSignCol,
 			ePrefix)
@@ -1354,7 +1354,7 @@ func (negNumSignCol *NegNumSearchSpecCollection) IsValidInstanceError(
 //		This method returns an unpopulated or empty instance of
 //		NegNumSearchSpecCollection. Thereafter, it is up to the
 //		user to add custom NegativeNumberSearchSpec objects.
-func (negNumSignCol NegNumSearchSpecCollection) New() NegNumSearchSpecCollection {
+func (negNumSignCol *NegNumSearchSpecCollection) New() NegNumSearchSpecCollection {
 
 	if negNumSignCol.lock == nil {
 		negNumSignCol.lock = new(sync.Mutex)
@@ -1364,12 +1364,12 @@ func (negNumSignCol NegNumSearchSpecCollection) New() NegNumSearchSpecCollection
 
 	defer negNumSignCol.lock.Unlock()
 
-	newNegNumSearchCol := NegNumSearchSpecCollection{}
+	newNegNumSearchCol := new(NegNumSearchSpecCollection)
 
 	new(negNumSearchSpecCollectionAtom).empty(
-		&newNegNumSearchCol)
+		newNegNumSearchCol)
 
-	return newNegNumSearchCol
+	return *newNegNumSearchCol
 }
 
 // NewUS - Returns an instance of NegNumSearchSpecCollection. This
@@ -1446,14 +1446,14 @@ func (negNumSignCol NegNumSearchSpecCollection) New() NegNumSearchSpecCollection
 //	err							error
 //
 //		If this method completes successfully and no errors
-//		are encountered this return value is set to 'nil'.
+//		are encountered, this return value is set to 'nil'.
 //		Otherwise, if errors are encountered, this return
 //		value will contain an appropriate error message.
 //
 //		If an error message is returned, the text value of
-//		input parameter 'errorPrefix' will be inserted or
+//		the input parameter 'errorPrefix' will be inserted or
 //		prefixed at	the beginning of the error message.
-func (negNumSignCol NegNumSearchSpecCollection) NewUS(
+func (negNumSignCol *NegNumSearchSpecCollection) NewUS(
 	errorPrefix interface{}) (
 	newNegNumSearchCol NegNumSearchSpecCollection,
 	err error) {
@@ -1486,7 +1486,7 @@ func (negNumSignCol NegNumSearchSpecCollection) NewUS(
 
 	newLeadingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewLeadingNegNumSearchRunes(
+		new(NegativeNumberSearchSpec).NewLeadingNegNumSearchRunes(
 			[]rune("-"),
 			ePrefix.XCpy(
 				"newLeadingNegNumSign<-[]rune(\"-\")"))
@@ -1503,7 +1503,7 @@ func (negNumSignCol NegNumSearchSpecCollection) NewUS(
 
 	newLeadingTrailingNegNumSign,
 		err =
-		NegativeNumberSearchSpec{}.NewLeadingAndTrailingNegNumSearchStr(
+		new(NegativeNumberSearchSpec).NewLeadingAndTrailingNegNumSearchStr(
 			"(",
 			")",
 			ePrefix.XCpy(

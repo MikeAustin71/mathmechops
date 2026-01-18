@@ -303,7 +303,7 @@ func (sMechNanobot *strMechNanobot) strCenterInStrLeft(
 				fieldLen)
 	}
 
-	pad, err := strMechMolecule{}.ptr().
+	pad, err := new(strMechMolecule).
 		strPadLeftToCenter(
 			strToCenter,
 			fieldLen,
@@ -627,21 +627,4 @@ func (sMechNanobot *strMechNanobot) justifyTextInStrField(
 	}
 
 	return justifiedStr, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// strMechNanobot.
-func (sMechNanobot strMechNanobot) ptr() *strMechNanobot {
-
-	if sMechNanobot.lock == nil {
-		sMechNanobot.lock = new(sync.Mutex)
-	}
-
-	sMechNanobot.lock.Lock()
-
-	defer sMechNanobot.lock.Unlock()
-
-	return &strMechNanobot{
-		lock: new(sync.Mutex),
-	}
 }

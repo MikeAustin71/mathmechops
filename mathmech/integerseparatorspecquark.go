@@ -110,7 +110,7 @@ func (nStrIntSepQuark *integerSeparatorSpecQuark) testValidityOfNumStrIntSeparat
 	}
 
 	isValid,
-		err = strMechPreon{}.ptr().
+		err = new(strMechPreon).
 		testValidityOfRuneCharArray(
 			nStrIntSep.intSeparatorChars,
 			ePrefix)

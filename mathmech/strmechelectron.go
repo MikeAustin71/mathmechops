@@ -551,23 +551,6 @@ func (sMechElectron *strMechElectron) insertStringAtIndex(
 		err
 }
 
-// ptr - Returns a pointer to a new instance of
-// strMechElectron.
-func (sMechElectron strMechElectron) ptr() *strMechElectron {
-
-	if sMechElectron.lock == nil {
-		sMechElectron.lock = new(sync.Mutex)
-	}
-
-	sMechElectron.lock.Lock()
-
-	defer sMechElectron.lock.Unlock()
-
-	return &strMechElectron{
-		lock: new(sync.Mutex),
-	}
-}
-
 // readBytes - Implements io.Reader interface. This method reads up
 // to len(p) bytes into byte array 'p'.
 //

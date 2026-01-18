@@ -180,20 +180,3 @@ func (txtFieldDateTimeAtom *textFieldSpecDateTimeAtom) isValidTextFieldDateTime(
 
 	return isValid, err
 }
-
-// ptr - Returns a pointer to a new instance of
-// textFieldSpecDateTimeAtom.
-func (txtFieldDateTimeAtom textFieldSpecDateTimeAtom) ptr() *textFieldSpecDateTimeAtom {
-
-	if txtFieldDateTimeAtom.lock == nil {
-		txtFieldDateTimeAtom.lock = new(sync.Mutex)
-	}
-
-	txtFieldDateTimeAtom.lock.Lock()
-
-	defer txtFieldDateTimeAtom.lock.Unlock()
-
-	return &textFieldSpecDateTimeAtom{
-		lock: new(sync.Mutex),
-	}
-}

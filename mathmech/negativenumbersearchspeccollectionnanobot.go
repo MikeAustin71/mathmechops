@@ -63,7 +63,7 @@ func (negNumSearchColNanobot negNumSearchSpecCollectionNanobot) copyIn(
 	var err2 error
 
 	_,
-		err2 = negNumSearchSpecCollectionAtom{}.ptr().
+		err2 = new(negNumSearchSpecCollectionAtom).
 		testValidityOfNegNumSearchCol(
 			incomingNegNumSearchCol,
 			nil)

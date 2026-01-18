@@ -5519,7 +5519,7 @@ func (numStrKernel *NumberStrKernel) NewParseFrenchNumberStr(
 		return numberStrSearchResults, nStrKernel, err
 	}
 
-	negativeNumSearchSpecs := NegNumSearchSpecCollection{}
+	negativeNumSearchSpecs := new(NegNumSearchSpecCollection)
 
 	err = negativeNumSearchSpecs.AddLeadingNegNumSearchStr(
 		"-",
@@ -5537,7 +5537,7 @@ func (numStrKernel *NumberStrKernel) NewParseFrenchNumberStr(
 		"rawNumStr",
 		startSearchIndex,
 		breakOnCharSearchLength,
-		negativeNumSearchSpecs,
+		*negativeNumSearchSpecs,
 		decSeparator,
 		numParsingTerminatorsCol,
 		requestRemainderString,
@@ -5876,7 +5876,7 @@ func (numStrKernel *NumberStrKernel) NewParseGermanNumberStr(
 		return numberStrSearchResults, nStrKernel, err
 	}
 
-	negativeNumSearchSpecs := NegNumSearchSpecCollection{}
+	negativeNumSearchSpecs := new(NegNumSearchSpecCollection)
 
 	err = negativeNumSearchSpecs.AddTrailingNegNumSearchStr(
 		"-",
@@ -5894,7 +5894,7 @@ func (numStrKernel *NumberStrKernel) NewParseGermanNumberStr(
 		"rawNumStr",
 		startSearchIndex,
 		breakOnCharSearchLength,
-		negativeNumSearchSpecs,
+		*negativeNumSearchSpecs,
 		decSeparator,
 		numParsingTerminatorsCol,
 		requestRemainderString,
@@ -7197,7 +7197,7 @@ func (numStrKernel *NumberStrKernel) NewParseUSNumberStr(
 		return numberStrSearchResults, nStrKernel, err
 	}
 
-	negativeNumSearchSpecs := NegNumSearchSpecCollection{}
+	negativeNumSearchSpecs := new(NegNumSearchSpecCollection)
 
 	err = negativeNumSearchSpecs.AddLeadingNegNumSearchStr(
 		"-",
@@ -7225,7 +7225,7 @@ func (numStrKernel *NumberStrKernel) NewParseUSNumberStr(
 		"rawNumStr",
 		startSearchIndex,
 		breakOnCharSearchLength,
-		negativeNumSearchSpecs,
+		*negativeNumSearchSpecs,
 		decSeparator,
 		numParsingTerminatorsCol,
 		requestRemainderString,

@@ -199,7 +199,7 @@ type NegativeNumberSearchSpec struct {
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (negNumSearchSpec *NegativeNumberSearchSpec) CopyIn(
@@ -342,7 +342,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) CopyOut(
 
 	copyOfNegNumSearchSpec,
 		err =
-		negNumSignSearchNanobot{}.ptr().
+		new(negNumSignSearchNanobot).
 			copyOut(
 				negNumSearchSpec,
 				ePrefix.XCpy(
@@ -382,7 +382,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) Empty() {
 
 	negNumSearchSpec.lock.Lock()
 
-	negNumSearchSpecAtom{}.ptr().empty(
+	new(negNumSearchSpecAtom).empty(
 		negNumSearchSpec)
 
 	negNumSearchSpec.lock.Unlock()
@@ -444,7 +444,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) EmptyProcessingFlags() {
 
 	defer negNumSearchSpec.lock.Unlock()
 
-	negNumSearchSpecElectron{}.ptr().emptyProcessingFlags(
+	new(negNumSearchSpecElectron).emptyProcessingFlags(
 		negNumSearchSpec)
 
 }
@@ -495,7 +495,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) Equal(
 
 	defer negNumSearchSpec.lock.Unlock()
 
-	return negNumSearchSpecElectron{}.ptr().equal(
+	return new(negNumSearchSpecElectron).equal(
 		negNumSearchSpec,
 		incomingNegNumSearchSpec)
 }
@@ -922,7 +922,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) IsValidInstance() bool {
 
 	isValid,
 		_ :=
-		negNumSearchSpecAtom{}.ptr().
+		new(negNumSearchSpecAtom).
 			testValidityOfNegNumSearchSpec(
 				negNumSearchSpec,
 				nil)
@@ -1134,7 +1134,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) IsValidInstanceError(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingNegNumSearchRunes(
+func (negNumSearchSpec *NegativeNumberSearchSpec) NewLeadingNegNumSearchRunes(
 	leadingNegNumSignSymbols []rune,
 	errorPrefix interface{}) (
 	newLeadingNegNumSignSpec NegativeNumberSearchSpec,
@@ -1270,10 +1270,10 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingNegNumSearchRunes(
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingNegNumSearchStr(
+func (negNumSearchSpec *NegativeNumberSearchSpec) NewLeadingNegNumSearchStr(
 	leadingNegNumSignSymbols string,
 	errorPrefix interface{}) (
 	newLeadingNegNumSignSpec NegativeNumberSearchSpec,
@@ -1428,7 +1428,7 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingNegNumSearchStr(
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSearchRunes(
+func (negNumSearchSpec *NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSearchRunes(
 	leadingNegNumSignSymbols []rune,
 	trailingNegNumSignSymbols []rune,
 	errorPrefix interface{}) (
@@ -1456,7 +1456,7 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSear
 		return leadingAndTrailingNegNumSignSpec, err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setLeadingAndTrailingNegNumSearchSpec(
 			&leadingAndTrailingNegNumSignSpec,
 			leadingNegNumSignSymbols,
@@ -1582,7 +1582,7 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSear
 //	     If an error message is returned, the text value of input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSearchStr(
+func (negNumSearchSpec *NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSearchStr(
 	leadingNegNumSignSymbols string,
 	trailingNegNumSignSymbols string,
 	errorPrefix interface{}) (
@@ -1610,7 +1610,7 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSear
 		return leadingAndTrailingNegNumSignSpec, err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setLeadingAndTrailingNegNumSearchSpec(
 			&leadingAndTrailingNegNumSignSpec,
 			[]rune(leadingNegNumSignSymbols),
@@ -1721,10 +1721,10 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewLeadingAndTrailingNegNumSear
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (negNumSearchSpec NegativeNumberSearchSpec) NewTrailingNegNumSearchRunes(
+func (negNumSearchSpec *NegativeNumberSearchSpec) NewTrailingNegNumSearchRunes(
 	trailingNegNumSignSymbols []rune,
 	errorPrefix interface{}) (
 	trailingNegNumSignSpec NegativeNumberSearchSpec,
@@ -1751,7 +1751,7 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewTrailingNegNumSearchRunes(
 		return trailingNegNumSignSpec, err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setTrailingNegNumSearchSpec(
 			&trailingNegNumSignSpec,
 			trailingNegNumSignSymbols,
@@ -1857,10 +1857,10 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewTrailingNegNumSearchRunes(
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
-func (negNumSearchSpec NegativeNumberSearchSpec) NewTrailingNegNumSearchStr(
+func (negNumSearchSpec *NegativeNumberSearchSpec) NewTrailingNegNumSearchStr(
 	trailingNegNumSignSymbols string,
 	errorPrefix interface{}) (
 	trailingNegNumSignSpec NegativeNumberSearchSpec,
@@ -1887,7 +1887,7 @@ func (negNumSearchSpec NegativeNumberSearchSpec) NewTrailingNegNumSearchStr(
 		return trailingNegNumSignSpec, err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setTrailingNegNumSearchSpec(
 			&trailingNegNumSignSpec,
 			[]rune(trailingNegNumSignSymbols),
@@ -2122,9 +2122,9 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SearchForNegNumSignSymbols(
 	searchResults.SearchResultsName =
 		"Negative Number Sign Symbol Search"
 
-	testConfigDto := CharSearchTestConfigDto{}.New()
+	testConfigDto := new(CharSearchTestConfigDto).New()
 
-	testInputParms := CharSearchTestInputParametersDto{}.New()
+	testInputParms := new(CharSearchTestInputParametersDto).New()
 
 	testInputParms.RequestRemainderString = false
 	testInputParms.RequestFoundTestCharacters = false
@@ -2828,7 +2828,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SetLeadingNegNumSearchStr(
 		return err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setLeadingNegNumSearchSpec(
 			negNumSearchSpec,
 			[]rune(leadingNegNumSignSymbols),
@@ -2984,7 +2984,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SetLeadingAndTrailingNegNumSea
 		return err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setLeadingAndTrailingNegNumSearchSpec(
 			negNumSearchSpec,
 			leadingNegNumSignSymbols,
@@ -3139,7 +3139,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SetLeadingAndTrailingNegNumSea
 		return err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setLeadingAndTrailingNegNumSearchSpec(
 			negNumSearchSpec,
 			[]rune(leadingNegNumSignSymbols),
@@ -3278,7 +3278,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SetTrailingNegNumSearchRunes(
 		return err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setTrailingNegNumSearchSpec(
 			negNumSearchSpec,
 			trailingNegNumSignSymbols,
@@ -3414,7 +3414,7 @@ func (negNumSearchSpec *NegativeNumberSearchSpec) SetTrailingNegNumSearchStr(
 		return err
 	}
 
-	err = negNumSignSearchNanobot{}.ptr().
+	err = new(negNumSignSearchNanobot).
 		setTrailingNegNumSearchSpec(
 			negNumSearchSpec,
 			[]rune(trailingNegNumSignSymbols),

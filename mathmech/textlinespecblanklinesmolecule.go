@@ -579,7 +579,7 @@ func (txtBlankLinesMolecule *textLineSpecBlankLinesMolecule) setTextLinesSpecBla
 
 	txtBlankLines.numBlankLines = numOfBlankLines
 
-	return strMechPreon{}.ptr().copyRuneArrays(
+	return new(strMechPreon).copyRuneArrays(
 		&txtBlankLines.newLineChars,
 		&newLineRunes,
 		true,

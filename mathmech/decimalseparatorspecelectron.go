@@ -37,7 +37,7 @@ func (decSepSpecElectron *decimalSepSpecElectron) equal(
 		return areEqual
 	}
 
-	areEqual = strMechPreon{}.ptr().
+	areEqual = new(strMechPreon).
 		equalRuneArrays(
 			decSepSpec01.decimalSeparatorChars.CharsArray,
 			decSepSpec02.decimalSeparatorChars.CharsArray)

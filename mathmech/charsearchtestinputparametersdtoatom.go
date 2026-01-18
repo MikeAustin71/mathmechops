@@ -58,7 +58,7 @@ func (searchTestInputParmsAtom charSearchTestInputParametersDtoAtom) empty(
 
 	testInputParms.TestInputParametersName = ""
 
-	charSearchTestInputParametersDtoElectron{}.ptr().
+	new(charSearchTestInputParametersDtoElectron).
 		emptyTestStrings(testInputParms)
 
 	testInputParms.TestStringName = ""

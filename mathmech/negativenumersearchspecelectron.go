@@ -129,20 +129,3 @@ func (negNumSearchElectron *negNumSearchSpecElectron) equal(
 
 	return true
 }
-
-// ptr - Returns a pointer to a new instance of
-// negNumSearchSpecElectron.
-func (negNumSearchElectron negNumSearchSpecElectron) ptr() *negNumSearchSpecElectron {
-
-	if negNumSearchElectron.lock == nil {
-		negNumSearchElectron.lock = new(sync.Mutex)
-	}
-
-	negNumSearchElectron.lock.Lock()
-
-	defer negNumSearchElectron.lock.Unlock()
-
-	return &negNumSearchSpecElectron{
-		lock: new(sync.Mutex),
-	}
-}

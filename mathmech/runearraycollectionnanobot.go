@@ -152,7 +152,7 @@ func (runeArrayColNanobot *runeArrayCollectionNanobot) copyIn(
 	// than zero.
 	lenSourceCol := len(sourceRuneArrayCol.runeArrayDtoCol)
 
-	runeArrayCollectionAtom{}.ptr().
+	new(runeArrayCollectionAtom).
 		empty(destinationRuneArrayCol)
 
 	destinationRuneArrayCol.runeArrayDtoCol =
@@ -294,7 +294,7 @@ func (runeArrayColNanobot *runeArrayCollectionNanobot) copyOut(
 	// than zero.
 	lenRuneArrayCol := len(runeArrayCol.runeArrayDtoCol)
 
-	runeArrayCollectionAtom{}.ptr().
+	new(runeArrayCollectionAtom).
 		empty(&deepCopyRuneArrayCol)
 
 	deepCopyRuneArrayCol.runeArrayDtoCol =
@@ -315,21 +315,4 @@ func (runeArrayColNanobot *runeArrayCollectionNanobot) copyOut(
 	}
 
 	return deepCopyRuneArrayCol, err
-}
-
-// ptr - Returns a pointer to a new instance of
-// runeArrayCollectionNanobot.
-func (runeArrayColNanobot runeArrayCollectionNanobot) ptr() *runeArrayCollectionNanobot {
-
-	if runeArrayColNanobot.lock == nil {
-		runeArrayColNanobot.lock = new(sync.Mutex)
-	}
-
-	runeArrayColNanobot.lock.Lock()
-
-	defer runeArrayColNanobot.lock.Unlock()
-
-	return &runeArrayCollectionNanobot{
-		lock: new(sync.Mutex),
-	}
 }

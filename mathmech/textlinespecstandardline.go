@@ -1593,7 +1593,7 @@ func (stdLine *TextLineSpecStandardLine) AddTextFieldDateTime(
 	var newDateTimeField *TextFieldSpecDateTime
 
 	newDateTimeField,
-		err = TextFieldSpecDateTime{}.NewPtrDateTimeField(
+		err = new(TextFieldSpecDateTime).NewPtrDateTimeField(
 		dateTime,
 		fieldLen,
 		dateTimeFormat,
@@ -1783,7 +1783,7 @@ func (stdLine *TextLineSpecStandardLine) AddTextFieldFiller(
 	var newFillerField *TextFieldSpecFiller
 
 	newFillerField,
-		err = TextFieldSpecFiller{}.NewPtrTextFiller(
+		err = new(TextFieldSpecFiller).NewPtrTextFiller(
 		fillerCharacters,
 		fillerCharsRepeatCount,
 		ePrefix)

@@ -493,7 +493,7 @@ func (txtLinesSpecCol *TextLineSpecLinesCollection) AddDateTimeLine(
 	var newTextFieldDateTime TextFieldSpecDateTime
 
 	newTextFieldDateTime,
-		err = TextFieldSpecDateTime{}.NewDateTimeField(
+		err = new(TextFieldSpecDateTime).NewDateTimeField(
 		dateTime,
 		textFieldLength,
 		dateTimeFormat,

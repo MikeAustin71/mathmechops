@@ -438,7 +438,7 @@ func (searchTargetInputParmsNanobot *charSearchTargetInputParametersDtoNanobot) 
 //	     If an error message is returned, the text value for input
 //	     parameter 'errPrefDto' (error prefix) will be prefixed or
 //	     attached at the beginning of the error message.
-func (searchTargetInputParmsNanobot charSearchTargetInputParametersDtoNanobot) getParameterTextListing(
+func (searchTargetInputParmsNanobot *charSearchTargetInputParametersDtoNanobot) getParameterTextListing(
 	strBuilder *strings.Builder,
 	targetInputParms *CharSearchTargetInputParametersDto,
 	errPrefDto *ePref.ErrPrefixDto) error {
@@ -1043,21 +1043,4 @@ func (searchTargetInputParmsNanobot charSearchTargetInputParametersDtoNanobot) g
 			"Final Text Output"))
 
 	return err
-}
-
-// ptr - Returns a pointer to a new instance of
-// charSearchTargetInputParametersDtoNanobot.
-func (searchTargetInputParmsNanobot charSearchTargetInputParametersDtoNanobot) ptr() *charSearchTargetInputParametersDtoNanobot {
-
-	if searchTargetInputParmsNanobot.lock == nil {
-		searchTargetInputParmsNanobot.lock = new(sync.Mutex)
-	}
-
-	searchTargetInputParmsNanobot.lock.Lock()
-
-	defer searchTargetInputParmsNanobot.lock.Unlock()
-
-	return &charSearchTargetInputParametersDtoNanobot{
-		lock: new(sync.Mutex),
-	}
 }

@@ -290,7 +290,7 @@ type CharSearchTestConfigDto struct {
 //	     if errors are encountered, this return value will contain
 //	     an appropriate error message.
 //
-//	     If an error message is returned, the text value of input
+//	     If an error message is returned, the text value of the input
 //	     parameter 'errorPrefix' will be inserted or prefixed at
 //	     the beginning of the error message.
 func (searchTestConfigDto *CharSearchTestConfigDto) CopyIn(
@@ -321,7 +321,7 @@ func (searchTestConfigDto *CharSearchTestConfigDto) CopyIn(
 
 	}
 
-	return charSearchTestConfigDtoNanobot{}.ptr().
+	return new(charSearchTestConfigDtoNanobot).
 		copyIn(
 			searchTestConfigDto,
 			sourceSearchTestCfgDto,
@@ -439,7 +439,7 @@ func (searchTestConfigDto *CharSearchTestConfigDto) CopyOut(
 	}
 
 	deepCopySearchTestCfgDto,
-		err = charSearchTestConfigDtoNanobot{}.ptr().
+		err = new(charSearchTestConfigDtoNanobot).
 		copyOut(
 			searchTestConfigDto,
 			ePrefix.XCpy(
@@ -485,7 +485,7 @@ func (searchTestConfigDto *CharSearchTestConfigDto) Empty() {
 
 	searchTestConfigDto.lock.Lock()
 
-	charSearchTestConfigDtoAtom{}.ptr().
+	new(charSearchTestConfigDtoAtom).
 		empty(searchTestConfigDto)
 
 	searchTestConfigDto.lock.Unlock()
@@ -541,7 +541,7 @@ func (searchTestConfigDto *CharSearchTestConfigDto) Equal(
 
 	defer searchTestConfigDto.lock.Unlock()
 
-	return charSearchTestConfigDtoAtom{}.ptr().equal(
+	return new(charSearchTestConfigDtoAtom).equal(
 		searchTestConfigDto,
 		incomingSearchTestConfigDto)
 }
@@ -648,7 +648,7 @@ func (searchTestConfigDto *CharSearchTestConfigDto) GetParameterTextListing(
 
 	}
 
-	return charSearchTestConfigDtoNanobot{}.ptr().
+	return new(charSearchTestConfigDtoNanobot).
 		getParameterTextListing(
 			strBuilder,
 			searchTestConfigDto,
@@ -679,7 +679,7 @@ func (searchTestConfigDto *CharSearchTestConfigDto) GetParameterTextListing(
 //	     in this new instance will be set to their zero or
 //	     uninitialized values. Array index data elements will be
 //	     set to minus one (-1).
-func (searchTestConfigDto CharSearchTestConfigDto) New() CharSearchTestConfigDto {
+func (searchTestConfigDto *CharSearchTestConfigDto) New() CharSearchTestConfigDto {
 
 	if searchTestConfigDto.lock == nil {
 		searchTestConfigDto.lock = new(sync.Mutex)
@@ -691,7 +691,7 @@ func (searchTestConfigDto CharSearchTestConfigDto) New() CharSearchTestConfigDto
 
 	newTestCfgDto := CharSearchTestConfigDto{}
 
-	charSearchTestConfigDtoAtom{}.ptr().empty(
+	new(charSearchTestConfigDtoAtom).empty(
 		&newTestCfgDto)
 
 	return newTestCfgDto

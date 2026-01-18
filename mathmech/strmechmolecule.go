@@ -12,23 +12,6 @@ type strMechMolecule struct {
 	lock *sync.Mutex
 }
 
-// ptr - Returns a pointer to a new instance of
-// strMechMolecule.
-func (sMechMolecule strMechMolecule) ptr() *strMechMolecule {
-
-	if sMechMolecule.lock == nil {
-		sMechMolecule.lock = new(sync.Mutex)
-	}
-
-	sMechMolecule.lock.Lock()
-
-	defer sMechMolecule.lock.Unlock()
-
-	return &strMechMolecule{
-		lock: new(sync.Mutex),
-	}
-}
-
 // strCenterInStr - returns a string which includes a left pad blank string plus
 // the original string ('strToCenter'), plus a right pad blank string.
 //

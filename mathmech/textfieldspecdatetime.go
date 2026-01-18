@@ -329,7 +329,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) CopyIn(
 		return err
 	}
 
-	return textFieldSpecDateTimeNanobot{}.ptr().
+	return new(textFieldSpecDateTimeNanobot).
 		copyIn(
 			txtDateTimeField,
 			incomingDateTimeTxtField,
@@ -434,7 +434,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) CopyOut(
 		return TextFieldSpecDateTime{}, err
 	}
 
-	return textFieldSpecDateTimeNanobot{}.ptr().
+	return new(textFieldSpecDateTimeNanobot).
 		copyOut(
 			txtDateTimeField,
 			ePrefix.XCpy("txtDateTimeField"))
@@ -549,7 +549,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) CopyOutITextField(
 	var newTxtDateTimeField TextFieldSpecDateTime
 
 	newTxtDateTimeField,
-		err = textFieldSpecDateTimeNanobot{}.ptr().
+		err = new(textFieldSpecDateTimeNanobot).
 		copyOut(
 			txtDateTimeField,
 			ePrefix.XCpy("txtDateTimeField"))
@@ -664,7 +664,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) CopyOutPtr(
 
 	newTxtDateTimeField,
 		err =
-		textFieldSpecDateTimeNanobot{}.ptr().
+		new(textFieldSpecDateTimeNanobot).
 			copyOut(
 				txtDateTimeField,
 				ePrefix.XCpy("txtDateTimeField"))
@@ -682,7 +682,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) Empty() {
 
 	txtDateTimeField.lock.Lock()
 
-	textFieldSpecDateTimeAtom{}.ptr().empty(
+	new(textFieldSpecDateTimeAtom).empty(
 		txtDateTimeField)
 
 	txtDateTimeField.lock.Unlock()
@@ -710,7 +710,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) Equal(
 
 	defer txtDateTimeField.lock.Unlock()
 
-	return textFieldSpecDateTimeAtom{}.ptr().equal(
+	return new(textFieldSpecDateTimeAtom).equal(
 		txtDateTimeField,
 		incomingTxtFieldDateTime)
 }
@@ -746,7 +746,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) EqualITextField(
 		return false
 	}
 
-	return textFieldSpecDateTimeAtom{}.ptr().equal(
+	return new(textFieldSpecDateTimeAtom).equal(
 		txtDateTimeField,
 		dateTimeTxtField)
 }
@@ -934,7 +934,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) GetFormattedStrLength() int {
 		"")
 
 	formattedTextStr,
-		err := textFieldSpecDateTimeNanobot{}.ptr().
+		err := new(textFieldSpecDateTimeNanobot).
 		getFormattedText(
 			txtDateTimeField,
 			ePrefix.XCpy(
@@ -1143,7 +1143,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) GetFormattedText(
 		return "", err
 	}
 
-	return textFieldSpecDateTimeNanobot{}.ptr().
+	return new(textFieldSpecDateTimeNanobot).
 		getFormattedText(
 			txtDateTimeField,
 			ePrefix)
@@ -1287,7 +1287,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) GetTextJustification() TextJustif
 //	     of TextFieldSpecDateTime are valid, this returned boolean
 //	     value is set to 'true'. If any data values are invalid,
 //	     this return parameter is set to 'false'.
-func (txtDateTimeField *TextFieldSpecDateTime) IsValidInstance() bool {
+func (txtDateTimeField *TextFieldSpecDateTime) IsValidInstance() (bool, error) {
 
 	if txtDateTimeField.lock == nil {
 		txtDateTimeField.lock = new(sync.Mutex)
@@ -1297,13 +1297,15 @@ func (txtDateTimeField *TextFieldSpecDateTime) IsValidInstance() bool {
 
 	defer txtDateTimeField.lock.Unlock()
 
+	var err error
+
 	isValid,
-		_ := textFieldSpecDateTimeAtom{}.ptr().
+		err := new(textFieldSpecDateTimeAtom).
 		isValidTextFieldDateTime(
 			txtDateTimeField,
 			nil)
 
-	return isValid
+	return isValid, err
 }
 
 // IsValidInstanceError - Performs a diagnostic review of the data
@@ -1398,7 +1400,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) IsValidInstanceError(
 	}
 
 	_,
-		err = textFieldSpecDateTimeAtom{}.ptr().
+		err = new(textFieldSpecDateTimeAtom).
 		isValidTextFieldDateTime(
 			txtDateTimeField,
 			ePrefix.XCpy(
@@ -1444,7 +1446,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) IsValidInstanceError(
 //	   - This parameter returns a new and empty concrete instance
 //	     of TextFieldSpecDateTime. Member variable data values are
 //	     set to their initial or zero values.
-func (txtDateTimeField TextFieldSpecDateTime) New() TextFieldSpecDateTime {
+func (txtDateTimeField *TextFieldSpecDateTime) New() TextFieldSpecDateTime {
 
 	if txtDateTimeField.lock == nil {
 		txtDateTimeField.lock = new(sync.Mutex)
@@ -1490,7 +1492,7 @@ func (txtDateTimeField TextFieldSpecDateTime) New() TextFieldSpecDateTime {
 //	   - This parameter returns a pointer to a new, empty instance
 //	     of TextFieldSpecDateTime. Member variable data values are
 //	     set to their initial or zero values.
-func (txtDateTimeField TextFieldSpecDateTime) NewPtr() *TextFieldSpecDateTime {
+func (txtDateTimeField *TextFieldSpecDateTime) NewPtr() *TextFieldSpecDateTime {
 
 	if txtDateTimeField.lock == nil {
 		txtDateTimeField.lock = new(sync.Mutex)
@@ -1895,7 +1897,7 @@ func (txtDateTimeField TextFieldSpecDateTime) NewPtr() *TextFieldSpecDateTime {
 //
 //	Result =
 //	   "  Thursday October 21, 2021 14:19:03.000000000 -0500 CDT  "
-func (txtDateTimeField TextFieldSpecDateTime) NewDateTimeField(
+func (txtDateTimeField *TextFieldSpecDateTime) NewDateTimeField(
 	dateTime time.Time,
 	textFieldLength int,
 	dateTimeFormat string,
@@ -2227,7 +2229,7 @@ func (txtDateTimeField TextFieldSpecDateTime) NewDateTimeField(
 //
 //	Result =
 //	   "  Thursday October 21, 2021 14:19:03.000000000 -0500 CDT  "
-func (txtDateTimeField TextFieldSpecDateTime) NewPtrDateTimeField(
+func (txtDateTimeField *TextFieldSpecDateTime) NewPtrDateTimeField(
 	dateTime time.Time,
 	fieldLen int,
 	dateTimeFormat string,
@@ -2246,7 +2248,7 @@ func (txtDateTimeField TextFieldSpecDateTime) NewPtrDateTimeField(
 
 	var ePrefix *ePref.ErrPrefixDto
 
-	newTextDateTime = TextFieldSpecDateTime{}.NewPtr()
+	newTextDateTime = new(TextFieldSpecDateTime).NewPtr()
 
 	ePrefix,
 		err = ePref.ErrPrefixDto{}.NewIEmpty(
@@ -2444,7 +2446,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) Read(
 
 		formattedText,
 			err =
-			textFieldSpecDateTimeNanobot{}.ptr().
+			new(textFieldSpecDateTimeNanobot).
 				getFormattedText(
 					txtDateTimeField,
 					ePrefix.XCpy(
@@ -3651,7 +3653,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) SetTextJustification(
 //	textJustification = TxtJustify.Center()
 //
 //	Result = "  2021-10-10 20:13:34.000000000 -0700 PDT  "
-func (txtDateTimeField TextFieldSpecDateTime) String() string {
+func (txtDateTimeField *TextFieldSpecDateTime) String() string {
 
 	if txtDateTimeField.lock == nil {
 		txtDateTimeField.lock = new(sync.Mutex)
@@ -3666,9 +3668,9 @@ func (txtDateTimeField TextFieldSpecDateTime) String() string {
 		"")
 
 	result,
-		err := textFieldSpecDateTimeNanobot{}.ptr().
+		err := new(textFieldSpecDateTimeNanobot).
 		getFormattedText(
-			&txtDateTimeField,
+			txtDateTimeField,
 			ePrefix.XCpy(
 				"txtDateTimeField"))
 
@@ -3798,7 +3800,7 @@ func (txtDateTimeField *TextFieldSpecDateTime) TextBuilder(
 	var formattedTxtStr string
 
 	formattedTxtStr,
-		err = textFieldSpecDateTimeNanobot{}.ptr().
+		err = new(textFieldSpecDateTimeNanobot).
 		getFormattedText(
 			txtDateTimeField,
 			ePrefix.XCpy(

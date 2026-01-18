@@ -810,7 +810,7 @@ func (txtStdLineNanobot *textLineSpecStandardLineNanobot) copyOut(
 
 	newStdLine.textLineReader = nil
 
-	err = strMechPreon{}.ptr().
+	err = new(strMechPreon).
 		copyRuneArrays(
 			&newStdLine.newLineChars,
 			&txtStdLine.newLineChars,

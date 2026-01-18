@@ -575,7 +575,7 @@ func (mathFloatHelper *MathFloatHelper) FloatNumToIntFracRunes(
 //				of strings containing error prefix
 //				and error context information.
 //
-//		If parameter 'errorPrefix' is NOT convertible
+//		If the parameter 'errorPrefix' is NOT convertible
 //		to one of the valid types listed above, it will
 //		be considered invalid and trigger the return of
 //		an error.
@@ -801,7 +801,7 @@ func (mathFloatHelper *MathFloatHelper) PiTo20k(
 //				of strings containing error prefix
 //				and error context information.
 //
-//		If parameter 'errorPrefix' is NOT convertible
+//		If the parameter 'errorPrefix' is NOT convertible
 //		to one of the valid types listed above, it will
 //		be considered invalid and trigger the return of
 //		an error.
@@ -816,7 +816,7 @@ func (mathFloatHelper *MathFloatHelper) PiTo20k(
 //
 //	precisionBits				uint
 //
-//		Precision bits defines the number of bits in the
+//		Precision bits define the number of bits in the
 //		mantissa of a big.Float numeric value. The number
 //		of precision bits controls the number of integer
 //		and fractional numeric digits that can be stored
@@ -825,7 +825,7 @@ func (mathFloatHelper *MathFloatHelper) PiTo20k(
 //		If this method completes successfully, the value
 //		returned will represent the estimated number of
 //		precision bits required to store and process
-//		the number of numerical digits specified by input
+//		the number of numerical digits specified by the input
 //		parameter, 'numNumericDigitsRequired'.
 //
 //		This estimate for precision bits has a margin of
@@ -984,7 +984,7 @@ func (mathFloatHelper *MathFloatHelper) DigitsToPrecisionEstimate(
 //				of strings containing error prefix
 //				and error context information.
 //
-//		If parameter 'errorPrefix' is NOT convertible
+//		If the parameter 'errorPrefix' is NOT convertible
 //		to one of the valid types listed above, it will
 //		be considered invalid and trigger the return of
 //		an error.
@@ -1016,7 +1016,7 @@ func (mathFloatHelper *MathFloatHelper) DigitsToPrecisionEstimate(
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
 func (mathFloatHelper *MathFloatHelper) PrecisionBitsFromRequiredDigits(
@@ -1115,7 +1115,7 @@ func (mathFloatHelper *MathFloatHelper) PrecisionBitsFromRequiredDigits(
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
 func (mathFloatHelper *MathFloatHelper) PrecisionToDigitsEstimate(
@@ -1188,7 +1188,7 @@ func (mathFloatHelper *MathFloatHelper) PrecisionToDigitsEstimate(
 //
 //	Bear in mind that this conversion factor may only be
 //	used to generate an estimate of numeric digits
-//	associated with a give precision bits value. This
+//	associated with a given precision bits value. This
 //	estimate may vary from the actual number of numeric
 //	digits. This estimate has a margin of error of plus
 //	or minus five (+ or - 3).
@@ -1241,7 +1241,7 @@ func (mathFloatHelper *MathFloatHelper) PrecisionToDigitsFactor() *big.Float {
 // strings.
 //
 // While this format is inconsistent with many national
-// and cultural formatting conventions, number strings
+// and cultural formatting conventions, the number of strings
 // which fail to implement this standardized formatting
 // protocol will generate errors in some Golang library
 // functions.
@@ -1295,7 +1295,7 @@ func (mathFloatHelper *MathFloatHelper) PrecisionToDigitsFactor() *big.Float {
 //
 //	If the Native Number String ('nativeNumStr') fails to
 //	comply with Native Number String formatting
-//	requirements try the following method as a means of
+//	 requirements, try the following method as a means of
 //	converting a 'dirty' number string to a valid Native
 //	Number String:
 //
@@ -1403,7 +1403,7 @@ func (mathFloatHelper *MathFloatHelper) PrecisionToDigitsFactor() *big.Float {
 //				of strings containing error prefix
 //				and error context information.
 //
-//		If parameter 'errorPrefix' is NOT convertible
+//		If the parameter 'errorPrefix' is NOT convertible
 //		to one of the valid types listed above, it will
 //		be considered invalid and trigger the return of
 //		an error.
@@ -1432,7 +1432,7 @@ func (mathFloatHelper *MathFloatHelper) PrecisionToDigitsFactor() *big.Float {
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		 the input parameter, 'errorPrefix'. The 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
 func (mathFloatHelper *MathFloatHelper) NativeNumStrToBigFloat(
@@ -1547,7 +1547,7 @@ func (mathFloatHelper *MathFloatHelper) NativeNumStrToBigFloat(
 //
 //	If the Native Number String ('nativeNumStr') fails to
 //	comply with Native Number String formatting
-//	requirements try the following method as a means of
+//	 requirements, try the following method as a means of
 //	converting a 'dirty' number string to a valid Native
 //	Number String:
 //
@@ -1618,20 +1618,20 @@ func (mathFloatHelper *MathFloatHelper) NativeNumStrToBigFloat(
 //		complex floating point operations, users have
 //		the option to arbitrarily increase the number
 //		of precision bits by specifying additional
-//		numeric digits via parameter,
+//		numeric digits via the parameter,
 //		'numOfExtraDigitsBuffer'.
 //
 //		Note: The user has the option of overriding the
 //		automatic precision bits calculation by specifying
-//		a precision bits value directly through parameter,
+//		a precision bits value directly through the parameter,
 //		'precisionBitsOverride'.
 //
 //	precisionBitsOverride		uint
 //
 //		The term 'precision bits' refers to the number of
 //		bits in the mantissa of a big.Float floating point
-//		number. Effectively, 'precision bits' controls the
-//		precision, accuracy and numerical digit storage
+//		number. Effectively, 'precision bits' control the
+//		precision, accuracy, and numerical digit storage
 //		capacity for a big.Float floating point number.
 //
 //		Typically, this method will automatically
@@ -1718,7 +1718,7 @@ func (mathFloatHelper *MathFloatHelper) NativeNumStrToBigFloat(
 //				of strings containing error prefix
 //				and error context information.
 //
-//		If parameter 'errorPrefix' is NOT convertible
+//		If the parameter 'errorPrefix' is NOT convertible
 //		to one of the valid types listed above, it will
 //		be considered invalid and trigger the return of
 //		an error.

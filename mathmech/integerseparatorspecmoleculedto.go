@@ -672,8 +672,8 @@ func (nStrIntSepMolecule *integerSeparatorSpecMolecule) equal(
 
 	if !isEqual {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: 'intSeparatorChars' member variables not equal.\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: 'intSeparatorChars' member variables not equal.\n",
 			ePrefix.String())
 
 		return isEqual, err
@@ -685,8 +685,8 @@ func (nStrIntSepMolecule *integerSeparatorSpecMolecule) equal(
 
 	if !isEqual {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: 'intSeparatorGrouping' member variables are not equal.\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: 'intSeparatorGrouping' member variables are not equal.\n",
 			ePrefix.String())
 
 		return isEqual, err
@@ -712,8 +712,8 @@ func (nStrIntSepMolecule *integerSeparatorSpecMolecule) equal(
 	if nStrIntSepOne.turnOffIntegerSeparation !=
 		nStrIntSepTwo.turnOffIntegerSeparation {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: 'turnOffIntegerSeparation' member variables are not equal.\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: 'turnOffIntegerSeparation' member variables are not equal.\n",
 			ePrefix.String())
 
 		return isEqual, err

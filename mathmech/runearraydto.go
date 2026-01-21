@@ -3397,10 +3397,10 @@ func (charsArrayDto *RuneArrayDto) NewNumStr(
 
 	if len(numStr) == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameter 'numStr' is invalid!\n" +
-			"'numStr' is an empty string and has a string\n" +
-			"length of zero (0).\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'numStr' is invalid!\n"+
+			"'numStr' is an empty string and has a string\n"+
+			"length of zero (0).\n",
 			ePrefix.String())
 
 		return newRuneArrayDto, err
@@ -3658,10 +3658,10 @@ func (charsArrayDto *RuneArrayDto) NewRunes(
 
 	if len(charArray) == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameter 'charArray' is invalid!\n" +
-			"'charArray' is an empty runes array and has an\n" +
-			"array length of zero (0).\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'charArray' is invalid!\n"+
+			"'charArray' is an empty runes array and has an\n"+
+			"array length of zero (0).\n",
 			ePrefix.String())
 
 		return newRuneArrayDto, err
@@ -3958,10 +3958,10 @@ func (charsArrayDto *RuneArrayDto) NewRunesAllParams(
 
 	if len(charArray) == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameter 'charArray' is invalid!\n" +
-			"'charArray' is an empty runes array and has an\n" +
-			"array length of zero (0).\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'charArray' is invalid!\n"+
+			"'charArray' is an empty runes array and has an\n"+
+			"array length of zero (0).\n",
 			ePrefix.String())
 
 		return newRuneArrayDto, err
@@ -4242,10 +4242,10 @@ func (charsArrayDto *RuneArrayDto) NewRunesPtr(
 
 	if len(charArray) == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameter 'charArray' is invalid!\n" +
-			"'charArray' is an empty runes array and has an\n" +
-			"array length of zero (0).\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'charArray' is invalid!\n"+
+			"'charArray' is an empty runes array and has an\n"+
+			"array length of zero (0).\n",
 			ePrefix.String())
 
 		return newRuneArrayDto, err
@@ -4546,10 +4546,10 @@ func (charsArrayDto *RuneArrayDto) NewString(
 
 	if len(stringChars) == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameter 'stringChars' is invalid!\n" +
-			"'stringChars' is an empty string and has a string\n" +
-			"length of zero (0).\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'stringChars' is invalid!\n"+
+			"'stringChars' is an empty string and has a string\n"+
+			"length of zero (0).\n",
 			ePrefix.String())
 
 		return newRuneArrayDto, err
@@ -5014,10 +5014,10 @@ func (charsArrayDto *RuneArrayDto) NewStringAllParams(
 
 	if len(stringChars) == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameter 'stringChars' is invalid!\n" +
-			"'stringChars' is an empty string and has a string\n" +
-			"length of zero (0).\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'stringChars' is invalid!\n"+
+			"'stringChars' is an empty string and has a string\n"+
+			"length of zero (0).\n",
 			ePrefix.String())
 
 		return newRuneArrayDto, err
@@ -5297,10 +5297,10 @@ func (charsArrayDto *RuneArrayDto) NewStringPtr(
 
 	if len(stringChars) == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameter 'stringChars' is invalid!\n" +
-			"'stringChars' is an empty string and has a string\n" +
-			"length of zero (0).\n" +
+		err = fmt.Errorf("%v\n"+
+			"Error: Input parameter 'stringChars' is invalid!\n"+
+			"'stringChars' is an empty string and has a string\n"+
+			"length of zero (0).\n",
 			ePrefix.String())
 
 		return newRuneArrayDto, err

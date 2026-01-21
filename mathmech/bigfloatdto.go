@@ -28,31 +28,31 @@ type BigFloatDto struct {
 	//
 	//				type NumberStrStatsDto struct {
 	//
-	//				NumOfIntegerDigits					uint64
+	//				NumOfIntegerDigits uint64
 	//
 	//					The total number of integer digits to the
 	//					left of the radix point or, decimal point, in
 	//					the subject numeric value.
 	//
-	//				NumOfSignificantIntegerDigits		uint64
+	//				NumOfSignificantIntegerDigits uint64
 	//
 	//					The number of nonzero integer digits to the
 	//					left of the radix point or, decimal point, in
 	//					the subject numeric value.
 	//
-	//				NumOfFractionalDigits				uint64
+	//				NumOfFractionalDigits uint64
 	//
 	//					The total number of fractional digits to the
 	//					right of the radix point or, decimal point,
 	//					in the subject numeric value.
 	//
-	//				NumOfSignificantFractionalDigits	uint64
+	//				NumOfSignificantFractionalDigits uint64
 	//
 	//					The number of nonzero fractional digits to
 	//					the right of the radix point or, decimal
 	//					point, in the subject numeric value.
 	//
-	//				NumberValueType 					NumericValueType
+	//				NumberValueType NumericValueType
 	//
 	//					This enumeration value specifies whether the
 	//					subject numeric value is classified either as
@@ -64,7 +64,7 @@ type BigFloatDto struct {
 	//						NumValType.FloatingPoint()
 	//						NumValType.Integer()
 	//
-	//				NumberSign							NumericSignValueType
+	//				NumberSign NumericSignValueType
 	//
 	//					An enumeration specifying the number sign
 	//					associated with the numeric value. Possible

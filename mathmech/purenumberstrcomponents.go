@@ -18,31 +18,31 @@ type PureNumberStrComponents struct {
 	//
 	//		type NumberStrStatsDto struct {
 	//
-	//		NumOfIntegerDigits					uint64
+	//		NumOfIntegerDigits uint64
 	//
 	//			The total number of integer digits to the
 	//			left of the radix point or, decimal point, in
 	//			the subject number string.
 	//
-	//		NumOfSignificantIntegerDigits		uint64
+	//		NumOfSignificantIntegerDigits uint64
 	//
 	//			The number of integer digits to the left of
 	//			the radix point, excluding leading zeros, in
 	//			the subject number string.
 	//
-	//		NumOfFractionalDigits				uint64
+	//		NumOfFractionalDigits	uint64
 	//
 	//			The total number of fractional digits to the
 	//			right of the radix point or, decimal point,
 	//			in the subject number string.
 	//
-	//		NumOfSignificantFractionalDigits	uint64
+	//		NumOfSignificantFractionalDigits uint64
 	//
 	//			The number of fractional digits to the right
 	//			of the radix point, excluding trailing zeros,
 	//			in the subject number string.
 	//
-	//		NumberValueType 					NumericValueType
+	//		NumberValueType NumericValueType
 	//
 	//			This enumeration value specifies whether the
 	//			subject numeric value is classified either as

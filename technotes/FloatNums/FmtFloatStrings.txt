@@ -1,0 +1,10 @@
+
+==============================
+Formatting Float32 as a string
+==============================
+strconv.FormatFloat(float64(originalFloat32), 'f', originalFloat32PrecisionInt, 32)
+
+==============================
+Formatting Float64 as a string
+==============================
+strconv.FormatFloat(originalNumFloat64, 'f', originalNumFloat64PrecisionInt, 64)

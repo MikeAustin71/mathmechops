@@ -3863,6 +3863,15 @@ func TestNumberStrKernel_GetIntFracDigitsStr_000100(t *testing.T) {
 		err = nStrKernel04.GetNumberSign(
 		ePrefix.XCpy("Test #4A nStrKernel04"))
 
+	if err != nil {
+		t.Errorf("%v\n"+
+			"Error returned by:\n"+
+			"numValue, err = nStrKernel04.GetNumberSign(\n"+
+			"  ePrefix.XCpy(\"Test #4A nStrKernel04\"))\n"+
+			"Error= '%v'\n\n", ePrefix, err.Error())
+		return
+	}
+
 	if numValue != NumSignVal.Zero() {
 
 		t.Errorf("\n%v\n"+

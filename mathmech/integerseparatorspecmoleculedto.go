@@ -32,7 +32,7 @@ type integerSeparatorSpecMolecule struct {
 //
 //	European Example: 1.000.000.000
 //
-// Other countries and cultures use spaces, apostrophes or
+// Other countries and cultures use spaces, apostrophes, or
 // multiple characters to separate integers.
 //
 // This method receives an array of runes which consists

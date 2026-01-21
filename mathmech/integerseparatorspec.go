@@ -26,7 +26,7 @@ import (
 //
 //	Other countries use characters other than the comma to
 //	separate integers into thousands. Some countries and
-//	cultures do not use thousands separation and instead
+//	cultures do not use thousands separators and instead
 //	rely on multiple integer separation characters and
 //	grouping sequences for a single integer number. Notable
 //	examples of this are found in the 'India Number System'

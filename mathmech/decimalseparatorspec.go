@@ -87,10 +87,10 @@ type DecimalSeparatorSpec struct {
 //		member variables contained in this instance.
 //
 //		All data values in this DecimalSeparatorSpec
-//		instance will be copied to current
+//		instance will be copied to the current
 //		DecimalSeparatorSpec instance ('decSeparatorSpec').
 //
-//		If parameter 'incomingDecSepSpec' is determined to
+//		If the parameter 'incomingDecSepSpec' is determined to
 //		be invalid, an error will be returned.
 //
 //	 errorPrefix                interface{}

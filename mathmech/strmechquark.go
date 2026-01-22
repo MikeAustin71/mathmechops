@@ -312,7 +312,7 @@ func (sMechQuark *strMechQuark) convertPrintableChars(
 	if lenPrintableChars == 0 {
 		err = fmt.Errorf("%v\n"+
 			"Error: Input parameter 'printableChars' is invalid!\n"+
-			"'printableChars' is an empty or zero lenght string.\n",
+			"'printableChars' is an empty or zero length string.\n",
 			ePrefix)
 
 		return nonPrintableChars, err
@@ -3416,7 +3416,7 @@ func (sMechQuark *strMechQuark) trimMultipleChars(
 //	            trimChar,
 //	            ePrefix)
 //
-//	result is now equal to "Hello WorlXd"
+//	result is now equal to "Hello World"
 func (sMechQuark *strMechQuark) trimStringEnds(
 	targetStr string,
 	trimChar rune,

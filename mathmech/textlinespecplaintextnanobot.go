@@ -746,7 +746,7 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) setDefaultPlainText
 	if leftMarginSpaces > 1000000 {
 		err = fmt.Errorf("%v\n"+
 			"Error: Input parameter 'leftMarginSpaces' exceeds\n"+
-			"the maximun value of one-million (1,000,000).\n"+
+			"the maximum value of one-million (1,000,000).\n"+
 			"'leftMarginSpaces' = '%v'\n",
 			ePrefix.String(),
 			leftMarginSpaces)
@@ -768,7 +768,7 @@ func (txtLinePlainTextNanobot *textLineSpecPlainTextNanobot) setDefaultPlainText
 	if rightMarginSpaces > 1000000 {
 		err = fmt.Errorf("%v\n"+
 			"Error: Input parameter 'rightMarginSpaces' exceeds\n"+
-			"the maximun value of one-million (1,000,000).\n"+
+			"the maximum value of one-million (1,000,000).\n"+
 			"'rightMarginSpaces' = '%v'\n",
 			ePrefix.String(),
 			rightMarginSpaces)

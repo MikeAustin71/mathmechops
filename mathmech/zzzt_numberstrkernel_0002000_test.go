@@ -1218,7 +1218,7 @@ func TestNumberStrKernel_RoundHalfToEven_000600(t *testing.T) {
 	if expectedNumberStr != actualNumberStr {
 
 		t.Errorf("%v\n"+
-			"Test#3 - Postive Test\n"+
+			"Test#3 - Positive Test\n"+
 			"Error: actualNumberStr NOT EQUAL TO expectedNumberStr\n"+
 			"    actualNumberStr = '%v'\n"+
 			"expectedNumberStr   = '%v'\n",
@@ -1509,7 +1509,7 @@ func TestNumberStrKernel_RoundHalfToOdd_000700(t *testing.T) {
 	if expectedNumberStr != actualNumberStr {
 
 		t.Errorf("%v\n"+
-			"Test#3 - Postive Test\n"+
+			"Test#3 - Positive Test\n"+
 			"Error: actualNumberStr NOT EQUAL TO expectedNumberStr\n"+
 			"    actualNumberStr = '%v'\n"+
 			"expectedNumberStr   = '%v'\n",
@@ -1913,7 +1913,7 @@ func TestNumberStrKernel_RoundFloor_000900(t *testing.T) {
 	if expectedNumberStr != actualNumberStr {
 
 		t.Errorf("%v\n"+
-			"Test#3 - Postive Test\n"+
+			"Test#3 - Positive Test\n"+
 			"Error: actualNumberStr NOT EQUAL TO expectedNumberStr\n"+
 			"    actualNumberStr = '%v'\n"+
 			"expectedNumberStr   = '%v'\n",
@@ -2370,7 +2370,7 @@ func TestNumberStrKernel_RoundCeiling_001000(t *testing.T) {
 	if expectedNumberStr != actualNumberStr {
 
 		t.Errorf("%v\n"+
-			"Test#3 - Postive Test\n"+
+			"Test#3 - Positive Test\n"+
 			"Error: actualNumberStr NOT EQUAL TO expectedNumberStr\n"+
 			"    actualNumberStr = '%v'\n"+
 			"expectedNumberStr   = '%v'\n",

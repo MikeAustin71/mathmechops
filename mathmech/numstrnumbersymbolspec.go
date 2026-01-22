@@ -445,7 +445,7 @@ type NumStrNumberSymbolSpec struct {
 	//	CurrNumSignRelPos.OutsideNumSign()	- Valid
 	//	CurrNumSignRelPos.InsideNumSign()	- Valid
 	//
-	//	CurrNumSignRelPos is global constant used to
+	//	'CurrNumSignRelPos' is global constant used to
 	//	abbreviate the syntax for invoking enumeration
 	//	values. The formal syntax is:
 	//

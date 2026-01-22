@@ -303,7 +303,7 @@ func (numStrKernelMech *numberStrKernelMechanics) characterReplacement(
 		err = fmt.Errorf("%v\n"+
 			"ERROR: Input parameter 'numStrKernel' is invalid!\n"+
 			"'numStrKernel' contains no integer or fractional numeric digits.\n"+
-			"    Number of Intger Digits = 0\n"+
+			"   Number of Integer Digits = 0\n"+
 			"Number of Fractional Digits = 0\n",
 			ePrefix.String())
 

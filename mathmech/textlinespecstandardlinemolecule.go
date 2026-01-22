@@ -320,7 +320,7 @@ func (txtStdLineMolecule *textLineSpecStandardLineMolecule) getFormattedText(
 		if txtStdLine.textFields[i] == nil {
 			err = fmt.Errorf("%v\n"+
 				"Error: 'txtStdLine.textFields' is an invalid array!\n"+
-				"txtStdLine.textFields[%v] is a 'nil'value.\n",
+				"txtStdLine.textFields[%v] is a 'nil' value.\n",
 				ePrefix.XCpy(
 					"txtStdLine.textFields[i] == nil"),
 				i)

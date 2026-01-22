@@ -304,7 +304,7 @@ func (typeConvAtom *typeConversionsAtom) convertParamsToBaseTypes(
 			err = fmt.Errorf("%v\n"+
 				"-------------------------------------------------------\n"+
 				"Error: Input parameter '%v' is invalid!\n"+
-				"'%v' was identified as a byte array ponter (*[]byte).\n"+
+				"'%v' was identified as a byte array pointer (*[]byte).\n"+
 				"However, the cast from '%v' to *[]byte Failed.\n",
 				ePrefix.String(),
 				charsToConvertLabel,

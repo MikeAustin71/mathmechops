@@ -975,7 +975,7 @@ func (sMechPreon *strMechPreon) getRepeatRuneArray(
 	if lenRepeatRuneChars == 0 {
 		err = fmt.Errorf("%v\n"+
 			"Error: Input parameter 'repeatRuneChars' is INVALID!\n"+
-			"The lenght of 'repeatRuneChars' is equal to zero (0).\n",
+			"The length of 'repeatRuneChars' is equal to zero (0).\n",
 			ePrefix.String())
 
 		return runeChars, err

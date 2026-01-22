@@ -107,7 +107,7 @@ func (numStrKernelAtom *numberStrKernelAtom) addFractionalDigit(
 
 		err = fmt.Errorf("%v\n"+
 			"Error: Input parameter 'fractionalDigit' is invalid!\n"+
-			"Fractional Rune characters must represent a numberic character between\n"+
+			"Fractional Rune characters must represent a numeric character between\n"+
 			"'0' and '9', inclusive. 'fractionalDigit' fails to meet this criterion.\n"+
 			"The rune value of 'fractionalDigit' is %v\n"+
 			"The string value of 'fractionalDigit' is %v\n",
@@ -232,7 +232,7 @@ func (numStrKernelAtom *numberStrKernelAtom) addIntegerDigit(
 		integerDigit > '9' {
 		err = fmt.Errorf("%v\n"+
 			"Error: Input parameter 'integerDigit' is invalid!\n"+
-			"Integer Runes must represent a numberic character between\n"+
+			"Integer Runes must represent a numeric character between\n"+
 			"'0' and '9', inclusive. 'integerDigit' fails to meet this criterion.\n"+
 			"The rune value of 'integerDigit' is %v\n"+
 			"The string value of 'integerDigit' is %v\n",

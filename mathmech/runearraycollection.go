@@ -176,7 +176,7 @@ func (runeArrayCol *RuneArrayCollection) AddCollection(
 		err = runeArrayDtoCol[i].IsValidCharacterSearchTypeError(
 			ePrefix.XCpy(
 				fmt.Sprintf(
-					"runeArrayDtoCol[%v] Character Serach Type Error!",
+					"runeArrayDtoCol[%v] Character Search Type Error!",
 					i)))
 
 		if err != nil {
@@ -655,7 +655,7 @@ func (runeArrayCol *RuneArrayCollection) AddRuneArrayDtoDeepCopy(
 
 		err = fmt.Errorf("%v\n"+
 			"ERROR: Input parameter 'runeArrayDto' is invalid!\n"+
-			"Member vaiable Character Search Type is invalid.\n"+
+			"Member variable Character Search Type is invalid.\n"+
 			"runeArrayDto.charSearchType String Value = '%v'\n"+
 			"runeArrayDto.charSearchType Integer Value = '%v'\n",
 			ePrefix.String(),
@@ -4655,7 +4655,7 @@ func (runeArrayCol *RuneArrayCollection) SetCollection(
 		err = runeArrayDtoCol[i].IsValidCharacterSearchTypeError(
 			ePrefix.XCpy(
 				fmt.Sprintf(
-					"runeArrayDtoCol[%v] Character Serach Type Error!",
+					"runeArrayDtoCol[%v] Character Search Type Error!",
 					i)))
 
 		if err != nil {

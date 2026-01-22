@@ -4194,7 +4194,7 @@ func TestNumberStrKernel_GetScientificNotation_000100(t *testing.T) {
 
 		t.Errorf("%v\n"+
 			"Test#3\n"+
-			"Scientific Notaion String Error\n"+
+			"Scientific Notation String Error\n"+
 			"actualSciNotStr  !=  expectedSciNotStr\n"+
 			"actualSciNotStr   = '%v'\n"+
 			"expectedSciNotStr = '%v'\n",
@@ -4311,7 +4311,7 @@ func TestNumberStrKernel_GetScientificNotation_000200(t *testing.T) {
 
 		t.Errorf("%v\n"+
 			"Test#3\n"+
-			"Scientific Notaion String Error\n"+
+			"Scientific Notation String Error\n"+
 			"actualSciNotStr  !=  expectedSciNotStr\n"+
 			"actualSciNotStr   = '%v'\n"+
 			"expectedSciNotStr = '%v'\n",

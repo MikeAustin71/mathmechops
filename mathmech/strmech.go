@@ -7544,7 +7544,7 @@ func (sMech *StrMech) TrimMultipleChars(
 //	            trimChar,
 //	            ePrefix)
 //
-//	result is now equal to "Hello WorlXd"
+//	result is now equal to "Hello World"
 func (sMech *StrMech) TrimStringEnds(
 	targetStr string,
 	trimChar rune,

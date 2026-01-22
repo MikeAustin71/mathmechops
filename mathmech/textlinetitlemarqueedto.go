@@ -4453,7 +4453,7 @@ func (txtTitleMarqueeDtoNanobot *textLineTitleMarqueeDtoNanobot) configureBasicT
 
 				return fmt.Errorf("%v\n"+
 					"Error: Input parameter 'titleLines' is invalid!\n"+
-					"One of the title lines is empy or consists\n"+
+					"One of the title lines is empty or consists\n"+
 					"entirely of white space. Check 'titleLines' #%v\n"+
 					"otherwise identified as 'titleLines' index %v\n",
 					idx+1,

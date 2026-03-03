@@ -1,176 +1,176 @@
 package mathmech
 
 import (
-	"sync"
+  "sync"
 
-	ePref "github.com/MikeAustin71/errpref"
+  ePref "github.com/MikeAustin71/errpref"
 )
 
 type NumStrFmtCountryCultureSpec struct {
-	IdNo uint64
-	//	Optional
-	//	An identification number used to differentiate
-	//	and track multiple Country Culture Specification
-	//	objects.
+  IdNo uint64
+  //	Optional
+  //	An identification number used to differentiate
+  //	and track multiple Country Culture Specification
+  //	objects.
 
-	IdString string
-	//	Optional
-	//	An identification string of text characters
-	//	used to differentiate and track multiple
-	//	Country Culture Specification objects.
+  IdString string
+  //	Optional
+  //	An identification string of text characters
+  //	used to differentiate and track multiple
+  //	Country Culture Specification objects.
 
-	Description string
-	//	Optional
-	//	This string contains descriptive text describing
-	//	the Country Culture Specification instance.
+  Description string
+  //	Optional
+  //	This string contains descriptive text describing
+  //	the Country Culture Specification instance.
 
-	Tag string
-	//	Optional
-	//	This string contains descriptive text describing
-	//	the Country Culture Specification instance.
+  Tag string
+  //	Optional
+  //	This string contains descriptive text describing
+  //	the Country Culture Specification instance.
 
-	CountryIdNo uint64
-	//	Optional
-	//	A number identifying the specific country
-	//	or culture specified by the current Country
-	//	Culture Specification instance.
+  CountryIdNo uint64
+  //	Optional
+  //	A number identifying the specific country
+  //	or culture specified by the current Country
+  //	Culture Specification instance.
 
-	CountryIdString string
-	//	Optional
-	//	A string of text characters identifying the
-	//	specific country or culture specified by the
-	//	current Country	Culture Specification instance.
+  CountryIdString string
+  //	Optional
+  //	A string of text characters identifying the
+  //	specific country or culture specified by the
+  //	current Country	Culture Specification instance.
 
-	CountryDescription string
-	//	Optional
-	//	A string of characters providing a	narrative
-	//	text description of the country or culture
-	//	identified by the current Country Culture
-	//	Specification instance.
+  CountryDescription string
+  //	Optional
+  //	A string of characters providing a	narrative
+  //	text description of the country or culture
+  //	identified by the current Country Culture
+  //	Specification instance.
 
-	CountryTag string
-	//	Optional
-	//	A string containing a brief text description
-	//	 of the country or culture identified by the
-	//	 current Country Culture Specification instance.
+  CountryTag string
+  //	Optional
+  //	A string containing a brief text description
+  //	 of the country or culture identified by the
+  //	 current Country Culture Specification instance.
 
-	CountryCultureName string
-	//	Required
-	//	The ISO 3166 name of the country or culture
-	//	identified by the current Country Culture
-	//	Specification instance.
+  CountryCultureName string
+  //	Required
+  //	The ISO 3166 name of the country or culture
+  //	identified by the current Country Culture
+  //	Specification instance.
 
-	CountryCultureOfficialStateName string
-	//	Optional
-	//	The ISO 3166 official state name of the country
-	//	or culture identified by the current Country
-	//	Culture Specification instance.
+  CountryCultureOfficialStateName string
+  //	Optional
+  //	The ISO 3166 official state name of the country
+  //	or culture identified by the current Country
+  //	Culture Specification instance.
 
-	CountryAbbreviatedName string
-	//	Optional
-	//	An abbreviated name for the country or culture
-	//	identified by the current Country Culture
-	//	Specification instance.
+  CountryAbbreviatedName string
+  //	Optional
+  //	An abbreviated name for the country or culture
+  //	identified by the current Country Culture
+  //	Specification instance.
 
-	CountryAlternateNames []string
-	//	Optional
-	//	An alternate or additional name for the country
-	//	or culture identified by the current Country
-	//	Culture Specification instance.
+  CountryAlternateNames []string
+  //	Optional
+  //	An alternate or additional name for the country
+  //	or culture identified by the current Country
+  //	Culture Specification instance.
 
-	CountryCodeTwoChar string
-	//	Optional
-	//	The unique ISO 3166-1 alpha-2 Two Character code
-	//	identifying the country or culture associated
-	//	with the current Country Culture Specification
-	//	instance.
-	//	ISO 3166-1 alpha-2 Wikipedia
-	//	https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  CountryCodeTwoChar string
+  //	Optional
+  //	The unique ISO 3166-1 alpha-2 Two Character code
+  //	identifying the country or culture associated
+  //	with the current Country Culture Specification
+  //	instance.
+  //	ISO 3166-1 alpha-2 Wikipedia
+  //	https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 
-	CountryCodeThreeChar string
-	//	Optional
-	//	The unique ISO 3166-1 alpha-3 Three Character code
-	//	identifying the country or culture associated with
-	//	the current Country Culture Specification instance.
-	//	ISO 3166-1 alpha-3 Wikipedia
-	//	https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+  CountryCodeThreeChar string
+  //	Optional
+  //	The unique ISO 3166-1 alpha-3 Three Character code
+  //	identifying the country or culture associated with
+  //	the current Country Culture Specification instance.
+  //	ISO 3166-1 alpha-3 Wikipedia
+  //	https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
 
-	CountryCodeNumber string
-	//	Optional
-	//	The official ISO 3166-1 numeric code identifier
-	//	for the country or culture associated with the
-	//	current Country Culture Specification instance.
-	//	ISO 3166-1 numeric
-	//	https://en.wikipedia.org/wiki/ISO_3166-1_numeric
+  CountryCodeNumber string
+  //	Optional
+  //	The official ISO 3166-1 numeric code identifier
+  //	for the country or culture associated with the
+  //	current Country Culture Specification instance.
+  //	ISO 3166-1 numeric
+  //	https://en.wikipedia.org/wiki/ISO_3166-1_numeric
 
-	TelephoneNumberFormat NumStrFmtCountryTelephoneNumSpec
+  TelephoneNumberFormat NumStrFmtCountryTelephoneNumSpec
 
-	CurrencyCode string
-	//	Optional
-	//	The official ISO 4217 currency code associated
-	//	with the country or culture identified by the
-	//	current Country Culture Specification instance.
+  CurrencyCode string
+  //	Optional
+  //	The official ISO 4217 currency code associated
+  //	with the country or culture identified by the
+  //	current Country Culture Specification instance.
 
-	CurrencyCodeNo string
-	//	Optional
-	//	The official ISO 4217 currency code number
-	//	associated with the country or culture identified
-	//	by the current Country Culture Specification
-	//	instance.
+  CurrencyCodeNo string
+  //	Optional
+  //	The official ISO 4217 currency code number
+  //	associated with the country or culture identified
+  //	by the current Country Culture Specification
+  //	instance.
 
-	CurrencyName string
-	//	Optional
-	//	The official ISO 4217 currency name associated
-	//	with the country or culture identified by the
-	//	current Country Culture Specification
-	//	instance.
+  CurrencyName string
+  //	Optional
+  //	The official ISO 4217 currency name associated
+  //	with the country or culture identified by the
+  //	current Country Culture Specification
+  //	instance.
 
-	CurrencySymbols []rune
-	//	Optional. Not required for Currency Number
-	//	String Formatting.
-	//
-	//	The official ISO 4217 currency symbol or symbols
-	//	for the country or culture identified by the
-	//	current Country Culture Specification instance.
+  CurrencySymbols []rune
+  //	Optional. Not required for Currency Number
+  //	String Formatting.
+  //
+  //	The official ISO 4217 currency symbol or symbols
+  //	for the country or culture identified by the
+  //	current Country Culture Specification instance.
 
-	CurrencyDecimalDigits uint
-	//	The number of fractional digits typically used
-	//	in formatting currency numeric values
+  CurrencyDecimalDigits uint
+  //	The number of fractional digits typically used
+  //	in formatting currency numeric values
 
-	MinorCurrencyName string
-	//	Optional
-	//	The name of the minor currency associated
-	//	with the country or culture identified by
-	//	the current Country Culture Specification
-	//	instance. In the United States, the minor
-	//	currency name is "Cents"
+  MinorCurrencyName string
+  //	Optional
+  //	The name of the minor currency associated
+  //	with the country or culture identified by
+  //	the current Country Culture Specification
+  //	instance. In the United States, the minor
+  //	currency name is "Cents"
 
-	MinorCurrencySymbols []rune
-	//	Optional
-	//	The Minor Currency symbol or symbols. In
-	//	the United States, the minor currency
-	//	name is "Cents" and the minor currency
-	//	symbol is "¢".
+  MinorCurrencySymbols []rune
+  //	Optional
+  //	The Minor Currency symbol or symbols. In
+  //	the United States, the minor currency
+  //	name is "Cents" and the minor currency
+  //	symbol is "¢".
 
-	CurrencyNumStrFormat NumStrFormatSpec
-	//	Required for Currency Number String
-	//	Formatting.
-	//
-	//	This NumStrFormatSpec instance
-	//	contains all the parameters necessary
-	//	to produce a formatted Currency
-	//	Number String.
+  CurrencyNumStrFormat NumStrFormatSpec
+  //	Required for Currency Number String
+  //	Formatting.
+  //
+  //	This NumStrFormatSpec instance
+  //	contains all the parameters necessary
+  //	to produce a formatted Currency
+  //	Number String.
 
-	SignedNumStrFormat NumStrFormatSpec
-	//	Required for Signed Number String
-	//	Formatting.
-	//
-	//	This NumStrFormatSpec instance
-	//	contains all the parameters necessary
-	//	to produce a formatted Signed
-	//	Number String.
+  SignedNumStrFormat NumStrFormatSpec
+  //	Required for Signed Number String
+  //	Formatting.
+  //
+  //	This NumStrFormatSpec instance
+  //	contains all the parameters necessary
+  //	to produce a formatted Signed
+  //	Number String.
 
-	lock *sync.Mutex
+  lock *sync.Mutex
 }
 
 //	CopyIn
@@ -280,41 +280,41 @@ type NumStrFmtCountryCultureSpec struct {
 //		returned error Type will encapsulate an error
 //		message. This returned error message will
 //		incorporate the method chain and text passed by
-//		input parameter, 'errorPrefix'. The 'errorPrefix'
+//		the input parameter, 'errorPrefix'. 'errorPrefix'
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) CopyIn(
-	sourceCountryCultureSpec *NumStrFmtCountryCultureSpec,
-	errorPrefix interface{}) error {
+  sourceCountryCultureSpec *NumStrFmtCountryCultureSpec,
+  errorPrefix interface{}) error {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
-	var err error
+  var ePrefix *ePref.ErrPrefixDto
+  var err error
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"CopyIn()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "CopyIn()",
+    "")
 
-	if err != nil {
-		return err
-	}
+  if err != nil {
+    return err
+  }
 
-	return new(numStrFmtCountryCultureSpecMech).
-		copyCountryCulture(
-			nStrFmtCountryCultureSpec,
-			sourceCountryCultureSpec,
-			ePrefix.XCpy(
-				"nStrFmtCountryCultureSpec<-"))
+  return new(numStrFmtCountryCultureSpecMech).
+    copyCountryCulture(
+      nStrFmtCountryCultureSpec,
+      sourceCountryCultureSpec,
+      ePrefix.XCpy(
+        "nStrFmtCountryCultureSpec<-"))
 }
 
 //	CopyOut
@@ -408,43 +408,43 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) CopyIn(
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) CopyOut(
-	errorPrefix interface{}) (
-	NumStrFmtCountryCultureSpec,
-	error) {
+  errorPrefix interface{}) (
+  NumStrFmtCountryCultureSpec,
+  error) {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	var newNStrFmtCountryCulture NumStrFmtCountryCultureSpec
+  var newNStrFmtCountryCulture NumStrFmtCountryCultureSpec
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"CopyOut()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "CopyOut()",
+    "")
 
-	if err != nil {
-		return newNStrFmtCountryCulture, err
-	}
+  if err != nil {
+    return newNStrFmtCountryCulture, err
+  }
 
-	err = new(numStrFmtCountryCultureSpecMech).
-		copyCountryCulture(
-			&newNStrFmtCountryCulture,
-			nStrFmtCountryCultureSpec,
-			ePrefix.XCpy(
-				"newNStrFmtCountryCulture<-"))
+  err = new(numStrFmtCountryCultureSpecMech).
+    copyCountryCulture(
+      &newNStrFmtCountryCulture,
+      nStrFmtCountryCultureSpec,
+      ePrefix.XCpy(
+        "newNStrFmtCountryCulture<-"))
 
-	return newNStrFmtCountryCulture, err
+  return newNStrFmtCountryCulture, err
 }
 
 //	Empty
@@ -474,18 +474,18 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) CopyOut(
 //	NONE
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) Empty() {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	new(numStrFmtCountryCultureSpecAtom).empty(
-		nStrFmtCountryCultureSpec)
+  new(numStrFmtCountryCultureSpecAtom).empty(
+    nStrFmtCountryCultureSpec)
 
-	nStrFmtCountryCultureSpec.lock.Unlock()
+  nStrFmtCountryCultureSpec.lock.Unlock()
 
-	nStrFmtCountryCultureSpec.lock = nil
+  nStrFmtCountryCultureSpec.lock = nil
 }
 
 //	Equal
@@ -530,19 +530,19 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) Empty() {
 //
 //		Otherwise, this method will return 'false'.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) Equal(
-	incomingCountryCulture *NumStrFmtCountryCultureSpec) bool {
+  incomingCountryCulture *NumStrFmtCountryCultureSpec) bool {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	return new(numStrFmtCountryCultureSpecAtom).equal(
-		nStrFmtCountryCultureSpec,
-		incomingCountryCulture)
+  return new(numStrFmtCountryCultureSpecAtom).equal(
+    nStrFmtCountryCultureSpec,
+    incomingCountryCulture)
 }
 
 //	New
@@ -674,66 +674,66 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) Equal(
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) New(
-	countryCultureName string,
-	currencyNumStrFormat NumStrFormatSpec,
-	signedNumStrFormat NumStrFormatSpec,
-	errorPrefix interface{}) (
-	NumStrFmtCountryCultureSpec,
-	error) {
+  countryCultureName string,
+  currencyNumStrFormat NumStrFormatSpec,
+  signedNumStrFormat NumStrFormatSpec,
+  errorPrefix interface{}) (
+  NumStrFmtCountryCultureSpec,
+  error) {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	var newCountryCultureSpec NumStrFmtCountryCultureSpec
+  var newCountryCultureSpec NumStrFmtCountryCultureSpec
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"CopyIn()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "CopyIn()",
+    "")
 
-	if err != nil {
-		return newCountryCultureSpec, err
-	}
+  if err != nil {
+    return newCountryCultureSpec, err
+  }
 
-	fmtCountryCultureAtom := numStrFmtCountryCultureSpecAtom{}
+  fmtCountryCultureAtom := numStrFmtCountryCultureSpecAtom{}
 
-	err = fmtCountryCultureAtom.copyNumStrFormatSpec(
-		&newCountryCultureSpec.CurrencyNumStrFormat,
-		&currencyNumStrFormat,
-		ePrefix.XCpy(
-			"newCountryCultureSpec<-"+
-				"currencyNumStrFormat"))
+  err = fmtCountryCultureAtom.copyNumStrFormatSpec(
+    &newCountryCultureSpec.CurrencyNumStrFormat,
+    &currencyNumStrFormat,
+    ePrefix.XCpy(
+      "newCountryCultureSpec<-"+
+        "currencyNumStrFormat"))
 
-	if err != nil {
-		return newCountryCultureSpec, err
-	}
+  if err != nil {
+    return newCountryCultureSpec, err
+  }
 
-	err = fmtCountryCultureAtom.copyNumStrFormatSpec(
-		&newCountryCultureSpec.SignedNumStrFormat,
-		&signedNumStrFormat,
-		ePrefix.XCpy(
-			"newCountryCultureSpec<-"+
-				"signedNumStrFormat"))
+  err = fmtCountryCultureAtom.copyNumStrFormatSpec(
+    &newCountryCultureSpec.SignedNumStrFormat,
+    &signedNumStrFormat,
+    ePrefix.XCpy(
+      "newCountryCultureSpec<-"+
+        "signedNumStrFormat"))
 
-	if err != nil {
-		return newCountryCultureSpec, err
-	}
+  if err != nil {
+    return newCountryCultureSpec, err
+  }
 
-	newCountryCultureSpec.CountryCultureName =
-		countryCultureName
+  newCountryCultureSpec.CountryCultureName =
+    countryCultureName
 
-	return newCountryCultureSpec, err
+  return newCountryCultureSpec, err
 }
 
 //	NewFrance
@@ -833,42 +833,42 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) New(
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewFrance(
-	errorPrefix interface{}) (
-	NumStrFmtCountryCultureSpec,
-	error) {
+  errorPrefix interface{}) (
+  NumStrFmtCountryCultureSpec,
+  error) {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	var newCountryCultureSpec NumStrFmtCountryCultureSpec
+  var newCountryCultureSpec NumStrFmtCountryCultureSpec
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"NewFrance()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "NewFrance()",
+    "")
 
-	if err != nil {
-		return newCountryCultureSpec, err
-	}
+  if err != nil {
+    return newCountryCultureSpec, err
+  }
 
-	err = new(numStrFmtCountryCultureSpecMech).
-		setCountryFrance(
-			&newCountryCultureSpec,
-			ePrefix.XCpy(
-				"newCountryCultureSpec<-"))
+  err = new(numStrFmtCountryCultureSpecMech).
+    setCountryFrance(
+      &newCountryCultureSpec,
+      ePrefix.XCpy(
+        "newCountryCultureSpec<-"))
 
-	return newCountryCultureSpec, err
+  return newCountryCultureSpec, err
 }
 
 //	NewGermany
@@ -968,42 +968,42 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewFrance(
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewGermany(
-	errorPrefix interface{}) (
-	NumStrFmtCountryCultureSpec,
-	error) {
+  errorPrefix interface{}) (
+  NumStrFmtCountryCultureSpec,
+  error) {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	var newCountryCultureSpec NumStrFmtCountryCultureSpec
+  var newCountryCultureSpec NumStrFmtCountryCultureSpec
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"NewGermany()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "NewGermany()",
+    "")
 
-	if err != nil {
-		return newCountryCultureSpec, err
-	}
+  if err != nil {
+    return newCountryCultureSpec, err
+  }
 
-	err = new(numStrFmtCountryCultureSpecMech).
-		setCountryGermany(
-			&newCountryCultureSpec,
-			ePrefix.XCpy(
-				"newCountryCultureSpec<-"))
+  err = new(numStrFmtCountryCultureSpecMech).
+    setCountryGermany(
+      &newCountryCultureSpec,
+      ePrefix.XCpy(
+        "newCountryCultureSpec<-"))
 
-	return newCountryCultureSpec, err
+  return newCountryCultureSpec, err
 }
 
 //	NewUK
@@ -1100,42 +1100,42 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewGermany(
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewUK(
-	errorPrefix interface{}) (
-	NumStrFmtCountryCultureSpec,
-	error) {
+  errorPrefix interface{}) (
+  NumStrFmtCountryCultureSpec,
+  error) {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	var newCountryCultureSpec NumStrFmtCountryCultureSpec
+  var newCountryCultureSpec NumStrFmtCountryCultureSpec
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"NewUK()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "NewUK()",
+    "")
 
-	if err != nil {
-		return newCountryCultureSpec, err
-	}
+  if err != nil {
+    return newCountryCultureSpec, err
+  }
 
-	err = new(numStrFmtCountryCultureSpecMech).
-		setCountryUK(
-			&newCountryCultureSpec,
-			ePrefix.XCpy(
-				"newCountryCultureSpec<-"))
+  err = new(numStrFmtCountryCultureSpecMech).
+    setCountryUK(
+      &newCountryCultureSpec,
+      ePrefix.XCpy(
+        "newCountryCultureSpec<-"))
 
-	return newCountryCultureSpec, err
+  return newCountryCultureSpec, err
 }
 
 //	NewUS
@@ -1232,42 +1232,42 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewUK(
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewUS(
-	errorPrefix interface{}) (
-	NumStrFmtCountryCultureSpec,
-	error) {
+  errorPrefix interface{}) (
+  NumStrFmtCountryCultureSpec,
+  error) {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	var newCountryCultureSpec NumStrFmtCountryCultureSpec
+  var newCountryCultureSpec NumStrFmtCountryCultureSpec
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"NewUS()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "NewUS()",
+    "")
 
-	if err != nil {
-		return newCountryCultureSpec, err
-	}
+  if err != nil {
+    return newCountryCultureSpec, err
+  }
 
-	err = new(numStrFmtCountryCultureSpecMech).
-		setCountryUS(
-			&newCountryCultureSpec,
-			ePrefix.XCpy(
-				"newCountryCultureSpec<-"))
+  err = new(numStrFmtCountryCultureSpecMech).
+    setCountryUS(
+      &newCountryCultureSpec,
+      ePrefix.XCpy(
+        "newCountryCultureSpec<-"))
 
-	return newCountryCultureSpec, err
+  return newCountryCultureSpec, err
 }
 
 //	SetCurrencyNumberFieldSpec
@@ -1299,37 +1299,37 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) NewUS(
 //		Number Field Specification encapsulated within
 //		the current instance of NumStrFmtCountryCultureSpec.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) SetCurrencyNumberFieldSpec(
-	currencyNumFieldSpec NumStrNumberFieldSpec,
-	errorPrefix interface{}) error {
+  currencyNumFieldSpec NumStrNumberFieldSpec,
+  errorPrefix interface{}) error {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
-	var err error
+  var ePrefix *ePref.ErrPrefixDto
+  var err error
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"SetCurrencyNumberFieldSpec()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "SetCurrencyNumberFieldSpec()",
+    "")
 
-	if err != nil {
-		return err
-	}
+  if err != nil {
+    return err
+  }
 
-	return new(numStrFmtCountryCultureSpecElectron).
-		copyNumberFieldSpec(
-			&nStrFmtCountryCultureSpec.CurrencyNumStrFormat.numberFieldSpec,
-			&currencyNumFieldSpec,
-			ePrefix.XCpy(
-				"nStrFmtCountryCultureSpec<-currencyNumFieldSpec"))
+  return new(numStrFmtCountryCultureSpecElectron).
+    copyNumberFieldSpec(
+      &nStrFmtCountryCultureSpec.CurrencyNumStrFormat.numberFieldSpec,
+      &currencyNumFieldSpec,
+      ePrefix.XCpy(
+        "nStrFmtCountryCultureSpec<-currencyNumFieldSpec"))
 }
 
 //	SetCurrencyNumStrFormatSpec
@@ -1442,39 +1442,39 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) SetCurrencyNumberF
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) SetCurrencyNumStrFormatSpec(
-	currencyNumStrFormat NumStrFormatSpec,
-	errorPrefix interface{}) error {
+  currencyNumStrFormat NumStrFormatSpec,
+  errorPrefix interface{}) error {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"SetCurrencyNumStrFormatSpec()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "SetCurrencyNumStrFormatSpec()",
+    "")
 
-	if err != nil {
-		return err
-	}
+  if err != nil {
+    return err
+  }
 
-	return new(numStrFmtCountryCultureSpecAtom).
-		copyNumStrFormatSpec(
-			&nStrFmtCountryCultureSpec.CurrencyNumStrFormat,
-			&currencyNumStrFormat,
-			ePrefix.XCpy(
-				"nStrFmtCountryCultureSpec<-"+
-					"currencyNumStrFormat"))
+  return new(numStrFmtCountryCultureSpecAtom).
+    copyNumStrFormatSpec(
+      &nStrFmtCountryCultureSpec.CurrencyNumStrFormat,
+      &currencyNumStrFormat,
+      ePrefix.XCpy(
+        "nStrFmtCountryCultureSpec<-"+
+          "currencyNumStrFormat"))
 }
 
 //	SetSignedNumberFieldSpec
@@ -1506,37 +1506,37 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) SetCurrencyNumStrF
 //		Number Field Specification encapsulated within
 //		the current instance of NumStrFmtCountryCultureSpec.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) SetSignedNumberFieldSpec(
-	signedNumFieldSpec NumStrNumberFieldSpec,
-	errorPrefix interface{}) error {
+  signedNumFieldSpec NumStrNumberFieldSpec,
+  errorPrefix interface{}) error {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
-	var err error
+  var ePrefix *ePref.ErrPrefixDto
+  var err error
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"SetSignedNumberFieldSpec()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "SetSignedNumberFieldSpec()",
+    "")
 
-	if err != nil {
-		return err
-	}
+  if err != nil {
+    return err
+  }
 
-	return new(numStrFmtCountryCultureSpecElectron).
-		copyNumberFieldSpec(
-			&nStrFmtCountryCultureSpec.SignedNumStrFormat.numberFieldSpec,
-			&signedNumFieldSpec,
-			ePrefix.XCpy(
-				"nStrFmtCountryCultureSpec<-signedNumFieldSpec"))
+  return new(numStrFmtCountryCultureSpecElectron).
+    copyNumberFieldSpec(
+      &nStrFmtCountryCultureSpec.SignedNumStrFormat.numberFieldSpec,
+      &signedNumFieldSpec,
+      ePrefix.XCpy(
+        "nStrFmtCountryCultureSpec<-signedNumFieldSpec"))
 }
 
 //	SetSignedNumStrFormatSpec
@@ -1649,37 +1649,37 @@ func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) SetSignedNumberFie
 //		text will be attached to the beginning of the
 //		error message.
 func (nStrFmtCountryCultureSpec *NumStrFmtCountryCultureSpec) SetSignedNumStrFormatSpec(
-	signedNumStrFormat NumStrFormatSpec,
-	errorPrefix interface{}) error {
+  signedNumStrFormat NumStrFormatSpec,
+  errorPrefix interface{}) error {
 
-	if nStrFmtCountryCultureSpec.lock == nil {
-		nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
-	}
+  if nStrFmtCountryCultureSpec.lock == nil {
+    nStrFmtCountryCultureSpec.lock = new(sync.Mutex)
+  }
 
-	nStrFmtCountryCultureSpec.lock.Lock()
+  nStrFmtCountryCultureSpec.lock.Lock()
 
-	defer nStrFmtCountryCultureSpec.lock.Unlock()
+  defer nStrFmtCountryCultureSpec.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	var err error
+  var err error
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewIEmpty(
-		errorPrefix,
-		"NumStrFmtCountryCultureSpec."+
-			"SetSignedNumStrFormatSpec()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewIEmpty(
+    errorPrefix,
+    "NumStrFmtCountryCultureSpec."+
+      "SetSignedNumStrFormatSpec()",
+    "")
 
-	if err != nil {
-		return err
-	}
+  if err != nil {
+    return err
+  }
 
-	return new(numStrFmtCountryCultureSpecAtom).
-		copyNumStrFormatSpec(
-			&nStrFmtCountryCultureSpec.SignedNumStrFormat,
-			&signedNumStrFormat,
-			ePrefix.XCpy(
-				"nStrFmtCountryCultureSpec<-"+
-					"signedNumStrFormat"))
+  return new(numStrFmtCountryCultureSpecAtom).
+    copyNumStrFormatSpec(
+      &nStrFmtCountryCultureSpec.SignedNumStrFormat,
+      &signedNumStrFormat,
+      ePrefix.XCpy(
+        "nStrFmtCountryCultureSpec<-"+
+          "signedNumStrFormat"))
 }

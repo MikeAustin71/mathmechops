@@ -168,7 +168,7 @@ type BigFloatDto struct {
 	//
 	//	type BigFloatPrecisionDto struct {
 	//
-	//		NumIntegerDigits			int64
+	//		NumIntegerDigits	int64
 	//
 	//			The actual or estimated number of integer digits
 	//			in a big.Float floating point numeric value. The
@@ -177,7 +177,7 @@ type BigFloatDto struct {
 	//			the precision bits required to store that
 	//			floating point number.
 	//
-	//		NumFractionalDigits			int64
+	//		NumFractionalDigits	int64
 	//
 	//			The actual or estimated number of fractional
 	//			digits in a big.Float floating point numeric
@@ -186,9 +186,9 @@ type BigFloatDto struct {
 	//			to calculate the precision bits required to store
 	//			that floating point number.
 	//
-	//		NumOfExtraDigitsBuffer		int64
+	//		NumOfExtraDigitsBuffer	int64
 	//
-	//			When estimating the number of precision necessary
+	//			When estimating the amount of precision necessary
 	//			to store or process big.Float floating point
 	//			values, is generally a good idea to include a
 	//			safety margin consisting of excess numeric digits.

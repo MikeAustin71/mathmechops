@@ -1,139 +1,139 @@
 package mathmech
 
 import (
-	"fmt"
+  "fmt"
 
-	ePref "github.com/MikeAustin71/errpref"
+  ePref "github.com/MikeAustin71/errpref"
 
-	"sync"
+  "sync"
 )
 
 type numberSignSymbolDtoMechanics struct {
-	lock *sync.Mutex
+  lock *sync.Mutex
 }
 
 // setNumberSignSymbol - Receives a pointer to an instance of
 // NumberSignSymbolDto and proceeds to populate the internal data
 // elements based on the input parameter values.
 func (nSignSymMechanics *numberSignSymbolDtoMechanics) setNumberSignSymbol(
-	numSignSymbol *NumberSignSymbolDto,
-	leadingNumberSign string,
-	trailingNumberSign string,
-	isNegativeValue bool,
-	numSymbolDisplayMode NumSignSymbolDisplayMode,
-	errPrefDto *ePref.ErrPrefixDto) (
-	err error) {
+  numSignSymbol *NumberSignSymbolDto,
+  leadingNumberSign string,
+  trailingNumberSign string,
+  isNegativeValue bool,
+  numSymbolDisplayMode NumSignSymbolDisplayMode,
+  errPrefDto *ePref.ErrPrefixDto) (
+  err error) {
 
-	if nSignSymMechanics.lock == nil {
-		nSignSymMechanics.lock = new(sync.Mutex)
-	}
+  if nSignSymMechanics.lock == nil {
+    nSignSymMechanics.lock = new(sync.Mutex)
+  }
 
-	nSignSymMechanics.lock.Lock()
+  nSignSymMechanics.lock.Lock()
 
-	defer nSignSymMechanics.lock.Unlock()
+  defer nSignSymMechanics.lock.Unlock()
 
-	var ePrefix *ePref.ErrPrefixDto
+  var ePrefix *ePref.ErrPrefixDto
 
-	ePrefix,
-		err = ePref.ErrPrefixDto{}.NewFromErrPrefDto(
-		errPrefDto,
-		"numberSignSymbolDtoMechanics.setNumberSignSymbol()",
-		"")
+  ePrefix,
+    err = ePref.ErrPrefixDto{}.NewFromErrPrefDto(
+    errPrefDto,
+    "numberSignSymbolDtoMechanics.setNumberSignSymbol()",
+    "")
 
-	if err != nil {
-		return err
-	}
+  if err != nil {
+    return err
+  }
 
-	if numSignSymbol == nil {
-		err = fmt.Errorf("%v\n"+
-			"Error: Input parameter 'numSignSymbol' is a 'nil' pointer!\n",
-			ePrefix.String())
+  if numSignSymbol == nil {
+    err = fmt.Errorf("%v\n"+
+      "Error: Input parameter 'numSignSymbol' is a 'nil' pointer!\n",
+      ePrefix.String())
 
-		return err
-	}
+    return err
+  }
 
-	leadingNumSignRunes := []rune(leadingNumberSign)
+  leadingNumSignRunes := []rune(leadingNumberSign)
 
-	trailingNumSignRunes := []rune(trailingNumberSign)
+  trailingNumSignRunes := []rune(trailingNumberSign)
 
-	lenLeadingNumSignRunes := len(leadingNumSignRunes)
-	lenTrailingNumSignRunes := len(trailingNumSignRunes)
+  lenLeadingNumSignRunes := len(leadingNumSignRunes)
+  lenTrailingNumSignRunes := len(trailingNumSignRunes)
 
-	if lenLeadingNumSignRunes == 0 &&
-		lenTrailingNumSignRunes == 0 {
+  if lenLeadingNumSignRunes == 0 &&
+    lenTrailingNumSignRunes == 0 {
 
-		err = fmt.Errorf("%v\n" +
-			"Error: Input parameters 'leadingNumberSign' and " +
-			"'trailingNumberSign' are zero length strings!\n" +
-			ePrefix.String())
-		return err
+    err = fmt.Errorf("%v\n"+
+      "Error: Input parameters 'leadingNumberSign' and\n"+
+      "'trailingNumberSign' are zero length strings!\n\n",
+      ePrefix.String())
+    return err
 
-	}
+  }
 
-	err = new(numberSignSymbolDtoElectron).emptyNumSignSymbol(
-		numSignSymbol,
-		ePrefix)
+  err = new(numberSignSymbolDtoElectron).emptyNumSignSymbol(
+    numSignSymbol,
+    ePrefix)
 
-	if err != nil {
-		return err
-	}
+  if err != nil {
+    return err
+  }
 
-	if lenLeadingNumSignRunes > 0 &&
-		lenTrailingNumSignRunes == 0 {
+  if lenLeadingNumSignRunes > 0 &&
+    lenTrailingNumSignRunes == 0 {
 
-		numSignSymbol.numSignPosition =
-			NumSignSymPos.Before()
+    numSignSymbol.numSignPosition =
+      NumSignSymPos.Before()
 
-		numSignSymbol.leadingNumSignChars =
-			make([]rune, lenLeadingNumSignRunes)
+    numSignSymbol.leadingNumSignChars =
+      make([]rune, lenLeadingNumSignRunes)
 
-		copy(numSignSymbol.leadingNumSignChars,
-			leadingNumSignRunes)
+    copy(numSignSymbol.leadingNumSignChars,
+      leadingNumSignRunes)
 
-	} else if lenLeadingNumSignRunes == 0 &&
-		lenTrailingNumSignRunes > 0 {
+  } else if lenLeadingNumSignRunes == 0 &&
+    lenTrailingNumSignRunes > 0 {
 
-		numSignSymbol.numSignPosition =
-			NumSignSymPos.After()
+    numSignSymbol.numSignPosition =
+      NumSignSymPos.After()
 
-		numSignSymbol.trailingNumSignChars =
-			make([]rune, lenTrailingNumSignRunes)
+    numSignSymbol.trailingNumSignChars =
+      make([]rune, lenTrailingNumSignRunes)
 
-		copy(numSignSymbol.trailingNumSignChars,
-			trailingNumSignRunes)
+    copy(numSignSymbol.trailingNumSignChars,
+      trailingNumSignRunes)
 
-	} else {
-		// Must be lenLeadingNumSignRunes > 0 &&
-		// lenTrailingNumSignRunes > 0
+  } else {
+    // Must be lenLeadingNumSignRunes > 0 &&
+    // lenTrailingNumSignRunes > 0
 
-		numSignSymbol.numSignPosition =
-			NumSignSymPos.BeforeAndAfter()
+    numSignSymbol.numSignPosition =
+      NumSignSymPos.BeforeAndAfter()
 
-		numSignSymbol.leadingNumSignChars =
-			make([]rune, lenLeadingNumSignRunes)
+    numSignSymbol.leadingNumSignChars =
+      make([]rune, lenLeadingNumSignRunes)
 
-		copy(numSignSymbol.leadingNumSignChars,
-			leadingNumSignRunes)
+    copy(numSignSymbol.leadingNumSignChars,
+      leadingNumSignRunes)
 
-		numSignSymbol.trailingNumSignChars =
-			make([]rune, lenTrailingNumSignRunes)
+    numSignSymbol.trailingNumSignChars =
+      make([]rune, lenTrailingNumSignRunes)
 
-		copy(numSignSymbol.trailingNumSignChars,
-			trailingNumSignRunes)
+    copy(numSignSymbol.trailingNumSignChars,
+      trailingNumSignRunes)
 
-	}
+  }
 
-	if isNegativeValue {
-		numSignSymbol.numSignValueType = NumSignVal.Negative()
-	} else {
-		numSignSymbol.numSignValueType = NumSignVal.Positive()
-	}
+  if isNegativeValue {
+    numSignSymbol.numSignValueType = NumSignVal.Negative()
+  } else {
+    numSignSymbol.numSignValueType = NumSignVal.Positive()
+  }
 
-	numSignSymbol.numSymbolClass =
-		NumericSymbolClass(0).NumberSign()
+  numSignSymbol.numSymbolClass =
+    NumericSymbolClass(0).NumberSign()
 
-	numSignSymbol.numSymbolDisplayMode =
-		numSymbolDisplayMode
+  numSignSymbol.numSymbolDisplayMode =
+    numSymbolDisplayMode
 
-	return err
+  return err
 }

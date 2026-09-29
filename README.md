@@ -9,6 +9,8 @@ Math Mechanics is a collection of math functions and tools designed for use in [
 
 While all development work will take place in this repository, [***mathmechops***](https://github.com/MikeAustin71/mathmechops), the release versions of this software package will be stored and distributed from the  [***mathmech***](https://github.com/MikeAustin71/mathmech) repository.
 
+For source code, see the subdirectory ***./mathmech***.
+
 
 
 ![underconstruction003](images/underconstruction003.png)
